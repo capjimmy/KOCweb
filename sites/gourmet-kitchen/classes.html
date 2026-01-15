@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클래스 안내 - 고메 키친</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terracotta: #C4653A;
+            --terracotta-light: #E07B4C;
+            --cream: #FDF6EC;
+            --cream-dark: #F5E6D3;
+            --olive: #5C6B4D;
+            --olive-light: #7A8B68;
+            --brown: #4A3728;
+            --brown-light: #6B5344;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--brown);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(253, 246, 236, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(74, 55, 40, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--olive);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--terracotta);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--terracotta);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--brown);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(196, 101, 58, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--brown);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--brown-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .breadcrumb span {
+            color: var(--brown-light);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 3rem 2rem;
+            background: white;
+            box-shadow: 0 5px 30px rgba(74, 55, 40, 0.08);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--cream-dark);
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--brown);
+            transition: all 0.3s;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--terracotta);
+            color: var(--terracotta);
+        }
+
+        .filter-btn.active {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+            color: white;
+        }
+
+        /* Classes Section */
+        .section {
+            padding: 4rem 2rem;
+        }
+
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .class-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(74, 55, 40, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .class-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(74, 55, 40, 0.2);
+        }
+
+        .class-card-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .class-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .class-card:hover .class-card-image img {
+            transform: scale(1.1);
+        }
+
+        .class-badges {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .class-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge-category {
+            background: var(--terracotta);
+            color: white;
+        }
+
+        .badge-level {
+            background: var(--olive);
+            color: white;
+        }
+
+        .badge-new {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .badge-popular {
+            background: #FFD93D;
+            color: var(--brown);
+        }
+
+        .class-card-content {
+            padding: 1.5rem;
+        }
+
+        .class-card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--brown);
+        }
+
+        .class-card-content p {
+            color: var(--brown-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .class-info {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--olive);
+        }
+
+        .class-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .class-info-item svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--olive);
+        }
+
+        .class-menu {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .class-menu h4 {
+            font-size: 0.85rem;
+            color: var(--brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .class-menu p {
+            font-size: 0.85rem;
+            color: var(--brown-light);
+            margin: 0;
+        }
+
+        .class-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--cream-dark);
+        }
+
+        .class-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--terracotta);
+        }
+
+        .class-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--brown-light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--terracotta);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--terracotta-light);
+            transform: translateY(-2px);
+        }
+
+        /* Category Info */
+        .category-info {
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover,
+        .category-card.active {
+            border-color: var(--terracotta);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .category-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .category-card h3 {
+            font-size: 1.2rem;
+            color: var(--brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: var(--brown-light);
+            font-size: 0.9rem;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            color: var(--brown);
+            margin-bottom: 1rem;
+        }
+
+        .no-results p {
+            color: var(--brown-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--brown);
+            color: var(--cream);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--terracotta-light);
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s, color 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--terracotta-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--terracotta);
+        }
+
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--cream);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .filter-tabs {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .classes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">고메 <span>키친</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="classes.html" class="active">클래스</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="gallery.html">갤러리</a></li>
+                <li><a href="contact.html">문의</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>쿠킹 클래스</h1>
+        <p>다양한 요리 클래스에서 새로운 맛의 세계를 경험하세요</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a> <span> / 클래스</span>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">전체 보기</button>
+                <button class="filter-btn" data-filter="korean">한식</button>
+                <button class="filter-btn" data-filter="western">양식</button>
+                <button class="filter-btn" data-filter="baking">베이킹</button>
+                <button class="filter-btn" data-filter="kids">키즈</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Info -->
+    <section class="section" style="padding-bottom: 0;">
+        <div class="category-info">
+            <div class="category-card" data-category="korean">
+                <div class="category-icon">
+                    <svg viewBox="0 0 24 24"><path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/></svg>
+                </div>
+                <h3>한식 클래스</h3>
+                <p>전통의 맛과 현대의 감각이 어우러진 한식 요리를 배웁니다</p>
+            </div>
+            <div class="category-card" data-category="western">
+                <div class="category-icon">
+                    <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+                </div>
+                <h3>양식 클래스</h3>
+                <p>이탈리안, 프렌치 등 세계 각국의 요리를 마스터합니다</p>
+            </div>
+            <div class="category-card" data-category="baking">
+                <div class="category-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.43 2 5.23 3.54 3.01 6L12 22l8.99-16C18.78 3.55 15.57 2 12 2zM7 7c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm5 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                </div>
+                <h3>베이킹 클래스</h3>
+                <p>빵, 케이크, 디저트 등 달콤한 베이킹의 세계로 초대합니다</p>
+            </div>
+            <div class="category-card" data-category="kids">
+                <div class="category-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
+                </div>
+                <h3>키즈 클래스</h3>
+                <p>아이들의 창의력과 미각을 키우는 즐거운 요리 시간</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Grid -->
+    <section class="section">
+        <div class="classes-grid" id="classesGrid">
+            <!-- Korean Classes -->
+            <div class="class-card" data-category="korean">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="전통 한식 마스터">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">한식</span>
+                        <span class="class-badge badge-popular">BEST</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>전통 한식 마스터</h3>
+                    <p>정통 한식의 맛과 멋을 배우는 클래스. 제대로 된 한식의 기본기를 익힙니다.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            3시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            6-8명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>김치찌개, 불고기, 잡채, 비빔밥</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">150,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-card" data-category="korean">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1583224964978-2257b960c3d3?w=600&q=80" alt="김치 마스터 클래스">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">한식</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>김치 마스터 클래스</h3>
+                    <p>배추김치부터 깍두기, 총각김치까지. 정통 김치 담그는 법을 배웁니다.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            4시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            4-6명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>배추김치, 깍두기, 오이소박이</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">180,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Western Classes -->
+            <div class="class-card" data-category="western">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&q=80" alt="이탈리안 파스타">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">양식</span>
+                        <span class="class-badge badge-new">NEW</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>이탈리안 파스타</h3>
+                    <p>수제 생면부터 다양한 소스까지. 이탈리아 현지의 맛을 그대로 재현합니다.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            2.5시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            6-8명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>페투치네, 알리오올리오, 봉골레</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">130,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-card" data-category="western">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="스테이크 마스터">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">양식</span>
+                        <span class="class-badge badge-popular">인기</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>스테이크 마스터</h3>
+                    <p>완벽한 스테이크 굽기의 모든 것. 고기 선택부터 숙성, 조리법까지.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            2시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            4-6명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>립아이 스테이크, 마늘버터 소스, 매시드 포테이토</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">200,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-card" data-category="western">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80" alt="프렌치 오믈렛">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">양식</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>프렌치 브런치</h3>
+                    <p>프랑스식 브런치의 정석. 크로크무슈부터 키쉬까지 우아한 한 끼를 완성합니다.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            2시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            6-8명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>프렌치 오믈렛, 크로크무슈, 키쉬 로렌</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">110,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Baking Classes -->
+            <div class="class-card" data-category="baking">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1486427944544-d2c6128c5872?w=600&q=80" alt="프렌치 베이킹">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">베이킹</span>
+                        <span class="class-badge badge-popular">BEST</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>프렌치 베이킹</h3>
+                    <p>크루아상, 마카롱, 에클레어 등 프랑스 정통 디저트를 만들어봅니다.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            3.5시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            4-6명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>크루아상, 마카롱, 에클레어</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">160,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-card" data-category="baking">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1558303419-df1d7c8bd27e?w=600&q=80" alt="케이크 데코레이션">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">베이킹</span>
+                        <span class="class-badge badge-new">NEW</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>케이크 데코레이션</h3>
+                    <p>아름다운 케이크 장식의 기술. 버터크림 플라워부터 드립 케이크까지.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            4시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            4-6명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>버터크림 플라워 케이크 1호 사이즈</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">180,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-card" data-category="baking">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80" alt="홈메이드 빵">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">베이킹</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>홈메이드 빵</h3>
+                    <p>집에서도 쉽게 만들 수 있는 다양한 빵 레시피를 배웁니다.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            3시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            6-8명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>치아바타, 포카치아, 바게트</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">120,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kids Classes -->
+            <div class="class-card" data-category="kids">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1515942140440-bc864ffd5992?w=600&q=80" alt="키즈 쿠킹">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">키즈</span>
+                        <span class="class-badge badge-popular">인기</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>주니어 셰프 아카데미</h3>
+                    <p>요리를 통해 창의력과 자신감을 키우는 어린이 맞춤 클래스 (7-12세)</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            2시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            6-8명
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>미니 피자, 과일 스무디, 쿠키</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">80,000원 <span>/인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="class-card" data-category="kids">
+                <div class="class-card-image">
+                    <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=600&q=80" alt="친자 쿠킹">
+                    <div class="class-badges">
+                        <span class="class-badge badge-category">키즈</span>
+                        <span class="class-badge badge-new">NEW</span>
+                    </div>
+                </div>
+                <div class="class-card-content">
+                    <h3>부모와 함께 쿠킹</h3>
+                    <p>부모와 아이가 함께하는 특별한 요리 시간. 소중한 추억을 만들어보세요.</p>
+                    <div class="class-info">
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            2.5시간
+                        </span>
+                        <span class="class-info-item">
+                            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            4-5팀
+                        </span>
+                    </div>
+                    <div class="class-menu">
+                        <h4>실습 메뉴</h4>
+                        <p>컵케이크 데코, 파스타, 샌드위치</p>
+                    </div>
+                    <div class="class-meta">
+                        <span class="class-price">120,000원 <span>/2인</span></span>
+                        <a href="schedule.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults">
+            <h3>클래스를 찾을 수 없습니다</h3>
+            <p>다른 카테고리를 선택해주세요.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>고메 키친</h4>
+                <p>프리미엄 쿠킹 클래스 스튜디오</p>
+                <p>요리의 예술을 경험하세요</p>
+                <div class="social-links">
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <ul class="footer-links">
+                    <li><a href="classes.html">클래스 안내</a></li>
+                    <li><a href="menu.html">수업 메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>고객 지원</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">예약 문의</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>서울시 강남구 압구정로 123</p>
+                <p>고메키친 빌딩 3층</p>
+                <p>전화: 02-1234-5678</p>
+                <p>이메일: hello@gourmekitchen.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 고메 키친. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const classCards = document.querySelectorAll('.class-card');
+        const categoryCards = document.querySelectorAll('.category-card');
+        const noResults = document.getElementById('noResults');
+
+        function filterClasses(category) {
+            let visibleCount = 0;
+
+            classCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+
+            // Update category card active state
+            categoryCards.forEach(card => {
+                if (card.dataset.category === category) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterClasses(btn.dataset.filter);
+            });
+        });
+
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.dataset.category;
+                filterBtns.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.filter === category) {
+                        btn.classList.add('active');
+                    }
+                });
+                filterClasses(category);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개 | 마인드풀 요가</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --soft-green: #a8c5a8;
+            --deep-green: #5a7a5a;
+            --beige: #f5f1eb;
+            --warm-beige: #e8e0d5;
+            --white: #ffffff;
+            --dark: #3a3a3a;
+            --light-green: #d4e5d4;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--beige);
+            color: var(--dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--deep-green);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            display: block;
+            font-weight: 300;
+            letter-spacing: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--deep-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--deep-green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--white);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 400;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1.5rem;
+            right: 5%;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Page Header */
+        .page-header {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1588286840104-8957b019727f?w=1920&q=80') center/cover;
+        }
+
+        .page-header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(168, 197, 168, 0.8) 0%, rgba(245, 241, 235, 0.85) 100%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header-content h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--deep-green);
+            margin-bottom: 1rem;
+            letter-spacing: 5px;
+        }
+
+        .page-header-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--dark);
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--soft-green);
+            margin: 1.5rem auto;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--deep-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-weight: 300;
+            color: var(--dark);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: var(--white);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .philosophy-image {
+            position: relative;
+        }
+
+        .philosophy-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+
+        .philosophy-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid var(--soft-green);
+            z-index: -1;
+        }
+
+        .philosophy-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--deep-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-text p {
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 2;
+        }
+
+        .philosophy-text blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--deep-green);
+            padding-left: 2rem;
+            border-left: 3px solid var(--soft-green);
+            margin: 2rem 0;
+        }
+
+        /* Values Section */
+        .values {
+            background: var(--light-green);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-green);
+            border-radius: 50%;
+        }
+
+        .value-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--deep-green);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .value-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--deep-green);
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* History Section */
+        .history {
+            background: var(--beige);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: var(--soft-green);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--white);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-year {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--deep-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            color: var(--deep-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            background: var(--soft-green);
+            border-radius: 50%;
+            border: 3px solid var(--white);
+        }
+
+        /* Facilities Section */
+        .facilities {
+            background: var(--white);
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .facility-card {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .facility-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .facility-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .facility-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: var(--white);
+        }
+
+        .facility-overlay h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .facility-overlay p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--deep-green);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand p {
+            font-weight: 300;
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-col h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--soft-green);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-col ul a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--soft-green);
+            border-color: var(--soft-green);
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .facilities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .philosophy-image::before {
+                display: none;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+                padding-left: 50px;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                width: 100%;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            MINDFUL YOGA
+            <span>마인드풀 요가</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">소개</a></li>
+            <li><a href="classes.html">클래스</a></li>
+            <li><a href="pricing.html">가격</a></li>
+            <li><a href="schedule.html">시간표</a></li>
+            <li><a href="contact.html">문의</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="close-menu" onclick="toggleMenu()">&times;</span>
+        <a href="index.html" onclick="toggleMenu()">홈</a>
+        <a href="about.html" onclick="toggleMenu()">소개</a>
+        <a href="classes.html" onclick="toggleMenu()">클래스</a>
+        <a href="pricing.html" onclick="toggleMenu()">가격</a>
+        <a href="schedule.html" onclick="toggleMenu()">시간표</a>
+        <a href="contact.html" onclick="toggleMenu()">문의</a>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg"></div>
+        <div class="page-header-overlay"></div>
+        <div class="page-header-content">
+            <h1>About Us</h1>
+            <div class="divider"></div>
+            <p>마인드풀 요가의 철학과 이야기</p>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="philosophy-grid">
+            <div class="philosophy-image fade-in">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80" alt="요가 철학">
+            </div>
+            <div class="philosophy-text fade-in">
+                <h3>우리의 철학</h3>
+                <p>
+                    마인드풀 요가는 '마음 챙김(Mindfulness)'의 정신을 바탕으로 설립되었습니다.
+                    우리는 요가가 단순한 신체 운동이 아닌, 몸과 마음, 그리고 영혼이 하나로
+                    연결되는 총체적인 수련이라고 믿습니다.
+                </p>
+                <blockquote>
+                    "요가는 목적지가 아닌 여정입니다.<br>
+                    매 순간 자신과 만나는 것이 진정한 수련입니다."
+                </blockquote>
+                <p>
+                    현대 사회의 빠른 속도 속에서 우리는 종종 자신을 잃어버립니다.
+                    마인드풀 요가는 그 속도를 늦추고, 호흡에 집중하며, 현재 순간에
+                    온전히 머무르는 법을 배우는 공간입니다.
+                </p>
+                <p>
+                    우리의 모든 프로그램은 개인의 신체 조건과 수준을 존중하며,
+                    경쟁이 아닌 자기 자신과의 대화에 초점을 맞춥니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="section-header fade-in">
+            <h2>Core Values</h2>
+            <div class="divider"></div>
+            <p>마인드풀 요가가 소중히 여기는 가치</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <svg viewBox="0 0 40 40">
+                        <circle cx="20" cy="15" r="8"/>
+                        <path d="M5 35 Q20 25 35 35"/>
+                    </svg>
+                </div>
+                <h4>마음 챙김</h4>
+                <p>
+                    매 순간 현재에 집중하며, 자신의 몸과 마음의 소리에
+                    귀 기울이는 수련을 지향합니다.
+                </p>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <svg viewBox="0 0 40 40">
+                        <path d="M20 5 L20 35 M10 15 L30 15 M10 25 L30 25"/>
+                        <circle cx="20" cy="20" r="15" fill="none"/>
+                    </svg>
+                </div>
+                <h4>균형</h4>
+                <p>
+                    신체적 건강뿐만 아니라 정신적, 감정적 균형을
+                    함께 추구합니다.
+                </p>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <svg viewBox="0 0 40 40">
+                        <path d="M20 5 L20 15 M10 20 L30 20 M15 30 L25 30"/>
+                        <circle cx="20" cy="20" r="15" fill="none"/>
+                    </svg>
+                </div>
+                <h4>성장</h4>
+                <p>
+                    끊임없이 배우고 성장하며, 더 나은 자신을 향해
+                    나아가는 여정을 함께합니다.
+                </p>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <svg viewBox="0 0 40 40">
+                        <path d="M10 30 Q20 10 30 30"/>
+                        <path d="M15 25 Q20 15 25 25"/>
+                    </svg>
+                </div>
+                <h4>연결</h4>
+                <p>
+                    자신과의 연결, 타인과의 연결, 자연과의 연결을 통해
+                    조화로운 삶을 만들어갑니다.
+                </p>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <svg viewBox="0 0 40 40">
+                        <circle cx="20" cy="20" r="10"/>
+                        <path d="M20 10 L20 5 M30 20 L35 20 M20 30 L20 35 M10 20 L5 20"/>
+                    </svg>
+                </div>
+                <h4>존중</h4>
+                <p>
+                    모든 개인의 고유함을 존중하며, 각자의 속도와
+                    방식을 인정합니다.
+                </p>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">
+                    <svg viewBox="0 0 40 40">
+                        <path d="M20 8 L24 16 L33 17 L26 24 L28 33 L20 28 L12 33 L14 24 L7 17 L16 16 Z"/>
+                    </svg>
+                </div>
+                <h4>진정성</h4>
+                <p>
+                    겉으로 보이는 것이 아닌, 진정한 자기 자신을
+                    발견하고 표현하도록 돕습니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history">
+        <div class="section-header fade-in">
+            <h2>Our Journey</h2>
+            <div class="divider"></div>
+            <p>마인드풀 요가의 발자취</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-year">2015</div>
+                    <h4>마인드풀 요가 설립</h4>
+                    <p>강남 작은 공간에서 10명의 회원과 함께 첫 수업 시작</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-year">2017</div>
+                    <h4>첫 번째 확장</h4>
+                    <p>현재 위치로 이전, 2개의 스튜디오와 명상실 오픈</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h4>강사 양성 프로그램 런칭</h4>
+                    <p>200시간 요가 강사 자격증 프로그램 시작</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-year">2021</div>
+                    <h4>온라인 클래스 도입</h4>
+                    <p>라이브 스트리밍과 온디맨드 수업 서비스 시작</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h4>웰니스 센터로 확장</h4>
+                    <p>요가, 명상, 사운드 힐링을 아우르는 통합 웰니스 공간으로 성장</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities">
+        <div class="section-header fade-in">
+            <h2>Our Space</h2>
+            <div class="divider"></div>
+            <p>평화롭고 영감을 주는 수련 공간</p>
+        </div>
+        <div class="facilities-grid">
+            <div class="facility-card fade-in">
+                <img src="https://images.unsplash.com/photo-1600881333168-2ef49b341f30?w=800&q=80" alt="스튜디오 A">
+                <div class="facility-overlay">
+                    <h4>스튜디오 A</h4>
+                    <p>자연광이 가득한 120평 메인 스튜디오</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=80" alt="스튜디오 B">
+                <div class="facility-overlay">
+                    <h4>스튜디오 B</h4>
+                    <p>아늑한 분위기의 60평 프라이빗 스튜디오</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <img src="https://images.unsplash.com/photo-1591228127791-8e2eaef098d3?w=800&q=80" alt="명상실">
+                <div class="facility-overlay">
+                    <h4>명상실</h4>
+                    <p>깊은 명상을 위한 전용 공간</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" alt="라운지">
+                <div class="facility-overlay">
+                    <h4>웰니스 라운지</h4>
+                    <p>차와 휴식을 위한 커뮤니티 공간</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=800&q=80" alt="샤워실">
+                <div class="facility-overlay">
+                    <h4>어메니티</h4>
+                    <p>쾌적한 샤워실과 파우더룸</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&q=80" alt="요가 용품">
+                <div class="facility-overlay">
+                    <h4>프리미엄 용품</h4>
+                    <p>친환경 매트와 프롭스 무료 제공</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid fade-in">
+            <div class="stat-item">
+                <h3>9+</h3>
+                <p>Years of Experience</p>
+            </div>
+            <div class="stat-item">
+                <h3>5,000+</h3>
+                <p>Happy Members</p>
+            </div>
+            <div class="stat-item">
+                <h3>15+</h3>
+                <p>Expert Instructors</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Weekly Classes</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    MINDFUL YOGA
+                    <span>마인드풀 요가</span>
+                </a>
+                <p>
+                    몸과 마음의 균형을 찾아가는<br>
+                    프리미엄 요가 & 웰니스 스튜디오
+                </p>
+                <div class="social-links">
+                    <a href="#">IG</a>
+                    <a href="#">YT</a>
+                    <a href="#">FB</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>바로가기</h5>
+                <ul>
+                    <li><a href="about.html">스튜디오 소개</a></li>
+                    <li><a href="classes.html">클래스 안내</a></li>
+                    <li><a href="schedule.html">시간표</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>운영시간</h5>
+                <ul>
+                    <li><a href="#">월-금: 06:00 - 22:00</a></li>
+                    <li><a href="#">토요일: 08:00 - 18:00</a></li>
+                    <li><a href="#">일요일: 09:00 - 15:00</a></li>
+                    <li><a href="#">공휴일: 휴무</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>연락처</h5>
+                <ul>
+                    <li><a href="#">서울시 강남구 테헤란로 123</a></li>
+                    <li><a href="tel:02-1234-5678">02-1234-5678</a></li>
+                    <li><a href="mailto:hello@mindfulyoga.kr">hello@mindfulyoga.kr</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 마인드풀 요가. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+            }
+        });
+    </script>
+</body>
+</html>

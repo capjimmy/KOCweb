@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="드림웨딩 플래너 - 럭셔리 웨딩 토탈 플래닝. 당신의 꿈꾸던 웨딩을 현실로 만들어 드립니다.">
+    <title>드림웨딩 플래너 | 럭셔리 웨딩 토탈 플래닝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --rose-gold: #B76E79;
+            --rose-gold-light: #D4A5A5;
+            --rose-gold-dark: #8B4D57;
+            --soft-pink: #FDF2F4;
+            --soft-pink-dark: #F5E1E4;
+            --white: #FFFFFF;
+            --ivory: #FFFEF9;
+            --text-dark: #2D2D2D;
+            --text-light: #6B6B6B;
+            --gold-accent: #C9A96E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Serif KR', serif;
+            color: var(--text-dark);
+            background-color: var(--ivory);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 30px rgba(183, 110, 121, 0.1);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .nav.scrolled .nav-logo {
+            color: var(--rose-gold);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav.scrolled .nav-menu a {
+            color: var(--text-dark);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--rose-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--rose-gold-light);
+        }
+
+        .nav.scrolled .nav-menu a.active {
+            color: var(--rose-gold);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled .nav-toggle span {
+            background: var(--rose-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(45, 45, 45, 0.4) 0%, rgba(139, 77, 87, 0.5) 100%),
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, var(--ivory) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--rose-gold-light);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-title span {
+            font-style: italic;
+            color: var(--rose-gold-light);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: transparent;
+            border: 1px solid var(--rose-gold-light);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .hero-cta:hover {
+            background: var(--rose-gold);
+            border-color: var(--rose-gold);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 8rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--rose-gold);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--rose-gold);
+            margin: 1.5rem auto 0;
+        }
+
+        /* Featured Section */
+        .featured {
+            background: var(--white);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .featured-item {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .featured-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .featured-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .featured-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(183, 110, 121, 0.9) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .featured-item:hover .featured-overlay {
+            opacity: 1;
+        }
+
+        .featured-overlay h3 {
+            color: var(--white);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .featured-overlay p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        /* Services Preview */
+        .services-preview {
+            background: var(--soft-pink);
+        }
+
+        .services-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-preview-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--white);
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rose-gold-light), var(--rose-gold), var(--rose-gold-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-preview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(183, 110, 121, 0.15);
+        }
+
+        .service-preview-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--rose-gold-light);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--rose-gold);
+        }
+
+        .service-preview-card:hover .service-icon {
+            background: var(--rose-gold);
+            border-color: var(--rose-gold);
+        }
+
+        .service-preview-card:hover .service-icon i {
+            color: var(--white);
+        }
+
+        .service-preview-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .service-preview-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(45, 45, 45, 0.5) 0%, rgba(139, 77, 87, 0.6) 100%),
+                        url('https://images.unsplash.com/photo-1460978812857-470ed1c77af0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 10rem 5%;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            border-radius: 4px;
+        }
+
+        .cta-btn.primary {
+            background: var(--rose-gold);
+            color: var(--white);
+            border: 1px solid var(--rose-gold);
+        }
+
+        .cta-btn.primary:hover {
+            background: var(--rose-gold-dark);
+            border-color: var(--rose-gold-dark);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+
+        .cta-btn.secondary:hover {
+            background: var(--white);
+            color: var(--text-dark);
+        }
+
+        /* Testimonial Preview */
+        .testimonial-preview {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .testimonial-card {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+        }
+
+        .testimonial-card i.quote {
+            font-size: 3rem;
+            color: var(--rose-gold-light);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-card blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .testimonial-author img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--rose-gold-light);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author h4 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .testimonial-author span {
+            font-size: 0.85rem;
+            color: var(--rose-gold);
+        }
+
+        .view-more-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid var(--rose-gold);
+            color: var(--rose-gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .view-more-btn:hover {
+            background: var(--rose-gold);
+            color: var(--white);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--rose-gold-light);
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--rose-gold);
+            border-color: var(--rose-gold);
+        }
+
+        .footer-column h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--rose-gold-light);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--rose-gold-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 45, 45, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--rose-gold-light);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .featured-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-preview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-item {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 4px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .services-preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+
+            .testimonial-card blockquote {
+                font-size: 1.2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <a href="index.html" class="nav-logo">Dream Wedding</a>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-toggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">Luxury Wedding Planning</p>
+            <h1 class="hero-title">당신의 <span>꿈꾸던 웨딩</span>을<br>현실로 만들어 드립니다</h1>
+            <p class="hero-description">드림웨딩 플래너는 특별한 순간을 위한 완벽한 토탈 플래닝 서비스를 제공합니다</p>
+            <a href="contact.html" class="hero-cta">무료 상담 예약</a>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Featured Weddings Section -->
+    <section class="featured" id="featured">
+        <div class="section-header">
+            <p class="section-label">Featured</p>
+            <h2 class="section-title">대표 웨딩 포트폴리오</h2>
+        </div>
+        <div class="featured-grid">
+            <div class="featured-item">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Romantic Garden Wedding">
+                <div class="featured-overlay">
+                    <h3>Romantic Garden Wedding</h3>
+                    <p>자연 속에서 펼쳐진 로맨틱한 가든 웨딩</p>
+                </div>
+            </div>
+            <div class="featured-item">
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Classic Elegance">
+                <div class="featured-overlay">
+                    <h3>Classic Elegance</h3>
+                    <p>클래식한 우아함이 돋보이는 웨딩</p>
+                </div>
+            </div>
+            <div class="featured-item">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Ballroom">
+                <div class="featured-overlay">
+                    <h3>Luxury Ballroom</h3>
+                    <p>화려한 볼룸에서의 럭셔리 웨딩</p>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="gallery.html" class="view-more-btn">View All Gallery</a>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="services-preview" id="services-preview">
+        <div class="section-header">
+            <p class="section-label">Our Services</p>
+            <h2 class="section-title">프리미엄 웨딩 서비스</h2>
+        </div>
+        <div class="services-preview-grid">
+            <div class="service-preview-card">
+                <div class="service-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3>토탈 플래닝</h3>
+                <p>컨셉 기획부터 당일 진행까지 웨딩의 모든 과정을 세심하게 관리해 드립니다</p>
+            </div>
+            <div class="service-preview-card">
+                <div class="service-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>스타일링 & 데코</h3>
+                <p>트렌디한 감각으로 신랑신부의 스타일링과 공간 데코레이션을 완성합니다</p>
+            </div>
+            <div class="service-preview-card">
+                <div class="service-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3>웨딩 촬영</h3>
+                <p>최고의 포토그래퍼와 함께 아름다운 순간을 영원히 담아드립니다</p>
+            </div>
+            <div class="service-preview-card">
+                <div class="service-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>케이터링 & 플라워</h3>
+                <p>프리미엄 케이터링과 감각적인 플라워 디자인으로 완벽한 피로연을 선사합니다</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="services.html" class="view-more-btn">View All Services</a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>당신만의 특별한 웨딩을 시작하세요</h2>
+            <p>드림웨딩 플래너의 전문 상담사가 고객님의 웨딩을 함께 계획해 드립니다.<br>부담 없이 상담 신청해 주시면 빠른 시일 내에 연락드리겠습니다.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-btn primary">무료 상담 예약</a>
+                <a href="gallery.html" class="cta-btn secondary">갤러리 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Preview -->
+    <section class="testimonial-preview">
+        <div class="section-header">
+            <p class="section-label">Testimonials</p>
+            <h2 class="section-title">고객 후기</h2>
+        </div>
+        <div class="testimonial-card">
+            <i class="fas fa-quote-left quote"></i>
+            <blockquote>
+                "드림웨딩 플래너 덕분에 꿈꿔왔던 것 이상의 완벽한 웨딩을 할 수 있었어요.
+                섬세한 케어와 전문적인 진행에 감동받았습니다. 정말 감사드려요!"
+            </blockquote>
+            <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="김지현">
+                <h4>김지현 & 박준호</h4>
+                <span>2024년 5월 웨딩</span>
+            </div>
+        </div>
+        <a href="about.html#testimonials" class="view-more-btn">더 많은 후기 보기</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Dream Wedding</h3>
+                <p>럭셔리 웨딩 토탈 플래닝<br>당신의 꿈꾸던 웨딩을 현실로 만들어 드립니다.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">토탈 플래닝</a></li>
+                    <li><a href="services.html">스타일링 & 데코</a></li>
+                    <li><a href="services.html">웨딩 촬영</a></li>
+                    <li><a href="services.html">케이터링 & 플라워</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="gallery.html">포트폴리오</a></li>
+                    <li><a href="about.html#testimonials">고객 후기</a></li>
+                    <li><a href="contact.html">제휴 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:02-888-7777">02-888-7777</a></li>
+                    <li><a href="mailto:hello@dreamwedding.kr">hello@dreamwedding.kr</a></li>
+                    <li><a href="contact.html">서울시 강남구 청담동 123</a></li>
+                    <li><a href="contact.html">영업시간: 10:00 - 19:00</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 드림웨딩 플래너. All Rights Reserved. 대표: 이웨딩</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animation to elements
+        document.querySelectorAll('.featured-item, .service-preview-card, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

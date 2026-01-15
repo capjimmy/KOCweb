@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KOC - 웹사이트 제작 & 업무 자동화 전문. 중소기업과 소상공인을 위한 디지털 솔루션 파트너">
+    <title>KOC | 웹사이트 제작 & 업무 자동화</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(217, 70, 239, 0.05) 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-2%, 1%) rotate(-1deg); }
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Main Container */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: -3px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.3)); }
+            50% { filter: drop-shadow(0 0 50px rgba(139, 92, 246, 0.5)); }
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .description {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #e2e8f0;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .description strong {
+            color: #a5b4fc;
+            font-weight: 600;
+        }
+
+        /* Hub Cards */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .hub-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .hub-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 30, 40, 0.8), rgba(20, 20, 30, 0.9));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .hub-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .hub-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow:
+                0 20px 60px rgba(99, 102, 241, 0.2),
+                0 0 100px rgba(139, 92, 246, 0.1);
+        }
+
+        .hub-card:hover::before {
+            opacity: 1;
+        }
+
+        .hub-card:hover .card-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
+
+        .hub-card:hover .card-arrow {
+            transform: translateX(10px);
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .card-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #a5b4fc;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .hub-card:hover .card-icon svg {
+            stroke: white;
+        }
+
+        .card-label {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #a5b4fc;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-tag {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-cta {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #a5b4fc;
+        }
+
+        .card-arrow {
+            width: 40px;
+            height: 40px;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: all 0.4s ease;
+        }
+
+        .card-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: #a5b4fc;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(30, 30, 40, 0.6), rgba(20, 20, 30, 0.8));
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .contact-item svg {
+            width: 20px;
+            height: 20px;
+            stroke: #6366f1;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .contact-item a {
+            color: #a5b4fc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #c7d2fe;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #475569;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+
+            .tagline {
+                font-size: 0.9rem;
+                letter-spacing: 4px;
+            }
+
+            .description {
+                font-size: 1.2rem;
+            }
+
+            .hub-card {
+                padding: 35px 30px;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .stats-section {
+                gap: 40px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Coming Soon Badge */
+        .coming-soon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">KOC</div>
+            <div class="tagline">Digital Solutions Partner</div>
+            <p class="description">
+                <strong>웹사이트 제작</strong>과 <strong>업무 자동화</strong>로<br>
+                비즈니스의 디지털 전환을 돕습니다
+            </p>
+        </header>
+
+        <!-- Hub Cards -->
+        <div class="hub-grid">
+            <!-- Web Studio Hub -->
+            <a href="website-hub.html" class="hub-card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M3 9h18"/>
+                        <path d="M9 21V9"/>
+                    </svg>
+                </div>
+                <span class="card-label">Web Studio</span>
+                <h2 class="card-title">웹사이트 제작</h2>
+                <p class="card-description">
+                    기업 홈페이지, 쇼핑몰, 랜딩페이지 등<br>
+                    맞춤형 웹사이트를 합리적인 가격에 제작해 드립니다.
+                </p>
+                <div class="card-features">
+                    <span class="feature-tag">반응형 웹</span>
+                    <span class="feature-tag">맞춤 디자인</span>
+                    <span class="feature-tag">SEO 최적화</span>
+                    <span class="feature-tag">사후관리</span>
+                </div>
+                <div class="card-footer">
+                    <span class="card-cta">포트폴리오 보기</span>
+                    <div class="card-arrow">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Automation Hub -->
+            <a href="automation/index.html" class="hub-card">
+                <span class="coming-soon">Coming Soon</span>
+                <div class="card-icon">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                </div>
+                <span class="card-label">Automation</span>
+                <h2 class="card-title">업무 자동화</h2>
+                <p class="card-description">
+                    반복되는 업무를 자동화하여<br>
+                    시간과 비용을 절약하고 본업에 집중하세요.
+                </p>
+                <div class="card-features">
+                    <span class="feature-tag">엑셀 자동화</span>
+                    <span class="feature-tag">데이터 수집</span>
+                    <span class="feature-tag">보고서 생성</span>
+                    <span class="feature-tag">업무 연동</span>
+                </div>
+                <div class="card-footer">
+                    <span class="card-cta">자세히 보기</span>
+                    <div class="card-arrow">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">38+</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Satisfaction</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24H</div>
+                <div class="stat-label">Support</div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h3 class="contact-title">무료 상담 문의</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <a href="tel:010-5161-7663">010-5161-7663</a>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <a href="mailto:officekoc9672@gmail.com">officekoc9672@gmail.com</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 케이오씨(KOC) | 사업자등록번호: 421-24-01482 | 대표: 박민경</p>
+            <p style="margin-top: 8px;">경기도 고양시 덕양구 꽃마을로 66, 11층 1107호</p>
+        </footer>
+    </div>
+</body>
+</html>

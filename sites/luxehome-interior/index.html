@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>럭스홈 인테리어 | LuxeHome Interior - 프리미엄 인테리어 디자인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --cream: #FAF7F2;
+            --cream-dark: #F0EBE1;
+            --dark-wood: #2C1810;
+            --brown: #5C3D2E;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-wood);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark-wood);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--cream);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--dark-wood);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(44, 24, 16, 0.4), rgba(44, 24, 16, 0.6)),
+                        url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark-wood);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--white);
+            opacity: 0.7;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header span {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--dark-wood);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+
+        /* About Preview */
+        .about-preview {
+            background: var(--white);
+        }
+
+        .about-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 2px solid var(--gold);
+            z-index: -1;
+        }
+
+        .about-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dark-wood);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--cream-dark);
+        }
+
+        .stat h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+
+        .stat p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Services Preview */
+        .services-preview {
+            background: var(--cream);
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--gold);
+        }
+
+        .service-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: var(--gold);
+            transition: stroke 0.3s ease;
+        }
+
+        .service-card:hover .service-icon svg {
+            stroke: var(--white);
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--dark-wood);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Portfolio Preview */
+        .portfolio-preview {
+            background: var(--dark-wood);
+            color: var(--white);
+        }
+
+        .portfolio-preview .section-header h2 {
+            color: var(--white);
+        }
+
+        .portfolio-preview .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .portfolio-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .portfolio-item:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(44, 24, 16, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay span {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .portfolio-overlay h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-top: 0.5rem;
+        }
+
+        .view-all {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .view-all .btn {
+            border-color: var(--gold);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--cream);
+        }
+
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-slider {
+            overflow: hidden;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial {
+            min-width: 100%;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .testimonial-quote {
+            font-size: 4rem;
+            color: var(--gold);
+            line-height: 1;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .testimonial p {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            font-style: italic;
+            margin: 1.5rem 0 2rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-author h5 {
+            font-size: 1rem;
+            color: var(--dark-wood);
+        }
+
+        .testimonial-author span {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-nav button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: var(--cream-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-nav button.active {
+            background: var(--gold);
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(44, 24, 16, 0.85), rgba(44, 24, 16, 0.85)),
+                        url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920') center/cover fixed;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-wood);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .portfolio-item:first-child {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .btn-outline {
+                display: block;
+                margin: 1rem 0 0 0;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image::before {
+                display: none;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Luxe<span>Home</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="portfolio.html">포트폴리오</a></li>
+                <li><a href="process.html">진행과정</a></li>
+                <li><a href="blog.html">블로그</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-close" onclick="toggleMobileMenu()">&times;</span>
+        <a href="index.html" onclick="toggleMobileMenu()">홈</a>
+        <a href="about.html" onclick="toggleMobileMenu()">회사소개</a>
+        <a href="services.html" onclick="toggleMobileMenu()">서비스</a>
+        <a href="portfolio.html" onclick="toggleMobileMenu()">포트폴리오</a>
+        <a href="process.html" onclick="toggleMobileMenu()">진행과정</a>
+        <a href="blog.html" onclick="toggleMobileMenu()">블로그</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">문의하기</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">PREMIUM INTERIOR DESIGN</p>
+            <h1>당신의 공간에<br>럭셔리를 더하다</h1>
+            <p>20년 전통의 프리미엄 인테리어 전문 기업<br>럭스홈이 특별한 공간을 만들어 드립니다</p>
+            <a href="contact.html" class="btn">무료 상담 신청</a>
+            <a href="portfolio.html" class="btn btn-outline">포트폴리오 보기</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="about-preview">
+        <div class="about-grid">
+            <div class="about-image fade-in">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="럭스홈 인테리어 작업">
+            </div>
+            <div class="about-content fade-in">
+                <span style="color: var(--gold); letter-spacing: 3px; font-size: 0.9rem;">ABOUT LUXEHOME</span>
+                <h3>20년 전통, 5,000건 이상의<br>프로젝트 완성</h3>
+                <p>럭스홈 인테리어는 2004년 설립 이래 고객의 꿈을 현실로 만들어 왔습니다.
+                주거 공간부터 상업 시설까지, 우리는 각 공간의 특성과 고객의 라이프스타일을
+                깊이 이해하여 맞춤형 디자인 솔루션을 제공합니다.</p>
+                <p>최고급 자재와 숙련된 장인의 손길로 완성되는 럭스홈의 인테리어는
+                시간이 지나도 변함없는 가치를 선사합니다.</p>
+                <a href="about.html" class="btn" style="background: var(--dark-wood); border-color: var(--dark-wood);">자세히 보기</a>
+                <div class="stats">
+                    <div class="stat">
+                        <h4>20+</h4>
+                        <p>Years of Experience</p>
+                    </div>
+                    <div class="stat">
+                        <h4>5,000+</h4>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat">
+                        <h4>98%</h4>
+                        <p>Customer Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview -->
+    <section class="services-preview">
+        <div class="section-header fade-in">
+            <span>OUR SERVICES</span>
+            <h2>프리미엄 인테리어 서비스</h2>
+            <p>주거 공간부터 상업 시설까지, 럭스홈이 선사하는 특별한 공간 경험</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                        <path d="M9 22V12h6v10"/>
+                    </svg>
+                </div>
+                <h3>주거 인테리어</h3>
+                <p>아파트, 빌라, 단독주택 등 주거 공간에 맞춤 디자인을 제공합니다.
+                가족의 라이프스타일을 반영한 편안하고 아름다운 공간을 만들어 드립니다.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <h3>상업 인테리어</h3>
+                <p>오피스, 호텔, 레스토랑, 리테일 등 상업 공간의 브랜드 아이덴티티를
+                공간에 담아냅니다. 고객 경험을 극대화하는 디자인을 제안합니다.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <h3>디자인 컨설팅</h3>
+                <p>전문 디자이너의 1:1 컨설팅을 통해 공간 활용, 컬러 선택,
+                가구 배치 등 인테리어 전반에 대한 전문적인 조언을 제공합니다.</p>
+            </div>
+        </div>
+        <div class="view-all" style="margin-top: 3rem;">
+            <a href="services.html" class="btn" style="background: var(--dark-wood); border-color: var(--dark-wood);">전체 서비스 보기</a>
+        </div>
+    </section>
+
+    <!-- Portfolio Preview -->
+    <section class="portfolio-preview">
+        <div class="section-header fade-in">
+            <span>PORTFOLIO</span>
+            <h2>최근 완성 프로젝트</h2>
+            <p>럭스홈이 완성한 특별한 공간들을 만나보세요</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="한남동 펜트하우스">
+                <div class="portfolio-overlay">
+                    <span>RESIDENTIAL</span>
+                    <h4>한남동 펜트하우스</h4>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600" alt="청담 부티크 호텔">
+                <div class="portfolio-overlay">
+                    <span>COMMERCIAL</span>
+                    <h4>청담 부티크 호텔</h4>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600" alt="판교 모던 하우스">
+                <div class="portfolio-overlay">
+                    <span>RESIDENTIAL</span>
+                    <h4>판교 모던 하우스</h4>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600" alt="강남 오피스">
+                <div class="portfolio-overlay">
+                    <span>COMMERCIAL</span>
+                    <h4>강남 프리미엄 오피스</h4>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600" alt="성수동 카페">
+                <div class="portfolio-overlay">
+                    <span>COMMERCIAL</span>
+                    <h4>성수동 시그니처 카페</h4>
+                </div>
+            </div>
+        </div>
+        <div class="view-all">
+            <a href="portfolio.html" class="btn">전체 포트폴리오 보기</a>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-header fade-in">
+            <span>TESTIMONIALS</span>
+            <h2>고객 후기</h2>
+            <p>럭스홈과 함께한 고객들의 이야기</p>
+        </div>
+        <div class="testimonials-container fade-in">
+            <div class="testimonial-slider">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial">
+                        <div class="testimonial-quote">"</div>
+                        <p>처음 집을 구매하고 인테리어를 맡겼는데, 럭스홈 팀이 저의 막연한 생각을
+                        구체적인 디자인으로 완벽하게 구현해 주셨습니다. 매일 집에 오는 것이 행복해요.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="김서연">
+                            <div>
+                                <h5>김서연</h5>
+                                <span>한남동 아파트</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-quote">"</div>
+                        <p>호텔 리노베이션 프로젝트를 럭스홈에 맡겼습니다. 브랜드 아이덴티티를
+                        공간에 녹여내는 능력이 탁월했고, 덕분에 고객 만족도가 크게 향상되었습니다.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" alt="박준혁">
+                            <div>
+                                <h5>박준혁</h5>
+                                <span>청담 부티크 호텔 대표</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-quote">"</div>
+                        <p>세심한 배려와 전문적인 조언이 인상적이었습니다. 시공 과정에서도
+                        투명하게 소통해 주셔서 안심하고 맡길 수 있었습니다. 정말 감사드립니다.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="이미경">
+                            <div>
+                                <h5>이미경</h5>
+                                <span>판교 단독주택</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <button class="active" onclick="goToTestimonial(0)"></button>
+                <button onclick="goToTestimonial(1)"></button>
+                <button onclick="goToTestimonial(2)"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>꿈꾸는 공간을 현실로</h2>
+        <p>무료 상담을 통해 당신만의 특별한 공간을 설계해 보세요.
+        럭스홈의 전문 디자이너가 함께합니다.</p>
+        <a href="contact.html" class="btn">무료 상담 예약</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Luxe<span>Home</span></a>
+                <p>20년 전통의 프리미엄 인테리어 전문 기업 럭스홈입니다.
+                고객의 꿈을 현실로 만드는 특별한 공간을 선사합니다.</p>
+                <div class="social-links">
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                    </a>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                    </a>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="#">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="process.html">진행과정</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="blog.html">블로그</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>연락처</h4>
+                <ul>
+                    <li>서울시 강남구 테헤란로 123</li>
+                    <li>럭스홈 빌딩 5층</li>
+                    <li>02-1234-5678</li>
+                    <li>info@luxehome.kr</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LuxeHome Interior. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Testimonial Slider
+        let currentTestimonial = 0;
+        const totalTestimonials = 3;
+
+        function goToTestimonial(index) {
+            currentTestimonial = index;
+            const track = document.getElementById('testimonialTrack');
+            track.style.transform = `translateX(-${index * 100}%)`;
+
+            document.querySelectorAll('.testimonial-nav button').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+        }
+
+        // Auto-slide testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+            goToTestimonial(currentTestimonial);
+        }, 5000);
+
+        // Fade In Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

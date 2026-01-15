@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="해밀 베이커리 소개 - 천연발효 숙성 베이커리의 철학과 가치를 소개합니다.">
+    <title>소개 | 해밀 베이커리</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --beige-light: #FDF8F3;
+            --beige: #F5E6D3;
+            --beige-dark: #E8D4BE;
+            --brown-light: #A67C52;
+            --brown: #8B5A2B;
+            --brown-dark: #5D3A1A;
+            --text-dark: #3D2814;
+            --text-light: #6B4423;
+            --white: #FFFFFF;
+            --cream: #FFF9F0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--beige-light);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(93, 58, 26, 0.08);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--brown-light);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--brown);
+            border-radius: 1px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--brown-dark);
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--beige-light) 100%);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* About Intro */
+        .about-intro {
+            padding: 5rem 2rem;
+            background-color: var(--white);
+        }
+
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .intro-image {
+            background: linear-gradient(135deg, var(--beige-dark) 0%, var(--beige) 100%);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .intro-text h2 {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .intro-text h2 span {
+            color: var(--brown);
+        }
+
+        .intro-text p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            padding: 5rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--brown-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--brown-dark);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .philosophy-card {
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(93, 58, 26, 0.1);
+        }
+
+        .philosophy-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--brown-light), var(--brown));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-card h3 {
+            font-size: 1.3rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .philosophy-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 5rem 2rem;
+            background-color: var(--white);
+        }
+
+        .values-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .value-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brown-light);
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .value-item h3 {
+            font-size: 1.2rem;
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .value-item p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Team Section */
+        .team {
+            padding: 5rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .team-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .team-image {
+            background: linear-gradient(135deg, var(--beige-dark) 0%, var(--beige) 100%);
+            border-radius: 20px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .team-info h2 {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .team-info p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-quote {
+            background-color: var(--white);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--brown);
+            font-style: italic;
+            color: var(--brown-dark);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-dark) 100%);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: var(--beige);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--white);
+            color: var(--brown-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--beige);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brown-dark);
+            color: var(--beige);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--beige);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-info {
+            text-align: right;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .intro-content {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-image {
+                height: 300px;
+                font-size: 6rem;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--beige-light);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(93, 58, 26, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .values-list {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .page-header {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .about-intro, .philosophy, .values, .team, .cta {
+                padding: 3rem 1.5rem;
+            }
+
+            .intro-text h2, .team-info h2 {
+                font-size: 1.6rem;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">해밀<span>베이커리</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">소개</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="story.html">스토리</a></li>
+                <li><a href="contact.html">매장안내</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>해밀 베이커리를 소개합니다</h1>
+        <p>정성을 담아 건강한 빵을 만드는 천연발효 숙성 베이커리입니다</p>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-image" style="background-image: url('https://images.unsplash.com/photo-1517433670267-30f41c792e7d?w=800&h=600&fit=crop');"></div>
+                <div class="intro-text">
+                    <h2>햇살처럼 따뜻한 빵,<br><span>해밀 베이커리</span>입니다</h2>
+                    <p>'해밀'은 '햇살이 밝게 비치다'라는 순우리말에서 따온 이름입니다. 아침 햇살처럼 따뜻하고 정겨운 빵을 만들고자 하는 마음을 담았습니다.</p>
+                    <p>2015년 작은 동네 빵집으로 시작한 해밀 베이커리는 천연 발효종과 엄선된 재료만을 사용하여 정직하게 빵을 굽고 있습니다. 빠르게 만들어 빠르게 파는 빵이 아닌, 시간과 정성을 담아 천천히 발효시킨 건강한 빵을 추구합니다.</p>
+                    <p>우리의 모든 빵에는 화학 첨가물이 들어가지 않습니다. 오직 자연의 시간과 장인의 손길만이 담겨있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Philosophy</span>
+                <h2 class="section-title">해밀의 철학</h2>
+                <p class="section-subtitle">정직한 재료, 정직한 시간, 정직한 맛</p>
+            </div>
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">🌾</div>
+                    <h3>천연 발효의 가치</h3>
+                    <p>인스턴트 이스트 대신 천연 발효종을 사용합니다. 24시간 이상의 저온 숙성 과정을 거쳐 빵 본연의 깊은 맛과 향을 살립니다. 천연 발효빵은 소화가 잘 되고, 영양 흡수율도 높습니다.</p>
+                </div>
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">🌿</div>
+                    <h3>엄선된 재료</h3>
+                    <p>국내산 우리밀, 유기농 밀가루, 무항생제 계란, 프랑스산 버터 등 최고의 재료만을 선별합니다. 좋은 재료가 좋은 빵을 만든다는 신념으로 재료 선정에 타협하지 않습니다.</p>
+                </div>
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">⏰</div>
+                    <h3>느린 제빵</h3>
+                    <p>효율보다 품질을 추구합니다. 하루에 만들 수 있는 양이 한정되어 있지만, 그만큼 정성을 다해 모든 빵을 굽습니다. 느리지만 정직한 제빵을 고집합니다.</p>
+                </div>
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">💚</div>
+                    <h3>건강한 맛</h3>
+                    <p>설탕과 소금의 사용을 최소화하고, 인공 첨가물을 배제합니다. 재료 본연의 맛을 살린 담백하고 건강한 빵을 만듭니다. 매일 먹어도 좋은 빵, 그것이 우리의 목표입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Values</span>
+                <h2 class="section-title">해밀의 숫자</h2>
+                <p class="section-subtitle">숫자로 보는 해밀 베이커리의 가치</p>
+            </div>
+            <div class="values-list">
+                <div class="value-item">
+                    <div class="value-number">20+</div>
+                    <h3>제빵 경력</h3>
+                    <p>20년 이상의 제빵 노하우</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-number">48h</div>
+                    <h3>저온 숙성</h3>
+                    <p>최소 48시간 발효 과정</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-number">0%</div>
+                    <h3>화학 첨가물</h3>
+                    <p>인공 첨가물 제로</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-number">100%</div>
+                    <h3>정직한 재료</h3>
+                    <p>엄선된 재료만 사용</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <div class="team-content">
+                <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1556217477-d325251ece38?w=800&h=600&fit=crop');"></div>
+                <div class="team-info">
+                    <h2>해밀 베이커리를 이끄는 사람들</h2>
+                    <p>해밀 베이커리는 20년 경력의 수석 제빵사를 필두로, 빵을 사랑하는 젊은 제빵사들이 함께 만들어가고 있습니다. 우리는 모두 "정직한 빵"이라는 같은 목표를 향해 매일 새벽부터 오븐 앞에 서 있습니다.</p>
+                    <p>각자의 전문 분야에서 최고의 실력을 갖춘 팀원들이 모여, 서로의 노하우를 나누며 더 좋은 빵을 만들기 위해 끊임없이 연구하고 있습니다.</p>
+                    <div class="team-quote">
+                        "빵은 거짓말을 하지 않습니다. 정성을 담으면 담은 만큼, 재료가 좋으면 좋은 만큼 결과물로 나타납니다. 그래서 저는 빵 만드는 일이 좋습니다."
+                        <br><br>- 해밀 베이커리 대표
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>해밀의 빵을 맛보세요</h2>
+        <p>천연발효 숙성빵의 깊은 맛과 향을 직접 경험해보세요</p>
+        <a href="menu.html" class="btn">메뉴 보기</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">해밀베이커리</div>
+            <ul class="footer-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="story.html">스토리</a></li>
+                <li><a href="contact.html">매장안내</a></li>
+            </ul>
+            <div class="footer-info">
+                <div>02-333-4444</div>
+                <div>hello@haemil-bakery.kr</div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 해밀 베이커리. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 30px rgba(93, 58, 26, 0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 20px rgba(93, 58, 26, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>

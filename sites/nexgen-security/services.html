@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보안 서비스 | 넥스젠 시큐리티 - NexGen Security</title>
+    <meta name="description" content="넥스젠 시큐리티의 통합 보안관제, 모의해킹, ISMS 인증 컨설팅, 클라우드 보안 등 전문 보안 서비스를 소개합니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="cyber-loader"></div>
+            <div class="loader-text glitch" data-text="LOADING...">LOADING...</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matrix Background Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                <span class="logo-text">
+                    <span class="logo-main glitch" data-text="NEXGEN">NEXGEN</span>
+                    <span class="logo-sub">SECURITY</span>
+                </span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-link-text">HOME</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <span class="nav-link-text">ABOUT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="services.html" class="nav-link active">
+                    <span class="nav-link-text">SERVICES</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="board.html" class="nav-link">
+                    <span class="nav-link-text">BOARD</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="contact.html" class="nav-link">
+                    <span class="nav-link-text">CONTACT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button class="cyber-btn btn-outline" onclick="location.href='contact.html'">
+                    <span class="btn-text">GET SECURE</span>
+                    <span class="btn-glitch"></span>
+                </button>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=1920&h=600&fit=crop" alt="Cyber Security">
+            <div class="header-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="page-header-content">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="separator">/</span>
+                    <span class="current">Services</span>
+                </div>
+                <h1 class="page-title glitch" data-text="OUR SERVICES">OUR SERVICES</h1>
+                <p class="page-subtitle">전방위적 보안 솔루션</p>
+            </div>
+        </div>
+        <div class="header-decoration">
+            <div class="line-1"></div>
+            <div class="line-2"></div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="section services-overview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-shield-virus"></i> SECURITY SOLUTIONS</span>
+                <h2 class="section-title">통합 보안 서비스</h2>
+                <p class="section-description">
+                    넥스젠 시큐리티는 기업의 모든 보안 니즈를 충족하는<br>
+                    엔드투엔드 보안 솔루션을 제공합니다
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 1: SOC -->
+    <section class="section service-detail" id="soc">
+        <div class="container">
+            <div class="service-detail-wrapper">
+                <div class="service-detail-visual" data-aos="fade-right">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=600&h=450&fit=crop" alt="Security Operations Center">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-satellite-dish"></i></span>
+                        <span class="badge-text">24/7</span>
+                    </div>
+                </div>
+                <div class="service-detail-content" data-aos="fade-left">
+                    <span class="service-number">01</span>
+                    <h3 class="service-detail-title">통합 보안관제 서비스 (SOC)</h3>
+                    <p class="service-detail-desc">
+                        24시간 365일 운영되는 보안관제센터(SOC)에서 귀사의 IT 인프라를
+                        실시간으로 모니터링하고, 사이버 위협을 선제적으로 탐지 및 대응합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-eye"></i>
+                            <h5>실시간 모니터링</h5>
+                            <p>24/7 네트워크 및 시스템 모니터링</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-brain"></i>
+                            <h5>AI 위협 분석</h5>
+                            <p>머신러닝 기반 이상 행위 탐지</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-bolt"></i>
+                            <h5>즉각 대응</h5>
+                            <p>인시던트 발생 시 15분 내 초동 대응</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-file-alt"></i>
+                            <h5>정기 리포트</h5>
+                            <p>월간/분기 보안 현황 보고서 제공</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 2: Penetration Testing -->
+    <section class="section service-detail alt" id="pentest">
+        <div class="container">
+            <div class="service-detail-wrapper reverse">
+                <div class="service-detail-content" data-aos="fade-right">
+                    <span class="service-number">02</span>
+                    <h3 class="service-detail-title">모의해킹 / 침투테스트</h3>
+                    <p class="service-detail-desc">
+                        실제 해커의 공격 기법을 활용하여 시스템, 네트워크, 웹 애플리케이션의
+                        보안 취약점을 사전에 발견하고 보안 수준을 검증합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-user-secret"></i>
+                            <h5>블랙박스 테스트</h5>
+                            <p>외부 공격자 관점의 침투 시도</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-code"></i>
+                            <h5>화이트박스 테스트</h5>
+                            <p>소스코드 레벨 보안 분석</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-network-wired"></i>
+                            <h5>네트워크 침투</h5>
+                            <p>내부망 침투 및 권한 상승 테스트</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-globe"></i>
+                            <h5>웹 해킹</h5>
+                            <p>OWASP Top 10 기반 취약점 점검</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+                <div class="service-detail-visual" data-aos="fade-left">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=450&fit=crop" alt="Penetration Testing">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-user-secret"></i></span>
+                        <span class="badge-text">RED TEAM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 3: Security Consulting -->
+    <section class="section service-detail" id="consulting">
+        <div class="container">
+            <div class="service-detail-wrapper">
+                <div class="service-detail-visual" data-aos="fade-right">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&h=450&fit=crop" alt="Security Consulting">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-chess-king"></i></span>
+                        <span class="badge-text">STRATEGY</span>
+                    </div>
+                </div>
+                <div class="service-detail-content" data-aos="fade-left">
+                    <span class="service-number">03</span>
+                    <h3 class="service-detail-title">보안 컨설팅</h3>
+                    <p class="service-detail-desc">
+                        조직의 보안 현황을 종합적으로 분석하고, 비즈니스 목표에 부합하는
+                        최적의 보안 전략과 로드맵을 수립합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-search"></i>
+                            <h5>현황 분석</h5>
+                            <p>보안 성숙도 및 갭 분석</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-map"></i>
+                            <h5>로드맵 수립</h5>
+                            <p>단계별 보안 강화 계획 수립</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-book"></i>
+                            <h5>정책 개발</h5>
+                            <p>보안 정책 및 절차 수립</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-users-cog"></i>
+                            <h5>조직 구성</h5>
+                            <p>보안 조직 설계 및 역할 정의</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 4: ISMS -->
+    <section class="section service-detail alt" id="isms">
+        <div class="container">
+            <div class="service-detail-wrapper reverse">
+                <div class="service-detail-content" data-aos="fade-right">
+                    <span class="service-number">04</span>
+                    <h3 class="service-detail-title">ISMS 인증 컨설팅</h3>
+                    <p class="service-detail-desc">
+                        정보보호관리체계(ISMS) 및 ISMS-P 인증 획득을 위한 전문 컨설팅을
+                        제공하며, 인증 유지 및 갱신까지 종합 지원합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-chart-pie"></i>
+                            <h5>GAP 분석</h5>
+                            <p>인증 기준 대비 현황 분석</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-file-signature"></i>
+                            <h5>문서화</h5>
+                            <p>관리체계 문서 및 증적 작성</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h5>교육 훈련</h5>
+                            <p>임직원 보안 인식 교육</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-clipboard-check"></i>
+                            <h5>심사 대응</h5>
+                            <p>인증 심사 준비 및 대응 지원</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+                <div class="service-detail-visual" data-aos="fade-left">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1633265486064-086b219458ec?w=600&h=450&fit=crop" alt="ISMS Certification">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-certificate"></i></span>
+                        <span class="badge-text">ISMS-P</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 5: Vulnerability Assessment -->
+    <section class="section service-detail" id="vuln">
+        <div class="container">
+            <div class="service-detail-wrapper">
+                <div class="service-detail-visual" data-aos="fade-right">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=450&fit=crop" alt="Vulnerability Assessment">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-search-plus"></i></span>
+                        <span class="badge-text">SCAN</span>
+                    </div>
+                </div>
+                <div class="service-detail-content" data-aos="fade-left">
+                    <span class="service-number">05</span>
+                    <h3 class="service-detail-title">취약점 진단</h3>
+                    <p class="service-detail-desc">
+                        서버, 네트워크 장비, 데이터베이스, 웹 애플리케이션 등 IT 자산의
+                        보안 취약점을 체계적으로 진단하고 개선 방안을 제시합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-server"></i>
+                            <h5>인프라 진단</h5>
+                            <p>서버, 네트워크 취약점 점검</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-globe"></i>
+                            <h5>웹 진단</h5>
+                            <p>웹 애플리케이션 보안 점검</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h5>모바일 진단</h5>
+                            <p>iOS/Android 앱 보안 점검</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-database"></i>
+                            <h5>DB 진단</h5>
+                            <p>데이터베이스 보안 설정 점검</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 6: Malware Analysis -->
+    <section class="section service-detail alt" id="malware">
+        <div class="container">
+            <div class="service-detail-wrapper reverse">
+                <div class="service-detail-content" data-aos="fade-right">
+                    <span class="service-number">06</span>
+                    <h3 class="service-detail-title">악성코드 분석</h3>
+                    <p class="service-detail-desc">
+                        악성코드 샘플을 수집하고 정밀 분석하여 공격 기법, 유포 경로,
+                        피해 범위를 파악하고 대응 방안을 제시합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-vial"></i>
+                            <h5>정적 분석</h5>
+                            <p>바이너리 코드 역분석</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-play-circle"></i>
+                            <h5>동적 분석</h5>
+                            <p>샌드박스 기반 행위 분석</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-fingerprint"></i>
+                            <h5>IOC 추출</h5>
+                            <p>침해지표 추출 및 공유</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-file-medical"></i>
+                            <h5>분석 보고서</h5>
+                            <p>상세 분석 리포트 제공</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+                <div class="service-detail-visual" data-aos="fade-left">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=450&fit=crop" alt="Malware Analysis">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-bug"></i></span>
+                        <span class="badge-text">ANALYSIS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 7: Security Solutions -->
+    <section class="section service-detail" id="solutions">
+        <div class="container">
+            <div class="service-detail-wrapper">
+                <div class="service-detail-visual" data-aos="fade-right">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=450&fit=crop" alt="Security Solutions">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-cogs"></i></span>
+                        <span class="badge-text">BUILD</span>
+                    </div>
+                </div>
+                <div class="service-detail-content" data-aos="fade-left">
+                    <span class="service-number">07</span>
+                    <h3 class="service-detail-title">보안 솔루션 구축</h3>
+                    <p class="service-detail-desc">
+                        방화벽, IPS/IDS, SIEM, EDR 등 다양한 보안 솔루션의 설계, 구축,
+                        운영까지 원스톱으로 제공합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-fire-extinguisher"></i>
+                            <h5>방화벽/UTM</h5>
+                            <p>네트워크 보안 장비 구축</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-chart-line"></i>
+                            <h5>SIEM</h5>
+                            <p>통합 로그 관리 시스템 구축</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-desktop"></i>
+                            <h5>EDR/XDR</h5>
+                            <p>엔드포인트 탐지 대응 구축</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-key"></i>
+                            <h5>IAM/PAM</h5>
+                            <p>접근 권한 관리 시스템 구축</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 8: Cloud Security -->
+    <section class="section service-detail alt" id="cloud">
+        <div class="container">
+            <div class="service-detail-wrapper reverse">
+                <div class="service-detail-content" data-aos="fade-right">
+                    <span class="service-number">08</span>
+                    <h3 class="service-detail-title">클라우드 보안</h3>
+                    <p class="service-detail-desc">
+                        AWS, Azure, GCP 등 주요 클라우드 플랫폼에 최적화된 보안 아키텍처
+                        설계와 보안 설정 검증, 컴플라이언스 준수를 지원합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fab fa-aws"></i>
+                            <h5>AWS 보안</h5>
+                            <p>AWS 환경 보안 최적화</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fab fa-microsoft"></i>
+                            <h5>Azure 보안</h5>
+                            <p>Azure 보안 설정 및 감사</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fab fa-google"></i>
+                            <h5>GCP 보안</h5>
+                            <p>Google Cloud 보안 구성</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h5>CSPM</h5>
+                            <p>클라우드 보안 형상 관리</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">서비스 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+                <div class="service-detail-visual" data-aos="fade-left">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=450&fit=crop" alt="Cloud Security">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-cloud"></i></span>
+                        <span class="badge-text">CLOUD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Services Grid -->
+    <section class="section all-services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-th"></i> ALL SERVICES</span>
+                <h2 class="section-title glitch" data-text="서비스 한눈에 보기">서비스 한눈에 보기</h2>
+            </div>
+            <div class="all-services-grid">
+                <a href="#soc" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-satellite-dish"></i></div>
+                    <h5>통합 보안관제</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#pentest" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-user-secret"></i></div>
+                    <h5>모의해킹</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#consulting" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-chess-king"></i></div>
+                    <h5>보안 컨설팅</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#isms" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-certificate"></i></div>
+                    <h5>ISMS 인증</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#vuln" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-search-plus"></i></div>
+                    <h5>취약점 진단</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#malware" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-bug"></i></div>
+                    <h5>악성코드 분석</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#solutions" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-cogs"></i></div>
+                    <h5>솔루션 구축</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#cloud" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-cloud"></i></div>
+                    <h5>클라우드 보안</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-project-diagram"></i> OUR PROCESS</span>
+                <h2 class="section-title">서비스 진행 프로세스</h2>
+            </div>
+            <div class="process-timeline">
+                <div class="process-item" data-aos="fade-up">
+                    <div class="process-number">01</div>
+                    <div class="process-content">
+                        <h4>상담 및 분석</h4>
+                        <p>현재 보안 환경과 요구사항을 파악하고 최적의 솔루션을 제안합니다.</p>
+                    </div>
+                </div>
+                <div class="process-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="process-number">02</div>
+                    <div class="process-content">
+                        <h4>제안 및 계약</h4>
+                        <p>상세 견적과 서비스 범위를 정의하고 계약을 체결합니다.</p>
+                    </div>
+                </div>
+                <div class="process-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="process-number">03</div>
+                    <div class="process-content">
+                        <h4>서비스 수행</h4>
+                        <p>전문가 팀이 체계적으로 보안 서비스를 수행합니다.</p>
+                    </div>
+                </div>
+                <div class="process-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="process-number">04</div>
+                    <div class="process-content">
+                        <h4>결과 보고</h4>
+                        <p>상세한 분석 결과와 개선 권고사항을 제공합니다.</p>
+                    </div>
+                </div>
+                <div class="process-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="process-number">05</div>
+                    <div class="process-content">
+                        <h4>사후 지원</h4>
+                        <p>지속적인 모니터링과 기술 지원을 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="cta-bg">
+            <div class="cta-particles"></div>
+        </div>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title glitch" data-text="보안 상담이 필요하신가요?">보안 상담이 필요하신가요?</h2>
+                <p class="cta-description">
+                    전문 보안 컨설턴트가 귀사의 보안 현황을 무료로 진단해 드립니다.
+                </p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cyber-btn btn-primary btn-lg">
+                        <span class="btn-icon"><i class="fas fa-phone-alt"></i></span>
+                        <span class="btn-text">무료 상담 신청</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                    <a href="tel:02-2026-8500" class="cyber-btn btn-secondary btn-lg">
+                        <span class="btn-icon"><i class="fas fa-headset"></i></span>
+                        <span class="btn-text">02-2026-8500</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                            <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                            <span class="logo-text">
+                                <span class="logo-main">NEXGEN</span>
+                                <span class="logo-sub">SECURITY</span>
+                            </span>
+                        </a>
+                        <p class="footer-description">
+                            넥스젠 시큐리티는 기업 정보보안 솔루션 전문기업으로,
+                            최첨단 보안 기술과 전문 인력으로 고객의 디지털 자산을 보호합니다.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> 홈</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> 회사소개</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 서비스</a></li>
+                            <li><a href="board.html"><i class="fas fa-chevron-right"></i> 보안뉴스</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> 문의하기</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Services</h4>
+                        <ul>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 통합 보안관제</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 모의해킹</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> ISMS 인증</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 클라우드 보안</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 취약점 진단</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4 class="footer-title">Contact Info</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>서울특별시 금천구 가산디지털1로 168</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>02-2026-8500</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>secure@nexgen-security.kr</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 보안관제센터 운영</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        &copy; 2024 NexGen Security. All rights reserved. | 대표: 서정우 | 설립: 2015년
+                    </p>
+                    <div class="footer-legal">
+                        <a href="#">개인정보처리방침</a>
+                        <a href="#">이용약관</a>
+                        <a href="#">보안정책</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

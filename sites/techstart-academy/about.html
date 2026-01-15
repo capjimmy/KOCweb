@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개 | 테크스타트 아카데미</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --primary-cyan: #06B6D4;
+            --primary-green: #10B981;
+            --neon-purple: #A855F7;
+            --neon-cyan: #22D3EE;
+            --neon-green: #34D399;
+            --dark-bg: #0F0F1A;
+            --dark-card: #1A1A2E;
+            --dark-border: #2D2D44;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --text-muted: #6B6B80;
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            --gradient-cyan: linear-gradient(135deg, #06B6D4 0%, #22D3EE 100%);
+            --gradient-green: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-mixed: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #10B981 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-mixed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-mixed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-purple);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 160px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 2rem;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+
+        .about-grid.reverse {
+            direction: rtl;
+        }
+
+        .about-grid.reverse > * {
+            direction: ltr;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(6, 182, 212, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .about-image-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 20px;
+            left: 20px;
+            border: 2px solid var(--primary-purple);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content h2 span {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-list {
+            list-style: none;
+        }
+
+        .about-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .about-list li::before {
+            content: '>';
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 100px 2rem;
+            background: var(--dark-card);
+        }
+
+        .mission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--card-gradient);
+        }
+
+        .mission-card:nth-child(1) { --card-gradient: var(--gradient-purple); }
+        .mission-card:nth-child(2) { --card-gradient: var(--gradient-cyan); }
+        .mission-card:nth-child(3) { --card-gradient: var(--gradient-green); }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .mission-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .mission-card:nth-child(1) .mission-icon { background: rgba(139, 92, 246, 0.2); }
+        .mission-card:nth-child(2) .mission-icon { background: rgba(6, 182, 212, 0.2); }
+        .mission-card:nth-child(3) .mission-icon { background: rgba(16, 185, 129, 0.2); }
+
+        .mission-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .mission-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Methodology Section */
+        .methodology-section {
+            padding: 100px 2rem;
+        }
+
+        .methodology-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .methodology-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .methodology-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-mixed);
+        }
+
+        .methodology-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 40px;
+        }
+
+        .methodology-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--dark-bg);
+            border: 3px solid var(--primary-purple);
+            z-index: 1;
+        }
+
+        .methodology-item:nth-child(2)::before { border-color: var(--primary-cyan); }
+        .methodology-item:nth-child(3)::before { border-color: var(--primary-green); }
+        .methodology-item:nth-child(4)::before { border-color: var(--neon-purple); }
+
+        .methodology-step {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .methodology-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .methodology-desc {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 600px;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 100px 2rem;
+            background: var(--dark-card);
+        }
+
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            border-color: var(--primary-purple);
+            transform: translateX(10px);
+        }
+
+        .value-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .value-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 100px 2rem;
+        }
+
+        .team-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-stat {
+            text-align: center;
+            padding: 2rem;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+        }
+
+        .team-stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .team-stat-label {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-grid.reverse {
+                direction: ltr;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--dark-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .team-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">&lt;/&gt;</div>
+                <div class="logo-text">테크스타트 <span>아카데미</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">소개</a></li>
+                <li><a href="courses.html">교육과정</a></li>
+                <li><a href="curriculum.html">커리큘럼</a></li>
+                <li><a href="success.html">수료생 후기</a></li>
+                <li><a href="contact.html">상담신청</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">무료 상담</a>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg"></div>
+        <div class="page-header-content">
+            <span class="page-tag">&lt;about-us&gt;</span>
+            <h1 class="page-title">테크스타트 아카데미 소개</h1>
+            <p class="page-subtitle">
+                2018년 설립 이래, 2,800명 이상의 개발자를 배출한<br>
+                대한민국 대표 IT 교육 기관입니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-grid fade-in">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="팀 협업">
+                    <div class="about-image-decoration"></div>
+                </div>
+                <div class="about-content">
+                    <h2>코드로 <span>미래</span>를 설계합니다</h2>
+                    <p>
+                        테크스타트 아카데미는 단순히 코딩 기술을 가르치는 곳이 아닙니다.
+                        우리는 여러분의 커리어 전환과 성장을 위한 종합적인 교육 파트너입니다.
+                    </p>
+                    <p>
+                        현업 개발자 출신 강사진, 실무 중심 프로젝트, 1:1 멘토링 시스템을 통해
+                        수료 후 바로 현장에서 활약할 수 있는 개발자로 성장시켜 드립니다.
+                    </p>
+                    <ul class="about-list">
+                        <li>현업 경력 5년 이상의 전문 강사진</li>
+                        <li>실무 프로젝트 기반 포트폴리오 완성</li>
+                        <li>150개 이상 협력 기업 취업 연계</li>
+                        <li>수료 후 6개월 무료 취업 지원</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="about-grid reverse fade-in">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop" alt="교육 현장">
+                    <div class="about-image-decoration"></div>
+                </div>
+                <div class="about-content">
+                    <h2>함께 성장하는 <span>커뮤니티</span></h2>
+                    <p>
+                        수료 후에도 계속되는 동문 네트워크와 스터디 모임을 통해
+                        끊임없이 성장할 수 있는 환경을 제공합니다.
+                    </p>
+                    <p>
+                        매월 진행되는 네트워킹 이벤트, 기술 세미나, 해커톤을 통해
+                        다양한 분야의 개발자들과 교류하고 최신 트렌드를 배울 수 있습니다.
+                    </p>
+                    <ul class="about-list">
+                        <li>2,800+ 동문 네트워크</li>
+                        <li>월간 기술 세미나 및 밋업</li>
+                        <li>분기별 해커톤 개최</li>
+                        <li>온라인 커뮤니티 평생 이용</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="mission-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">&lt;our-mission&gt;</span>
+                <h2 class="section-title">우리의 미션</h2>
+                <p class="section-subtitle">
+                    테크스타트 아카데미가 추구하는 세 가지 핵심 가치
+                </p>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-card fade-in">
+                    <div class="mission-icon">🎯</div>
+                    <h3 class="mission-title">실무 중심 교육</h3>
+                    <p class="mission-desc">
+                        이론만이 아닌, 현업에서 바로 적용 가능한
+                        실전 프로젝트 중심의 커리큘럼을 제공합니다.
+                    </p>
+                </div>
+                <div class="mission-card fade-in">
+                    <div class="mission-icon">🤝</div>
+                    <h3 class="mission-title">맞춤형 멘토링</h3>
+                    <p class="mission-desc">
+                        1:1 멘토링 시스템으로 개인의 수준과 목표에 맞는
+                        맞춤형 학습 로드맵을 설계합니다.
+                    </p>
+                </div>
+                <div class="mission-card fade-in">
+                    <div class="mission-icon">🚀</div>
+                    <h3 class="mission-title">취업 성공 지원</h3>
+                    <p class="mission-desc">
+                        이력서 첨삭, 모의 면접, 기업 매칭까지
+                        취업 성공을 위한 전 과정을 함께합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Section -->
+    <section class="methodology-section">
+        <div class="methodology-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">&lt;methodology&gt;</span>
+                <h2 class="section-title">교육 방법론</h2>
+                <p class="section-subtitle">
+                    검증된 4단계 학습 프로세스로 효과적인 성장을 이끌어냅니다
+                </p>
+            </div>
+            <div class="methodology-timeline">
+                <div class="methodology-item fade-in">
+                    <span class="methodology-step">STEP 01</span>
+                    <h3 class="methodology-title">기초 다지기 (Foundation)</h3>
+                    <p class="methodology-desc">
+                        프로그래밍 기초부터 탄탄하게! 컴퓨터 과학의 핵심 개념과
+                        선택한 언어의 문법을 체계적으로 학습합니다.
+                        비전공자도 쉽게 따라올 수 있는 단계별 커리큘럼을 제공합니다.
+                    </p>
+                </div>
+                <div class="methodology-item fade-in">
+                    <span class="methodology-step">STEP 02</span>
+                    <h3 class="methodology-title">심화 학습 (Deep Dive)</h3>
+                    <p class="methodology-desc">
+                        프레임워크, 라이브러리, 데이터베이스 등 실무에 필요한
+                        기술 스택을 깊이 있게 학습합니다. 실제 기업에서 사용하는
+                        도구와 워크플로우를 익힙니다.
+                    </p>
+                </div>
+                <div class="methodology-item fade-in">
+                    <span class="methodology-step">STEP 03</span>
+                    <h3 class="methodology-title">프로젝트 실습 (Practice)</h3>
+                    <p class="methodology-desc">
+                        팀 프로젝트를 통해 실제 서비스를 기획하고 개발합니다.
+                        Git을 활용한 협업, 코드 리뷰, 애자일 방법론 등
+                        현업의 개발 문화를 체험합니다.
+                    </p>
+                </div>
+                <div class="methodology-item fade-in">
+                    <span class="methodology-step">STEP 04</span>
+                    <h3 class="methodology-title">취업 준비 (Launch)</h3>
+                    <p class="methodology-desc">
+                        포트폴리오 완성, 이력서 작성, 기술 면접 준비까지!
+                        현업 멘토와 함께 취업에 필요한 모든 과정을 준비합니다.
+                        협력 기업 채용 설명회 및 취업 매칭 서비스를 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="values-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">&lt;core-values&gt;</span>
+                <h2 class="section-title">핵심 가치</h2>
+                <p class="section-subtitle">
+                    테크스타트 아카데미를 이끄는 네 가지 핵심 가치
+                </p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card fade-in">
+                    <div class="value-number">01</div>
+                    <div class="value-content">
+                        <h3>실용주의 (Pragmatism)</h3>
+                        <p>
+                            현장에서 바로 적용 가능한 실용적인 기술과 지식을 가르칩니다.
+                            이론보다 실습, 학문보다 실무를 우선시합니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-number">02</div>
+                    <div class="value-content">
+                        <h3>성장 마인드셋 (Growth)</h3>
+                        <p>
+                            실패를 두려워하지 않고, 도전을 통해 성장합니다.
+                            꾸준한 학습과 개선을 통해 더 나은 개발자로 발전합니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-number">03</div>
+                    <div class="value-content">
+                        <h3>협업 정신 (Collaboration)</h3>
+                        <p>
+                            혼자보다 함께 더 멀리 갑니다. 동료와의 협업, 피드백 문화,
+                            지식 공유를 통해 함께 성장하는 문화를 만듭니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-number">04</div>
+                    <div class="value-content">
+                        <h3>책임감 (Responsibility)</h3>
+                        <p>
+                            수료생의 취업까지 책임집니다. 교육에서 끝나지 않고
+                            성공적인 커리어 시작까지 함께하는 파트너가 됩니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="team-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">&lt;our-team&gt;</span>
+                <h2 class="section-title">숫자로 보는 테크스타트</h2>
+                <p class="section-subtitle">
+                    6년간 쌓아온 교육 노하우와 신뢰
+                </p>
+            </div>
+            <div class="team-stats">
+                <div class="team-stat fade-in">
+                    <div class="team-stat-number">6년</div>
+                    <div class="team-stat-label">교육 경력</div>
+                </div>
+                <div class="team-stat fade-in">
+                    <div class="team-stat-number">25명</div>
+                    <div class="team-stat-label">전문 강사진</div>
+                </div>
+                <div class="team-stat fade-in">
+                    <div class="team-stat-number">94%</div>
+                    <div class="team-stat-label">취업 성공률</div>
+                </div>
+                <div class="team-stat fade-in">
+                    <div class="team-stat-number">150+</div>
+                    <div class="team-stat-label">협력 기업</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">&lt;/&gt;</div>
+                        <div class="logo-text">테크스타트 <span>아카데미</span></div>
+                    </a>
+                    <p class="footer-desc">
+                        테크스타트 아카데미는 실무 중심의 IT 교육으로
+                        여러분의 성공적인 개발자 커리어를 응원합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="YouTube">▶</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Blog">📝</a>
+                        <a href="#" aria-label="GitHub">⌨</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">교육과정</h4>
+                    <ul class="footer-links">
+                        <li><a href="courses.html">풀스택 웹 개발</a></li>
+                        <li><a href="courses.html">데이터 사이언스</a></li>
+                        <li><a href="courses.html">AI/머신러닝</a></li>
+                        <li><a href="courses.html">모바일 앱 개발</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">아카데미</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">소개</a></li>
+                        <li><a href="success.html">수료생 후기</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">고객지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">환불 정책</a></li>
+                        <li><a href="#">제휴 문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 테크스타트 아카데미. All rights reserved.<br>
+                    서울특별시 강남구 테헤란로 123 테크빌딩 5층 | 사업자등록번호: 123-45-67890
+                </p>
+                <div class="footer-legal">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.75rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.98)';
+            } else {
+                navbar.style.padding = '1rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - 아티산 퍼니처 | 제품 컬렉션</title>
+    <meta name="description" content="아티산 퍼니처의 수제 원목 가구 컬렉션. 소파, 테이블, 수납장, 침실 가구를 만나보세요.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+KR:wght@200;300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --color-cream: #F5F1EB;
+            --color-beige: #E8E0D5;
+            --color-wood-light: #D4C4B0;
+            --color-wood: #B8A088;
+            --color-wood-dark: #8B7355;
+            --color-charcoal: #2C2C2C;
+            --color-black: #1A1A1A;
+            --color-white: #FFFFFF;
+            --color-gold: #C9A962;
+            --font-serif: 'Cormorant Garamond', 'Noto Serif KR', serif;
+            --font-sans: 'Noto Sans KR', sans-serif;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-elegant: cubic-bezier(0.6, 0.01, 0.05, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 241, 235, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s var(--transition-smooth);
+        }
+
+        .nav.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            font-size: 0.85rem;
+            color: var(--color-charcoal);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-gold);
+            transition: width 0.4s var(--transition-smooth);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            width: 28px;
+            height: 1px;
+            background: var(--color-black);
+            transition: all 0.4s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-black);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transition: right 0.6s var(--transition-elegant);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1618220179428-22790b461013?w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .page-hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 300;
+        }
+
+        /* Section */
+        .section {
+            padding: 6rem 4rem;
+        }
+
+        /* Filter */
+        .filter-section {
+            background: var(--color-white);
+            padding: 2rem 4rem;
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+            border-bottom: 1px solid var(--color-beige);
+        }
+
+        .filter-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid var(--color-wood-light);
+            color: var(--color-charcoal);
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-charcoal);
+            border-color: var(--color-charcoal);
+            color: var(--color-white);
+        }
+
+        /* Masonry Grid */
+        .masonry-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .masonry-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            break-inside: avoid;
+        }
+
+        .masonry-item.tall {
+            grid-row: span 2;
+        }
+
+        .masonry-item.wide {
+            grid-column: span 2;
+        }
+
+        .masonry-image {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            overflow: hidden;
+        }
+
+        .masonry-item.tall .masonry-image {
+            padding-top: 220%;
+        }
+
+        .masonry-item.wide .masonry-image {
+            padding-top: 50%;
+        }
+
+        .masonry-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition-elegant);
+        }
+
+        .masonry-item:hover .masonry-image img {
+            transform: scale(1.1);
+        }
+
+        .masonry-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+
+        .masonry-item:hover .masonry-overlay {
+            opacity: 1;
+        }
+
+        .masonry-category {
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .masonry-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .masonry-price {
+            font-size: 1rem;
+            color: var(--color-white);
+        }
+
+        .masonry-view {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 70px;
+            height: 70px;
+            border: 1px solid var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s var(--transition-smooth);
+        }
+
+        .masonry-item:hover .masonry-view {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .masonry-view svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--color-white);
+        }
+
+        /* Product Badge */
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--color-gold);
+            color: var(--color-white);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            z-index: 10;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            background: var(--color-white);
+            max-height: 90vh;
+            overflow: hidden;
+        }
+
+        .lightbox-image {
+            flex: 1;
+            background: var(--color-beige);
+        }
+
+        .lightbox-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lightbox-info {
+            width: 400px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        .lightbox-category {
+            font-size: 0.75rem;
+            color: var(--color-gold);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .lightbox-price {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-bottom: 2rem;
+        }
+
+        .lightbox-desc {
+            font-size: 0.95rem;
+            color: var(--color-wood-dark);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .lightbox-specs {
+            margin-bottom: 2rem;
+        }
+
+        .lightbox-specs h4 {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--color-charcoal);
+        }
+
+        .lightbox-specs ul {
+            list-style: none;
+        }
+
+        .lightbox-specs li {
+            font-size: 0.9rem;
+            color: var(--color-wood-dark);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--color-beige);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .lightbox-btn {
+            display: block;
+            padding: 1.2rem;
+            background: var(--color-charcoal);
+            color: var(--color-white);
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            transition: all 0.4s;
+        }
+
+        .lightbox-btn:hover {
+            background: var(--color-gold);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--color-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background: var(--color-white);
+            color: var(--color-black);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--color-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .lightbox-prev {
+            left: 2rem;
+        }
+
+        .lightbox-next {
+            right: 2rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--color-charcoal);
+            text-align: center;
+            padding: 6rem 4rem;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--color-cream);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 1.2rem 3.5rem;
+            background: var(--color-gold);
+            color: var(--color-black);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            transition: all 0.4s;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-white);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-cream);
+            padding: 6rem 4rem 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: var(--color-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-contact p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .masonry-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 2rem;
+            }
+
+            .filter-section {
+                padding: 1.5rem 2rem;
+            }
+
+            .masonry-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .masonry-item.wide {
+                grid-column: span 1;
+            }
+
+            .masonry-item.wide .masonry-image {
+                padding-top: 100%;
+            }
+
+            .lightbox-content {
+                flex-direction: column;
+            }
+
+            .lightbox-info {
+                width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .masonry-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .masonry-item.tall .masonry-image {
+                padding-top: 130%;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.75rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .lightbox-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">ARTISAN FURNITURE</a>
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="products.html" class="active">PRODUCTS</a></li>
+            <li><a href="board.html">REVIEWS</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="products.html">PRODUCTS</a>
+        <a href="board.html">REVIEWS</a>
+        <a href="contact.html">CONTACT</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <p class="page-hero-subtitle">COLLECTION</p>
+            <h1 class="page-hero-title">제품 갤러리</h1>
+        </div>
+    </section>
+
+    <!-- Filter -->
+    <section class="filter-section">
+        <div class="filter-wrapper">
+            <button class="filter-btn active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="sofa">소파 & 체어</button>
+            <button class="filter-btn" data-filter="table">테이블</button>
+            <button class="filter-btn" data-filter="storage">수납장</button>
+            <button class="filter-btn" data-filter="bedroom">침실</button>
+            <button class="filter-btn" data-filter="custom">맞춤 제작</button>
+        </div>
+    </section>
+
+    <!-- Masonry Gallery -->
+    <section class="section" style="background: var(--color-white);">
+        <div class="masonry-container">
+            <div class="masonry-grid">
+                <!-- Product 1 - 아르테 3인 소파 -->
+                <div class="masonry-item tall" data-category="sofa" data-id="1">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800" alt="아르테 3인 소파">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">SOFA & CHAIR</span>
+                            <h3 class="masonry-title">아르테 3인 소파</h3>
+                            <p class="masonry-price">4,200,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="product-badge">BEST</span>
+                </div>
+
+                <!-- Product 2 - 클래식 윙체어 -->
+                <div class="masonry-item" data-category="sofa" data-id="2">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=600" alt="클래식 윙체어">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">SOFA & CHAIR</span>
+                            <h3 class="masonry-title">클래식 윙체어</h3>
+                            <p class="masonry-price">1,800,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 - 미드센추리 라운지 체어 -->
+                <div class="masonry-item" data-category="sofa" data-id="3">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600" alt="미드센추리 라운지 체어">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">SOFA & CHAIR</span>
+                            <h3 class="masonry-title">미드센추리 라운지 체어</h3>
+                            <p class="masonry-price">2,400,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 - 월넛 다이닝 테이블 -->
+                <div class="masonry-item wide" data-category="table" data-id="4">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=1200" alt="월넛 다이닝 테이블 6인용">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">TABLE</span>
+                            <h3 class="masonry-title">월넛 다이닝 테이블 6인용</h3>
+                            <p class="masonry-price">3,500,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="product-badge">NEW</span>
+                </div>
+
+                <!-- Product 5 - 오크 커피 테이블 -->
+                <div class="masonry-item" data-category="table" data-id="5">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1532372320572-cda25653a26d?w=600" alt="오크 커피 테이블">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">TABLE</span>
+                            <h3 class="masonry-title">오크 커피 테이블</h3>
+                            <p class="masonry-price">980,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 - 원목 콘솔 테이블 -->
+                <div class="masonry-item" data-category="table" data-id="6">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=600" alt="원목 콘솔 테이블">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">TABLE</span>
+                            <h3 class="masonry-title">원목 콘솔 테이블</h3>
+                            <p class="masonry-price">1,200,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7 - 북유럽풍 TV 장식장 -->
+                <div class="masonry-item tall" data-category="storage" data-id="7">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800" alt="북유럽풍 TV 장식장">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">STORAGE</span>
+                            <h3 class="masonry-title">북유럽풍 TV 장식장</h3>
+                            <p class="masonry-price">1,600,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8 - 빈티지 책장 -->
+                <div class="masonry-item" data-category="storage" data-id="8">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1594620302200-9a762244a156?w=600" alt="빈티지 책장">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">STORAGE</span>
+                            <h3 class="masonry-title">빈티지 책장</h3>
+                            <p class="masonry-price">2,100,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 9 - 원목 서랍장 5단 -->
+                <div class="masonry-item" data-category="storage" data-id="9">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=600" alt="원목 서랍장 5단">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">STORAGE</span>
+                            <h3 class="masonry-title">원목 서랍장 5단</h3>
+                            <p class="masonry-price">1,450,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 10 - 킹사이즈 월넛 침대 -->
+                <div class="masonry-item wide" data-category="bedroom" data-id="10">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200" alt="킹사이즈 월넛 침대 프레임">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">BEDROOM</span>
+                            <h3 class="masonry-title">킹사이즈 월넛 침대 프레임</h3>
+                            <p class="masonry-price">2,800,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 11 - 내추럴 우드 화장대 -->
+                <div class="masonry-item" data-category="bedroom" data-id="11">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600" alt="내추럴 우드 화장대">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">BEDROOM</span>
+                            <h3 class="masonry-title">내추럴 우드 화장대</h3>
+                            <p class="masonry-price">1,350,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 12 - 맞춤 제작 -->
+                <div class="masonry-item" data-category="custom" data-id="12">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1565372195458-9de0b320ef04?w=600" alt="맞춤 제작">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">CUSTOM</span>
+                            <h3 class="masonry-title">고객 맞춤 가구</h3>
+                            <p class="masonry-price">상담 문의</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="product-badge">CUSTOM</span>
+                </div>
+
+                <!-- Product 13 - 모던 암체어 -->
+                <div class="masonry-item" data-category="sofa" data-id="13">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=600" alt="모던 암체어">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">SOFA & CHAIR</span>
+                            <h3 class="masonry-title">모던 암체어</h3>
+                            <p class="masonry-price">1,650,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 14 - 원목 사이드 테이블 -->
+                <div class="masonry-item" data-category="table" data-id="14">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1499933374294-4584851497cc?w=600" alt="원목 사이드 테이블">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">TABLE</span>
+                            <h3 class="masonry-title">원목 사이드 테이블</h3>
+                            <p class="masonry-price">650,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 15 - 원목 행거 -->
+                <div class="masonry-item tall" data-category="storage" data-id="15">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800" alt="원목 행거">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">STORAGE</span>
+                            <h3 class="masonry-title">원목 행거</h3>
+                            <p class="masonry-price">890,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 16 - 원목 협탁 -->
+                <div class="masonry-item" data-category="bedroom" data-id="16">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1551298370-9d3d53b55f96?w=600" alt="원목 협탁">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">BEDROOM</span>
+                            <h3 class="masonry-title">원목 협탁</h3>
+                            <p class="masonry-price">480,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 17 - 라운지 벤치 -->
+                <div class="masonry-item" data-category="sofa" data-id="17">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600" alt="라운지 벤치">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">SOFA & CHAIR</span>
+                            <h3 class="masonry-title">라운지 벤치</h3>
+                            <p class="masonry-price">1,280,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 18 - 라탄 스툴 -->
+                <div class="masonry-item" data-category="sofa" data-id="18">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=600" alt="라탄 스툴">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">SOFA & CHAIR</span>
+                            <h3 class="masonry-title">라탄 스툴</h3>
+                            <p class="masonry-price">320,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 19 - 원목 벽선반 -->
+                <div class="masonry-item" data-category="storage" data-id="19">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1597072689227-8882273e8f6a?w=600" alt="원목 벽선반">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">STORAGE</span>
+                            <h3 class="masonry-title">원목 벽선반</h3>
+                            <p class="masonry-price">280,000</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 20 - 맞춤 수납장 -->
+                <div class="masonry-item wide" data-category="custom" data-id="20">
+                    <div class="masonry-image">
+                        <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=1200" alt="맞춤 수납장">
+                        <div class="masonry-overlay">
+                            <span class="masonry-category">CUSTOM</span>
+                            <h3 class="masonry-title">맞춤 수납장</h3>
+                            <p class="masonry-price">상담 문의</p>
+                        </div>
+                        <div class="masonry-view">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="product-badge">CUSTOM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>원하시는 가구를 찾지 못하셨나요?</h2>
+        <p>1:1 맞춤 상담으로 완벽한 가구를 만들어 드립니다</p>
+        <a href="contact.html" class="btn-primary">맞춤 제작 상담</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>ARTISAN FURNITURE</h3>
+                <p>장인의 손길로 완성되는 프리미엄 수제 원목 가구.<br>2012년부터 이어온 장인정신으로 최고급 맞춤 가구를 제작합니다.</p>
+            </div>
+            <div class="footer-nav">
+                <h4 class="footer-title">MENU</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="board.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-categories">
+                <h4 class="footer-title">CATEGORIES</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html">소파 & 체어</a></li>
+                    <li><a href="products.html">테이블</a></li>
+                    <li><a href="products.html">수납장</a></li>
+                    <li><a href="products.html">침실</a></li>
+                    <li><a href="products.html">맞춤 제작</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4 class="footer-title">CONTACT</h4>
+                <p>경기도 파주시 탄현면<br>헤이리마을길 59-85</p>
+                <p>031-949-7788</p>
+                <p>design@artisan-furniture.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Artisan Furniture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <button class="lightbox-nav lightbox-prev">&larr;</button>
+        <button class="lightbox-nav lightbox-next">&rarr;</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image">
+                <img src="" alt="Product">
+            </div>
+            <div class="lightbox-info">
+                <div>
+                    <p class="lightbox-category">CATEGORY</p>
+                    <h2 class="lightbox-title">Product Name</h2>
+                    <p class="lightbox-price">0,000,000</p>
+                    <p class="lightbox-desc">최상급 원목을 엄선하여 숙련된 장인이 수작업으로 제작하는 프리미엄 가구입니다. 천연 오일 마감으로 나무결의 아름다움을 그대로 살렸습니다.</p>
+                    <div class="lightbox-specs">
+                        <h4>SPECIFICATIONS</h4>
+                        <ul>
+                            <li><span>재질</span><span>월넛 원목</span></li>
+                            <li><span>마감</span><span>천연 오일</span></li>
+                            <li><span>제작 기간</span><span>4-6주</span></li>
+                            <li><span>보증</span><span>3년</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="contact.html" class="lightbox-btn">상담 신청하기</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product data
+        const products = [
+            { id: 1, category: 'SOFA & CHAIR', name: '아르테 3인 소파', price: '4,200,000', desc: '이탈리아 천연 가죽과 월넛 원목 프레임이 조화를 이루는 프리미엄 3인 소파입니다. 최고급 고밀도 폼을 사용하여 편안한 착석감을 제공합니다.', material: '월넛/천연가죽', img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200' },
+            { id: 2, category: 'SOFA & CHAIR', name: '클래식 윙체어', price: '1,800,000', desc: '클래식한 윙백 디자인에 현대적 감각을 더한 프리미엄 체어입니다. 서재나 거실에서 돋보이는 품격 있는 디자인입니다.', material: '오크/패브릭', img: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1200' },
+            { id: 3, category: 'SOFA & CHAIR', name: '미드센추리 라운지 체어', price: '2,400,000', desc: '1960년대 미드센추리 디자인에서 영감을 받은 라운지 체어입니다. 곡선미 있는 디자인과 편안한 착석감이 특징입니다.', material: '월넛/천연가죽', img: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1200' },
+            { id: 4, category: 'TABLE', name: '월넛 다이닝 테이블 6인용', price: '3,500,000', desc: '북미산 블랙 월넛으로 제작된 6인용 다이닝 테이블입니다. 나무결의 자연스러운 아름다움을 살린 천연 오일 마감입니다.', material: '블랙월넛', img: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=1200' },
+            { id: 5, category: 'TABLE', name: '오크 커피 테이블', price: '980,000', desc: '유럽산 화이트 오크로 제작된 미니멀한 디자인의 커피 테이블입니다. 거실 인테리어에 자연스럽게 어울립니다.', material: '화이트오크', img: 'https://images.unsplash.com/photo-1532372320572-cda25653a26d?w=1200' },
+            { id: 6, category: 'TABLE', name: '원목 콘솔 테이블', price: '1,200,000', desc: '현관이나 거실 벽면에 배치하기 좋은 슬림한 디자인의 콘솔 테이블입니다. 정교한 수작업 디테일이 돋보입니다.', material: '월넛', img: 'https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=1200' },
+            { id: 7, category: 'STORAGE', name: '북유럽풍 TV 장식장', price: '1,600,000', desc: '스칸디나비아 디자인에서 영감을 받은 모던한 TV 장식장입니다. 실용적인 수납공간과 미니멀한 디자인이 특징입니다.', material: '오크/MDF', img: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=1200' },
+            { id: 8, category: 'STORAGE', name: '빈티지 책장', price: '2,100,000', desc: '빈티지한 감성의 대형 책장입니다. 책과 소품을 함께 디스플레이할 수 있는 오픈 선반 구조입니다.', material: '오크', img: 'https://images.unsplash.com/photo-1594620302200-9a762244a156?w=1200' },
+            { id: 9, category: 'STORAGE', name: '원목 서랍장 5단', price: '1,450,000', desc: '부드러운 개폐감의 5단 서랍장입니다. 침실이나 드레스룸에서 의류 수납용으로 활용하기 좋습니다.', material: '월넛', img: 'https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=1200' },
+            { id: 10, category: 'BEDROOM', name: '킹사이즈 월넛 침대 프레임', price: '2,800,000', desc: '블랙 월넛으로 제작된 킹사이즈 침대 프레임입니다. 견고한 구조와 세련된 디자인으로 침실의 품격을 높여줍니다.', material: '블랙월넛', img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200' },
+            { id: 11, category: 'BEDROOM', name: '내추럴 우드 화장대', price: '1,350,000', desc: '내추럴한 원목 감성의 화장대입니다. 넉넉한 수납공간과 대형 거울이 함께 구성되어 있습니다.', material: '오크', img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=1200' },
+            { id: 12, category: 'CUSTOM', name: '고객 맞춤 가구', price: '상담 문의', desc: '고객님의 공간과 라이프스타일에 맞춘 1:1 맞춤 가구를 제작해 드립니다. 상담을 통해 원하시는 디자인을 함께 구상합니다.', material: '협의', img: 'https://images.unsplash.com/photo-1565372195458-9de0b320ef04?w=1200' },
+            { id: 13, category: 'SOFA & CHAIR', name: '모던 암체어', price: '1,650,000', desc: '모던한 디자인의 암체어입니다. 편안한 팔걸이와 넉넉한 좌석이 특징입니다.', material: '오크/패브릭', img: 'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=1200' },
+            { id: 14, category: 'TABLE', name: '원목 사이드 테이블', price: '650,000', desc: '소파 옆에 두기 좋은 컴팩트한 사이드 테이블입니다. 심플한 디자인으로 어느 공간에나 잘 어울립니다.', material: '월넛', img: 'https://images.unsplash.com/photo-1499933374294-4584851497cc?w=1200' },
+            { id: 15, category: 'STORAGE', name: '원목 행거', price: '890,000', desc: '현관이나 침실에 배치하기 좋은 원목 행거입니다. 코트나 가방을 수납할 수 있습니다.', material: '오크', img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=1200' },
+            { id: 16, category: 'BEDROOM', name: '원목 협탁', price: '480,000', desc: '침대 옆에 배치하기 좋은 협탁입니다. 서랍과 오픈 수납공간이 함께 구성되어 있습니다.', material: '월넛', img: 'https://images.unsplash.com/photo-1551298370-9d3d53b55f96?w=1200' },
+            { id: 17, category: 'SOFA & CHAIR', name: '라운지 벤치', price: '1,280,000', desc: '거실이나 침실에 배치하기 좋은 라운지 벤치입니다. 창가에 두면 멋진 휴식 공간이 됩니다.', material: '오크/패브릭', img: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1200' },
+            { id: 18, category: 'SOFA & CHAIR', name: '라탄 스툴', price: '320,000', desc: '내추럴한 라탄 소재의 스툴입니다. 보조 의자나 사이드 테이블로 활용할 수 있습니다.', material: '라탄/원목', img: 'https://images.unsplash.com/photo-1503602642458-232111445657?w=1200' },
+            { id: 19, category: 'STORAGE', name: '원목 벽선반', price: '280,000', desc: '벽면에 설치하는 원목 선반입니다. 소품이나 식물을 올려두기 좋습니다.', material: '월넛', img: 'https://images.unsplash.com/photo-1597072689227-8882273e8f6a?w=1200' },
+            { id: 20, category: 'CUSTOM', name: '맞춤 수납장', price: '상담 문의', desc: '공간에 맞춘 빌트인 수납장을 제작해 드립니다. 상담을 통해 최적의 수납 솔루션을 제안합니다.', material: '협의', img: 'https://images.unsplash.com/photo-1618220179428-22790b461013?w=1200' }
+        ];
+
+        // Mobile menu
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const masonryItems = document.querySelectorAll('.masonry-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                masonryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        gsap.to(item, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.4,
+                            ease: 'power2.out',
+                            onStart: () => item.style.display = 'block'
+                        });
+                    } else {
+                        gsap.to(item, {
+                            opacity: 0,
+                            scale: 0.95,
+                            duration: 0.4,
+                            ease: 'power2.out',
+                            onComplete: () => item.style.display = 'none'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = lightbox.querySelector('.lightbox-image img');
+        const lightboxCategory = lightbox.querySelector('.lightbox-category');
+        const lightboxTitle = lightbox.querySelector('.lightbox-title');
+        const lightboxPrice = lightbox.querySelector('.lightbox-price');
+        const lightboxDesc = lightbox.querySelector('.lightbox-desc');
+        const lightboxSpecs = lightbox.querySelector('.lightbox-specs ul');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+        const lightboxPrev = lightbox.querySelector('.lightbox-prev');
+        const lightboxNext = lightbox.querySelector('.lightbox-next');
+
+        let currentProductIndex = 0;
+        let visibleProducts = [];
+
+        function updateLightbox(product) {
+            lightboxImg.src = product.img;
+            lightboxCategory.textContent = product.category;
+            lightboxTitle.textContent = product.name;
+            lightboxPrice.textContent = product.price;
+            lightboxDesc.textContent = product.desc;
+            lightboxSpecs.innerHTML = `
+                <li><span>재질</span><span>${product.material}</span></li>
+                <li><span>마감</span><span>천연 오일</span></li>
+                <li><span>제작 기간</span><span>4-6주</span></li>
+                <li><span>보증</span><span>3년</span></li>
+            `;
+        }
+
+        masonryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const productId = parseInt(item.dataset.id);
+                const product = products.find(p => p.id === productId);
+
+                visibleProducts = Array.from(masonryItems)
+                    .filter(i => i.style.display !== 'none')
+                    .map(i => parseInt(i.dataset.id));
+
+                currentProductIndex = visibleProducts.indexOf(productId);
+
+                if (product) {
+                    updateLightbox(product);
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        lightboxPrev.addEventListener('click', () => {
+            currentProductIndex = (currentProductIndex - 1 + visibleProducts.length) % visibleProducts.length;
+            const product = products.find(p => p.id === visibleProducts[currentProductIndex]);
+            updateLightbox(product);
+        });
+
+        lightboxNext.addEventListener('click', () => {
+            currentProductIndex = (currentProductIndex + 1) % visibleProducts.length;
+            const product = products.find(p => p.id === visibleProducts[currentProductIndex]);
+            updateLightbox(product);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            } else if (e.key === 'ArrowLeft') {
+                lightboxPrev.click();
+            } else if (e.key === 'ArrowRight') {
+                lightboxNext.click();
+            }
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page Hero Animation
+        gsap.from('.page-hero-content', {
+            opacity: 0,
+            y: 50,
+            duration: 1.2,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        // Masonry Items Animation
+        gsap.utils.toArray('.masonry-item').forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                delay: (index % 4) * 0.1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Parallax on hero
+        gsap.to('.page-hero-bg', {
+            scrollTrigger: {
+                trigger: '.page-hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 100,
+            ease: 'none'
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="그린클린 서비스 요금 안내 - 투명한 가격, 합리적인 비용">
+    <title>요금 안내 | 그린클린 서비스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2E7D32;
+            --light-green: #4CAF50;
+            --pale-green: #E8F5E9;
+            --dark-green: #1B5E20;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--light-green);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--primary-green);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-green);
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Common */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Pricing Cards */
+        .pricing-section {
+            background-color: var(--light-gray);
+        }
+
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(46, 125, 50, 0.15);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary-green);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card h3 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            margin-bottom: 1.5rem;
+        }
+
+        .price .amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dark-green);
+        }
+
+        .price .unit {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .price .note {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--pale-green);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .pricing-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem 2rem;
+            background-color: var(--pale-green);
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-btn:hover {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .pricing-card.popular .pricing-btn {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .pricing-card.popular .pricing-btn:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* Detailed Pricing Table */
+        .table-section {
+            background-color: var(--white);
+        }
+
+        .pricing-table-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+        }
+
+        .pricing-table thead {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .pricing-table th {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .pricing-table tbody tr {
+            border-bottom: 1px solid var(--pale-green);
+        }
+
+        .pricing-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-table tbody tr:hover {
+            background-color: var(--pale-green);
+        }
+
+        .pricing-table td {
+            color: var(--text-dark);
+        }
+
+        .pricing-table .service-name {
+            font-weight: 600;
+            color: var(--dark-green);
+        }
+
+        .pricing-table .price-cell {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* Additional Info */
+        .info-section {
+            background-color: var(--pale-green);
+        }
+
+        .info-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h4 {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Discount Section */
+        .discount-section {
+            background-color: var(--white);
+        }
+
+        .discount-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .discount-card {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .discount-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .discount-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .discount-item {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .discount-percentage {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .discount-item p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .discount-note {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--light-gray);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(46, 125, 50, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--pale-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--pale-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-table th,
+            .pricing-table td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .discount-card {
+                padding: 2rem;
+            }
+
+            .discount-card h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .page-header {
+                padding: 6rem 1rem 3rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .pricing-card {
+                padding: 2rem;
+            }
+
+            .price .amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">그린<span>클린</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="pricing.html" class="active">요금안내</a></li>
+                <li><a href="contact.html">예약/문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(135deg, rgba(232, 245, 233, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url('https://images.unsplash.com/photo-1563453392212-326f5e854473?w=1920&q=80') center/cover no-repeat;">
+        <h1>요금 안내</h1>
+        <p>투명하고 합리적인 가격으로 최상의 청소 서비스를 제공합니다</p>
+    </section>
+
+    <!-- Main Pricing Cards -->
+    <section class="pricing-section">
+        <div class="section-title">
+            <h2>서비스 요금표</h2>
+            <p>평수와 서비스 종류에 따른 기본 요금입니다</p>
+        </div>
+        <div class="pricing-grid">
+            <!-- Basic Package -->
+            <div class="pricing-card">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=200&fit=crop&q=80" alt="가정집 청소" style="width:100%; height:140px; object-fit:cover; border-radius:15px; margin-bottom:1rem;">
+                <h3>가정집 청소</h3>
+                <p class="description">아파트, 빌라 등 일반 가정집 청소</p>
+                <div class="price">
+                    <span class="amount">150,000</span><span class="unit">원~</span>
+                    <p class="note">20평 기준 / 평당 7,500원</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>거실, 방 전체 청소</li>
+                    <li>주방 청소</li>
+                    <li>욕실 청소</li>
+                    <li>창문 내부 청소</li>
+                    <li>베란다 청소</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn">견적 신청</a>
+            </div>
+
+            <!-- Popular Package -->
+            <div class="pricing-card popular">
+                <span class="popular-badge">인기</span>
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=200&fit=crop&q=80" alt="이사 청소" style="width:100%; height:140px; object-fit:cover; border-radius:15px; margin-bottom:1rem;">
+                <h3>이사 청소</h3>
+                <p class="description">입주/퇴거 시 전문 이사 청소</p>
+                <div class="price">
+                    <span class="amount">250,000</span><span class="unit">원~</span>
+                    <p class="note">25평 기준 / 평당 10,000원</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>전체 공간 정밀 청소</li>
+                    <li>붙박이장 내부 청소</li>
+                    <li>찌든 때 제거</li>
+                    <li>욕실 곰팡이 제거</li>
+                    <li>창문/샷시 청소</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn">견적 신청</a>
+            </div>
+
+            <!-- Office Package -->
+            <div class="pricing-card">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=200&fit=crop&q=80" alt="사무실 청소" style="width:100%; height:140px; object-fit:cover; border-radius:15px; margin-bottom:1rem;">
+                <h3>사무실 청소</h3>
+                <p class="description">사무실, 상업공간 전문 청소</p>
+                <div class="price">
+                    <span class="amount">200,000</span><span class="unit">원~</span>
+                    <p class="note">30평 기준 / 평당 6,700원</p>
+                </div>
+                <ul class="pricing-features">
+                    <li>업무 공간 전체 청소</li>
+                    <li>회의실 청소</li>
+                    <li>화장실 청소</li>
+                    <li>바닥 청소</li>
+                    <li>쓰레기 수거</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn">견적 신청</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Pricing Table -->
+    <section class="table-section">
+        <div class="section-title">
+            <h2>세부 요금표</h2>
+            <p>서비스별 상세 요금 안내</p>
+        </div>
+        <div class="pricing-table-container">
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>서비스</th>
+                        <th>기준</th>
+                        <th>요금</th>
+                        <th>소요 시간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="service-name">가정집 청소</td>
+                        <td>20평 기준</td>
+                        <td class="price-cell">150,000원~</td>
+                        <td>3~4시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">이사 청소 (입주)</td>
+                        <td>25평 기준</td>
+                        <td class="price-cell">250,000원~</td>
+                        <td>4~5시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">이사 청소 (퇴거)</td>
+                        <td>25평 기준</td>
+                        <td class="price-cell">200,000원~</td>
+                        <td>3~4시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">사무실 청소</td>
+                        <td>30평 기준</td>
+                        <td class="price-cell">200,000원~</td>
+                        <td>3~4시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">방역 서비스</td>
+                        <td>30평 기준</td>
+                        <td class="price-cell">100,000원~</td>
+                        <td>1~2시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">에어컨 청소</td>
+                        <td>벽걸이 1대</td>
+                        <td class="price-cell">80,000원~</td>
+                        <td>1시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">에어컨 청소</td>
+                        <td>스탠드 1대</td>
+                        <td class="price-cell">120,000원~</td>
+                        <td>1.5시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">세탁기 청소</td>
+                        <td>드럼/통돌이</td>
+                        <td class="price-cell">80,000원~</td>
+                        <td>1.5시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">매트리스 청소</td>
+                        <td>퀸 사이즈</td>
+                        <td class="price-cell">60,000원~</td>
+                        <td>1시간</td>
+                    </tr>
+                    <tr>
+                        <td class="service-name">소파 청소</td>
+                        <td>3인용</td>
+                        <td class="price-cell">80,000원~</td>
+                        <td>1.5시간</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Additional Info -->
+    <section class="info-section">
+        <div class="section-title">
+            <h2>요금 관련 안내</h2>
+            <p>서비스 이용 전 알아두세요</p>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=300&h=150&fit=crop&q=80" alt="무료 방문 견적" style="width:100%; height:100px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>무료 방문 견적</h4>
+                <p>정확한 요금 산정을 위해 무료 방문 견적 서비스를 제공합니다. 현장 확인 후 정확한 견적서를 발송해 드립니다.</p>
+            </div>
+            <div class="info-card">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=150&fit=crop&q=80" alt="다양한 결제 방법" style="width:100%; height:100px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>다양한 결제 방법</h4>
+                <p>현금, 신용카드, 계좌이체 모두 가능합니다. 법인 고객은 세금계산서 발행이 가능합니다.</p>
+            </div>
+            <div class="info-card">
+                <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=300&h=150&fit=crop&q=80" alt="서비스 지역" style="width:100%; height:100px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>서비스 지역</h4>
+                <p>서울 및 수도권 전 지역에서 서비스 제공이 가능합니다. 기타 지역은 별도 문의해 주세요.</p>
+            </div>
+            <div class="info-card">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=300&h=150&fit=crop&q=80" alt="추가 요금 안내" style="width:100%; height:100px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>추가 요금 안내</h4>
+                <p>오염 상태, 청소 범위에 따라 요금이 변동될 수 있습니다. 방문 견적 시 정확한 안내를 드립니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discount Section -->
+    <section class="discount-section">
+        <div class="discount-container">
+            <div class="discount-card">
+                <h3>할인 혜택</h3>
+                <div class="discount-list">
+                    <div class="discount-item">
+                        <div class="discount-percentage">10%</div>
+                        <p>정기 청소 고객</p>
+                    </div>
+                    <div class="discount-item">
+                        <div class="discount-percentage">5%</div>
+                        <p>재이용 고객</p>
+                    </div>
+                    <div class="discount-item">
+                        <div class="discount-percentage">10%</div>
+                        <p>2개 이상 서비스 동시 이용</p>
+                    </div>
+                    <div class="discount-item">
+                        <div class="discount-percentage">5%</div>
+                        <p>소개 고객 추천</p>
+                    </div>
+                </div>
+                <p class="discount-note">* 할인은 중복 적용되지 않으며, 가장 높은 할인율이 적용됩니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>정확한 견적이 필요하신가요?</h2>
+            <p>무료 방문 견적으로 정확한 비용을 확인하세요.<br>친절한 상담원이 안내해 드립니다.</p>
+            <a href="contact.html" class="cta-button">무료 견적 신청</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>그린클린 서비스</h4>
+                <p>친환경 청소 및 방역 전문 업체</p>
+                <p>깨끗한 공간, 건강한 내일을 만듭니다.</p>
+            </div>
+            <div class="footer-section">
+                <h4>빠른 링크</h4>
+                <a href="about.html">회사소개</a>
+                <a href="services.html">서비스 안내</a>
+                <a href="pricing.html">요금 안내</a>
+                <a href="contact.html">예약/문의</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📞 1588-1234</p>
+                <p>📧 clean@greenclean.kr</p>
+                <p>📍 서울시 영등포구 여의대로 100</p>
+                <p>⏰ 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>대표: 박청결 | 사업자등록번호: 123-45-67890</p>
+            <p>&copy; 2024 그린클린 서비스. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

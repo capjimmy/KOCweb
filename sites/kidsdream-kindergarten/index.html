@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키즈드림 유치원 - 창의융합 교육 전문 프리미엄 유치원</title>
+    <meta name="description" content="키즈드림 유치원 - 아이들의 꿈을 키우는 창의융합 교육 전문 프리미엄 유치원">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Jua&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B9D;
+            --primary-dark: #E91E63;
+            --secondary: #4FC3F7;
+            --accent-yellow: #FFD54F;
+            --accent-green: #81C784;
+            --accent-purple: #BA68C8;
+            --accent-orange: #FFB74D;
+            --text-dark: #37474F;
+            --text-light: #78909C;
+            --bg-light: #FAFAFA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 20px;
+            --radius-sm: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Floating Decorations */
+        .floating-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50px;
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .cloud-1 {
+            width: 100px;
+            height: 40px;
+            top: 15%;
+            left: 5%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .cloud-1::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 15px;
+        }
+
+        .cloud-1::after {
+            width: 35px;
+            height: 35px;
+            top: -15px;
+            left: 50px;
+        }
+
+        .cloud-2 {
+            width: 80px;
+            height: 35px;
+            top: 25%;
+            right: 10%;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        .cloud-2::before {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            left: 10px;
+        }
+
+        .cloud-2::after {
+            width: 30px;
+            height: 30px;
+            top: -12px;
+            left: 40px;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star-1 { top: 20%; left: 15%; animation-delay: 0s; }
+        .star-2 { top: 40%; right: 20%; animation-delay: 1s; }
+        .star-3 { top: 60%; left: 25%; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-10px) translateX(20px); }
+            75% { transform: translateY(-25px) translateX(5px); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .logo-emoji {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            color: white;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #FFF5F8 0%, #F0F9FF 50%, #FFF9E6 100%);
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        .hero-shapes .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary), transparent);
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), transparent);
+            bottom: 20%;
+            left: -50px;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--accent-yellow), transparent);
+            top: 40%;
+            right: 10%;
+        }
+
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent-green), transparent);
+            bottom: 30%;
+            left: 20%;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            min-height: calc(100vh - 100px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(255,183,77,0.4);
+        }
+
+        .bounce {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 20px rgba(255,107,157,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,107,157,0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: white;
+            padding: 20px 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            text-align: center;
+        }
+
+        .badge-number {
+            display: block;
+            font-family: 'Jua', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .badge-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .hero-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .hero-wave svg {
+            display: block;
+            width: 100%;
+            height: 100px;
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--bg-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Programs Section */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .program-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .program-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .program-card:hover .program-image img {
+            transform: scale(1.1);
+        }
+
+        .program-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .program-tag.new {
+            background: var(--accent-green);
+        }
+
+        .program-content {
+            padding: 25px;
+        }
+
+        .program-content h3 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .program-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .program-link {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .program-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .mt-5 {
+            margin-top: 40px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-family: 'Jua', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,107,157,0.8), rgba(186,104,200,0.8));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .gallery-overlay p {
+            font-weight: 600;
+        }
+
+        /* Testimonials Section */
+        .testimonial-section {
+            background: var(--bg-light);
+        }
+
+        .testimonial-slider {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .testimonial-rating {
+            margin-bottom: 20px;
+        }
+
+        .testimonial-rating span {
+            font-size: 1.3rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .author-name {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .author-class {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--secondary), #29B6F6);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-content h2 {
+            font-family: 'Jua', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--secondary);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.3);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline-white:hover {
+            background: white;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-desc {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact h4 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(255,107,157,0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-image {
+                order: -1;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features-grid,
+            .programs-grid,
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonial-slider {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Decorations -->
+    <div class="floating-decorations">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="star star-1">&#11088;</div>
+        <div class="star star-2">&#11088;</div>
+        <div class="star star-3">&#11088;</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-emoji">&#127752;</span>
+                <span class="logo-text">키즈드림</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">HOME</a></li>
+                <li><a href="about.html" class="nav-link">유치원 소개</a></li>
+                <li><a href="programs.html" class="nav-link">교육 프로그램</a></li>
+                <li><a href="facilities.html" class="nav-link">시설 안내</a></li>
+                <li><a href="contact.html" class="nav-link">입학 상담</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge bounce">
+                    <span>&#127775;</span> 2024 입학생 모집중!
+                </div>
+                <h1 class="hero-title fade-in">
+                    아이들의 <span class="highlight">꿈</span>이<br>
+                    자라는 곳
+                </h1>
+                <p class="hero-subtitle fade-in">
+                    창의력과 상상력을 키우는 프리미엄 교육,<br>
+                    키즈드림에서 우리 아이의 미래를 그려보세요
+                </p>
+                <div class="hero-buttons fade-in">
+                    <a href="contact.html" class="btn btn-primary">
+                        <span>&#9997;</span> 입학 상담
+                    </a>
+                    <a href="programs.html" class="btn btn-secondary">
+                        <span>&#128218;</span> 프로그램 보기
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image fade-in">
+                <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600" alt="행복한 아이들">
+                <div class="hero-image-badge">
+                    <span class="badge-number">28</span>
+                    <span class="badge-text">전문 교사진</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path fill="#fff" d="M0,50 C360,100 720,0 1080,50 C1260,75 1380,100 1440,100 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#127919;</span>
+                <h2 class="section-title">키즈드림이 <span class="highlight">특별한</span> 이유</h2>
+                <p class="section-desc">우리 아이의 꿈을 위한 최고의 교육 환경을 제공합니다</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon" style="background: #FFE5E5;">
+                        <span>&#127912;</span>
+                    </div>
+                    <h3>창의융합 교육</h3>
+                    <p>예술, 과학, 수학을 융합한 STEAM 교육으로 창의력을 키워요</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon" style="background: #E5F3FF;">
+                        <span>&#128101;</span>
+                    </div>
+                    <h3>전문 교사진</h3>
+                    <p>유아교육 전문 자격을 갖춘 28명의 선생님이 함께해요</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon" style="background: #E5FFE9;">
+                        <span>&#127793;</span>
+                    </div>
+                    <h3>친환경 시설</h3>
+                    <p>자연 친화적인 놀이 공간과 안전한 교육 환경을 갖추고 있어요</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon" style="background: #FFF5E5;">
+                        <span>&#127828;</span>
+                    </div>
+                    <h3>건강한 급식</h3>
+                    <p>영양사가 설계한 균형 잡힌 유기농 급식을 제공해요</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Preview -->
+    <section class="section programs-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128218;</span>
+                <h2 class="section-title">교육 <span class="highlight">프로그램</span></h2>
+                <p class="section-desc">아이들의 잠재력을 깨우는 다양한 프로그램</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card fade-in">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="창의미술">
+                        <div class="program-tag">인기</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>창의미술</h3>
+                        <p>다양한 재료와 기법으로 표현력을 키워요</p>
+                        <a href="programs.html" class="program-link">자세히 보기 &rarr;</a>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1567057419565-4349c49d8a04?w=400" alt="영어동화">
+                        <div class="program-tag new">NEW</div>
+                    </div>
+                    <div class="program-content">
+                        <h3>영어동화</h3>
+                        <p>재미있는 동화로 자연스럽게 영어와 친해져요</p>
+                        <a href="programs.html" class="program-link">자세히 보기 &rarr;</a>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1535572290543-960a8046f5af?w=400" alt="과학탐구">
+                    </div>
+                    <div class="program-content">
+                        <h3>과학탐구</h3>
+                        <p>실험과 관찰로 과학적 사고력을 길러요</p>
+                        <a href="programs.html" class="program-link">자세히 보기 &rarr;</a>
+                    </div>
+                </div>
+                <div class="program-card fade-in">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400" alt="음악놀이">
+                    </div>
+                    <div class="program-content">
+                        <h3>음악놀이</h3>
+                        <p>다양한 악기와 노래로 음악적 감성을 키워요</p>
+                        <a href="programs.html" class="program-link">자세히 보기 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="programs.html" class="btn btn-primary">모든 프로그램 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">&#127891;</div>
+                    <div class="stat-number"><span class="counter" data-target="14">0</span>년</div>
+                    <div class="stat-label">교육 역사</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">&#128102;</div>
+                    <div class="stat-number"><span class="counter" data-target="280">0</span>명</div>
+                    <div class="stat-label">재원생</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">&#128105;</div>
+                    <div class="stat-number"><span class="counter" data-target="28">0</span>명</div>
+                    <div class="stat-label">전문 교사</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">&#127775;</div>
+                    <div class="stat-number"><span class="counter" data-target="98">0</span>%</div>
+                    <div class="stat-label">학부모 만족도</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Preview -->
+    <section class="section gallery-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128247;</span>
+                <h2 class="section-title">유치원 <span class="highlight">앨범</span></h2>
+                <p class="section-desc">아이들의 즐거운 일상을 담았어요</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=400" alt="미술 시간">
+                    <div class="gallery-overlay">
+                        <span>&#127912;</span>
+                        <p>창의미술 시간</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400" alt="놀이 시간">
+                    <div class="gallery-overlay">
+                        <span>&#127881;</span>
+                        <p>신나는 놀이시간</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400" alt="수업 시간">
+                    <div class="gallery-overlay">
+                        <span>&#128218;</span>
+                        <p>즐거운 수업</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=400" alt="야외 활동">
+                    <div class="gallery-overlay">
+                        <span>&#127793;</span>
+                        <p>자연 탐구 활동</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400" alt="발표회">
+                    <div class="gallery-overlay">
+                        <span>&#127926;</span>
+                        <p>발표회 무대</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400" alt="급식 시간">
+                    <div class="gallery-overlay">
+                        <span>&#127828;</span>
+                        <p>맛있는 급식</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonial-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128172;</span>
+                <h2 class="section-title">학부모님 <span class="highlight">후기</span></h2>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-rating">
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                    </div>
+                    <p class="testimonial-text">
+                        "아이가 매일 유치원 가는 것을 너무 좋아해요. 선생님들도 정말 따뜻하시고,
+                        다양한 프로그램 덕분에 아이가 많이 성장했어요."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">&#128105;</div>
+                        <div class="author-info">
+                            <span class="author-name">민서 엄마</span>
+                            <span class="author-class">햇살반 학부모</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-rating">
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                    </div>
+                    <p class="testimonial-text">
+                        "창의미술 프로그램이 정말 좋아요. 아이의 표현력이 눈에 띄게 발전했고,
+                        자신감도 많이 생겼어요. 추천합니다!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">&#128104;</div>
+                        <div class="author-info">
+                            <span class="author-name">준호 아빠</span>
+                            <span class="author-class">무지개반 학부모</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-rating">
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                        <span>&#11088;</span>
+                    </div>
+                    <p class="testimonial-text">
+                        "급식이 정말 건강하고 맛있어서 편식하던 아이가 골고루 먹게 됐어요.
+                        위생관리도 철저해서 안심이 돼요."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">&#128105;</div>
+                        <div class="author-info">
+                            <span class="author-name">수아 엄마</span>
+                            <span class="author-class">별님반 학부모</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <div class="cta-icon">&#127752;</div>
+                <h2>우리 아이의 꿈을 함께 키워요!</h2>
+                <p>2024년도 입학 상담을 시작합니다. 지금 바로 문의하세요.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-white">입학 상담 신청</a>
+                    <a href="tel:031-714-8900" class="btn btn-outline-white">
+                        <span>&#128222;</span> 031-714-8900
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <span class="logo-emoji">&#127752;</span>
+                        <span class="logo-text">키즈드림</span>
+                    </a>
+                    <p class="footer-desc">
+                        창의융합 교육 전문 프리미엄 유치원<br>
+                        아이들의 꿈이 자라는 곳
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="about.html">유치원 소개</a></li>
+                        <li><a href="programs.html">교육 프로그램</a></li>
+                        <li><a href="facilities.html">시설 안내</a></li>
+                        <li><a href="contact.html">입학 상담</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>프로그램</h4>
+                    <ul>
+                        <li><a href="programs.html">창의미술</a></li>
+                        <li><a href="programs.html">영어동화</a></li>
+                        <li><a href="programs.html">과학탐구</a></li>
+                        <li><a href="programs.html">음악놀이</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>연락처</h4>
+                    <p><span>&#128205;</span> 경기도 분당구 정자동 178-1</p>
+                    <p><span>&#128222;</span> 031-714-8900</p>
+                    <p><span>&#9200;</span> 평일 07:30 - 19:30</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 키즈드림 유치원. All Rights Reserved.</p>
+                <p>원장: 문희정 | 설립: 2010년</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" aria-label="맨 위로">
+        <span>&#8593;</span>
+    </button>
+
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        };
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+
+                    // Start counter animation when stats section is visible
+                    if (entry.target.closest('.stats-section')) {
+                        animateCounters();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

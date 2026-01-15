@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스타핏 짐 | STARFIT GYM - 프리미엄 피트니스</title>
+    <meta name="description" content="스타핏 짐은 프리미엄 퍼스널 트레이닝 전문 피트니스입니다. 최고의 트레이너와 함께 목표를 달성하세요.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF1744;
+            --primary-dark: #D50000;
+            --primary-glow: rgba(255, 23, 68, 0.4);
+            --dark-bg: #0A0A0A;
+            --dark-card: #121212;
+            --dark-surface: #1E1E1E;
+            --white: #FFFFFF;
+            --gray: #9E9E9E;
+            --gradient: linear-gradient(135deg, #FF1744 0%, #FF6B00 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            box-shadow: 0 5px 30px var(--primary-glow);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .navbar-brand span {
+            color: var(--primary);
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=1080&fit=crop') center/cover no-repeat;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(255, 23, 68, 0.2) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px var(--primary-glow); }
+            50% { box-shadow: 0 0 40px var(--primary-glow), 0 0 60px var(--primary-glow); }
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-title span {
+            display: block;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem 3rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+            box-shadow: 0 10px 40px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 50px var(--primary-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark-bg);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero-stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--dark-surface);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-desc {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(255, 23, 68, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Programs Preview */
+        .programs-preview {
+            background: var(--dark-card);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .program-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+        }
+
+        .program-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .program-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .program-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            transform: translateY(30px);
+            transition: all 0.4s ease;
+        }
+
+        .program-card:hover .program-overlay {
+            transform: translateY(0);
+        }
+
+        .program-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .program-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            opacity: 0;
+            transition: opacity 0.4s ease 0.1s;
+        }
+
+        .program-card:hover .program-desc {
+            opacity: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--dark-bg);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .footer-brand span {
+            color: var(--primary);
+        }
+
+        .footer-desc {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: var(--dark-surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-surface);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: var(--gradient);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 999;
+            border: none;
+            box-shadow: 0 10px 30px var(--primary-glow);
+            font-size: 1.2rem;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-title { font-size: 4rem; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .programs-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title { font-size: 3rem; }
+            .hero-stats { flex-wrap: wrap; gap: 2rem; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 100px 2rem;
+                gap: 1.5rem;
+                transition: right 0.4s ease;
+                box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+            }
+
+            .navbar-nav.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
+            .hero-title { font-size: 2.5rem; }
+            .hero-stats { flex-direction: column; align-items: flex-start; }
+            .hero-stat-number { font-size: 2.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .programs-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title { font-size: 2rem; }
+            .hero-buttons { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">STAR<span>FIT</span></a>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="programs.html" class="nav-link">Programs</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge animate">Premium Fitness</span>
+                <h1 class="hero-title animate delay-1">
+                    TRANSFORM<br>
+                    <span>YOUR BODY</span>
+                </h1>
+                <p class="hero-subtitle animate delay-2">
+                    스타핏과 함께 당신의 한계를 넘어서세요.
+                    전문 트레이너의 1:1 맞춤 코칭으로 최고의 결과를 경험하세요.
+                </p>
+                <div class="hero-buttons animate delay-3">
+                    <a href="programs.html" class="btn btn-primary">프로그램 보기</a>
+                    <a href="contact.html" class="btn btn-outline">무료 상담 신청</a>
+                </div>
+                <div class="hero-stats animate delay-4">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">5,000+</div>
+                        <div class="hero-stat-label">회원</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">35</div>
+                        <div class="hero-stat-label">전문 트레이너</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">6년</div>
+                        <div class="hero-stat-label">운영 경력</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Why Choose Us</span>
+                <h2 class="section-title">왜 <span>스타핏</span>인가?</h2>
+                <p class="section-desc">최고의 시설과 전문 트레이너가 함께합니다</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#127942;</div>
+                    <h3 class="feature-title">전문 트레이너</h3>
+                    <p class="feature-desc">국가 공인 자격증을 보유한 35명의 전문 트레이너</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128170;</div>
+                    <h3 class="feature-title">최신 장비</h3>
+                    <p class="feature-desc">글로벌 브랜드의 최신 피트니스 장비 완비</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9200;</div>
+                    <h3 class="feature-title">24시간 운영</h3>
+                    <p class="feature-desc">언제든지 원하는 시간에 운동 가능</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127828;</div>
+                    <h3 class="feature-title">맞춤 식단</h3>
+                    <p class="feature-desc">개인별 목표에 맞는 영양 상담 제공</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Preview -->
+    <section class="section programs-preview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Programs</span>
+                <h2 class="section-title">트레이닝 <span>프로그램</span></h2>
+                <p class="section-desc">목표에 맞는 전문 프로그램을 만나보세요</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c149a?w=400&h=500&fit=crop" alt="다이어트">
+                    <div class="program-overlay">
+                        <h3 class="program-name">다이어트</h3>
+                        <p class="program-desc">과학적인 체중 감량 프로그램</p>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&h=500&fit=crop" alt="근력 강화">
+                    <div class="program-overlay">
+                        <h3 class="program-name">근력 강화</h3>
+                        <p class="program-desc">체계적인 근육 증가 프로그램</p>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=500&fit=crop" alt="체형 교정">
+                    <div class="program-overlay">
+                        <h3 class="program-name">체형 교정</h3>
+                        <p class="program-desc">바른 자세와 체형 교정</p>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=400&h=500&fit=crop" alt="기능성 트레이닝">
+                    <div class="program-overlay">
+                        <h3 class="program-name">기능성 트레이닝</h3>
+                        <p class="program-desc">일상 기능 향상 훈련</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="programs.html" class="btn btn-primary">전체 프로그램 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">지금 바로 시작하세요</h2>
+            <p class="cta-text">
+                첫 방문 고객에게 무료 체험권과 1회 PT를 제공해드립니다.
+                지금 바로 상담을 신청하고 변화를 시작하세요!
+            </p>
+            <a href="contact.html" class="btn btn-white">무료 상담 신청</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-brand">STAR<span>FIT</span></div>
+                    <p class="footer-desc">
+                        프리미엄 퍼스널 트레이닝 전문 피트니스.<br>
+                        당신의 건강한 변화를 함께합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="YouTube">YT</a>
+                        <a href="#" aria-label="Blog">B</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">바로가기</h4>
+                    <div class="footer-links">
+                        <a href="index.html">홈</a>
+                        <a href="about.html">짐 소개</a>
+                        <a href="programs.html">프로그램</a>
+                        <a href="contact.html">문의하기</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">프로그램</h4>
+                    <div class="footer-links">
+                        <a href="programs.html">다이어트</a>
+                        <a href="programs.html">근력 강화</a>
+                        <a href="programs.html">체형 교정</a>
+                        <a href="programs.html">기능성 트레이닝</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">연락처</h4>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">&#128205;</div>
+                        <span>서울특별시 영등포구 여의대로 108, B1층</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">&#128222;</div>
+                        <span>02-782-9999</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">&#9993;</div>
+                        <span>info@starfit.co.kr</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 STARFIT. All rights reserved.</p>
+                <p>대표: 민준혁 | 사업자등록번호: 234-56-78901</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" aria-label="맨 위로">&#8593;</button>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navbarNav = document.querySelector('.navbar-nav');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navbarNav.classList.toggle('active');
+            document.body.style.overflow = navbarNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        document.querySelectorAll('.navbar-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navbarNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .program-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

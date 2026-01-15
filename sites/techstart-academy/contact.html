@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담신청 | 테크스타트 아카데미</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --primary-cyan: #06B6D4;
+            --primary-green: #10B981;
+            --primary-orange: #F59E0B;
+            --neon-purple: #A855F7;
+            --neon-cyan: #22D3EE;
+            --neon-green: #34D399;
+            --dark-bg: #0F0F1A;
+            --dark-card: #1A1A2E;
+            --dark-border: #2D2D44;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --text-muted: #6B6B80;
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            --gradient-cyan: linear-gradient(135deg, #06B6D4 0%, #22D3EE 100%);
+            --gradient-green: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-orange: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+            --gradient-mixed: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #10B981 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-mixed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-mixed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-purple);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 160px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 0 2rem 100px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-mixed);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-label .required {
+            color: var(--neon-purple);
+            margin-left: 0.25rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23A0A0B0' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .form-checkbox input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-purple);
+            cursor: pointer;
+        }
+
+        .form-checkbox-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .form-checkbox-label a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+
+        .form-checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-purple);
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--primary-purple);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card:nth-child(1) .info-icon { background: rgba(139, 92, 246, 0.2); }
+        .info-card:nth-child(2) .info-icon { background: rgba(6, 182, 212, 0.2); }
+        .info-card:nth-child(3) .info-icon { background: rgba(16, 185, 129, 0.2); }
+        .info-card:nth-child(4) .info-icon { background: rgba(245, 158, 11, 0.2); }
+
+        .info-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .info-content a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .info-content a:hover {
+            text-decoration: underline;
+        }
+
+        .info-highlight {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--neon-green);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Quick Contact */
+        .quick-contact {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quick-btn {
+            flex: 1;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .quick-btn:hover {
+            border-color: var(--primary-purple);
+            color: var(--text-primary);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 80px 2rem;
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .map-wrapper {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--dark-card) 0%, var(--dark-bg) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .map-placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .map-placeholder-text {
+            font-size: 1.1rem;
+        }
+
+        .location-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .location-item {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .location-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .location-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .location-value {
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 2rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .faq-question h4 {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-question h4::before {
+            content: 'Q';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--neon-purple);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .faq-toggle {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 2rem 1.5rem;
+            padding-left: calc(2rem + 28px + 1rem);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Success Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 450px;
+            text-align: center;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-text {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .modal-close {
+            padding: 1rem 2rem;
+            background: var(--gradient-purple);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .location-details {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--dark-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-contact {
+                flex-direction: column;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">&lt;/&gt;</div>
+                <div class="logo-text">테크스타트 <span>아카데미</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="courses.html">교육과정</a></li>
+                <li><a href="curriculum.html">커리큘럼</a></li>
+                
+                <li><a href="success.html">수료생 후기</a></li>
+                <li><a href="contact.html" class="active">상담신청</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">무료 상담</a>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg"></div>
+        <div class="page-header-content">
+            <span class="page-tag">&lt;contact&gt;</span>
+            <h1 class="page-title">상담 신청</h1>
+            <p class="page-subtitle">
+                궁금한 점이 있으시면 언제든 문의해 주세요.<br>
+                전문 상담사가 친절하게 안내해 드립니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper fade-in">
+                    <h2 class="form-title">무료 상담 신청</h2>
+                    <p class="form-subtitle">아래 양식을 작성해 주시면 24시간 내에 연락드리겠습니다.</p>
+
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    이름 <span class="required">*</span>
+                                </label>
+                                <input type="text" class="form-input" placeholder="홍길동" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    연락처 <span class="required">*</span>
+                                </label>
+                                <input type="tel" class="form-input" placeholder="010-1234-5678" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                이메일 <span class="required">*</span>
+                            </label>
+                            <input type="email" class="form-input" placeholder="email@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                관심 과정 <span class="required">*</span>
+                            </label>
+                            <select class="form-select" required>
+                                <option value="">과정을 선택해 주세요</option>
+                                <option value="web">풀스택 웹 개발</option>
+                                <option value="data">데이터 사이언스</option>
+                                <option value="ai">AI/머신러닝</option>
+                                <option value="mobile">모바일 앱 개발</option>
+                                <option value="undecided">아직 미정</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">현재 직업</label>
+                                <select class="form-select">
+                                    <option value="">선택해 주세요</option>
+                                    <option value="student">학생</option>
+                                    <option value="jobseeker">취업 준비생</option>
+                                    <option value="employed">직장인</option>
+                                    <option value="freelancer">프리랜서</option>
+                                    <option value="other">기타</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">국비지원 여부</label>
+                                <select class="form-select">
+                                    <option value="">선택해 주세요</option>
+                                    <option value="yes">내일배움카드 보유</option>
+                                    <option value="planning">발급 예정</option>
+                                    <option value="no">해당 없음</option>
+                                    <option value="unknown">잘 모름</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">문의 내용</label>
+                            <textarea class="form-textarea" placeholder="궁금한 점이나 상담 받고 싶은 내용을 자유롭게 작성해 주세요."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-checkbox">
+                                <input type="checkbox" required>
+                                <span class="form-checkbox-label">
+                                    <a href="#">개인정보처리방침</a>에 동의합니다. (필수)
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-checkbox">
+                                <input type="checkbox">
+                                <span class="form-checkbox-label">
+                                    마케팅 정보 수신에 동의합니다. (선택)
+                                </span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            상담 신청하기
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <div class="info-card fade-in">
+                        <div class="info-icon">📞</div>
+                        <h3 class="info-title">전화 상담</h3>
+                        <div class="info-content">
+                            <a href="tel:02-1234-5678">02-1234-5678</a><br>
+                            평일 09:00 - 21:00<br>
+                            토요일 10:00 - 18:00
+                            <span class="info-highlight">점심시간 12:00-13:00</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card fade-in">
+                        <div class="info-icon">💬</div>
+                        <h3 class="info-title">카카오톡 상담</h3>
+                        <div class="info-content">
+                            카카오톡 채널에서 실시간 상담을 받아보세요.<br>
+                            <a href="#">@테크스타트아카데미</a>
+                            <span class="info-highlight">24시간 챗봇 상담 가능</span>
+                        </div>
+                        <div class="quick-contact">
+                            <a href="#" class="quick-btn">
+                                <span>K</span> 카카오톡 상담
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="info-card fade-in">
+                        <div class="info-icon">📧</div>
+                        <h3 class="info-title">이메일 문의</h3>
+                        <div class="info-content">
+                            <a href="mailto:contact@techstart.co.kr">contact@techstart.co.kr</a><br>
+                            24시간 이내 답변 드립니다.
+                        </div>
+                    </div>
+
+                    <div class="info-card fade-in">
+                        <div class="info-icon">📍</div>
+                        <h3 class="info-title">오시는 길</h3>
+                        <div class="info-content">
+                            서울특별시 강남구 테헤란로 123<br>
+                            테크빌딩 5층<br>
+                            <span class="info-highlight">강남역 2번 출구 도보 5분</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">// location</span>
+                <h2 class="section-title">오시는 길</h2>
+                <p class="section-subtitle">강남역에서 도보 5분 거리에 위치해 있습니다</p>
+            </div>
+            <div class="map-wrapper fade-in">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1200&h=400&fit=crop" alt="강남역 위치 지도" style="width: 100%; height: 400px; object-fit: cover;">
+            </div>
+            <div class="location-details">
+                <div class="location-item fade-in">
+                    <div class="location-icon">M</div>
+                    <div class="location-label">지하철</div>
+                    <div class="location-value">강남역 2번 출구 도보 5분</div>
+                </div>
+                <div class="location-item fade-in">
+                    <div class="location-icon">B</div>
+                    <div class="location-label">버스</div>
+                    <div class="location-value">강남역 정류장 하차</div>
+                </div>
+                <div class="location-item fade-in">
+                    <div class="location-icon">P</div>
+                    <div class="location-label">주차</div>
+                    <div class="location-value">건물 지하 주차장 이용 (2시간 무료)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">// faq</span>
+                <h2 class="section-title">자주 묻는 질문</h2>
+                <p class="section-subtitle">상담 전 궁금한 점을 먼저 확인해 보세요</p>
+            </div>
+
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>비전공자도 수강할 수 있나요?</h4>
+                    <div class="faq-toggle">&#9660;</div>
+                </div>
+                <div class="faq-answer">
+                    네, 물론입니다! 테크스타트 아카데미는 비전공자를 위한 맞춤형 커리큘럼을 제공합니다.
+                    실제로 수료생의 60% 이상이 비전공자이며, 체계적인 단계별 학습과 1:1 멘토링을 통해
+                    충분히 따라올 수 있도록 지원합니다.
+                </div>
+            </div>
+
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>국비지원을 받으려면 어떻게 해야 하나요?</h4>
+                    <div class="faq-toggle">&#9660;</div>
+                </div>
+                <div class="faq-answer">
+                    내일배움카드를 발급받으시면 국비지원 과정을 수강하실 수 있습니다.
+                    고용센터 방문 또는 HRD-Net에서 온라인으로 신청 가능하며,
+                    발급까지 약 2-3주 정도 소요됩니다. 상담 시 자세한 안내를 도와드립니다.
+                </div>
+            </div>
+
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>수업 시간과 기간은 어떻게 되나요?</h4>
+                    <div class="faq-toggle">&#9660;</div>
+                </div>
+                <div class="faq-answer">
+                    과정에 따라 다르지만, 대부분의 과정은 평일 오전 9시 30분부터 오후 6시 30분까지 진행됩니다.
+                    교육 기간은 20주~28주이며, 주 5일 집중 교육으로 진행됩니다.
+                    야간반 및 주말반도 일부 과정에서 운영하고 있으니 상담 시 문의해 주세요.
+                </div>
+            </div>
+
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>취업 연계 서비스는 어떻게 제공되나요?</h4>
+                    <div class="faq-toggle">&#9660;</div>
+                </div>
+                <div class="faq-answer">
+                    테크스타트 아카데미는 150개 이상의 협력 기업과 함께 취업 연계 서비스를 제공합니다.
+                    이력서 첨삭, 모의 기술 면접, 포트폴리오 리뷰, 기업 매칭까지 취업에 필요한
+                    전 과정을 지원합니다. 수료 후 6개월간 무료 취업 지원 서비스를 받으실 수 있습니다.
+                </div>
+            </div>
+
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4>환불 정책은 어떻게 되나요?</h4>
+                    <div class="faq-toggle">&#9660;</div>
+                </div>
+                <div class="faq-answer">
+                    교육 시작 전 100% 환불, 교육 진행 1/3 미만 시 2/3 환불,
+                    1/3 이상 1/2 미만 시 1/2 환불, 1/2 이상 진행 시 환불이 불가합니다.
+                    국비지원 과정의 경우 별도의 환불 규정이 적용되니 상담 시 안내받으시기 바랍니다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">&lt;/&gt;</div>
+                        <div class="logo-text">테크스타트 <span>아카데미</span></div>
+                    </a>
+                    <p class="footer-desc">
+                        테크스타트 아카데미는 실무 중심의 IT 교육으로
+                        여러분의 성공적인 개발자 커리어를 응원합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="YouTube">YT</a>
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="Blog">B</a>
+                        <a href="#" aria-label="GitHub">GH</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">교육과정</h4>
+                    <ul class="footer-links">
+                        <li><a href="courses.html">풀스택 웹 개발</a></li>
+                        <li><a href="courses.html">데이터 사이언스</a></li>
+                        <li><a href="courses.html">AI/머신러닝</a></li>
+                        <li><a href="courses.html">모바일 앱 개발</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">아카데미</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">소개</a></li>
+                        
+                        <li><a href="success.html">수료생 후기</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">고객지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">환불 정책</a></li>
+                        <li><a href="#">제휴 문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2024 테크스타트 아카데미. All rights reserved.<br>
+                    서울특별시 강남구 테헤란로 123 테크빌딩 5층 | 사업자등록번호: 123-45-67890
+                </p>
+                <div class="footer-legal">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-icon">&#10003;</div>
+            <h3 class="modal-title">상담 신청이 완료되었습니다!</h3>
+            <p class="modal-text">
+                입력하신 연락처로 24시간 내에 전문 상담사가 연락드리겠습니다.
+                빠른 상담을 원하시면 02-1234-5678로 전화해 주세요.
+            </p>
+            <button class="modal-close" onclick="closeModal()">확인</button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        }
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('open');
+        }
+
+        // Form Submit
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('successModal').classList.add('active');
+        });
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+            document.getElementById('contactForm').reset();
+        }
+
+        // Close modal on overlay click
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.75rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.98)';
+            } else {
+                navbar.style.padding = '1rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

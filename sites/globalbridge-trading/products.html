@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>취급품목 | 글로벌브릿지 무역</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2a4a;
+            --navy-dark: #0f1a2e;
+            --navy-light: #2a3a5a;
+            --gold: #c9a227;
+            --gold-light: #d4b84a;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray: #666666;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--navy);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            transition: 0.3s;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(15, 26, 46, 0.85) 0%, rgba(26, 42, 74, 0.85) 50%, rgba(42, 58, 90, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=1920&q=80') center/cover no-repeat;
+            padding: 150px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a227' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .page-hero h1 span {
+            color: var(--gold);
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .breadcrumb {
+            margin-top: 20px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .breadcrumb a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .gold-line {
+            width: 60px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 15px auto;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            background-color: var(--white);
+            padding: 60px 20px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            border: 2px solid var(--navy);
+            background-color: transparent;
+            color: var(--navy);
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--navy);
+            color: var(--white);
+        }
+
+        /* Products Section */
+        .products {
+            background-color: var(--gray-light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--gold);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-category {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: var(--gold);
+            color: var(--navy);
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 15px;
+            margin-bottom: 12px;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Main Categories Section */
+        .main-categories {
+            background-color: var(--white);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+        }
+
+        .category-card {
+            background-color: var(--gray-light);
+            border-radius: 20px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            border-bottom-color: var(--gold);
+            background-color: var(--white);
+        }
+
+        .category-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+
+        .category-card h3 {
+            font-size: 1.4rem;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .category-card p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .category-items {
+            list-style: none;
+            text-align: left;
+            padding: 20px;
+            background-color: rgba(26, 42, 74, 0.05);
+            border-radius: 10px;
+        }
+
+        .category-items li {
+            padding: 8px 0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-items li::before {
+            content: '\2713';
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Trade Regions Section */
+        .trade-regions {
+            background: linear-gradient(135deg, rgba(15, 26, 46, 0.9) 0%, rgba(26, 42, 74, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1577993199312-ddf758fe2bfb?w=1920&q=80') center/cover no-repeat;
+            color: var(--white);
+        }
+
+        .trade-regions .section-title h2 {
+            color: var(--white);
+        }
+
+        .trade-regions .section-title p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .regions-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .region-card {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        .region-card:hover {
+            background-color: rgba(255,255,255,0.15);
+            transform: scale(1.02);
+        }
+
+        .region-card h3 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .region-card h3 span {
+            font-size: 2rem;
+        }
+
+        .region-card p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .region-products {
+            list-style: none;
+        }
+
+        .region-products li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .region-products li:last-child {
+            border-bottom: none;
+        }
+
+        .region-products li::before {
+            content: '\25BA';
+            color: var(--gold);
+            font-size: 0.7rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background-color: var(--gray-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,42,74,0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--navy-dark);
+            color: var(--white);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand span {
+            color: var(--gold);
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .footer-links h4,
+        .footer-contact h4,
+        .footer-hours h4 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-contact p,
+        .footer-hours p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: var(--navy);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .regions-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Global<span>Bridge</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="products.html" class="active">취급품목</a></li>
+                <li><a href="contact.html">연락처</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>취급 <span>품목</span></h1>
+            <p>다양한 산업 분야의 수출입 품목을 취급합니다</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a> &gt; 취급품목
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="category-filter">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="electronics">전자/IT</button>
+                <button class="filter-btn" data-filter="machinery">기계/설비</button>
+                <button class="filter-btn" data-filter="chemical">화학/소재</button>
+                <button class="filter-btn" data-filter="food">식품/농산물</button>
+                <button class="filter-btn" data-filter="textile">섬유/의류</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Categories Section -->
+    <section class="main-categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>주요 취급 품목</h2>
+                <div class="gold-line"></div>
+                <p>다양한 산업 분야에서 경쟁력 있는 제품을 거래합니다</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">&#128187;</div>
+                    <h3>전자/IT 제품</h3>
+                    <p>반도체, 디스플레이, 통신장비 등 첨단 전자제품을 취급합니다</p>
+                    <ul class="category-items">
+                        <li>반도체 부품 및 장비</li>
+                        <li>디스플레이 패널</li>
+                        <li>통신 장비</li>
+                        <li>컴퓨터 주변기기</li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#9881;</div>
+                    <h3>기계/설비</h3>
+                    <p>산업용 기계, 제조 설비, 자동화 장비를 전문 취급합니다</p>
+                    <ul class="category-items">
+                        <li>산업용 로봇</li>
+                        <li>CNC 공작기계</li>
+                        <li>포장/물류 설비</li>
+                        <li>펌프/밸브류</li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#129514;</div>
+                    <h3>화학/소재</h3>
+                    <p>정밀화학, 기능성 소재, 원자재를 글로벌 네트워크로 공급합니다</p>
+                    <ul class="category-items">
+                        <li>석유화학 제품</li>
+                        <li>정밀화학 원료</li>
+                        <li>플라스틱/고무</li>
+                        <li>도료/접착제</li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#127806;</div>
+                    <h3>식품/농산물</h3>
+                    <p>신선식품, 가공식품, 농수산물을 안전하게 수출입합니다</p>
+                    <ul class="category-items">
+                        <li>곡물/유지류</li>
+                        <li>수산물</li>
+                        <li>가공식품</li>
+                        <li>음료/주류</li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#128085;</div>
+                    <h3>섬유/의류</h3>
+                    <p>원단, 의류, 패션잡화를 글로벌 브랜드와 거래합니다</p>
+                    <ul class="category-items">
+                        <li>원단/직물</li>
+                        <li>기능성 섬유</li>
+                        <li>의류/패션</li>
+                        <li>가방/잡화</li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#127981;</div>
+                    <h3>건설/자재</h3>
+                    <p>건축자재, 인테리어 소재, 건설장비를 취급합니다</p>
+                    <ul class="category-items">
+                        <li>철강/비철금속</li>
+                        <li>시멘트/골재</li>
+                        <li>인테리어 자재</li>
+                        <li>건설 장비</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid Section -->
+    <section class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>인기 품목</h2>
+                <div class="gold-line"></div>
+                <p>가장 많이 거래되는 인기 수출입 품목입니다</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card" data-category="electronics">
+                    <div class="product-image">&#128225;</div>
+                    <div class="product-info">
+                        <span class="product-category">전자/IT</span>
+                        <h3>반도체 부품</h3>
+                        <p>메모리칩, CPU, 센서류 등 다양한 반도체 부품</p>
+                    </div>
+                </div>
+                <div class="product-card" data-category="machinery">
+                    <div class="product-image">&#128736;</div>
+                    <div class="product-info">
+                        <span class="product-category">기계/설비</span>
+                        <h3>산업용 로봇</h3>
+                        <p>자동화 생산라인용 로봇 및 제어시스템</p>
+                    </div>
+                </div>
+                <div class="product-card" data-category="chemical">
+                    <div class="product-image">&#129514;</div>
+                    <div class="product-info">
+                        <span class="product-category">화학/소재</span>
+                        <h3>정밀화학 원료</h3>
+                        <p>제약, 화장품용 고순도 화학 원료</p>
+                    </div>
+                </div>
+                <div class="product-card" data-category="food">
+                    <div class="product-image">&#127813;</div>
+                    <div class="product-info">
+                        <span class="product-category">식품/농산물</span>
+                        <h3>수산물</h3>
+                        <p>신선/냉동 수산물 및 수산가공품</p>
+                    </div>
+                </div>
+                <div class="product-card" data-category="electronics">
+                    <div class="product-image">&#128250;</div>
+                    <div class="product-info">
+                        <span class="product-category">전자/IT</span>
+                        <h3>디스플레이 패널</h3>
+                        <p>LCD, OLED 디스플레이 패널 및 부품</p>
+                    </div>
+                </div>
+                <div class="product-card" data-category="textile">
+                    <div class="product-image">&#129510;</div>
+                    <div class="product-info">
+                        <span class="product-category">섬유/의류</span>
+                        <h3>기능성 원단</h3>
+                        <p>스포츠, 아웃도어용 기능성 섬유</p>
+                    </div>
+                </div>
+                <div class="product-card" data-category="machinery">
+                    <div class="product-image">&#9881;</div>
+                    <div class="product-info">
+                        <span class="product-category">기계/설비</span>
+                        <h3>CNC 공작기계</h3>
+                        <p>정밀 가공용 CNC 선반 및 밀링머신</p>
+                    </div>
+                </div>
+                <div class="product-card" data-category="food">
+                    <div class="product-image">&#127834;</div>
+                    <div class="product-info">
+                        <span class="product-category">식품/농산물</span>
+                        <h3>가공식품</h3>
+                        <p>라면, 과자, 음료 등 한국 가공식품</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trade Regions Section -->
+    <section class="trade-regions">
+        <div class="container">
+            <div class="section-title">
+                <h2>주요 거래 지역</h2>
+                <div class="gold-line"></div>
+                <p>지역별 주력 수출입 품목을 안내합니다</p>
+            </div>
+            <div class="regions-content">
+                <div class="region-card">
+                    <h3><span>&#127471;&#127477;</span> 일본</h3>
+                    <p>첨단 기술 및 정밀 부품 분야의 주요 거래 파트너입니다.</p>
+                    <ul class="region-products">
+                        <li>반도체 장비 및 부품</li>
+                        <li>자동차 부품</li>
+                        <li>정밀 기계</li>
+                        <li>화장품 원료</li>
+                    </ul>
+                </div>
+                <div class="region-card">
+                    <h3><span>&#127464;&#127475;</span> 중국</h3>
+                    <p>제조업 및 소비재 분야의 최대 수출입 시장입니다.</p>
+                    <ul class="region-products">
+                        <li>전자부품</li>
+                        <li>화학 원료</li>
+                        <li>섬유/의류</li>
+                        <li>식품 원료</li>
+                    </ul>
+                </div>
+                <div class="region-card">
+                    <h3><span>&#127466;&#127482;</span> 유럽</h3>
+                    <p>고부가가치 제품 및 프리미엄 시장을 타겟합니다.</p>
+                    <ul class="region-products">
+                        <li>자동차 부품</li>
+                        <li>화장품/뷰티</li>
+                        <li>식품/음료</li>
+                        <li>기능성 소재</li>
+                    </ul>
+                </div>
+                <div class="region-card">
+                    <h3><span>&#127468;&#127463;</span> 동남아시아</h3>
+                    <p>급성장하는 신흥 시장으로 다양한 품목을 거래합니다.</p>
+                    <ul class="region-products">
+                        <li>가공식품</li>
+                        <li>화장품</li>
+                        <li>생활용품</li>
+                        <li>건설자재</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>거래 현황</h2>
+                <div class="gold-line"></div>
+                <p>글로벌브릿지 무역의 취급 품목 거래 현황</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">&#128230;</div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">취급 품목 수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#127760;</div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">수출 국가</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128176;</div>
+                    <div class="stat-number">1조+</div>
+                    <div class="stat-label">연간 거래액</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#129309;</div>
+                    <div class="stat-number">1,000+</div>
+                    <div class="stat-label">거래 파트너</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>원하시는 품목이 있으신가요?</h2>
+                <p>글로벌브릿지 무역은 고객이 원하는 모든 품목의 수출입을 지원합니다.<br>전문 상담원에게 문의해 주세요.</p>
+                <a href="contact.html" class="btn">품목 문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Global<span>Bridge</span></h3>
+                <p>아시아와 유럽을 연결하는 종합무역 전문기업<br>글로벌브릿지 무역은 30년 이상의 경험을 바탕으로<br>신뢰할 수 있는 국제무역 파트너가 되겠습니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="products.html">취급품목</a></li>
+                    <li><a href="contact.html">연락처</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>연락처</h4>
+                <p>Tel: 02-3333-4444</p>
+                <p>Fax: 02-3333-4445</p>
+                <p>trade@globalbridge.co.kr</p>
+            </div>
+            <div class="footer-hours">
+                <h4>영업시간</h4>
+                <p>평일: 09:00 - 18:00</p>
+                <p>토요일: 09:00 - 13:00</p>
+                <p>일요일/공휴일: 휴무</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 글로벌브릿지 무역. All Rights Reserved. | 서울시 중구 을지로 234</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(26, 42, 74, 0.98)';
+            } else {
+                header.style.backgroundColor = 'var(--navy)';
+            }
+        });
+
+        // Filter buttons functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                productCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.category-card, .product-card, .region-card, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

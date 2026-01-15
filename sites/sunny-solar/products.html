@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제품안내 | 써니솔라 에너지</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #2d5016;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #2d5016;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 50%, #7cb342 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Product Categories */
+        .product-categories {
+            padding: 5rem 2rem;
+            background: #f9f9f9;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 1rem 2rem;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: linear-gradient(135deg, #ff9500, #ffcc00);
+            border-color: #ff9500;
+            color: #fff;
+        }
+
+        /* Solar Panels Section */
+        .solar-panels {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #1a2e0a 0%, #2d5016 50%, #4a7c23 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-image.solar-panel-1 {
+            background: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .product-image.solar-panel-2 {
+            background: url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .product-image.solar-panel-3 {
+            background: url('https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .product-image.inverter {
+            background: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .product-image.ess-product {
+            background: url('https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff9500;
+            color: #fff;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h3 {
+            color: #2d5016;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info .model {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-item {
+            background: #f9f9f9;
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .spec-item .label {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 0.2rem;
+        }
+
+        .spec-item .value {
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff9500;
+        }
+
+        .price span {
+            font-size: 0.9rem;
+            color: #999;
+            font-weight: normal;
+        }
+
+        .inquiry-btn {
+            background: linear-gradient(135deg, #2d5016, #4a7c23);
+            color: #fff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .inquiry-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(45,80,22,0.3);
+        }
+
+        /* Inverters Section */
+        .inverters {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, #f9f9f9 0%, #f0f7e6 100%);
+        }
+
+        /* ESS Section */
+        .ess {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+
+        .ess-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .ess-image {
+            border-radius: 20px;
+            height: 350px;
+            background: url('https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=800&h=600&fit=crop') center/cover no-repeat;
+        }
+
+        .ess-text h3 {
+            font-size: 1.8rem;
+            color: #2d5016;
+            margin-bottom: 1rem;
+        }
+
+        .ess-text p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .ess-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .benefit-item .icon {
+            font-size: 1.5rem;
+        }
+
+        .benefit-item p {
+            margin: 0;
+            font-weight: 500;
+            color: #2d5016;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+            color: #fff;
+        }
+
+        .comparison .section-title h2 {
+            color: #fff;
+        }
+
+        .comparison .section-title p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .comparison-table {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .comparison-table th {
+            background: rgba(255,255,255,0.1);
+            font-weight: bold;
+        }
+
+        .comparison-table tr:not(:last-child) {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .check {
+            color: #ffcc00;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a2e0a;
+            color: #fff;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #ffcc00;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: #ffcc00;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ess-intro {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .ess-image {
+                height: 250px;
+                font-size: 4rem;
+            }
+
+            .category-tab {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .solar-panels, .inverters, .ess, .product-categories, .comparison {
+                padding: 3rem 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .product-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .product-price {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">써니<span>솔라</span></a>
+            <ul id="navMenu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="products.html" class="active">제품안내</a></li>
+                <li><a href="installation.html">설치안내</a></li>
+                <li><a href="contact.html">견적문의</a></li>
+            </ul>
+            <button class="mobile-menu" onclick="toggleMenu()">&#9776;</button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>제품 안내</h1>
+        <p>최고 효율의 태양광 제품으로 에너지 독립을 실현하세요</p>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="product-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="scrollToSection('panels')">태양광 패널</button>
+                <button class="category-tab" onclick="scrollToSection('inverters')">인버터</button>
+                <button class="category-tab" onclick="scrollToSection('ess')">ESS (에너지 저장)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solar Panels -->
+    <section class="solar-panels" id="panels">
+        <div class="container">
+            <div class="section-title">
+                <h2>고효율 태양광 패널</h2>
+                <p>세계적인 제조사의 프리미엄 태양광 모듈을 공급합니다</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image solar-panel-1">
+                        <span class="product-badge">BEST</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>프리미엄 단결정 모듈</h3>
+                        <p class="model">SS-MONO-550W</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <div class="label">출력</div>
+                                <div class="value">550W</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">효율</div>
+                                <div class="value">22.3%</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">보증기간</div>
+                                <div class="value">25년</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">크기</div>
+                                <div class="value">2278x1134mm</div>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            <div class="price">별도문의 <span>/장</span></div>
+                            <a href="contact.html" class="inquiry-btn">견적문의</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image solar-panel-2">
+                        <span class="product-badge">인기</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>고효율 단결정 모듈</h3>
+                        <p class="model">SS-MONO-450W</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <div class="label">출력</div>
+                                <div class="value">450W</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">효율</div>
+                                <div class="value">21.5%</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">보증기간</div>
+                                <div class="value">25년</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">크기</div>
+                                <div class="value">2094x1038mm</div>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            <div class="price">별도문의 <span>/장</span></div>
+                            <a href="contact.html" class="inquiry-btn">견적문의</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image solar-panel-3">
+                    </div>
+                    <div class="product-info">
+                        <h3>양면형 바이페이셜 모듈</h3>
+                        <p class="model">SS-BIFACIAL-500W</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <div class="label">출력</div>
+                                <div class="value">500W (+30%)</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">효율</div>
+                                <div class="value">21.8%</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">보증기간</div>
+                                <div class="value">30년</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">크기</div>
+                                <div class="value">2172x1052mm</div>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            <div class="price">별도문의 <span>/장</span></div>
+                            <a href="contact.html" class="inquiry-btn">견적문의</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inverters -->
+    <section class="inverters" id="inverters">
+        <div class="container">
+            <div class="section-title">
+                <h2>고효율 인버터</h2>
+                <p>안정적인 전력 변환으로 최대 효율을 보장합니다</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image inverter">
+                        <span class="product-badge">주거용</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>가정용 스트링 인버터</h3>
+                        <p class="model">SS-INV-5K</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <div class="label">출력</div>
+                                <div class="value">5kW</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">효율</div>
+                                <div class="value">98.2%</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">보증기간</div>
+                                <div class="value">10년</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">특징</div>
+                                <div class="value">WiFi 모니터링</div>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            <div class="price">별도문의</div>
+                            <a href="contact.html" class="inquiry-btn">견적문의</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image inverter">
+                        <span class="product-badge">산업용</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>상업용 중앙 인버터</h3>
+                        <p class="model">SS-INV-50K</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <div class="label">출력</div>
+                                <div class="value">50kW</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">효율</div>
+                                <div class="value">98.5%</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">보증기간</div>
+                                <div class="value">10년</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">특징</div>
+                                <div class="value">원격 제어</div>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            <div class="price">별도문의</div>
+                            <a href="contact.html" class="inquiry-btn">견적문의</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image ess-product">
+                        <span class="product-badge">하이브리드</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>ESS 연계 하이브리드 인버터</h3>
+                        <p class="model">SS-HYBRID-10K</p>
+                        <div class="product-specs">
+                            <div class="spec-item">
+                                <div class="label">출력</div>
+                                <div class="value">10kW</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">효율</div>
+                                <div class="value">97.8%</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">보증기간</div>
+                                <div class="value">10년</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="label">특징</div>
+                                <div class="value">배터리 연계</div>
+                            </div>
+                        </div>
+                        <div class="product-price">
+                            <div class="price">별도문의</div>
+                            <a href="contact.html" class="inquiry-btn">견적문의</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESS -->
+    <section class="ess" id="ess">
+        <div class="container">
+            <div class="section-title">
+                <h2>ESS (에너지 저장 시스템)</h2>
+                <p>낮에 생산한 전력을 저장해 밤에도 사용하세요</p>
+            </div>
+            <div class="ess-intro">
+                <div class="ess-image"></div>
+                <div class="ess-text">
+                    <h3>스마트 에너지 저장 솔루션</h3>
+                    <p>ESS(Energy Storage System)는 태양광 발전으로 생산된 전력을 배터리에 저장하여 필요할 때 사용할 수 있게 해주는 시스템입니다.</p>
+                    <p>낮 시간에 남는 전력을 저장해 전기요금이 비싼 저녁 피크 시간대에 사용하거나, 정전 시 비상 전원으로 활용할 수 있습니다.</p>
+                    <div class="ess-benefits">
+                        <div class="benefit-item">
+                            <span class="icon">&#128176;</span>
+                            <p>전기요금 추가 절감</p>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="icon">&#9889;</span>
+                            <p>비상시 백업 전원</p>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="icon">&#127760;</span>
+                            <p>에너지 자립률 향상</p>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="icon">&#128241;</span>
+                            <p>스마트폰 모니터링</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="comparison">
+        <div class="container">
+            <div class="section-title">
+                <h2>제품 유형별 비교</h2>
+                <p>고객님의 상황에 맞는 최적의 제품을 선택하세요</p>
+            </div>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>주거용</th>
+                            <th>상업용</th>
+                            <th>농업용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>권장 용량</td>
+                            <td>3~10kW</td>
+                            <td>50~500kW</td>
+                            <td>50~100kW</td>
+                        </tr>
+                        <tr>
+                            <td>설치 면적</td>
+                            <td>20~60m2</td>
+                            <td>500~5,000m2</td>
+                            <td>500~1,000m2</td>
+                        </tr>
+                        <tr>
+                            <td>예상 수익률</td>
+                            <td>8~12%</td>
+                            <td>10~15%</td>
+                            <td>12~18%</td>
+                        </tr>
+                        <tr>
+                            <td>정부 보조금</td>
+                            <td class="check">&#10003;</td>
+                            <td class="check">&#10003;</td>
+                            <td class="check">&#10003;</td>
+                        </tr>
+                        <tr>
+                            <td>REC 판매</td>
+                            <td>-</td>
+                            <td class="check">&#10003;</td>
+                            <td class="check">&#10003;</td>
+                        </tr>
+                        <tr>
+                            <td>ESS 연계</td>
+                            <td class="check">&#10003;</td>
+                            <td class="check">&#10003;</td>
+                            <td class="check">&#10003;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>써니솔라 에너지</h4>
+                <p>지속 가능한 미래를 위한 친환경 태양광 발전 시스템 전문 기업</p>
+                <p style="margin-top: 1rem;">사업자등록번호: 123-45-67890</p>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품안내</a>
+                <a href="installation.html">설치안내</a>
+                <a href="contact.html">견적문의</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>전화: 1544-7777</p>
+                <p>이메일: solar@sunny-solar.kr</p>
+                <p>주소: 경기도 용인시 기흥구 동백중앙로 123</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 써니솔라 에너지. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const nav = document.querySelector('nav');
+            const menu = document.getElementById('navMenu');
+            if (!nav.contains(e.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

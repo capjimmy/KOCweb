@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="진생당 한의원 - 전통 한방 치료 전문, 서울 종로구 인사동">
+    <title>진생당 한의원 | 전통 한방 치료 전문</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d5a27;
+            --secondary-green: #4a7c43;
+            --light-green: #7ba375;
+            --accent-green: #8fb88a;
+            --beige-light: #f5f1e8;
+            --beige: #e8e0d0;
+            --beige-dark: #d4c8b0;
+            --brown: #6b5344;
+            --dark-brown: #3d2e24;
+            --text-dark: #2c2c2c;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+            --gold: #c4a35a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--beige-light);
+            line-height: 1.7;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.99);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 85px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-phone {
+            font-weight: 600;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+        }
+
+        .btn-reservation {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
+        }
+
+        .btn-reservation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(45, 90, 39, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.85), rgba(74, 124, 67, 0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(143, 184, 138, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(196, 163, 90, 0.2) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+            padding: 0 20px;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 50px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-green);
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 40px;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: var(--beige-light);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(45, 90, 39, 0.15);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2.5rem;
+            color: var(--white);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .feature-card .learn-more {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card .learn-more:hover {
+            color: var(--gold);
+        }
+
+        /* Quick Info Section */
+        .quick-info {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, var(--primary-green), var(--dark-brown));
+            color: var(--white);
+        }
+
+        .quick-info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .quick-info-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .quick-info-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .quick-info-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .quick-info-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 40px;
+            background: var(--beige);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn.primary {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(45, 90, 39, 0.3);
+        }
+
+        .cta-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(45, 90, 39, 0.4);
+        }
+
+        .cta-btn.secondary {
+            background: var(--white);
+            color: var(--primary-green);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-btn.secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-brown);
+            color: var(--white);
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 15px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 85px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 15px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--beige);
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary-green);
+            background: var(--beige-light);
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-info-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links,
+            .nav-contact .nav-phone {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features {
+                padding: 80px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-info-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">參</div>
+                <div>
+                    <div class="logo-text">진생당 한의원</div>
+                    <div class="logo-sub">JINSENG CLINIC</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">한의원 소개</a></li>
+                <li><a href="treatments.html">진료과목</a></li>
+                <li><a href="medicine.html">한약/처방</a></li>
+                <li><a href="contact.html">예약/문의</a></li>
+            </ul>
+            <div class="nav-contact">
+                <span class="nav-phone">02-888-9999</span>
+                <a href="contact.html" class="btn-reservation">진료예약</a>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">홈</a>
+            <a href="about.html">한의원 소개</a>
+            <a href="treatments.html">진료과목</a>
+            <a href="medicine.html">한약/처방</a>
+            <a href="contact.html">예약/문의</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">전통 한방 치료 전문</div>
+            <h1>자연과 함께하는<br><span>건강한 삶</span>을 위한 한의원</h1>
+            <p class="hero-description">
+                30년 전통의 진생당 한의원에서<br>
+                몸과 마음의 균형을 되찾으세요
+            </p>
+            <div class="hero-buttons">
+                <a href="contact.html" class="btn-primary">진료 예약하기</a>
+                <a href="treatments.html" class="btn-secondary">진료과목 보기</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">년 전통</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">치료 환자</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">환자 만족도</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header fade-in">
+            <div class="section-label">WHY JINSENG</div>
+            <h2 class="section-title">진생당을 선택하는 이유</h2>
+            <p class="section-subtitle">전통과 현대가 조화를 이루는 한방 치료의 새로운 기준</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">醫</div>
+                <h3>전문 의료진</h3>
+                <p>한의학 박사 학위를 소지한 전문 한의사가 정성을 다해 진료합니다. 풍부한 임상 경험으로 최적의 치료를 제공합니다.</p>
+                <a href="about.html" class="learn-more">자세히 보기 →</a>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">藥</div>
+                <h3>맞춤형 한약</h3>
+                <p>개인의 체질과 증상에 맞춘 맞춤형 한약 처방으로 근본적인 치료를 진행합니다. 엄선된 한약재만을 사용합니다.</p>
+                <a href="medicine.html" class="learn-more">자세히 보기 →</a>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">鍼</div>
+                <h3>전통 침구치료</h3>
+                <p>수천 년의 역사를 가진 전통 침술과 뜸 치료로 기혈 순환을 촉진하고 자연치유력을 높입니다.</p>
+                <a href="treatments.html" class="learn-more">자세히 보기 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Section -->
+    <section class="quick-info">
+        <div class="quick-info-container">
+            <div class="quick-info-card fade-in">
+                <div class="quick-info-icon">🕐</div>
+                <h4>진료시간</h4>
+                <p>평일 09:00 - 19:00<br>토요일 09:00 - 15:00</p>
+            </div>
+            <div class="quick-info-card fade-in">
+                <div class="quick-info-icon">📍</div>
+                <h4>오시는 길</h4>
+                <p>서울시 종로구 인사동길 45<br>3호선 안국역 6번 출구</p>
+            </div>
+            <div class="quick-info-card fade-in">
+                <div class="quick-info-icon">📞</div>
+                <h4>예약문의</h4>
+                <p>전화: 02-888-9999<br>카카오톡: @진생당</p>
+            </div>
+            <div class="quick-info-card fade-in">
+                <div class="quick-info-icon">🅿️</div>
+                <h4>주차안내</h4>
+                <p>건물 내 전용 주차장<br>2시간 무료 주차</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="fade-in">건강한 삶을 위한 첫 걸음</h2>
+        <p class="fade-in">지금 바로 상담을 예약하시고 전문 한의사와 함께 건강 계획을 세워보세요</p>
+        <div class="cta-buttons fade-in">
+            <a href="contact.html" class="cta-btn primary">진료 예약하기</a>
+            <a href="about.html" class="cta-btn secondary">한의원 둘러보기</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">參</div>
+                    <div class="logo-text">진생당 한의원</div>
+                </a>
+                <p>30년 전통의 진생당 한의원에서<br>자연과 함께하는 건강한 삶을 시작하세요.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">in</a>
+                    <a href="#" aria-label="Blog">B</a>
+                    <a href="#" aria-label="YouTube">Y</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>한의원</h4>
+                <ul>
+                    <li><a href="about.html">한의원 소개</a></li>
+                    <li><a href="about.html#doctor">의료진 소개</a></li>
+                    <li><a href="about.html#facilities">시설 안내</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="treatments.html">진료과목</a></li>
+                    <li><a href="medicine.html">한약/처방</a></li>
+                    <li><a href="contact.html">진료예약</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>이용안내</h4>
+                <ul>
+                    <li><a href="contact.html">오시는 길</a></li>
+                    <li><a href="contact.html">진료시간</a></li>
+                    <li><a href="#">비급여 안내</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 진생당 한의원. All rights reserved.</p>
+            <p>서울시 종로구 인사동길 45 | 02-888-9999 | clinic@jinseng.kr</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

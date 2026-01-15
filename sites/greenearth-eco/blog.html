@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블로그 | 그린어스 에코 - GreenEarth Eco</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --leaf-green: #4A7C23;
+            --sage-green: #8FB573;
+            --sand: #E8DCC4;
+            --cream: #FAF7F2;
+            --sky-blue: #87CEEB;
+            --ocean-blue: #5BA4C9;
+            --earth-brown: #8B7355;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(45, 80, 22, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--leaf-green), var(--forest-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon::before {
+            content: "🌿";
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--forest-green);
+        }
+
+        .logo-text span {
+            color: var(--leaf-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--leaf-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--leaf-green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--forest-green);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 5% 80px;
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.85), rgba(74, 124, 35, 0.75)),
+                        url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920') center/cover;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23FAF7F2' d='M0,50 C360,100 720,0 1080,50 C1260,75 1380,50 1440,50 L1440,100 L0,100 Z'/%3E%3C/svg%3E") no-repeat bottom/cover;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.3rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .leaf-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .leaf-divider span {
+            font-size: 1.5rem;
+        }
+
+        .leaf-divider::before,
+        .leaf-divider::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--sage-green), transparent);
+        }
+
+        /* Featured Article */
+        .featured-section {
+            background: var(--white);
+        }
+
+        .featured-article {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background: var(--cream);
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .featured-image {
+            height: 450px;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .featured-article:hover .featured-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-content {
+            padding: 40px;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: var(--leaf-green);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .featured-content h2 {
+            font-size: 1.8rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .featured-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--leaf-green);
+            font-weight: 600;
+            text-decoration: none;
+            transition: gap 0.3s;
+        }
+
+        .read-more:hover {
+            gap: 15px;
+        }
+
+        /* Categories */
+        .categories-section {
+            background: var(--cream);
+            padding: 40px 5%;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .category-tab {
+            padding: 10px 25px;
+            background: var(--white);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            color: var(--text-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: var(--leaf-green);
+            color: var(--white);
+        }
+
+        /* Blog Grid */
+        .blog-section {
+            background: var(--cream);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
+        }
+
+        .blog-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--white);
+            color: var(--forest-green);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-content h3 {
+            font-size: 1.2rem;
+            color: var(--forest-green);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .blog-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--cream);
+        }
+
+        .blog-date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .blog-link {
+            color: var(--leaf-green);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .blog-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Tips Section */
+        .tips-section {
+            background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
+            color: var(--white);
+        }
+
+        .tips-section .section-title h2 {
+            color: var(--white);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-number {
+            width: 40px;
+            height: 40px;
+            background: var(--sage-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .tip-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .tip-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h2 {
+            font-size: 2rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .newsletter-content p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 25px;
+            border: 2px solid var(--sage-green);
+            border-radius: 50px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--leaf-green);
+        }
+
+        .newsletter-form button {
+            padding: 15px 35px;
+            background: var(--leaf-green);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--forest-green);
+            transform: scale(1.05);
+        }
+
+        /* Load More */
+        .load-more {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--forest-green);
+            border: 2px solid var(--forest-green);
+        }
+
+        .btn-outline:hover {
+            background: var(--forest-green);
+            color: var(--white);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--forest-green);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--sage-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--sage-green);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--leaf-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                height: 300px;
+            }
+
+            .featured-content {
+                padding: 25px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">GreenEarth <span>Eco</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="products.html">제품</a></li>
+            <li><a href="shop.html">쇼핑</a></li>
+            <li><a href="impact.html">환경영향</a></li>
+            <li><a href="blog.html" class="active">블로그</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>에코 블로그</h1>
+        <p>친환경 라이프스타일을 위한 팁과 인사이트</p>
+    </header>
+
+    <!-- Featured Article -->
+    <section class="featured-section">
+        <div class="section-title">
+            <h2>이주의 추천 글</h2>
+            <div class="leaf-divider"><span>📰</span></div>
+        </div>
+        <div class="featured-article">
+            <div class="featured-image">
+                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800" alt="제로웨이스트 생활">
+            </div>
+            <div class="featured-content">
+                <span class="featured-badge">제로웨이스트</span>
+                <h2>초보자를 위한 제로웨이스트 생활 가이드: 첫 30일 도전</h2>
+                <p>플라스틱 없는 삶이 막막하게 느껴지시나요? 작은 습관부터 시작해 점진적으로 쓰레기를 줄이는 실천 가능한 30일 챌린지를 소개합니다. 누구나 쉽게 따라할 수 있는 단계별 가이드.</p>
+                <div class="article-meta">
+                    <span>📅 2024.01.15</span>
+                    <span>⏱️ 8분 읽기</span>
+                    <span>💚 1.2K 좋아요</span>
+                </div>
+                <a href="#" class="read-more">자세히 읽기 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <div class="category-tabs">
+            <button class="category-tab active">전체</button>
+            <button class="category-tab">제로웨이스트</button>
+            <button class="category-tab">친환경 레시피</button>
+            <button class="category-tab">DIY</button>
+            <button class="category-tab">환경 뉴스</button>
+            <button class="category-tab">리뷰</button>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="blog-section">
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500" alt="천연 세제 만들기">
+                    <span class="blog-category">DIY</span>
+                </div>
+                <div class="blog-content">
+                    <h3>집에서 만드는 천연 다목적 세제: 5가지 레시피</h3>
+                    <p>화학 세제 없이도 깨끗한 집! 베이킹소다, 식초, 에센셜 오일로 만드는 안전하고 효과적인 천연 세제 레시피를 공개합니다.</p>
+                    <div class="blog-footer">
+                        <span class="blog-date">2024.01.12</span>
+                        <a href="#" class="blog-link">읽기 →</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=500" alt="장보기 팁">
+                    <span class="blog-category">제로웨이스트</span>
+                </div>
+                <div class="blog-content">
+                    <h3>포장 없이 장보기: 제로웨이스트 마켓 활용법</h3>
+                    <p>비닐봉지와 플라스틱 용기 없이 장을 보는 방법. 전국 제로웨이스트 매장 리스트와 준비물 체크리스트를 함께 알려드려요.</p>
+                    <div class="blog-footer">
+                        <span class="blog-date">2024.01.10</span>
+                        <a href="#" class="blog-link">읽기 →</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=500" alt="비건 레시피">
+                    <span class="blog-category">친환경 레시피</span>
+                </div>
+                <div class="blog-content">
+                    <h3>환경을 생각하는 비건 밀프렙: 일주일 식단</h3>
+                    <p>탄소 발자국을 줄이면서 건강도 챙기는 비건 식단. 바쁜 직장인을 위한 효율적인 밀프렙 레시피와 보관 팁.</p>
+                    <div class="blog-footer">
+                        <span class="blog-date">2024.01.08</span>
+                        <a href="#" class="blog-link">읽기 →</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500" alt="음식물 쓰레기">
+                    <span class="blog-category">제로웨이스트</span>
+                </div>
+                <div class="blog-content">
+                    <h3>음식물 쓰레기 50% 줄이기: 식재료 완전 활용법</h3>
+                    <p>버려지는 채소 껍질부터 남은 밥까지! 음식물 쓰레기를 획기적으로 줄이는 똑똑한 요리 팁과 보관 방법.</p>
+                    <div class="blog-footer">
+                        <span class="blog-date">2024.01.05</span>
+                        <a href="#" class="blog-link">읽기 →</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=500" alt="환경 뉴스">
+                    <span class="blog-category">환경 뉴스</span>
+                </div>
+                <div class="blog-content">
+                    <h3>2024 환경 트렌드: 주목해야 할 5가지 변화</h3>
+                    <p>올해 주목할 환경 이슈와 친환경 소비 트렌드. ESG 경영 확대, 리커머스 성장 등 우리 생활에 영향을 미칠 변화들.</p>
+                    <div class="blog-footer">
+                        <span class="blog-date">2024.01.02</span>
+                        <a href="#" class="blog-link">읽기 →</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-image">
+                    <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500" alt="고체 샴푸">
+                    <span class="blog-category">리뷰</span>
+                </div>
+                <div class="blog-content">
+                    <h3>고체 샴푸바 3개월 사용 후기: 장단점 솔직 리뷰</h3>
+                    <p>플라스틱 용기 없는 샴푸바, 정말 좋을까요? 다양한 머릿결에 3개월간 테스트한 솔직한 사용 후기와 추천 제품.</p>
+                    <div class="blog-footer">
+                        <span class="blog-date">2023.12.28</span>
+                        <a href="#" class="blog-link">읽기 →</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="load-more">
+            <button class="btn btn-outline">더 많은 글 보기</button>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips-section">
+        <div class="section-title">
+            <h2>오늘부터 실천하는 에코 팁</h2>
+            <div class="leaf-divider"><span>💡</span></div>
+        </div>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-number">1</div>
+                <h3>텀블러 생활화하기</h3>
+                <p>일회용 컵 대신 개인 텀블러를 사용하면 연간 약 500개의 일회용 컵을 줄일 수 있어요. 많은 카페에서 텀블러 할인도 제공해요!</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">2</div>
+                <h3>장바구니 들고 다니기</h3>
+                <p>접이식 장바구니를 가방에 넣어 다니세요. 예상치 못한 쇼핑에도 비닐봉지 없이 물건을 담을 수 있어요.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">3</div>
+                <h3>전자 영수증 받기</h3>
+                <p>종이 영수증 대신 전자 영수증을 선택하세요. 매년 버려지는 영수증 종이만 약 10만 톤이 넘는답니다.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-number">4</div>
+                <h3>LED 조명으로 교체</h3>
+                <p>백열등을 LED로 교체하면 전기 사용량을 최대 75%까지 줄일 수 있어요. 수명도 25배 이상 길어요.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>🌱 에코 뉴스레터 구독하기</h2>
+            <p>매주 금요일, 친환경 생활 팁과 신제품 소식, 특별 할인 정보를 받아보세요.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="이메일 주소를 입력하세요" required>
+                <button type="submit">구독하기</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <span>🌿 GreenEarth Eco</span>
+                </div>
+                <p>그린어스 에코는 지속 가능한 미래를 위해 친환경 제품을 제공하는 기업입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품</a>
+                <a href="impact.html">환경영향</a>
+                <a href="blog.html">블로그</a>
+            </div>
+            <div class="footer-section">
+                <h4>고객지원</h4>
+                <a href="contact.html">문의하기</a>
+                <a href="shop.html">쇼핑</a>
+                <a href="#">배송 안내</a>
+                <a href="#">교환/반품</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📍 서울특별시 강남구 테헤란로 123</p>
+                <p>📞 02-1234-5678</p>
+                <p>✉️ hello@greenearth-eco.kr</p>
+                <p>🕐 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 그린어스 에코 (GreenEarth Eco). All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Category tabs
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Newsletter form
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('뉴스레터 구독이 완료되었습니다! 🌱');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

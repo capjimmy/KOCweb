@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스튜디오 소개 - 고메 키친</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terracotta: #C4653A;
+            --terracotta-light: #E07B4C;
+            --cream: #FDF6EC;
+            --cream-dark: #F5E6D3;
+            --olive: #5C6B4D;
+            --olive-light: #7A8B68;
+            --brown: #4A3728;
+            --brown-light: #6B5344;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--brown);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(253, 246, 236, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(74, 55, 40, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--olive);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--terracotta);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--terracotta);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--brown);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(196, 101, 58, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--brown);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--brown-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .breadcrumb span {
+            color: var(--brown-light);
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--brown);
+            margin-bottom: 1rem;
+        }
+
+        .section-header .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--terracotta);
+            margin: 0 auto 1.5rem;
+        }
+
+        .section-header p {
+            color: var(--brown-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Story Section */
+        .story-section {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-image {
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(74, 55, 40, 0.2);
+        }
+
+        .story-image-accent {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            background: var(--terracotta);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            color: var(--brown);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-content p {
+            color: var(--brown-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .story-content .signature {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--terracotta);
+            margin-top: 2rem;
+        }
+
+        /* Philosophy Section */
+        .philosophy-section {
+            background: var(--brown);
+            color: white;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .philosophy-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .philosophy-number {
+            font-family: 'Lora', serif;
+            font-size: 4rem;
+            color: var(--terracotta-light);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .philosophy-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .philosophy-card p {
+            opacity: 0.85;
+            line-height: 1.8;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: var(--cream-dark);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--terracotta);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: calc(100% - 40px);
+            box-shadow: 0 10px 30px rgba(74, 55, 40, 0.1);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 40px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--terracotta);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: calc(50% - 10px);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: calc(50% - 10px);
+        }
+
+        .timeline-year {
+            font-family: 'Lora', serif;
+            font-size: 1.3rem;
+            color: var(--terracotta);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.1rem;
+            color: var(--brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--brown-light);
+            font-size: 0.95rem;
+        }
+
+        /* Facilities Section */
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .facility-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(74, 55, 40, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .facility-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .facility-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .facility-card:hover .facility-image img {
+            transform: scale(1.1);
+        }
+
+        .facility-content {
+            padding: 2rem;
+        }
+
+        .facility-content h3 {
+            font-size: 1.3rem;
+            color: var(--brown);
+            margin-bottom: 1rem;
+        }
+
+        .facility-content p {
+            color: var(--brown-light);
+        }
+
+        .facility-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .facility-feature {
+            background: var(--cream-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--olive);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--olive) 0%, var(--olive-light) 100%);
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--brown);
+            color: var(--cream);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--terracotta-light);
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s, color 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--terracotta-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--terracotta);
+        }
+
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .story-image-accent {
+                display: none;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--cream);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 50px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 10px;
+                right: auto;
+            }
+
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">고메 <span>키친</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">소개</a></li>
+                <li><a href="classes.html">클래스</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="gallery.html">갤러리</a></li>
+                <li><a href="contact.html">문의</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>스튜디오 소개</h1>
+        <p>요리를 통해 행복을 전하는 고메 키친의 이야기를 소개합니다</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a> <span> / 스튜디오 소개</span>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="section">
+        <div class="story-section">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80" alt="고메 키친 스튜디오">
+                    <div class="story-image-accent"></div>
+                </div>
+                <div class="story-content">
+                    <h2>우리의 이야기</h2>
+                    <p>2015년, 작은 주방에서 시작된 고메 키친은 "요리는 사랑을 담는 그릇"이라는 믿음으로 시작되었습니다. 창립자 김민준 셰프는 15년간의 호텔 주방 경력을 바탕으로, 누구나 쉽고 즐겁게 요리를 배울 수 있는 공간을 만들고자 했습니다.</p>
+                    <p>처음에는 4명의 수강생으로 시작한 작은 클래스가, 오늘날 월 500명 이상의 수강생이 찾는 서울 최고의 쿠킹 스튜디오로 성장했습니다. 이 모든 것은 요리에 대한 열정과 수강생분들의 성원 덕분입니다.</p>
+                    <p>고메 키친은 단순히 레시피를 알려주는 곳이 아닙니다. 우리는 요리를 통해 가족과의 소통, 친구와의 유대, 그리고 자기 자신에게 주는 작은 선물을 만들어 가는 곳입니다.</p>
+                    <p class="signature">- 김민준, 고메 키친 대표 셰프</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="section philosophy-section">
+        <div class="section-header">
+            <h2 style="color: white;">우리의 철학</h2>
+            <div class="divider"></div>
+            <p style="color: rgba(255,255,255,0.8);">고메 키친이 추구하는 세 가지 핵심 가치</p>
+        </div>
+        <div class="philosophy-grid">
+            <div class="philosophy-card">
+                <div class="philosophy-number">01</div>
+                <h3>진정성 있는 맛</h3>
+                <p>겉만 번지르르한 요리가 아닌, 정성과 진심이 담긴 음식을 만듭니다. 전통의 맛을 존중하면서도 현대적인 감각을 더합니다.</p>
+            </div>
+            <div class="philosophy-card">
+                <div class="philosophy-number">02</div>
+                <h3>함께하는 즐거움</h3>
+                <p>요리는 혼자 하는 것이 아닙니다. 함께 재료를 손질하고, 맛을 보고, 완성된 요리를 나누는 과정에서 진정한 즐거움이 있습니다.</p>
+            </div>
+            <div class="philosophy-card">
+                <div class="philosophy-number">03</div>
+                <h3>지속가능한 식문화</h3>
+                <p>제철 재료와 로컬 식재료를 사용하여 환경을 생각합니다. 음식물 쓰레기를 줄이는 스마트한 조리법도 함께 배웁니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section timeline-section">
+        <div class="section-header">
+            <h2>고메 키친의 발자취</h2>
+            <div class="divider"></div>
+            <p>꾸준히 성장해온 우리의 여정</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2015</div>
+                    <h3>고메 키친 설립</h3>
+                    <p>서초동 작은 공간에서 첫 쿠킹 클래스 시작</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2017</div>
+                    <h3>강남 이전 및 확장</h3>
+                    <p>200평 규모의 현재 스튜디오로 이전, 4개의 독립 주방 완비</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h3>프리미엄 클래스 론칭</h3>
+                    <p>미쉐린 스타 셰프 초청 마스터클래스 시작</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2021</div>
+                    <h3>온라인 클래스 시작</h3>
+                    <p>코로나 시대에 맞춘 라이브 온라인 쿠킹 클래스 개설</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h3>누적 수강생 10,000명 돌파</h3>
+                    <p>서울을 대표하는 프리미엄 쿠킹 스튜디오로 성장</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities -->
+    <section class="section">
+        <div class="section-header">
+            <h2>최신 시설 안내</h2>
+            <div class="divider"></div>
+            <p>프로페셔널 등급의 시설에서 최고의 요리 경험을 제공합니다</p>
+        </div>
+        <div class="facilities-grid">
+            <div class="facility-card">
+                <div class="facility-image">
+                    <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80" alt="메인 쿠킹 스튜디오">
+                </div>
+                <div class="facility-content">
+                    <h3>메인 쿠킹 스튜디오</h3>
+                    <p>12개의 개별 조리대가 있는 넓은 메인 스튜디오. 대형 스크린과 오버헤드 카메라로 셰프의 시연을 선명하게 볼 수 있습니다.</p>
+                    <div class="facility-features">
+                        <span class="facility-feature">100평 규모</span>
+                        <span class="facility-feature">12개 조리대</span>
+                        <span class="facility-feature">대형 스크린</span>
+                    </div>
+                </div>
+            </div>
+            <div class="facility-card">
+                <div class="facility-image">
+                    <img src="https://images.unsplash.com/photo-1570275239925-4af0aa93a0dc?w=600&q=80" alt="베이킹 스튜디오">
+                </div>
+                <div class="facility-content">
+                    <h3>베이킹 스튜디오</h3>
+                    <p>프로페셔널 오븐과 발효실을 갖춘 베이킹 전용 공간. 정교한 온도 조절이 필요한 디저트 클래스에 최적화되어 있습니다.</p>
+                    <div class="facility-features">
+                        <span class="facility-feature">컨벡션 오븐</span>
+                        <span class="facility-feature">발효실</span>
+                        <span class="facility-feature">대리석 조리대</span>
+                    </div>
+                </div>
+            </div>
+            <div class="facility-card">
+                <div class="facility-image">
+                    <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=600&q=80" alt="프라이빗 룸">
+                </div>
+                <div class="facility-content">
+                    <h3>프라이빗 룸</h3>
+                    <p>소규모 그룹이나 기업 행사를 위한 프라이빗 공간. 맞춤형 클래스와 다이닝 파티가 가능합니다.</p>
+                    <div class="facility-features">
+                        <span class="facility-feature">8인 정원</span>
+                        <span class="facility-feature">프라이빗</span>
+                        <span class="facility-feature">다이닝 테이블</span>
+                    </div>
+                </div>
+            </div>
+            <div class="facility-card">
+                <div class="facility-image">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="라운지">
+                </div>
+                <div class="facility-content">
+                    <h3>카페 라운지</h3>
+                    <p>클래스 전후로 편안하게 쉴 수 있는 라운지 공간. 무료 음료와 디저트가 제공됩니다.</p>
+                    <div class="facility-features">
+                        <span class="facility-feature">무료 음료</span>
+                        <span class="facility-feature">WiFi</span>
+                        <span class="facility-feature">편안한 좌석</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>10,000+</h3>
+                <p>누적 수강생</p>
+            </div>
+            <div class="stat-item">
+                <h3>150+</h3>
+                <p>클래스 종류</p>
+            </div>
+            <div class="stat-item">
+                <h3>15명</h3>
+                <p>전문 셰프진</p>
+            </div>
+            <div class="stat-item">
+                <h3>98%</h3>
+                <p>만족도</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>고메 키친</h4>
+                <p>프리미엄 쿠킹 클래스 스튜디오</p>
+                <p>요리의 예술을 경험하세요</p>
+                <div class="social-links">
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <ul class="footer-links">
+                    <li><a href="classes.html">클래스 안내</a></li>
+                    <li><a href="menu.html">수업 메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>고객 지원</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">예약 문의</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>서울시 강남구 압구정로 123</p>
+                <p>고메키친 빌딩 3층</p>
+                <p>전화: 02-1234-5678</p>
+                <p>이메일: hello@gourmekitchen.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 고메 키친. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

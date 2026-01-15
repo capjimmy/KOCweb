@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블루웨이브 테크놀로지 | 클라우드 엔터프라이즈 솔루션</title>
+    <meta name="description" content="블루웨이브 테크놀로지 - 혁신적인 클라우드 엔터프라이즈 솔루션으로 비즈니스의 디지털 전환을 이끕니다.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #00a8ff;
+            --primary-purple: #9c27b0;
+            --dark-bg: #0a0a1a;
+            --dark-surface: #12122a;
+            --dark-card: #1a1a3a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --gradient-1: linear-gradient(135deg, #00a8ff 0%, #9c27b0 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glow-blue: 0 0 40px rgba(0, 168, 255, 0.3);
+            --glow-purple: 0 0 40px rgba(156, 39, 176, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.7rem 5%;
+            background: rgba(10, 10, 26, 0.95);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.7rem 1.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 2rem;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-title .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .scroll-mouse {
+            width: 25px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-mouse::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0%, 100% { opacity: 1; top: 8px; }
+            50% { opacity: 0.3; top: 18px; }
+        }
+
+        /* Floating Elements */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-blue);
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-purple);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        /* Sections Common */
+        section {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid rgba(0, 168, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* About Preview Section */
+        #about-preview {
+            background: var(--dark-surface);
+        }
+
+        .about-preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-preview-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .about-preview-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .about-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .about-feature span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-visual-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-visual-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .stats-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-mini-item {
+            text-align: center;
+        }
+
+        .stat-mini-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-mini-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Services Preview Section */
+        #services-preview {
+            background: var(--dark-bg);
+        }
+
+        .services-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-preview-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .service-preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-preview-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 168, 255, 0.3);
+            box-shadow: var(--glow-blue);
+        }
+
+        .service-preview-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-preview-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-preview-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-preview-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .view-all-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-link:hover {
+            gap: 1rem;
+        }
+
+        /* CTA Section */
+        #cta {
+            background: var(--dark-surface);
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--dark-card);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .cta-container p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .about-preview-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .services-preview-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--dark-surface);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .services-preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 80px 5%;
+            }
+
+            .cta-container {
+                padding: 2rem;
+            }
+
+            .cta-container h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">BlueWave Tech</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div id="canvas-container"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>Cloud Enterprise Solutions</span>
+            </div>
+            <h1 class="hero-title">
+                디지털 혁신을 이끄는<br>
+                <span class="gradient-text">블루웨이브 테크놀로지</span>
+            </h1>
+            <p class="hero-subtitle">
+                클라우드 기반 엔터프라이즈 솔루션으로 비즈니스의 무한한 가능성을 열어드립니다.
+                최첨단 기술과 전문 노하우로 디지털 전환을 실현합니다.
+            </p>
+            <div class="hero-buttons">
+                <a href="contact.html" class="btn-primary">
+                    무료 상담 신청
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="services.html" class="btn-secondary">서비스 둘러보기</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-mouse"></div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section id="about-preview">
+        <div class="about-preview-grid">
+            <div class="about-preview-content">
+                <span class="section-tag">About Us</span>
+                <h2>비즈니스의 디지털 전환을<br>선도합니다</h2>
+                <p>
+                    블루웨이브 테크놀로지는 2015년 설립 이래 대한민국 기업들의 디지털 혁신을
+                    이끌어 왔습니다. 클라우드, AI, 빅데이터 분야의 최고 전문가들이 모여
+                    고객의 비즈니스 성공을 위한 최적의 솔루션을 제공합니다.
+                </p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="about-feature-icon">&#9989;</div>
+                        <span>AWS 파트너 인증</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">&#9989;</div>
+                        <span>ISO 27001 인증</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">&#9989;</div>
+                        <span>24/7 기술 지원</span>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-icon">&#9989;</div>
+                        <span>맞춤형 솔루션</span>
+                    </div>
+                </div>
+                <a href="about.html" class="btn-primary">더 알아보기</a>
+            </div>
+            <div class="about-visual">
+                <div class="about-visual-card">
+                    <div class="stats-mini">
+                        <div class="stat-mini-item">
+                            <div class="stat-mini-number">150+</div>
+                            <div class="stat-mini-label">완료 프로젝트</div>
+                        </div>
+                        <div class="stat-mini-item">
+                            <div class="stat-mini-number">50+</div>
+                            <div class="stat-mini-label">엔터프라이즈 고객</div>
+                        </div>
+                        <div class="stat-mini-item">
+                            <div class="stat-mini-number">99%</div>
+                            <div class="stat-mini-label">고객 만족도</div>
+                        </div>
+                        <div class="stat-mini-item">
+                            <div class="stat-mini-number">24h</div>
+                            <div class="stat-mini-label">기술 지원</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section id="services-preview">
+        <div class="section-header">
+            <span class="section-tag">Our Services</span>
+            <h2 class="section-title">엔터프라이즈 솔루션</h2>
+            <p class="section-desc">
+                비즈니스 성장을 위한 맞춤형 IT 솔루션을 제공합니다
+            </p>
+        </div>
+        <div class="services-preview-grid">
+            <a href="services.html" class="service-preview-card">
+                <div class="service-preview-icon">&#9729;</div>
+                <h3>클라우드 마이그레이션</h3>
+                <p>기존 시스템을 클라우드로 안전하게 이전하여 비용 절감과 확장성을 확보합니다.</p>
+            </a>
+            <a href="services.html" class="service-preview-card">
+                <div class="service-preview-icon">&#128187;</div>
+                <h3>맞춤형 소프트웨어 개발</h3>
+                <p>비즈니스 요구에 최적화된 맞춤형 소프트웨어를 설계하고 개발합니다.</p>
+            </a>
+            <a href="services.html" class="service-preview-card">
+                <div class="service-preview-icon">&#128202;</div>
+                <h3>데이터 분석 & AI</h3>
+                <p>빅데이터 분석과 AI 기술로 비즈니스 인사이트를 도출합니다.</p>
+            </a>
+        </div>
+        <div style="text-align: center;">
+            <a href="services.html" class="view-all-link">
+                모든 서비스 보기
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta">
+        <div class="cta-container">
+            <h2>프로젝트를 시작해볼까요?</h2>
+            <p>
+                비즈니스의 디지털 전환을 위한 첫 걸음,<br>
+                블루웨이브 테크놀로지와 함께하세요.
+            </p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn-primary">
+                    무료 상담 신청
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="portfolio.html" class="btn-secondary">포트폴리오 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">BlueWave Tech</a>
+                <p>
+                    클라우드 엔터프라이즈 솔루션으로<br>
+                    비즈니스의 디지털 전환을 이끕니다.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="LinkedIn">in</a>
+                    <a href="#" class="social-link" title="GitHub">GH</a>
+                    <a href="#" class="social-link" title="Twitter">X</a>
+                    <a href="#" class="social-link" title="YouTube">YT</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">클라우드 마이그레이션</a></li>
+                    <li><a href="services.html">소프트웨어 개발</a></li>
+                    <li><a href="services.html">데이터 분석</a></li>
+                    <li><a href="services.html">보안 솔루션</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>회사</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="#">블로그</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">기술 문서</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 블루웨이브 테크놀로지. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Three.js 3D Particle Background
+        function initParticles() {
+            const container = document.getElementById('canvas-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // Create particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 3000;
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorsArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i += 3) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+                posArray[i + 1] = (Math.random() - 0.5) * 10;
+                posArray[i + 2] = (Math.random() - 0.5) * 10;
+
+                const t = Math.random();
+                colorsArray[i] = 0 + t * 0.61;
+                colorsArray[i + 1] = 0.66 - t * 0.51;
+                colorsArray[i + 2] = 1 - t * 0.31;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            camera.position.z = 3;
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                targetX += (mouseX - targetX) * 0.02;
+                targetY += (mouseY - targetY) * 0.02;
+
+                particlesMesh.rotation.x += 0.001;
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += targetY * 0.01;
+                particlesMesh.rotation.y += targetX * 0.01;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // GSAP Animations
+        function initAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Navbar scroll effect
+            ScrollTrigger.create({
+                start: 'top -80',
+                onUpdate: (self) => {
+                    if (self.direction === 1) {
+                        document.querySelector('.navbar').classList.add('scrolled');
+                    } else if (self.scroll() < 80) {
+                        document.querySelector('.navbar').classList.remove('scrolled');
+                    }
+                }
+            });
+
+            // Hero animations
+            gsap.from('.hero-badge', { opacity: 0, y: 30, duration: 1, delay: 0.5 });
+            gsap.from('.hero-title', { opacity: 0, y: 50, duration: 1, delay: 0.7 });
+            gsap.from('.hero-subtitle', { opacity: 0, y: 30, duration: 1, delay: 0.9 });
+            gsap.from('.hero-buttons', { opacity: 0, y: 30, duration: 1, delay: 1.1 });
+            gsap.from('.scroll-indicator', { opacity: 0, duration: 1, delay: 1.5 });
+
+            // About preview animation
+            gsap.from('.about-preview-content', {
+                scrollTrigger: {
+                    trigger: '.about-preview-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.8
+            });
+
+            gsap.from('.about-visual', {
+                scrollTrigger: {
+                    trigger: '.about-preview-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: 50,
+                duration: 0.8,
+                delay: 0.2
+            });
+
+            // Service preview cards
+            gsap.utils.toArray('.service-preview-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 60,
+                    duration: 0.6,
+                    delay: i * 0.1
+                });
+            });
+
+            // CTA section
+            gsap.from('.cta-container', {
+                scrollTrigger: {
+                    trigger: '.cta-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8
+            });
+        }
+
+        // Mobile menu toggle
+        function initMobileMenu() {
+            const toggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    toggle.classList.remove('active');
+                });
+            });
+        }
+
+        // Loader
+        function hideLoader() {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 1000);
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            initAnimations();
+            initMobileMenu();
+            hideLoader();
+        });
+    </script>
+</body>
+</html>

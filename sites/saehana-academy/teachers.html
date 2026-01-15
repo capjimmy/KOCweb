@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강사진 - 새하나 어학원</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --mint: #10b981;
+            --mint-light: #34d399;
+            --gradient-start: #2563eb;
+            --gradient-end: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f0f9ff;
+            --white: #ffffff;
+            --shadow: 0 10px 40px rgba(37, 99, 235, 0.15);
+            --shadow-hover: 0 20px 60px rgba(37, 99, 235, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 5%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo span {
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--mint));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-blue);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e0f2fe 50%, #d1fae5 100%);
+            padding: 160px 5% 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            opacity: 0.05;
+            top: -100px;
+            right: -100px;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: var(--mint);
+            border-radius: 50%;
+            opacity: 0.05;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-blue), var(--mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Section Common */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Teachers Section */
+        .teachers {
+            background: var(--white);
+        }
+
+        .teacher-category {
+            margin-bottom: 4rem;
+        }
+
+        .teacher-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .category-icon.english {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .category-icon.chinese {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
+
+        .category-icon.japanese {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+        }
+
+        .category-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .teacher-photo {
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-light), #e0f2fe);
+            overflow: hidden;
+        }
+
+        .teacher-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .teacher-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .teacher-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .teacher-info .nationality {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+        }
+
+        .teacher-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .teacher-tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .teacher-tag.english {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .teacher-tag.chinese {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .teacher-tag.japanese {
+            background: #fce7f3;
+            color: #db2777;
+        }
+
+        .teacher-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Why Us Section */
+        .why-us {
+            background: linear-gradient(135deg, var(--bg-light), #e0f2fe);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .why-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--mint));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .why-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .why-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue), var(--mint));
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--mint-light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--mint);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .teachers-grid,
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 1rem;
+                border-bottom: 1px solid #eee;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .teachers-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">새하나<span>어학원</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">학원소개</a></li>
+            <li><a href="courses.html">강좌안내</a></li>
+            <li><a href="teachers.html" class="active">강사진</a></li>
+            <li><a href="contact.html">상담문의</a></li>
+        </ul>
+        <div class="mobile-menu" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>전문 <span class="gradient-text">강사진</span></h1>
+        <p>원어민 강사진과 전문 한인 강사진이 여러분의 언어 학습을 책임집니다</p>
+    </section>
+
+    <!-- Teachers Section -->
+    <section class="teachers">
+        <!-- English Teachers -->
+        <div class="teacher-category">
+            <div class="category-header">
+                <div class="category-icon english">
+                    <i class="fas fa-flag-usa"></i>
+                </div>
+                <h3>영어 강사진</h3>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop" alt="Michael Johnson 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>Michael Johnson</h4>
+                        <p class="nationality">미국 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag english">비즈니스 영어</span>
+                            <span class="teacher-tag english">회화</span>
+                        </div>
+                        <p>하버드 대학교 언어학 석사, 10년 이상의 영어 교육 경력</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=300&fit=crop" alt="Sarah Williams 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>Sarah Williams</h4>
+                        <p class="nationality">영국 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag english">TOEIC</span>
+                            <span class="teacher-tag english">면접 영어</span>
+                        </div>
+                        <p>옥스포드 대학교 영어교육 전공, TESOL 자격 보유</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop" alt="김영민 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>김영민</h4>
+                        <p class="nationality">한국</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag english">TOEIC 990</span>
+                            <span class="teacher-tag english">문법</span>
+                        </div>
+                        <p>연세대 영어영문학과, 토익 만점 강사, 15년 강의 경력</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400&h=300&fit=crop" alt="Emily Chen 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>Emily Chen</h4>
+                        <p class="nationality">캐나다 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag english">회화</span>
+                            <span class="teacher-tag english">발음교정</span>
+                        </div>
+                        <p>토론토 대학교 교육학 전공, 어린이/성인 영어 전문</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chinese Teachers -->
+        <div class="teacher-category">
+            <div class="category-header">
+                <div class="category-icon chinese">
+                    <i class="fas fa-yin-yang"></i>
+                </div>
+                <h3>중국어 강사진</h3>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=300&fit=crop" alt="王丽 (왕리) 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>王丽 (왕리)</h4>
+                        <p class="nationality">중국 베이징 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag chinese">HSK</span>
+                            <span class="teacher-tag chinese">비즈니스</span>
+                        </div>
+                        <p>베이징 대학교 중문학과, 한국 대기업 통역 경력 8년</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=300&fit=crop" alt="张伟 (장웨이) 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>张伟 (장웨이)</h4>
+                        <p class="nationality">중국 상하이 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag chinese">회화</span>
+                            <span class="teacher-tag chinese">발음</span>
+                        </div>
+                        <p>상하이 사범대 교육학과, 중국어 교육 전문 자격증 보유</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=300&fit=crop" alt="박중화 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>박중화</h4>
+                        <p class="nationality">한국</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag chinese">HSK 6급</span>
+                            <span class="teacher-tag chinese">입문</span>
+                        </div>
+                        <p>한국외대 중국어과, 베이징 유학 5년, HSK 고득점 전략 전문</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=300&fit=crop" alt="李明 (이밍) 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>李明 (이밍)</h4>
+                        <p class="nationality">중국 칭다오 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag chinese">무역 중국어</span>
+                            <span class="teacher-tag chinese">HSK</span>
+                        </div>
+                        <p>산둥 대학교 무역학과, 한중 무역 통역 전문가</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Japanese Teachers -->
+        <div class="teacher-category">
+            <div class="category-header">
+                <div class="category-icon japanese">
+                    <i class="fas fa-torii-gate"></i>
+                </div>
+                <h3>일본어 강사진</h3>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=300&fit=crop" alt="田中 美咲 (타나카 미사키) 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>田中 美咲 (타나카 미사키)</h4>
+                        <p class="nationality">일본 도쿄 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag japanese">JLPT</span>
+                            <span class="teacher-tag japanese">비즈니스</span>
+                        </div>
+                        <p>도쿄 대학교 일본어교육 전공, 일본 기업 취업 코칭 전문</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=300&fit=crop" alt="佐藤 健 (사토 켄) 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>佐藤 健 (사토 켄)</h4>
+                        <p class="nationality">일본 오사카 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag japanese">회화</span>
+                            <span class="teacher-tag japanese">문화</span>
+                        </div>
+                        <p>오사카 대학교 언어학과, 10년 이상 한국 거주 및 강의</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=300&fit=crop" alt="이지현 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>이지현</h4>
+                        <p class="nationality">한국</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag japanese">JLPT N1</span>
+                            <span class="teacher-tag japanese">JPT</span>
+                        </div>
+                        <p>고려대 일어일문학과, 일본 유학 4년, JLPT 고득점 전략</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-photo">
+                        <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=300&fit=crop" alt="山本 由美 (야마모토 유미) 강사">
+                    </div>
+                    <div class="teacher-info">
+                        <h4>山本 由美 (야마모토 유미)</h4>
+                        <p class="nationality">일본 교토 출신</p>
+                        <div class="teacher-tags">
+                            <span class="teacher-tag japanese">입문</span>
+                            <span class="teacher-tag japanese">회화</span>
+                        </div>
+                        <p>교토 대학교 문학부, 초급 일본어 교육 15년 경력</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="why-us">
+        <div class="section-header">
+            <h2>새하나 강사진의 <span class="gradient-text">강점</span></h2>
+            <p>검증된 전문 강사진이 여러분의 언어 학습을 이끕니다</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>검증된 자격</h3>
+                <p>모든 강사가 해당 언어의 공인 자격증 및 교육 자격을 보유하고 있습니다.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>원어민 강사</h3>
+                <p>각 언어별 원어민 강사가 정확한 발음과 자연스러운 표현을 가르칩니다.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>실무 경험</h3>
+                <p>통역, 번역, 기업 강의 등 실무 경험이 풍부한 강사진입니다.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>맞춤 교육</h3>
+                <p>학생 개개인의 수준과 목표에 맞는 맞춤형 교육을 제공합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>전문 강사진과 함께 시작하세요!</h2>
+        <p>무료 레벨테스트로 나에게 맞는 수업을 찾아보세요</p>
+        <a href="contact.html" class="btn btn-primary">
+            <i class="fas fa-calendar-check"></i>
+            무료 상담 예약
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">새하나<span>어학원</span></a>
+                    <p>영어, 중국어, 일본어 전문 어학원<br>15년 교육 노하우로 여러분의 언어 학습을 책임집니다.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fas fa-blog"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="about.html">학원소개</a></li>
+                        <li><a href="courses.html">강좌안내</a></li>
+                        <li><a href="teachers.html">강사진</a></li>
+                        <li><a href="contact.html">상담문의</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>프로그램</h4>
+                    <ul>
+                        <li><a href="courses.html">영어 프로그램</a></li>
+                        <li><a href="courses.html">중국어 프로그램</a></li>
+                        <li><a href="courses.html">일본어 프로그램</a></li>
+                        <li><a href="courses.html">기업 출강</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links footer-contact">
+                    <h4>연락처</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 서울시 강남구 테헤란로 234</p>
+                    <p><i class="fas fa-phone-alt"></i> 02-555-6666</p>
+                    <p><i class="fas fa-envelope"></i> info@saehana.co.kr</p>
+                    <p><i class="fas fa-clock"></i> 평일 09:00-22:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>대표: 김언어 | 사업자등록번호: 123-45-67890 | &copy; 2024 새하나 어학원. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">찾아오시는 길</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

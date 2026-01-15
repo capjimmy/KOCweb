@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오시는길 - 펫토피아 동물병원</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF9A56;
+            --primary-orange-light: #FFB885;
+            --primary-teal: #4ECDC4;
+            --primary-teal-light: #7EDDD6;
+            --white: #FFFFFF;
+            --cream: #FFF9F5;
+            --gray-light: #F5F5F5;
+            --gray: #888888;
+            --gray-dark: #333333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 0 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--gray-dark);
+        }
+
+        .logo-text span {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+            transition: var(--transition);
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--gray-dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '📍';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        .page-header::after {
+            content: '🐾';
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 span {
+            color: var(--primary-orange);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Contact Info Section */
+        .contact-section {
+            background: var(--white);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 40px 25px;
+            background: var(--cream);
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-card.emergency {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin: 0 auto 20px;
+        }
+
+        .contact-card.emergency .contact-icon {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .contact-card.emergency p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-card .highlight {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-teal);
+            display: block;
+            margin-top: 10px;
+        }
+
+        .contact-card.emergency .highlight {
+            color: var(--white);
+            font-size: 1.6rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: var(--cream);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .map-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+            height: 500px;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .map-placeholder .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .map-placeholder h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .map-placeholder p {
+            opacity: 0.9;
+        }
+
+        .location-info {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .location-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .address-box {
+            background: var(--cream);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .address-box h4 {
+            font-size: 1rem;
+            color: var(--primary-teal);
+            margin-bottom: 10px;
+        }
+
+        .address-box p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .transport-list {
+            list-style: none;
+        }
+
+        .transport-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .transport-item:last-child {
+            border-bottom: none;
+        }
+
+        .transport-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .transport-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .transport-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Hours Section */
+        .hours-section {
+            background: var(--white);
+        }
+
+        .hours-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .hours-card {
+            background: var(--cream);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .hours-card.emergency {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+        }
+
+        .hours-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hours-table {
+            width: 100%;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .hours-card.emergency .hours-row {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row .day {
+            font-weight: 500;
+        }
+
+        .hours-row .time {
+            color: var(--gray);
+        }
+
+        .hours-card.emergency .hours-row .time {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Contact Form Section */
+        .inquiry-section {
+            background: var(--cream);
+        }
+
+        .inquiry-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .inquiry-container h3 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--gray-dark);
+        }
+
+        .form-group label .required {
+            color: #FF6B6B;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: var(--cream);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.5);
+        }
+
+        /* Quick Contact Buttons */
+        .quick-contact {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .quick-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 25px;
+            background: var(--white);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quick-btn .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .quick-btn.phone .icon {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+        }
+
+        .quick-btn.kakao .icon {
+            background: #FEE500;
+        }
+
+        .quick-btn.email .icon {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            padding: 60px 5%;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-banner::before,
+        .emergency-banner::after {
+            content: '🚨';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        .emergency-banner::before {
+            top: -20px;
+            left: 5%;
+        }
+
+        .emergency-banner::after {
+            bottom: -20px;
+            right: 5%;
+        }
+
+        .emergency-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .emergency-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .emergency-banner .phone {
+            font-family: 'Nunito', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .emergency-banner .phone a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer ul a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .map-container {
+                grid-template-columns: 1fr;
+            }
+
+            .map-wrapper {
+                height: 400px;
+            }
+
+            .hours-container {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-contact {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .emergency-btn {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .inquiry-container {
+                padding: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .emergency-banner .phone {
+                font-size: 2rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🐾</div>
+                <div class="logo-text">펫토피아 <span>동물병원</span></div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">병원소개</a></li>
+                <li><a href="services.html">진료안내</a></li>
+                
+                <li><a href="facilities.html">시설안내</a></li>
+                <li><a href="reservation.html">예약하기</a></li>
+                <li><a href="contact.html" class="active">오시는길</a></li>
+            </ul>
+            <a href="tel:02-1234-5678" class="emergency-btn">
+                🚨 24시 응급: 02-1234-5678
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>오시는길</h1>
+        <p>펫토피아 동물병원 위치 및 연락처 안내</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a>
+            <span>></span>
+            <span>오시는길</span>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="section contact-section">
+        <div class="section-header">
+            <h2>펫토피아 <span>연락처</span></h2>
+            <p>언제든지 편하게 연락주세요</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <h3>주소</h3>
+                <p>서울특별시 강남구<br>테헤란로 123<br>펫토피아빌딩 1~3층</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h3>대표전화</h3>
+                <p>일반 상담 및 예약 문의</p>
+                <span class="highlight">02-1234-5678</span>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <h3>이메일</h3>
+                <p>문의사항은 이메일로도<br>보내주실 수 있습니다</p>
+                <span class="highlight">info@petopia.kr</span>
+            </div>
+            <div class="contact-card emergency">
+                <div class="contact-icon">🚨</div>
+                <h3>24시 응급전화</h3>
+                <p>야간, 주말, 공휴일<br>응급 상황 시 연락</p>
+                <span class="highlight">02-1234-5678</span>
+            </div>
+        </div>
+
+        <!-- Quick Contact Buttons -->
+        <div class="quick-contact">
+            <a href="tel:02-1234-5678" class="quick-btn phone">
+                <div class="icon">📞</div>
+                전화로 문의하기
+            </a>
+            <a href="#" class="quick-btn kakao">
+                <div class="icon">💬</div>
+                카카오톡 상담
+            </a>
+            <a href="mailto:info@petopia.kr" class="quick-btn email">
+                <div class="icon">📧</div>
+                이메일 보내기
+            </a>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section map-section">
+        <div class="section-header">
+            <h2>찾아오시는 <span>길</span></h2>
+            <p>편리한 교통과 넓은 주차공간을 제공합니다</p>
+        </div>
+        <div class="map-container">
+            <div class="map-wrapper">
+                <!-- Map Placeholder - Replace with actual map embed -->
+                <div class="map-placeholder">
+                    <span class="icon">🗺️</span>
+                    <h3>펫토피아 동물병원</h3>
+                    <p>서울시 강남구 테헤란로 123</p>
+                    <p style="margin-top: 20px; font-size: 0.9rem;">지도 서비스 연동 예정</p>
+                </div>
+            </div>
+            <div class="location-info">
+                <h3>📍 위치 안내</h3>
+                <div class="address-box">
+                    <h4>도로명 주소</h4>
+                    <p>서울특별시 강남구 테헤란로 123</p>
+                </div>
+                <div class="address-box">
+                    <h4>지번 주소</h4>
+                    <p>서울특별시 강남구 역삼동 123-45</p>
+                </div>
+
+                <ul class="transport-list">
+                    <li class="transport-item">
+                        <div class="transport-icon">🚇</div>
+                        <div class="transport-content">
+                            <h4>지하철</h4>
+                            <p>2호선 역삼역 3번 출구에서 도보 5분<br>분당선 선릉역 8번 출구에서 도보 7분</p>
+                        </div>
+                    </li>
+                    <li class="transport-item">
+                        <div class="transport-icon">🚌</div>
+                        <div class="transport-content">
+                            <h4>버스</h4>
+                            <p>역삼역 정류장 하차<br>간선: 146, 341, 360, 740<br>지선: 3412, 4412</p>
+                        </div>
+                    </li>
+                    <li class="transport-item">
+                        <div class="transport-icon">🚗</div>
+                        <div class="transport-content">
+                            <h4>자가용</h4>
+                            <p>건물 지하 주차장 이용 (30대)<br>2시간 무료 주차</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="section hours-section">
+        <div class="section-header">
+            <h2>진료 <span>시간 안내</span></h2>
+            <p>24시간 응급진료 운영 병원입니다</p>
+        </div>
+        <div class="hours-container">
+            <div class="hours-card">
+                <h3>🏥 일반 진료 시간</h3>
+                <div class="hours-table">
+                    <div class="hours-row">
+                        <span class="day">평일 (월~금)</span>
+                        <span class="time">09:00 - 20:00</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">토요일</span>
+                        <span class="time">09:00 - 18:00</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">일요일</span>
+                        <span class="time">10:00 - 17:00</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">공휴일</span>
+                        <span class="time">10:00 - 17:00</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">점심시간</span>
+                        <span class="time">13:00 - 14:00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hours-card emergency">
+                <h3>🚨 24시간 응급진료</h3>
+                <div class="hours-table">
+                    <div class="hours-row">
+                        <span class="day">야간 응급</span>
+                        <span class="time">20:00 - 09:00</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">주말/공휴일</span>
+                        <span class="time">24시간 운영</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">응급 전화</span>
+                        <span class="time">02-1234-5678</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">카카오톡</span>
+                        <span class="time">@펫토피아</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">비고</span>
+                        <span class="time">응급 시 전화 후 내원</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="section inquiry-section">
+        <div class="inquiry-container">
+            <h3>💬 문의하기</h3>
+            <form id="inquiryForm" onsubmit="handleInquiry(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">이름 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="홍길동" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처 <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="category">문의 유형 <span class="required">*</span></label>
+                    <select id="category" name="category" required>
+                        <option value="">선택해주세요</option>
+                        <option value="reservation">예약 문의</option>
+                        <option value="treatment">진료 문의</option>
+                        <option value="price">비용 문의</option>
+                        <option value="facility">시설 문의</option>
+                        <option value="other">기타 문의</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">문의 내용 <span class="required">*</span></label>
+                    <textarea id="message" name="message" placeholder="문의하실 내용을 자유롭게 작성해주세요" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                    문의 보내기 ✉️
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Emergency Banner -->
+    <section class="emergency-banner">
+        <h2>🚨 24시간 응급진료 운영중</h2>
+        <p>야간, 주말, 공휴일에도 언제든 연락주세요</p>
+        <div class="phone">
+            <a href="tel:02-1234-5678">📞 02-1234-5678</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-text">펫토피아 <span style="color: var(--primary-orange);">동물병원</span></div>
+                <p>소중한 가족의 건강을 24시간 책임지는<br>믿을 수 있는 동물병원입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">📺</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+            <div>
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="services.html">일반진료</a></li>
+                    <li><a href="services.html">외과수술</a></li>
+                    <li><a href="services.html">치과진료</a></li>
+                    <li><a href="services.html">예방접종</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>병원안내</h4>
+                <ul>
+                    <li><a href="about.html">병원소개</a></li>
+                    
+                    <li><a href="facilities.html">시설안내</a></li>
+                    <li><a href="contact.html">오시는길</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>연락처</h4>
+                <ul>
+                    <li>📞 02-1234-5678</li>
+                    <li>📱 010-1234-5678</li>
+                    <li>📧 info@petopia.kr</li>
+                    <li>📍 서울시 강남구 테헤란로 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 펫토피아 동물병원. All rights reserved.</p>
+            <p>24시간 응급진료 운영 | 주차가능</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+
+        function handleInquiry(event) {
+            event.preventDefault();
+
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Show confirmation
+            alert('문의가 접수되었습니다!\n\n빠른 시일 내에 답변 드리겠습니다.\n감사합니다. 🐾');
+
+            // Reset form
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOC 웹스튜디오 사업제안서 | 중소기업 디지털 전환 파트너</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.8;
+            font-size: 10.5pt;
+        }
+
+        .document {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        .page {
+            min-height: 297mm;
+            padding: 15mm 20mm 25mm 20mm;
+            page-break-after: always;
+            position: relative;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+        }
+
+        .cover-logo {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            letter-spacing: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .cover-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .cover-desc {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+        }
+
+        .cover-info {
+            margin-top: auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+        }
+
+        .cover-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cover-info-item {
+            font-size: 0.9rem;
+        }
+
+        .cover-info-item strong {
+            color: #94a3b8;
+            font-weight: 500;
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .cover-date {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .page-header-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .page-number {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Section Title */
+        .section-num {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        .subsection-title {
+            font-size: 1.00rem;
+            font-weight: 600;
+            color: #16213e;
+            margin: 20px 0 12px;
+            padding-left: 12px;
+            border-left: 4px solid #6366f1;
+        }
+
+        /* Content */
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+            font-size: 0.95rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid #6366f1;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box h4 {
+            color: #6366f1;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.88rem;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 10px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.78rem;
+            word-break: keep-all;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        tr:hover {
+            background: #f0f9ff;
+        }
+
+        .price {
+            text-align: right;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .price-highlight {
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card.alt {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        /* List */
+        ul {
+            margin: 12px 0 12px 18px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 0.92rem;
+        }
+
+        /* Package Cards */
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .package-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .package-card.popular {
+            border-color: #6366f1;
+            background: linear-gradient(180deg, #faf5ff 0%, white 100%);
+            transform: scale(1.02);
+        }
+
+        .package-badge {
+            background: #6366f1;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .package-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 3px;
+        }
+
+        .package-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #6366f1;
+            margin: 12px 0;
+        }
+
+        .package-price span {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #64748b;
+        }
+
+        .package-features {
+            text-align: left;
+            margin: 15px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .package-features li {
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.82rem;
+        }
+
+        .package-features li:before {
+            content: "✓";
+            color: #6366f1;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        /* Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            left: 20mm;
+            right: 20mm;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+            background: white;
+            z-index: 10;
+        }
+
+        /* Total Box */
+        .total-box {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .total-box h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #94a3b8;
+        }
+
+        .total-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .total-item {
+            text-align: center;
+        }
+
+        .total-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 4px;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        .total-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #a5b4fc;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .document {
+                box-shadow: none;
+            }
+
+            .page {
+                min-height: auto;
+                page-break-after: always;
+            }
+        }
+
+        .note-box {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+        }
+
+        .note-box strong {
+            color: #b45309;
+        }
+
+        .comparison-table th:first-child {
+            text-align: left;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 500;
+        }
+
+        .check {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .uncheck {
+            color: #ef4444;
+        }
+
+        .market-compare {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .market-compare h4 {
+            color: #047857;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .market-compare .compare-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed #a7f3d0;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .market-compare .compare-item span:last-child {
+            text-align: right;
+        }
+
+        .market-compare .compare-item:last-child {
+            border-bottom: none;
+        }
+
+        .market-compare .our-price {
+            color: #047857;
+            font-weight: 700;
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background: #ef4444;
+            color: white;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        /* Plan comparison table */
+        .plan-table {
+            margin: 15px 0;
+        }
+
+        .plan-table th {
+            font-size: 0.82rem;
+            padding: 8px 10px;
+        }
+
+        .plan-table td {
+            font-size: 0.82rem;
+            padding: 8px 10px;
+            text-align: center;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        .plan-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .plan-highlight {
+            background: #f0f9ff !important;
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .monthly-price {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* Two column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .two-col table {
+            margin: 0;
+        }
+
+        .two-col table td,
+        .two-col table th {
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        /* Service list */
+        .service-list {
+            margin: 10px 0;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .service-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .service-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: white;
+        }
+
+        .service-content h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .service-content p {
+            font-size: 0.82rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        /* Portfolio grid */
+        .portfolio-mini {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .portfolio-item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .portfolio-item h6 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #1a1a2e;
+        }
+
+        .portfolio-item span {
+            font-size: 0.72rem;
+            color: #64748b;
+        }
+
+        .portfolio-category {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+
+        .portfolio-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-features {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-features span {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .portfolio-meta {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .portfolio-price {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .portfolio-duration {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        /* Process timeline */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 12px 8px;
+            background: #f8fafc;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6366f1;
+            font-weight: bold;
+        }
+
+        .process-num {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .process-step h6 {
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        .process-step span {
+            font-size: 0.7rem;
+            color: #64748b;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+
+        /* Cost breakdown */
+        .cost-breakdown {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .cost-row span {
+            word-break: keep-all;
+        }
+
+        .cost-row:last-child {
+            border-bottom: none;
+            padding-top: 12px;
+            margin-top: 5px;
+            border-top: 2px solid #6366f1;
+            font-weight: 700;
+        }
+
+        .cost-row span:last-child {
+            font-weight: 600;
+        }
+
+        /* Contact box */
+        .contact-box {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .contact-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item strong {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 3px;
+        }
+
+        .contact-item span {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Industry tags for portfolio */
+        .industry-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .industry-tag {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #1a1a2e;
+        }
+
+        .industry-tag strong {
+            color: #6366f1;
+        }
+
+        /* Testimonials */
+        .testimonial {
+            background: white;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-left: 3px solid #6366f1;
+        }
+
+        .testimonial-text {
+            font-size: 0.88rem;
+            font-style: italic;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-author {
+            font-size: 0.82rem;
+            color: #6366f1;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* TOC - Table of Contents */
+        .toc-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 20px 0;
+        }
+
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        .toc-list li:last-child {
+            border-bottom: none;
+        }
+
+        .toc-num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .toc-page {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="document">
+        <!-- Page 1: Cover -->
+        <div class="page cover-page">
+            <div class="cover-logo">KOC</div>
+            <div class="cover-subtitle">WEB STUDIO</div>
+
+            <h1 class="cover-title">웹사이트 제작 서비스<br>사업 제안서</h1>
+            <p class="cover-desc">중소기업 디지털 전환을 위한 맞춤형 웹 솔루션</p>
+
+            <div class="stats-grid" style="max-width: 500px; margin: 2rem auto;">
+                <div class="stat-card">
+                    <span class="stat-number">21+</span>
+                    <span class="stat-label">완료 프로젝트</span>
+                </div>
+                <div class="stat-card alt">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">업종 경험</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">고객 만족</span>
+                </div>
+                <div class="stat-card alt">
+                    <span class="stat-number">A/S</span>
+                    <span class="stat-label">무상 지원</span>
+                </div>
+            </div>
+
+            <div class="cover-info">
+                <div class="cover-info-grid">
+                    <div class="cover-info-item">
+                        <strong>제출처</strong>
+                        한국소공인협회
+                    </div>
+                    <div class="cover-info-item">
+                        <strong>제출업체</strong>
+                        케이오씨(KOC)
+                    </div>
+                    <div class="cover-info-item">
+                        <strong>사업자등록번호</strong>
+                        421-24-01482
+                    </div>
+                </div>
+                <div class="cover-info-grid" style="margin-top: 1rem;">
+                    <div class="cover-info-item">
+                        <strong>대표자</strong>
+                        박민경
+                    </div>
+                    <div class="cover-info-item">
+                        <strong>연락처</strong>
+                        010-5161-7663
+                    </div>
+                    <div class="cover-info-item">
+                        <strong>이메일</strong>
+                        officekoc9672@gmail.com
+                    </div>
+                </div>
+                <p class="cover-date">2026년 1월</p>
+            </div>
+        </div>
+
+        <!-- Page 2: Company Introduction -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">2 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">1</span>회사 소개 및 핵심 역량</h2>
+
+            <div class="highlight-box">
+                <h4>VISION & MISSION</h4>
+                <p style="margin: 0; font-size: 1rem; font-weight: 600; color: #1a1a2e;">
+                    "중소기업과 소상공인의 디지털 전환을 이끄는 신뢰받는 파트너"
+                </p>
+                <p style="margin: 8px 0 0; font-size: 0.88rem;">
+                    케이오씨(KOC)는 디지털 환경에서 경쟁력을 갖추고자 하는 중소기업과 소상공인에게
+                    합리적인 비용으로 고품질 웹 솔루션을 제공하여 비즈니스 성장을 지원합니다.
+                </p>
+            </div>
+
+            <h3 class="subsection-title">대표 인사말</h3>
+            <div style="display: flex; gap: 20px; align-items: flex-start; margin: 15px 0;">
+                <div style="flex: 1;">
+                    <p style="font-size: 0.92rem; line-height: 1.9; text-align: justify;">
+                        안녕하세요, 케이오씨(KOC) 대표 <strong>박민경</strong>입니다.
+                    </p>
+                    <p style="font-size: 0.92rem; line-height: 1.9; text-align: justify;">
+                        많은 중소기업과 소상공인분들이 웹사이트의 필요성을 느끼면서도 높은 비용과 복잡한 과정으로 인해
+                        디지털 전환을 망설이고 계십니다. KOC는 이러한 고민을 해결하고자 설립되었습니다.
+                    </p>
+                    <p style="font-size: 0.92rem; line-height: 1.9; text-align: justify;">
+                        <strong>"합리적인 가격, 투명한 프로세스, 지속적인 파트너십"</strong>이라는 세 가지 원칙을 바탕으로,
+                        기획부터 유지보수까지 원스톱 서비스를 제공하며 고객의 디지털 비즈니스 성공을 함께 만들어 가겠습니다.
+                    </p>
+                    <p style="text-align: right; font-size: 0.9rem; color: #6366f1; font-weight: 600; margin-top: 10px;">
+                        케이오씨(KOC) 대표 박민경
+                    </p>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">회사 개요</h3>
+            <table>
+                <tr>
+                    <th style="width: 25%;">항목</th>
+                    <th>내용</th>
+                </tr>
+                <tr>
+                    <td><strong>회사명</strong></td>
+                    <td>케이오씨(KOC)</td>
+                </tr>
+                <tr>
+                    <td><strong>대표자</strong></td>
+                    <td>박민경</td>
+                </tr>
+                <tr>
+                    <td><strong>사업자등록번호</strong></td>
+                    <td>421-24-01482</td>
+                </tr>
+                <tr>
+                    <td><strong>주소</strong></td>
+                    <td>경기도 고양시 덕양구 꽃마을로 66, 11층 1107호</td>
+                </tr>
+                <tr>
+                    <td><strong>연락처</strong></td>
+                    <td>010-5161-7663</td>
+                </tr>
+                <tr>
+                    <td><strong>이메일</strong></td>
+                    <td>officekoc9672@gmail.com</td>
+                </tr>
+                <tr>
+                    <td><strong>사업분야</strong></td>
+                    <td>웹사이트 기획/디자인/개발, 유지보수, 디지털 마케팅 지원</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">핵심 역량 (원스톱 서비스)</h3>
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6m-6 4h6"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>기획력 (Planning)</h5>
+                        <p>고객 비즈니스 분석, 타겟 사용자 정의, 사이트맵 및 와이어프레임 설계</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>디자인 (Design)</h5>
+                        <p>브랜드 아이덴티티 반영 UI/UX 디자인, 반응형 레이아웃, 시각적 일관성</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>개발 (Development)</h5>
+                        <p>최신 웹 기술 활용 반응형 개발, SEO 최적화, 빠른 로딩 속도 보장</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>유지보수 (Maintenance)</h5>
+                        <p>지속적인 콘텐츠 업데이트 지원, 보안 관리, 기술 문의 응대</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">주요 연혁</h3>
+            <div style="display: grid; grid-template-columns: 100px 1fr; gap: 8px 15px; font-size: 0.9rem; margin-top: 12px;">
+                <div style="color: #6366f1; font-weight: 700;">2024</div>
+                <div>케이오씨(KOC) 설립, 웹스튜디오 사업 시작</div>
+                <div style="color: #6366f1; font-weight: 700;">2024~2025</div>
+                <div>21개+ 프로젝트 수행, 15개+ 업종 포트폴리오 구축</div>
+                <div style="color: #6366f1; font-weight: 700;">2026</div>
+                <div>한국소공인협회 등 기관 협력 파트너십 추진</div>
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 3: Portfolio -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">3 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">2</span>포트폴리오 및 주요 실적</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">21+</span>
+                    <span class="stat-label">프로젝트 완료</span>
+                </div>
+                <div class="stat-card alt">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">업종 경험</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">고객 만족도</span>
+                </div>
+                <div class="stat-card alt">
+                    <span class="stat-number">24H</span>
+                    <span class="stat-label">신속 응대</span>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>업종별 프로젝트 현황</h4>
+                <div class="industry-stats">
+                    <span class="industry-tag">제조업 <strong>5건</strong></span>
+                    <span class="industry-tag">IT/솔루션 <strong>4건</strong></span>
+                    <span class="industry-tag">서비스업 <strong>4건</strong></span>
+                    <span class="industry-tag">의료/바이오 <strong>3건</strong></span>
+                    <span class="industry-tag">금융 <strong>2건</strong></span>
+                    <span class="industry-tag">건설/부동산 <strong>2건</strong></span>
+                    <span class="industry-tag">교육 <strong>1건</strong></span>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">주요 프로젝트 포트폴리오</h3>
+            <div class="portfolio-mini">
+                <div class="portfolio-item">
+                    <div class="portfolio-category">제조업</div>
+                    <div class="portfolio-title">(주)대성정밀</div>
+                    <div class="portfolio-desc">정밀 부품 제조 기업 홈페이지</div>
+                    <div class="portfolio-features">
+                        <span>• 제품 카탈로그</span>
+                        <span>• 기술력 소개</span>
+                        <span>• 견적 문의</span>
+                    </div>
+                    <div class="portfolio-meta">
+                        <span class="portfolio-price">300만원</span>
+                        <span class="portfolio-duration">4주</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-category">바이오헬스케어</div>
+                    <div class="portfolio-title">메디젠바이오</div>
+                    <div class="portfolio-desc">바이오헬스케어 기업 사이트</div>
+                    <div class="portfolio-features">
+                        <span>• 연구개발 소개</span>
+                        <span>• 파이프라인</span>
+                        <span>• IR 정보</span>
+                    </div>
+                    <div class="portfolio-meta">
+                        <span class="portfolio-price">500만원</span>
+                        <span class="portfolio-duration">8주</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-category">건설/스마트빌딩</div>
+                    <div class="portfolio-title">스마트빌딩스</div>
+                    <div class="portfolio-desc">스마트빌딩 솔루션 소개 사이트</div>
+                    <div class="portfolio-features">
+                        <span>• 기술 소개</span>
+                        <span>• 시공 사례</span>
+                        <span>• 상담 예약</span>
+                    </div>
+                    <div class="portfolio-meta">
+                        <span class="portfolio-price">300만원</span>
+                        <span class="portfolio-duration">5주</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-category">인테리어/서비스</div>
+                    <div class="portfolio-title">디자인하우스 인테리어</div>
+                    <div class="portfolio-desc">인테리어 서비스 포트폴리오</div>
+                    <div class="portfolio-features">
+                        <span>• 시공 갤러리</span>
+                        <span>• 견적 계산기</span>
+                        <span>• 상담 신청</span>
+                    </div>
+                    <div class="portfolio-meta">
+                        <span class="portfolio-price">150만원</span>
+                        <span class="portfolio-duration">3주</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-category">금융</div>
+                    <div class="portfolio-title">하나캐피탈 지점</div>
+                    <div class="portfolio-desc">금융 서비스 안내 사이트</div>
+                    <div class="portfolio-features">
+                        <span>• 상품 안내</span>
+                        <span>• 금리 계산기</span>
+                        <span>• 지점 안내</span>
+                    </div>
+                    <div class="portfolio-meta">
+                        <span class="portfolio-price">300만원</span>
+                        <span class="portfolio-duration">4주</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-category">IT/솔루션</div>
+                    <div class="portfolio-title">넥스트솔루션</div>
+                    <div class="portfolio-desc">IT 솔루션 기업 사이트</div>
+                    <div class="portfolio-features">
+                        <span>• 서비스 소개</span>
+                        <span>• 기술 블로그</span>
+                        <span>• 데모 신청</span>
+                    </div>
+                    <div class="portfolio-meta">
+                        <span class="portfolio-price">300만원</span>
+                        <span class="portfolio-duration">4주</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">고객 후기</h3>
+            <div class="testimonial">
+                <p class="testimonial-text">"처음 홈페이지를 의뢰했는데, 저희 업종의 특성을 정확히 파악하고 전문적인 사이트를 제작해 주셨습니다. 특히 제품 카탈로그 기능이 영업에 큰 도움이 됩니다."</p>
+                <p class="testimonial-author">— (주)대성정밀 김대표</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"디자인 감각이 뛰어나고 수정 요청에도 빠르게 대응해 주셔서 만족스러웠습니다. 시공 사례 갤러리 덕분에 신규 고객 문의가 30% 증가했어요."</p>
+                <p class="testimonial-author">— 디자인하우스 인테리어 이실장</p>
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 4: Service Details -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">4 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">3</span>서비스 상세 설명</h2>
+
+            <p>케이오씨(KOC) 웹스튜디오는 기업의 디지털 성공을 위한 <strong>6가지 핵심 서비스</strong>를 제공합니다.</p>
+
+            <div class="highlight-box" style="margin-bottom: 12px;">
+                <h4>1. 기업 홈페이지 제작</h4>
+                <p style="margin-bottom: 8px;"><strong>서비스 개요:</strong> 기업의 아이덴티티와 비전을 효과적으로 전달하는 공식 웹사이트를 제작합니다.</p>
+                <table style="margin: 8px 0; font-size: 0.82rem;">
+                    <tr>
+                        <th style="width: 33%;">주요 특징</th>
+                        <th style="width: 33%;">제공 결과물</th>
+                        <th style="width: 34%;">적합한 고객</th>
+                    </tr>
+                    <tr>
+                        <td>• 브랜드 일관성 반영<br>• 직관적 정보 구조<br>• 문의/견적 폼 연동</td>
+                        <td>• 메인+서브 페이지<br>• 관리자 페이지<br>• 운영 매뉴얼</td>
+                        <td>온라인 기업 이미지 구축이 필요한 중소기업, 스타트업</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 12px;">
+                <h4>2. 반응형 웹사이트 개발</h4>
+                <p style="margin-bottom: 8px;"><strong>서비스 개요:</strong> PC, 태블릿, 모바일 모든 기기에서 최적화된 사용자 경험을 제공합니다.</p>
+                <table style="margin: 8px 0; font-size: 0.82rem;">
+                    <tr>
+                        <th style="width: 33%;">주요 특징</th>
+                        <th style="width: 33%;">제공 결과물</th>
+                        <th style="width: 34%;">적합한 고객</th>
+                    </tr>
+                    <tr>
+                        <td>• 모든 기기 최적화<br>• 빠른 로딩 속도<br>• 크로스브라우저 호환</td>
+                        <td>• 반응형 코드<br>• 디바이스별 테스트<br>• 성능 최적화</td>
+                        <td>모바일 트래픽이 높은 사업장, 온라인 마케팅 활발한 기업</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 12px;">
+                <h4>3. 맞춤형 UI/UX 디자인</h4>
+                <p style="margin-bottom: 8px;"><strong>서비스 개요:</strong> 브랜드 아이덴티티를 반영한 유니크한 디자인과 사용자 중심 인터페이스를 설계합니다.</p>
+                <table style="margin: 8px 0; font-size: 0.82rem;">
+                    <tr>
+                        <th style="width: 33%;">주요 특징</th>
+                        <th style="width: 33%;">제공 결과물</th>
+                        <th style="width: 34%;">적합한 고객</th>
+                    </tr>
+                    <tr>
+                        <td>• 100% 맞춤 디자인<br>• 사용자 여정 분석<br>• 인터랙션 모션</td>
+                        <td>• 디자인 시안 3종<br>• 디자인 가이드<br>• 프로토타입</td>
+                        <td>차별화된 브랜드 이미지가 중요한 기업, 프리미엄 서비스</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 12px;">
+                <h4>4. SEO 검색엔진 최적화</h4>
+                <p style="margin-bottom: 8px;"><strong>서비스 개요:</strong> 네이버, 구글 등 주요 검색엔진에서 상위 노출될 수 있도록 최적화합니다.</p>
+                <table style="margin: 8px 0; font-size: 0.82rem;">
+                    <tr>
+                        <th style="width: 33%;">주요 특징</th>
+                        <th style="width: 33%;">제공 결과물</th>
+                        <th style="width: 34%;">적합한 고객</th>
+                    </tr>
+                    <tr>
+                        <td>• 메타태그 최적화<br>• 사이트맵 자동 생성<br>• 구조화 데이터</td>
+                        <td>• SEO 분석 리포트<br>• 검색 등록 대행<br>• 키워드 가이드</td>
+                        <td>온라인 마케팅 강화 필요 기업, 신규 고객 유입이 중요한 사업</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 12px;">
+                <h4>5. 유지보수 및 기술지원</h4>
+                <p style="margin-bottom: 8px;"><strong>서비스 개요:</strong> 웹사이트 런칭 후 안정적인 운영을 위한 지속적인 관리 서비스를 제공합니다.</p>
+                <table style="margin: 8px 0; font-size: 0.82rem;">
+                    <tr>
+                        <th style="width: 33%;">주요 특징</th>
+                        <th style="width: 33%;">제공 결과물</th>
+                        <th style="width: 34%;">적합한 고객</th>
+                    </tr>
+                    <tr>
+                        <td>• 정기 백업 관리<br>• 보안 업데이트<br>• 장애 대응 지원</td>
+                        <td>• 월간 관리 리포트<br>• 백업 파일<br>• 기술지원 핫라인</td>
+                        <td>IT 전담 인력이 없는 기업, 안정적 운영이 중요한 사업</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 12px;">
+                <h4>6. 부가 서비스 (로고, 명함, 브로슈어 등)</h4>
+                <p style="margin-bottom: 8px;"><strong>서비스 개요:</strong> 웹사이트와 연계된 통합 브랜딩을 위해 오프라인 인쇄물 디자인도 제공합니다.</p>
+                <table style="margin: 8px 0; font-size: 0.82rem;">
+                    <tr>
+                        <th style="width: 33%;">주요 특징</th>
+                        <th style="width: 33%;">제공 결과물</th>
+                        <th style="width: 34%;">적합한 고객</th>
+                    </tr>
+                    <tr>
+                        <td>• 웹-오프라인 일관성<br>• 원본 파일 제공<br>• 인쇄 연계 가능</td>
+                        <td>• 로고 AI/PNG<br>• 명함 인쇄용 파일<br>• 브랜드 가이드</td>
+                        <td>신규 사업 시작 기업, 리브랜딩 진행 중인 기업</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 5: Project Process Details -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">5 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">4</span>프로젝트 진행 프로세스 상세</h2>
+
+            <p>케이오씨(KOC) 웹스튜디오는 <strong>5단계 체계적 프로세스</strong>를 통해 프로젝트를 진행합니다.
+            각 단계별 명확한 목표와 산출물을 정의하여 일정 준수와 품질 보장을 약속드립니다.</p>
+
+            <div class="process-grid" style="margin-bottom: 20px;">
+                <div class="process-step">
+                    <div class="process-num">1</div>
+                    <h6>상담 & 분석</h6>
+                    <span>1~2일</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">2</div>
+                    <h6>디자인</h6>
+                    <span>1~2주</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">3</div>
+                    <h6>개발</h6>
+                    <span>2~4주</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">4</div>
+                    <h6>테스트</h6>
+                    <span>3~5일</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">5</div>
+                    <h6>런칭</h6>
+                    <span>1~2일</span>
+                </div>
+            </div>
+
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>1단계: 상담 및 요구분석 (1~2일)</h5>
+                        <p>고객 미팅을 통해 사업 목표와 웹사이트 방향성을 파악합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <table style="margin: 5px 0 15px 47px; width: calc(100% - 47px); font-size: 0.82rem;">
+                <tr>
+                    <th style="width: 33%;">세부 활동</th>
+                    <th style="width: 33%;">산출물</th>
+                    <th style="width: 34%;">고객 참여</th>
+                </tr>
+                <tr>
+                    <td>• 대면/화상 미팅<br>• 벤치마킹 분석<br>• 예산/일정 협의</td>
+                    <td>• 요구사항 정의서<br>• 사이트맵 초안<br>• 프로젝트 일정표</td>
+                    <td>• 미팅 참석 (1~2시간)<br>• 참고 사이트 공유<br>• 요구사항 확정</td>
+                </tr>
+            </table>
+
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>2단계: 디자인 (1~2주)</h5>
+                        <p>브랜드 아이덴티티를 반영한 맞춤형 웹 디자인을 제작합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <table style="margin: 5px 0 15px 47px; width: calc(100% - 47px); font-size: 0.82rem;">
+                <tr>
+                    <th style="width: 33%;">세부 활동</th>
+                    <th style="width: 33%;">산출물</th>
+                    <th style="width: 34%;">고객 참여</th>
+                </tr>
+                <tr>
+                    <td>• 메인 시안 3개 제작<br>• 피드백 수렴<br>• 서브페이지 확장</td>
+                    <td>• 메인 시안 3종<br>• 최종 디자인 시안<br>• 디자인 가이드</td>
+                    <td>• 시안 검토 (2~3일)<br>• 선호 시안 선택<br>• 최종 승인</td>
+                </tr>
+            </table>
+
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>3단계: 개발 (2~4주)</h5>
+                        <p>확정된 디자인을 기반으로 반응형 웹사이트를 코딩합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <table style="margin: 5px 0 15px 47px; width: calc(100% - 47px); font-size: 0.82rem;">
+                <tr>
+                    <th style="width: 33%;">세부 활동</th>
+                    <th style="width: 33%;">산출물</th>
+                    <th style="width: 34%;">고객 참여</th>
+                </tr>
+                <tr>
+                    <td>• HTML/CSS 코딩<br>• JavaScript 구현<br>• 관리자 페이지 설정</td>
+                    <td>• 반응형 웹페이지<br>• 관리자 페이지<br>• 개발 테스트 URL</td>
+                    <td>• 중간 진행 확인<br>• 콘텐츠 자료 전달<br>• 개발 중 피드백</td>
+                </tr>
+            </table>
+
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>4단계: 테스트 및 수정 (3~5일)</h5>
+                        <p>다양한 환경에서 웹사이트를 테스트하고 최종 품질을 점검합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <table style="margin: 5px 0 15px 47px; width: calc(100% - 47px); font-size: 0.82rem;">
+                <tr>
+                    <th style="width: 33%;">세부 활동</th>
+                    <th style="width: 33%;">산출물</th>
+                    <th style="width: 34%;">고객 참여</th>
+                </tr>
+                <tr>
+                    <td>• 크로스브라우저 테스트<br>• 모바일 확인<br>• 성능 최적화</td>
+                    <td>• 테스트 결과 리포트<br>• 수정 완료 버전<br>• 최종 검수용 URL</td>
+                    <td>• 최종 검수 진행<br>• 수정 요청 전달<br>• 런칭 승인</td>
+                </tr>
+            </table>
+
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h5>5단계: 런칭 및 교육 (1~2일)</h5>
+                        <p>웹사이트를 공식 오픈하고 관리자 교육을 진행합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <table style="margin: 5px 0 15px 47px; width: calc(100% - 47px); font-size: 0.82rem;">
+                <tr>
+                    <th style="width: 33%;">세부 활동</th>
+                    <th style="width: 33%;">산출물</th>
+                    <th style="width: 34%;">고객 참여</th>
+                </tr>
+                <tr>
+                    <td>• 호스팅 서버 설정<br>• 도메인 연결<br>• 관리자 교육</td>
+                    <td>• 운영 중인 웹사이트<br>• 관리자 계정 정보<br>• 운영 매뉴얼</td>
+                    <td>• 관리자 교육 참석<br>• 운영 테스트 확인<br>• 프로젝트 완료 확인</td>
+                </tr>
+            </table>
+
+            <div class="note-box">
+                <strong>※ 일정 안내:</strong> 상기 일정은 Standard 플랜(10페이지) 기준이며, 프로젝트 규모와 복잡도에 따라 조정될 수 있습니다.
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 6: Technology -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">6 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">5</span>기술력 및 개발 환경</h2>
+
+            <p>KOC 웹스튜디오는 <strong>최신 웹 기술 스택</strong>을 활용하여 빠르고 안정적인 웹사이트를 제작합니다.</p>
+
+            <h3 class="subsection-title">사용 기술 스택</h3>
+            <div class="two-col">
+                <table>
+                    <tr>
+                        <th colspan="2">프론트엔드 (Frontend)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>기본 기술</strong></td>
+                        <td>HTML5, CSS3, JavaScript ES6+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>프레임워크</strong></td>
+                        <td>React, Vue.js, Next.js</td>
+                    </tr>
+                    <tr>
+                        <td><strong>스타일링</strong></td>
+                        <td>Tailwind CSS, Bootstrap</td>
+                    </tr>
+                    <tr>
+                        <td><strong>애니메이션</strong></td>
+                        <td>GSAP, Three.js</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th colspan="2">백엔드 (Backend)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>JavaScript</strong></td>
+                        <td>Node.js, Express</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PHP</strong></td>
+                        <td>PHP, Laravel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Python</strong></td>
+                        <td>Python, Django</td>
+                    </tr>
+                    <tr>
+                        <td><strong>데이터베이스</strong></td>
+                        <td>MySQL, PostgreSQL, MongoDB</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="two-col" style="margin-top: 15px;">
+                <table>
+                    <tr>
+                        <th colspan="2">CMS / 플랫폼</th>
+                    </tr>
+                    <tr>
+                        <td><strong>CMS</strong></td>
+                        <td>WordPress, 그누보드</td>
+                    </tr>
+                    <tr>
+                        <td><strong>쇼핑몰</strong></td>
+                        <td>카페24, 쇼핑몰 연동</td>
+                    </tr>
+                    <tr>
+                        <td><strong>무료 호스팅</strong></td>
+                        <td>GitHub Pages</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th colspan="2">인프라 (Infrastructure)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>호스팅</strong></td>
+                        <td>AWS, 카페24, 가비아</td>
+                    </tr>
+                    <tr>
+                        <td><strong>보안</strong></td>
+                        <td>SSL/TLS 인증서</td>
+                    </tr>
+                    <tr>
+                        <td><strong>성능 최적화</strong></td>
+                        <td>CDN 적용</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">품질 관리 기준</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">반응형 테스트</span>
+                </div>
+                <div class="stat-card alt">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">브라우저 호환</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">80+</span>
+                    <span class="stat-label">SEO 점수 보장</span>
+                </div>
+                <div class="stat-card alt">
+                    <span class="stat-number">A+</span>
+                    <span class="stat-label">Lighthouse 등급</span>
+                </div>
+            </div>
+
+            <table>
+                <tr>
+                    <th style="width: 25%;">품질 항목</th>
+                    <th style="width: 35%;">테스트 기준</th>
+                    <th>세부 내용</th>
+                </tr>
+                <tr>
+                    <td><strong>반응형 테스트</strong></td>
+                    <td>PC / 태블릿 / 모바일</td>
+                    <td>모든 기기에서 최적화된 레이아웃 검증</td>
+                </tr>
+                <tr>
+                    <td><strong>크로스브라우저</strong></td>
+                    <td>Chrome, Safari, Edge, Firefox</td>
+                    <td>주요 브라우저 호환성 테스트</td>
+                </tr>
+                <tr>
+                    <td><strong>성능 최적화</strong></td>
+                    <td>Google Lighthouse 90점+</td>
+                    <td>페이지 로딩 속도, 이미지 최적화</td>
+                </tr>
+                <tr>
+                    <td><strong>SEO 최적화</strong></td>
+                    <td>SEO 점수 80점 이상</td>
+                    <td>메타태그, 시맨틱 마크업 적용</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">보안 정책</h3>
+            <div class="two-col">
+                <div class="note-box" style="background: #f0fdf4; border: 1px solid #86efac;">
+                    <strong style="color: #166534;">보안 방어 체계</strong>
+                    <ul style="margin: 8px 0 0 15px; font-size: 0.85rem;">
+                        <li>XSS (크로스사이트 스크립팅) 방어</li>
+                        <li>SQL Injection 공격 차단</li>
+                        <li>CSRF 토큰 적용</li>
+                        <li>입력값 검증 및 필터링</li>
+                    </ul>
+                </div>
+                <div class="note-box" style="background: #eff6ff; border: 1px solid #93c5fd;">
+                    <strong style="color: #1d4ed8;">데이터 보호 정책</strong>
+                    <ul style="margin: 8px 0 0 15px; font-size: 0.85rem;">
+                        <li>정기 백업 시스템 (일/주 단위)</li>
+                        <li>호스팅 서버 자동 백업</li>
+                        <li>백업 데이터 복원 지원</li>
+                        <li>개인정보 암호화 저장</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 7: Pricing Plans -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">7 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">6</span>웹사이트 제작 플랜 & 단가표</h2>
+
+            <p>기업 규모와 요구사항에 맞춘 <strong>4가지 플랜</strong>을 제공합니다. 모든 플랜에는 반응형 웹, 기본 SEO, 1개월 무상 A/S가 포함됩니다.</p>
+
+            <table class="plan-table">
+                <tr>
+                    <th style="width: 22%;">구분</th>
+                    <th style="width: 19.5%;">Starter</th>
+                    <th style="width: 19.5%;">Basic</th>
+                    <th style="width: 19.5%; background: linear-gradient(135deg, #6366f1, #8b5cf6);">Standard★</th>
+                    <th style="width: 19.5%;">Premium</th>
+                </tr>
+                <tr>
+                    <td><strong>제작 비용</strong></td>
+                    <td class="price">80만원</td>
+                    <td class="price">150만원</td>
+                    <td class="price price-highlight plan-highlight">300만원</td>
+                    <td class="price">500만원~</td>
+                </tr>
+                <tr>
+                    <td>추천 대상</td>
+                    <td>1인 사업자<br>스타트업</td>
+                    <td>소규모 기업<br>매장 홍보</td>
+                    <td class="plan-highlight">중소기업<br>브랜드 사이트</td>
+                    <td>대기업<br>복합 기능</td>
+                </tr>
+                <tr>
+                    <td>페이지 수</td>
+                    <td>3페이지</td>
+                    <td>5페이지</td>
+                    <td class="plan-highlight">10페이지</td>
+                    <td>무제한</td>
+                </tr>
+                <tr>
+                    <td>디자인</td>
+                    <td>템플릿 기반</td>
+                    <td>템플릿 커스텀</td>
+                    <td class="plan-highlight">맞춤 디자인</td>
+                    <td>프리미엄 맞춤</td>
+                </tr>
+                <tr>
+                    <td>반응형 웹</td>
+                    <td class="check">✓</td>
+                    <td class="check">✓</td>
+                    <td class="check plan-highlight">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>문의 폼</td>
+                    <td class="check">✓</td>
+                    <td class="check">✓</td>
+                    <td class="check plan-highlight">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>SNS 연동</td>
+                    <td class="uncheck">-</td>
+                    <td class="check">✓</td>
+                    <td class="check plan-highlight">✓</td>
+                    <td class="check">✓</td>
+                </tr>
+                <tr>
+                    <td>관리자 페이지</td>
+                    <td class="uncheck">-</td>
+                    <td class="uncheck">-</td>
+                    <td class="check plan-highlight">✓ 기본</td>
+                    <td class="check">✓ 고급</td>
+                </tr>
+                <tr>
+                    <td>SEO 최적화</td>
+                    <td>기본</td>
+                    <td>기본</td>
+                    <td class="plan-highlight">심화</td>
+                    <td>전문가</td>
+                </tr>
+                <tr>
+                    <td>제작 기간</td>
+                    <td>1~2주</td>
+                    <td>2~3주</td>
+                    <td class="plan-highlight">4~6주</td>
+                    <td>8~12주</td>
+                </tr>
+                <tr>
+                    <td>무상 A/S</td>
+                    <td>1개월</td>
+                    <td>1개월</td>
+                    <td class="plan-highlight">2개월</td>
+                    <td>3개월</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">추가 기능 옵션 단가</h3>
+            <div class="two-col">
+                <table>
+                    <tr>
+                        <th>기능</th>
+                        <th>단가</th>
+                    </tr>
+                    <tr>
+                        <td>추가 페이지 (1p당)</td>
+                        <td class="price">15만원</td>
+                    </tr>
+                    <tr>
+                        <td>게시판/블로그 시스템</td>
+                        <td class="price">30만원</td>
+                    </tr>
+                    <tr>
+                        <td>회원가입/로그인</td>
+                        <td class="price">50만원</td>
+                    </tr>
+                    <tr>
+                        <td>예약 시스템</td>
+                        <td class="price">80만원</td>
+                    </tr>
+                    <tr>
+                        <td>다국어 지원 (1개 언어)</td>
+                        <td class="price">50만원</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>기능</th>
+                        <th>단가</th>
+                    </tr>
+                    <tr>
+                        <td>랜딩페이지 (단일)</td>
+                        <td class="price">80~150만원</td>
+                    </tr>
+                    <tr>
+                        <td>쇼핑몰 기능</td>
+                        <td class="price">200만원~</td>
+                    </tr>
+                    <tr>
+                        <td>결제 시스템 연동</td>
+                        <td class="price">100만원</td>
+                    </tr>
+                    <tr>
+                        <td>3D/인터랙티브 요소</td>
+                        <td class="price">100만원~</td>
+                    </tr>
+                    <tr>
+                        <td>로고/BI 디자인</td>
+                        <td class="price">50~150만원</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="market-compare">
+                <h4>📊 시장 평균가 대비 비교 (2026년 기준, 위시켓/웹에이전시 평균)</h4>
+                <div class="compare-item">
+                    <span>기본형 템플릿 사이트</span>
+                    <span>시장 평균 200~300만원 → <span class="our-price">KOC 80~150만원</span><span class="savings-badge">40%↓</span></span>
+                </div>
+                <div class="compare-item">
+                    <span>맞춤형 중소기업 사이트</span>
+                    <span>시장 평균 500~800만원 → <span class="our-price">KOC 300만원</span><span class="savings-badge">50%↓</span></span>
+                </div>
+                <div class="compare-item">
+                    <span>프리미엄/복합기능</span>
+                    <span>시장 평균 1,000~2,000만원 → <span class="our-price">KOC 500만원~</span><span class="savings-badge">50%↓</span></span>
+                </div>
+            </div>
+
+            <div class="note-box">
+                <strong>※ 참고:</strong> 상기 단가는 부가세 별도 금액이며, 프로젝트 복잡도에 따라 조정될 수 있습니다. 정확한 견적은 무료 상담 후 제공됩니다.
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 8: Maintenance Plans -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">8 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">7</span>유지비용 안내 (호스팅 + 도메인 + 관리)</h2>
+
+            <p>웹사이트 운영에 필요한 <strong>호스팅, 도메인, SSL, 유지관리</strong> 비용을 투명하게 안내드립니다.</p>
+
+            <h3 class="subsection-title">기본 인프라 비용 상세 (필수)</h3>
+            <table>
+                <tr>
+                    <th style="width: 25%;">항목</th>
+                    <th style="width: 20%;">월 비용</th>
+                    <th style="width: 20%;">연간 비용</th>
+                    <th>세부 내용</th>
+                </tr>
+                <tr>
+                    <td><strong>웹호스팅</strong></td>
+                    <td class="price">16,500원</td>
+                    <td class="price price-highlight">198,000원</td>
+                    <td>카페24 광호스팅 10G (트래픽 일 2.5GB)</td>
+                </tr>
+                <tr>
+                    <td><strong>도메인 (.co.kr)</strong></td>
+                    <td class="price">-</td>
+                    <td class="price price-highlight">22,000원</td>
+                    <td>.co.kr 기준 (가비아/카페24)</td>
+                </tr>
+                <tr>
+                    <td><strong>SSL 인증서</strong></td>
+                    <td class="price">무료</td>
+                    <td class="price price-highlight">무료</td>
+                    <td>Let's Encrypt 무료 SSL (호스팅 포함)</td>
+                </tr>
+                <tr style="background: #f0f9ff;">
+                    <td><strong>인프라 합계</strong></td>
+                    <td class="price" style="font-weight: 700;">약 18,300원</td>
+                    <td class="price price-highlight" style="font-size: 1rem;">약 220,000원</td>
+                    <td>호스팅 + 도메인(.co.kr) + SSL</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">유지관리 플랜</h3>
+            <table class="plan-table comparison-table">
+                <tr>
+                    <th style="width: 28%;">구분</th>
+                    <th style="width: 24%;">베이직</th>
+                    <th style="width: 24%; background: linear-gradient(135deg, #6366f1, #8b5cf6);">스탠다드★</th>
+                    <th style="width: 24%;">프리미엄</th>
+                </tr>
+                <tr>
+                    <td><strong>월 비용</strong></td>
+                    <td class="price">10,000원</td>
+                    <td class="price price-highlight plan-highlight">18,300원</td>
+                    <td class="price">40,000원</td>
+                </tr>
+                <tr>
+                    <td><strong>연간 비용</strong></td>
+                    <td class="price">120,000원</td>
+                    <td class="price price-highlight plan-highlight">220,000원</td>
+                    <td class="price">480,000원</td>
+                </tr>
+                <tr>
+                    <td>호스팅</td>
+                    <td>무료 (GitHub Pages)</td>
+                    <td class="plan-highlight">유료 호스팅 포함</td>
+                    <td>유료 호스팅 포함</td>
+                </tr>
+                <tr>
+                    <td>도메인 (연 22,000원)</td>
+                    <td class="check">✓ 포함</td>
+                    <td class="check plan-highlight">✓ 포함</td>
+                    <td class="check">✓ 포함</td>
+                </tr>
+                <tr>
+                    <td>SSL 인증서</td>
+                    <td class="check">✓ 무료</td>
+                    <td class="check plan-highlight">✓ 무료</td>
+                    <td class="check">✓ 무료</td>
+                </tr>
+                <tr>
+                    <td>콘텐츠 직접 수정</td>
+                    <td class="check">✓ 가이드 제공</td>
+                    <td class="check plan-highlight">✓ 가이드 제공</td>
+                    <td class="check">✓ 가이드 제공</td>
+                </tr>
+                <tr>
+                    <td>구조 변경 요청</td>
+                    <td>별도 견적</td>
+                    <td class="plan-highlight">별도 견적</td>
+                    <td>월 2회 포함</td>
+                </tr>
+                <tr>
+                    <td>기술 지원</td>
+                    <td>이메일</td>
+                    <td class="plan-highlight">이메일/전화</td>
+                    <td>이메일/전화</td>
+                </tr>
+            </table>
+
+            <h3 class="subsection-title">연간 총 비용 시뮬레이션</h3>
+            <div class="two-col">
+                <div class="cost-breakdown">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: #6366f1;">📦 Basic + 베이직 유지관리</h4>
+                    <div class="cost-row">
+                        <span>웹사이트 제작 (Basic)</span>
+                        <span>1,500,000원</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>연간 유지관리 (베이직)</span>
+                        <span>120,000원</span>
+                    </div>
+                    <div class="cost-row">
+                        <span><strong>1차년도 총 비용</strong></span>
+                        <span style="color: #6366f1;"><strong>1,620,000원</strong></span>
+                    </div>
+                </div>
+                <div class="cost-breakdown">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: #6366f1;">📦 Standard + 스탠다드 유지관리</h4>
+                    <div class="cost-row">
+                        <span>웹사이트 제작 (Standard)</span>
+                        <span>3,000,000원</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>연간 유지관리 (스탠다드)</span>
+                        <span>220,000원</span>
+                    </div>
+                    <div class="cost-row">
+                        <span><strong>1차년도 총 비용</strong></span>
+                        <span style="color: #6366f1;"><strong>3,220,000원</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="market-compare">
+                <h4>💰 시장 대비 유지비용 비교</h4>
+                <div class="compare-item">
+                    <span>시장 평균 연간 유지비</span>
+                    <span>월 10~30만원 (연 120~360만원)</span>
+                </div>
+                <div class="compare-item">
+                    <span>KOC 베이직 플랜 (무료 호스팅)</span>
+                    <span class="our-price">연 12만원</span><span class="savings-badge">90%↓</span>
+                </div>
+                <div class="compare-item">
+                    <span>KOC 스탠다드 플랜 (유료 호스팅)</span>
+                    <span class="our-price">연 22만원</span><span class="savings-badge">80%↓</span>
+                </div>
+            </div>
+
+            <div class="note-box">
+                <strong>※ 중소기업 특별 혜택:</strong> 한국소공인협회 회원사 대상 제작비 10% 할인 + 첫 2개월 유지관리비 무료 혜택 제공
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 9: FAQ and Contract -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">9 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">8</span>FAQ 및 계약 진행 안내</h2>
+
+            <h3 class="subsection-title">자주 묻는 질문 (FAQ)</h3>
+
+            <div class="highlight-box" style="margin-bottom: 10px;">
+                <h4 style="margin-bottom: 5px;">Q1. 웹사이트 제작 기간은 얼마나 걸리나요?</h4>
+                <p style="margin: 0; font-size: 0.9rem;">플랜에 따라 다르지만, <strong>Starter는 1-2주</strong>, <strong>Basic은 2-3주</strong>, <strong>Standard는 4-6주</strong>, <strong>Premium은 8-12주</strong> 정도 소요됩니다.</p>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 10px;">
+                <h4 style="margin-bottom: 5px;">Q2. 제작 비용은 어떻게 결제하나요?</h4>
+                <p style="margin: 0; font-size: 0.9rem;"><strong>계약금 50% + 완료 후 잔금 50%</strong>로 진행됩니다. 규모가 큰 프로젝트는 3회 분할도 가능합니다.</p>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 10px;">
+                <h4 style="margin-bottom: 5px;">Q3. 제작 후 수정은 가능한가요?</h4>
+                <p style="margin: 0; font-size: 0.9rem;"><strong>무상 A/S 기간(1-3개월)</strong> 내 콘텐츠 수정은 무료입니다. 구조 변경은 별도 견적이 필요합니다.</p>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 10px;">
+                <h4 style="margin-bottom: 5px;">Q4. 호스팅과 도메인은 어떻게 관리되나요?</h4>
+                <p style="margin: 0; font-size: 0.9rem;"><strong>고객 명의</strong>로 호스팅/도메인을 등록하며, 관리자 접근 권한을 모두 제공합니다.</p>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 10px;">
+                <h4 style="margin-bottom: 5px;">Q5. 기존 사이트 리뉴얼도 가능한가요?</h4>
+                <p style="margin: 0; font-size: 0.9rem;">네, 기존 사이트 분석 후 <strong>리뉴얼 견적을 제공</strong>합니다. 콘텐츠 이전도 지원합니다.</p>
+            </div>
+
+            <div class="highlight-box" style="margin-bottom: 15px;">
+                <h4 style="margin-bottom: 5px;">Q6. 무료 상담은 어떻게 받나요?</h4>
+                <p style="margin: 0; font-size: 0.9rem;">전화(<strong>010-5161-7663</strong>) 또는 이메일(<strong>officekoc9672@gmail.com</strong>)로 문의 주시면 <strong>24시간 내 답변</strong>드립니다.</p>
+            </div>
+
+            <h3 class="subsection-title">계약 진행 절차</h3>
+            <div class="process-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 10px;">
+                <div class="process-step">
+                    <div class="process-num">1</div>
+                    <h6>무료 상담</h6>
+                    <span>요구사항 파악</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">2</div>
+                    <h6>견적서 발송</h6>
+                    <span>3일 내 제공</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">3</div>
+                    <h6>계약 체결</h6>
+                    <span>계약금 입금</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">4</div>
+                    <h6>제작 착수</h6>
+                    <span>일정 공유</span>
+                </div>
+            </div>
+            <div class="process-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="process-step">
+                    <div class="process-num">5</div>
+                    <h6>중간 검토</h6>
+                    <span>피드백 반영</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">6</div>
+                    <h6>최종 검수</h6>
+                    <span>잔금 입금</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">7</div>
+                    <h6>사이트 런칭</h6>
+                    <span>관리자 교육</span>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">8</div>
+                    <h6>A/S 시작</h6>
+                    <span>무상 지원</span>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">결제 안내</h3>
+            <table>
+                <tr>
+                    <th style="width: 30%;">항목</th>
+                    <th>내용</th>
+                </tr>
+                <tr>
+                    <td><strong>결제 방식</strong></td>
+                    <td>계약금 50% + 잔금 50% (대규모 프로젝트 3회 분할 가능)</td>
+                </tr>
+                <tr>
+                    <td><strong>입금 계좌</strong></td>
+                    <td>(은행명 추후 안내) 예금주: 케이오씨</td>
+                </tr>
+                <tr>
+                    <td><strong>세금계산서</strong></td>
+                    <td class="check">발행 가능</td>
+                </tr>
+                <tr>
+                    <td><strong>현금영수증</strong></td>
+                    <td class="check">발행 가능</td>
+                </tr>
+            </table>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+
+        <!-- Page 10: Summary & Contact -->
+        <div class="page">
+            <div class="page-header">
+                <span class="page-header-logo">KOC WEB STUDIO</span>
+                <span class="page-number">10 / 10</span>
+            </div>
+
+            <h2 class="section-title"><span class="section-num">9</span>요약 및 문의</h2>
+
+            <h3 class="subsection-title">제작 플랜 요약</h3>
+            <table>
+                <tr>
+                    <th>플랜</th>
+                    <th>제작비</th>
+                    <th>페이지</th>
+                    <th>디자인</th>
+                    <th>제작기간</th>
+                    <th>추천 대상</th>
+                </tr>
+                <tr>
+                    <td><strong>Starter</strong></td>
+                    <td class="price">80만원</td>
+                    <td>3p</td>
+                    <td>템플릿</td>
+                    <td>1~2주</td>
+                    <td>1인 사업자</td>
+                </tr>
+                <tr>
+                    <td><strong>Basic</strong></td>
+                    <td class="price">150만원</td>
+                    <td>5p</td>
+                    <td>템플릿 커스텀</td>
+                    <td>2~3주</td>
+                    <td>소규모 기업</td>
+                </tr>
+                <tr style="background: #f0f9ff;">
+                    <td><strong>Standard★</strong></td>
+                    <td class="price price-highlight">300만원</td>
+                    <td>10p</td>
+                    <td>맞춤 디자인</td>
+                    <td>4~6주</td>
+                    <td>중소기업 권장</td>
+                </tr>
+                <tr>
+                    <td><strong>Premium</strong></td>
+                    <td class="price">500만원~</td>
+                    <td>무제한</td>
+                    <td>프리미엄</td>
+                    <td>8~12주</td>
+                    <td>대기업/복합기능</td>
+                </tr>
+            </table>
+
+            <div class="note-box" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 1px solid #fca5a5; margin-bottom: 15px;">
+                <h4 style="color: #dc2626; font-size: 0.95rem; margin-bottom: 8px;">⚠️ 타 업체 이용 시 자주 발생하는 문제점</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.82rem; color: #7f1d1d;">
+                    <div>❌ 제작 후 연락 두절, 사후관리 불가</div>
+                    <div>❌ 수정 요청 시 과도한 추가비용 청구</div>
+                    <div>❌ 호스팅/도메인 관리 정보 미제공</div>
+                    <div>❌ 담당자 퇴사 시 유지보수 중단</div>
+                </div>
+                <p style="margin: 10px 0 0; font-size: 0.85rem; color: #059669; font-weight: 600;">✅ KOC는 호스팅/도메인 관리 권한을 고객에게 제공하며, 지속적인 사후관리를 약속합니다.</p>
+            </div>
+
+            <div class="highlight-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 5px solid #f59e0b; margin-bottom: 20px;">
+                <h4 style="color: #b45309; font-size: 1.1rem; margin-bottom: 12px;">⭐ KOC 웹스튜디오를 선택해야 하는 6가지 이유</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 12px; border-radius: 8px;">
+                        <strong style="color: #1a1a2e; font-size: 0.9rem;">💰 합리적인 가격</strong>
+                        <p style="margin: 3px 0 0; font-size: 0.82rem; color: #4b5563;">시장 평균 대비 30~50% 비용 절감</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 12px; border-radius: 8px;">
+                        <strong style="color: #1a1a2e; font-size: 0.9rem;">📊 풍부한 경험</strong>
+                        <p style="margin: 3px 0 0; font-size: 0.82rem; color: #4b5563;">21개+ 프로젝트, 15개+ 업종 노하우</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 12px; border-radius: 8px;">
+                        <strong style="color: #1a1a2e; font-size: 0.9rem;">🔍 투명한 비용</strong>
+                        <p style="margin: 3px 0 0; font-size: 0.82rem; color: #4b5563;">숨겨진 비용 없이 명확한 견적</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 12px; border-radius: 8px;">
+                        <strong style="color: #1a1a2e; font-size: 0.9rem;">🔄 원스톱 서비스</strong>
+                        <p style="margin: 3px 0 0; font-size: 0.82rem; color: #4b5563;">기획→디자인→개발→유지보수 통합</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 12px; border-radius: 8px;">
+                        <strong style="color: #1a1a2e; font-size: 0.9rem;">⚡ 신속한 대응</strong>
+                        <p style="margin: 3px 0 0; font-size: 0.82rem; color: #4b5563;">문의 후 24시간 내 응답</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.7); padding: 10px 12px; border-radius: 8px;">
+                        <strong style="color: #1a1a2e; font-size: 0.9rem;">🛠️ 무상 A/S</strong>
+                        <p style="margin: 3px 0 0; font-size: 0.82rem; color: #4b5563;">제작 후 1~3개월 무상 수정</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-box" style="margin-top: 20px;">
+                <h3>💡 중소기업 맞춤 추천 패키지</h3>
+                <div class="total-grid">
+                    <div class="total-item">
+                        <span class="total-label">웹사이트 제작 (Standard)</span>
+                        <span class="total-value">300만원</span>
+                    </div>
+                    <div class="total-item">
+                        <span class="total-label">연간 유지관리 (스탠다드)</span>
+                        <span class="total-value">22만원</span>
+                    </div>
+                    <div class="total-item">
+                        <span class="total-label">1차년도 총 비용</span>
+                        <span class="total-value" style="color: #fbbf24; font-size: 1.5rem;">322만원</span>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 15px; font-size: 0.85rem; opacity: 0.8;">
+                    * 유지관리에 호스팅+도메인+SSL 모두 포함 / 콘텐츠 수정은 가이드로 직접 가능 / 2차년도부터 연 22만원만 발생
+                </p>
+            </div>
+
+            <div class="contact-box">
+                <h3>📞 무료 상담 & 견적 문의</h3>
+                <p style="font-size: 0.95rem; opacity: 0.9;">프로젝트에 대해 상담받고 싶으시면 언제든 연락주세요!</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>담당자</strong>
+                        <span>박민경 대표</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>전화</strong>
+                        <span>010-5161-7663</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>이메일</strong>
+                        <span>officekoc9672@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-box" style="text-align: center;">
+                <strong>감사합니다.</strong> 케이오씨(KOC)는 중소기업의 디지털 성공 파트너로서 합리적인 가격과 높은 품질의 웹 서비스를 약속드립니다.
+            </div>
+
+            <div class="page-footer">
+                케이오씨(KOC) | 경기도 고양시 덕양구 꽃마을로 66, 11층 1107호 | Tel. 010-5161-7663
+            </div>
+        </div>
+    </div>
+</body>
+</html>

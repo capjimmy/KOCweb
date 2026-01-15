@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블루오션 여행사 - 프리미엄 여행의 시작</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0077B6;
+            --light-blue: #00B4D8;
+            --sky-blue: #90E0EF;
+            --pale-blue: #CAF0F8;
+            --dark-blue: #03045E;
+            --white: #FFFFFF;
+            --gray: #6B7280;
+            --light-gray: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .logo-text span {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 119, 182, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            background: linear-gradient(135deg, rgba(3, 4, 94, 0.7), rgba(0, 119, 182, 0.5)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--light-blue), var(--primary-blue));
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-15px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            color: white;
+        }
+
+        /* Search Box */
+        .search-section {
+            max-width: 1200px;
+            margin: -80px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) auto;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .search-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .search-field label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .search-field select,
+        .search-field input {
+            padding: 14px 18px;
+            border: 2px solid var(--pale-blue);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .search-field select:focus,
+        .search-field input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 16px 35px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 119, 182, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--pale-blue);
+            color: var(--primary-blue);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Popular Destinations */
+        .destinations {
+            background: var(--light-gray);
+        }
+
+        .destinations-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .destination-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .destination-card:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+            height: 100%;
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .destination-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+        }
+
+        .destination-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .destination-overlay p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .destination-price {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: var(--primary-blue);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        /* Special Offers */
+        .offers {
+            background: white;
+        }
+
+        .offers-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .offer-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .offer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .offer-card:hover .offer-image img {
+            transform: scale(1.1);
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #FF6B6B;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .offer-content {
+            padding: 25px;
+        }
+
+        .offer-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .offer-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .offer-content h3 {
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .offer-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .offer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .offer-price {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .offer-price .original {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .offer-price .current {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .offer-btn {
+            background: var(--pale-blue);
+            color: var(--primary-blue);
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .offer-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: white;
+        }
+
+        .features .section-header h2 {
+            color: white;
+        }
+
+        .features .section-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+        }
+
+        .feature-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--pale-blue);
+            padding: 60px 20px;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .stat-item p {
+            color: var(--dark-blue);
+            font-weight: 500;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&q=80') center/cover;
+            position: relative;
+            padding: 100px 20px;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 119, 182, 0.9), rgba(0, 180, 216, 0.8));
+        }
+
+        .newsletter-content {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            color: white;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+            opacity: 0.95;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .newsletter-form button {
+            background: var(--dark-blue);
+            color: white;
+            padding: 16px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #020342;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 80px 20px 30px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-text span {
+            color: var(--light-blue);
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--light-blue);
+            border-radius: 3px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--light-blue);
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .destinations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .destination-card:first-child {
+                grid-column: span 2;
+                grid-row: span 1;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .offers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .destination-card:first-child {
+                grid-column: span 1;
+            }
+
+            .destination-card {
+                height: 300px;
+            }
+
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-column h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                </div>
+                <div class="logo-text">블루<span>오션</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="tours.html">여행상품</a></li>
+                <li><a href="destinations.html">여행지</a></li>
+                <li><a href="reviews.html">고객후기</a></li>
+                <li><a href="booking.html">예약하기</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <a href="booking.html" class="nav-cta">예약하기</a>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">2024 대한민국 여행사 대상 수상</div>
+            <h1>특별한 순간을 만드는<br>프리미엄 여행의 시작</h1>
+            <p>블루오션 여행사와 함께라면 모든 여행이 잊지 못할 추억이 됩니다.<br>전문 컨설턴트가 맞춤형 여행을 설계해 드립니다.</p>
+            <div class="hero-buttons">
+                <a href="tours.html" class="btn-primary">여행 상품 보기</a>
+                <a href="contact.html" class="btn-secondary">무료 상담 받기</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="search-box">
+            <div class="search-field">
+                <label>여행 지역</label>
+                <select>
+                    <option>전체 지역</option>
+                    <option>동남아</option>
+                    <option>유럽</option>
+                    <option>일본</option>
+                    <option>미주</option>
+                    <option>국내</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label>여행 유형</label>
+                <select>
+                    <option>전체 유형</option>
+                    <option>패키지 여행</option>
+                    <option>자유 여행</option>
+                    <option>허니문</option>
+                    <option>가족 여행</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label>출발일</label>
+                <input type="date">
+            </div>
+            <div class="search-field">
+                <label>인원</label>
+                <select>
+                    <option>2명</option>
+                    <option>3명</option>
+                    <option>4명</option>
+                    <option>5명 이상</option>
+                </select>
+            </div>
+            <button class="search-btn">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                검색
+            </button>
+        </div>
+    </div>
+
+    <!-- Popular Destinations -->
+    <section class="destinations">
+        <div class="section-header">
+            <span class="section-badge">인기 여행지</span>
+            <h2>지금 가장 핫한 여행지</h2>
+            <p>많은 여행자들이 선택한 인기 여행지를 만나보세요</p>
+        </div>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80" alt="발리">
+                <span class="destination-price">₩1,290,000~</span>
+                <div class="destination-overlay">
+                    <h3>발리, 인도네시아</h3>
+                    <p>신들의 섬에서 즐기는 힐링 여행</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80" alt="도쿄">
+                <span class="destination-price">₩890,000~</span>
+                <div class="destination-overlay">
+                    <h3>도쿄, 일본</h3>
+                    <p>전통과 현대가 공존하는 도시</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80" alt="파리">
+                <span class="destination-price">₩2,490,000~</span>
+                <div class="destination-overlay">
+                    <h3>파리, 프랑스</h3>
+                    <p>낭만과 예술의 도시</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80" alt="방콕">
+                <span class="destination-price">₩690,000~</span>
+                <div class="destination-overlay">
+                    <h3>방콕, 태국</h3>
+                    <p>맛과 멋이 있는 활기찬 도시</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80" alt="몰디브">
+                <span class="destination-price">₩3,290,000~</span>
+                <div class="destination-overlay">
+                    <h3>몰디브</h3>
+                    <p>꿈의 휴양지 수상빌라</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="offers">
+        <div class="section-header">
+            <span class="section-badge">특가 상품</span>
+            <h2>놓치면 후회할 특별 할인</h2>
+            <p>한정된 기간 동안만 제공되는 특별한 가격을 확인하세요</p>
+        </div>
+        <div class="offers-grid">
+            <div class="offer-card">
+                <div class="offer-image">
+                    <img src="https://images.unsplash.com/photo-1540202404-a2f29016b523?w=600&q=80" alt="다낭">
+                    <span class="offer-badge">30% 할인</span>
+                </div>
+                <div class="offer-content">
+                    <div class="offer-meta">
+                        <span>
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            4박 5일
+                        </span>
+                        <span>
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            2인 기준
+                        </span>
+                    </div>
+                    <h3>다낭 프리미엄 패키지</h3>
+                    <p>5성급 리조트와 함께하는 완벽한 휴양. 전용 프라이빗 비치와 스파 포함.</p>
+                    <div class="offer-footer">
+                        <div class="offer-price">
+                            <span class="original">₩1,890,000</span>
+                            <span class="current">₩1,323,000</span>
+                        </div>
+                        <a href="tours.html" class="offer-btn">자세히 보기</a>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-card">
+                <div class="offer-image">
+                    <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80" alt="오사카">
+                    <span class="offer-badge">25% 할인</span>
+                </div>
+                <div class="offer-content">
+                    <div class="offer-meta">
+                        <span>
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            3박 4일
+                        </span>
+                        <span>
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            2인 기준
+                        </span>
+                    </div>
+                    <h3>오사카 미식 투어</h3>
+                    <p>현지 미슐랭 맛집 탐방과 함께하는 특별한 오사카 여행. 유니버셜 스튜디오 포함.</p>
+                    <div class="offer-footer">
+                        <div class="offer-price">
+                            <span class="original">₩1,290,000</span>
+                            <span class="current">₩967,500</span>
+                        </div>
+                        <a href="tours.html" class="offer-btn">자세히 보기</a>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-card">
+                <div class="offer-image">
+                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80" alt="이탈리아">
+                    <span class="offer-badge">20% 할인</span>
+                </div>
+                <div class="offer-content">
+                    <div class="offer-meta">
+                        <span>
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            7박 8일
+                        </span>
+                        <span>
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            2인 기준
+                        </span>
+                    </div>
+                    <h3>이탈리아 완전정복</h3>
+                    <p>로마, 피렌체, 베네치아를 한번에! 전문 가이드와 함께하는 프리미엄 투어.</p>
+                    <div class="offer-footer">
+                        <div class="offer-price">
+                            <span class="original">₩4,290,000</span>
+                            <span class="current">₩3,432,000</span>
+                        </div>
+                        <a href="tours.html" class="offer-btn">자세히 보기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="section-header">
+            <span class="section-badge" style="background: rgba(255,255,255,0.2); color: white;">왜 블루오션인가요?</span>
+            <h2>블루오션만의 특별함</h2>
+            <p>20년 경험의 프리미엄 여행 전문가들이 함께합니다</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">✈️</div>
+                <h3>맞춤형 여행 설계</h3>
+                <p>고객님의 취향과 예산에 맞는 완벽한 맞춤 여행을 설계해 드립니다.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🏨</div>
+                <h3>엄선된 숙소</h3>
+                <p>직접 검증한 최고의 호텔과 리조트만을 추천해 드립니다.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <h3>전문 가이드</h3>
+                <p>현지 전문 가이드가 숨겨진 명소까지 안내해 드립니다.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💎</div>
+                <h3>프리미엄 서비스</h3>
+                <p>출발부터 귀국까지 VIP 케어 서비스를 제공합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>50,000+</h3>
+                <p>누적 고객 수</p>
+            </div>
+            <div class="stat-item">
+                <h3>98%</h3>
+                <p>고객 만족도</p>
+            </div>
+            <div class="stat-item">
+                <h3>200+</h3>
+                <p>여행 상품</p>
+            </div>
+            <div class="stat-item">
+                <h3>20년</h3>
+                <p>업계 경험</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <h2>특별한 여행 소식 받아보기</h2>
+            <p>뉴스레터를 구독하시면 최신 여행 정보와 특가 상품을 가장 먼저 받아보실 수 있습니다.</p>
+            <form class="newsletter-form" onsubmit="return false;">
+                <input type="email" placeholder="이메일 주소를 입력하세요">
+                <button type="submit">구독하기</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo-text">블루<span>오션</span></div>
+                <p>블루오션 여행사는 2004년 설립 이래 고객님께 최고의 여행 경험을 선사하기 위해 노력하고 있습니다. 프리미엄 여행의 새로운 기준을 만들어 갑니다.</p>
+                <div class="social-links">
+                    <a href="#">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                    </a>
+                    <a href="#">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>여행 상품</h4>
+                <ul>
+                    <li><a href="tours.html">국내 여행</a></li>
+                    <li><a href="tours.html">해외 여행</a></li>
+                    <li><a href="tours.html">허니문</a></li>
+                    <li><a href="tours.html">가족 여행</a></li>
+                    <li><a href="tours.html">골프 여행</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>고객 지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="booking.html">예약하기</a></li>
+                    <li><a href="#">취소/환불 안내</a></li>
+                    <li><a href="#">여행자 보험</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>회사 정보</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="#">이용 약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                    <li><a href="#">제휴 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-contact">
+                <h4>연락처</h4>
+                <p>
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    1588-0000
+                </p>
+                <p>
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    info@blueocean.co.kr
+                </p>
+                <p>
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    서울시 강남구 테헤란로 123
+                </p>
+                <p>
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    평일 09:00 - 18:00
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 블루오션 여행사. All Rights Reserved. | 사업자등록번호: 123-45-67890 | 관광사업등록번호: 제2024-000001호</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

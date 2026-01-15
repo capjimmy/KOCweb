@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="남산 호텔 객실 안내 - 디럭스, 프리미엄, 스위트 객실을 만나보세요.">
+    <meta name="keywords" content="남산호텔, 객실, 디럭스룸, 프리미엄룸, 스위트룸">
+    <title>객실 안내 | 남산 호텔</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #D4BC7E;
+            --gold-dark: #A68B4B;
+            --dark-gray: #1A1A1A;
+            --darker-gray: #0D0D0D;
+            --medium-gray: #2D2D2D;
+            --light-gray: #9A9A9A;
+            --white: #FFFFFF;
+            --off-white: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Serif KR', serif;
+            background-color: var(--darker-gray);
+            color: var(--white);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-reservation {
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .nav-reservation:hover {
+            background-color: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 1px;
+            background-color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 60px 100px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--darker-gray) 0%, var(--dark-gray) 100%);
+            position: relative;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23C9A962" opacity="0.03"/><circle cx="75" cy="75" r="1" fill="%23C9A962" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .page-divider {
+            width: 60px;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 0 auto 25px;
+        }
+
+        .page-desc {
+            color: var(--light-gray);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 2;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 120px 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 1px;
+            background-color: var(--gold);
+            margin: 0 auto 25px;
+        }
+
+        .section-desc {
+            color: var(--light-gray);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 2;
+        }
+
+        /* Room Detail Section */
+        .room-detail {
+            background-color: var(--dark-gray);
+        }
+
+        .room-detail:nth-child(even) {
+            background-color: var(--darker-gray);
+        }
+
+        .room-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .room-detail:nth-child(even) .room-detail-content {
+            direction: rtl;
+        }
+
+        .room-detail:nth-child(even) .room-detail-content > * {
+            direction: ltr;
+        }
+
+        .room-image-large {
+            height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .room-image-deluxe {
+            background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80');
+        }
+
+        .room-image-premium {
+            background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900&q=80');
+        }
+
+        .room-image-suite {
+            background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80');
+        }
+
+        .room-info {
+            padding: 40px 0;
+        }
+
+        .room-type-label {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .room-name-large {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .room-desc-large {
+            color: var(--light-gray);
+            font-size: 1rem;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+
+        .room-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: rgba(201, 169, 98, 0.05);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .room-spec {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .room-spec i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            width: 25px;
+        }
+
+        .room-spec span {
+            font-size: 0.95rem;
+            color: var(--light-gray);
+        }
+
+        .room-amenities {
+            margin-bottom: 35px;
+        }
+
+        .room-amenities h4 {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .amenities-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .amenity-tag {
+            padding: 8px 16px;
+            background-color: var(--medium-gray);
+            font-size: 0.85rem;
+            color: var(--light-gray);
+        }
+
+        .room-price-large {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .room-price-large .amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+
+        .room-price-large .period {
+            font-size: 1rem;
+            color: var(--light-gray);
+        }
+
+        .room-cta {
+            display: inline-block;
+            padding: 18px 50px;
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .room-cta:hover {
+            background-color: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        /* Packages Section */
+        .packages {
+            background-color: var(--dark-gray);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .package-card {
+            background-color: var(--medium-gray);
+            border: 1px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .package-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+        }
+
+        .package-card.featured {
+            border-color: var(--gold);
+            position: relative;
+        }
+
+        .package-card.featured::before {
+            content: 'BEST';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            padding: 5px 15px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+
+        .package-header {
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--dark-gray);
+        }
+
+        .package-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .package-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .package-price span {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+        }
+
+        .package-content {
+            padding: 30px;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .package-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--dark-gray);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--light-gray);
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .package-features li i {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .package-cta {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .package-cta:hover {
+            background-color: var(--gold);
+            color: var(--dark-gray);
+        }
+
+        .package-card.featured .package-cta {
+            background-color: var(--gold);
+            color: var(--dark-gray);
+        }
+
+        .package-card.featured .package-cta:hover {
+            background-color: var(--gold-light);
+        }
+
+        /* Policies Section */
+        .policies {
+            background-color: var(--darker-gray);
+        }
+
+        .policies-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .policy-item {
+            text-align: center;
+            padding: 40px 25px;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .policy-item i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .policy-item h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .policy-item p {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-gray);
+            padding: 80px 60px 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-gray);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid var(--medium-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: var(--light-gray);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--darker-gray);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            transition: right 0.4s ease;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .packages-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .policies-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            section {
+                padding: 80px 40px;
+            }
+
+            .navbar {
+                padding: 20px 30px;
+            }
+
+            .nav-links, .nav-reservation {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+
+            .room-detail-content,
+            .room-detail:nth-child(even) .room-detail-content {
+                grid-template-columns: 1fr;
+                direction: ltr;
+                gap: 50px;
+            }
+
+            .room-image-large {
+                height: 400px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 20px;
+            }
+
+            .page-header {
+                padding: 140px 20px 60px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .room-name-large {
+                font-size: 2rem;
+            }
+
+            .room-specs {
+                grid-template-columns: 1fr;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .policies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer {
+                padding: 60px 20px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+                letter-spacing: 3px;
+            }
+
+            .room-price-large .amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">Namsan Hotel</a>
+        <ul class="nav-links">
+            <li><a href="about.html">소개</a></li>
+            <li><a href="rooms.html" class="active">객실</a></li>
+            <li><a href="facilities.html">시설</a></li>
+            <li><a href="contact.html">예약문의</a></li>
+        </ul>
+        <a href="contact.html" class="nav-reservation">예약하기</a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html" onclick="toggleMenu()">홈</a>
+        <a href="about.html" onclick="toggleMenu()">소개</a>
+        <a href="rooms.html" onclick="toggleMenu()">객실</a>
+        <a href="facilities.html" onclick="toggleMenu()">시설</a>
+        <a href="contact.html" onclick="toggleMenu()">예약문의</a>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-content">
+            <span class="page-subtitle">Accommodations</span>
+            <h1 class="page-title">객실 안내</h1>
+            <div class="page-divider"></div>
+            <p class="page-desc">남산의 아름다운 전경과 함께 최상의 휴식을 경험하세요. 모든 객실은 프리미엄 어메니티와 최신 시설을 갖추고 있습니다.</p>
+        </div>
+    </header>
+
+    <!-- Deluxe Room -->
+    <section class="room-detail">
+        <div class="room-detail-content">
+            <div class="room-image-large room-image-deluxe">
+            </div>
+            <div class="room-info">
+                <span class="room-type-label">Standard</span>
+                <h2 class="room-name-large">디럭스 룸</h2>
+                <p class="room-desc-large">
+                    비즈니스 출장에 최적화된 아늑하고 기능적인 객실입니다.
+                    편안한 킹사이즈 베드와 넓은 워크 데스크, 그리고 모던한 인테리어가
+                    완벽한 휴식과 업무 환경을 제공합니다.
+                </p>
+                <div class="room-specs">
+                    <div class="room-spec">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <span>28m² 면적</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-user"></i>
+                        <span>최대 2인</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-bed"></i>
+                        <span>킹 베드 1개</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-mountain"></i>
+                        <span>시티뷰</span>
+                    </div>
+                </div>
+                <div class="room-amenities">
+                    <h4>객실 어메니티</h4>
+                    <div class="amenities-list">
+                        <span class="amenity-tag">무료 WiFi</span>
+                        <span class="amenity-tag">미니바</span>
+                        <span class="amenity-tag">에어컨</span>
+                        <span class="amenity-tag">금고</span>
+                        <span class="amenity-tag">욕실용품</span>
+                        <span class="amenity-tag">헤어드라이어</span>
+                    </div>
+                </div>
+                <div class="room-price-large">
+                    <span class="amount">180,000원</span>
+                    <span class="period">/ 1박</span>
+                </div>
+                <a href="contact.html" class="room-cta">예약하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Room -->
+    <section class="room-detail">
+        <div class="room-detail-content">
+            <div class="room-image-large room-image-premium">
+            </div>
+            <div class="room-info">
+                <span class="room-type-label">Premium</span>
+                <h2 class="room-name-large">프리미엄 룸</h2>
+                <p class="room-desc-large">
+                    넓은 공간과 남산 전망을 갖춘 고급 객실입니다.
+                    탁 트인 창을 통해 남산의 아름다운 풍경을 감상하며
+                    럭셔리한 휴식을 즐기실 수 있습니다.
+                </p>
+                <div class="room-specs">
+                    <div class="room-spec">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <span>38m² 면적</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-user"></i>
+                        <span>최대 2인</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-bed"></i>
+                        <span>킹 베드 1개</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-mountain"></i>
+                        <span>남산뷰</span>
+                    </div>
+                </div>
+                <div class="room-amenities">
+                    <h4>객실 어메니티</h4>
+                    <div class="amenities-list">
+                        <span class="amenity-tag">무료 WiFi</span>
+                        <span class="amenity-tag">미니바</span>
+                        <span class="amenity-tag">에어컨</span>
+                        <span class="amenity-tag">금고</span>
+                        <span class="amenity-tag">프리미엄 욕실용품</span>
+                        <span class="amenity-tag">목욕가운</span>
+                        <span class="amenity-tag">네스프레소 머신</span>
+                    </div>
+                </div>
+                <div class="room-price-large">
+                    <span class="amount">280,000원</span>
+                    <span class="period">/ 1박</span>
+                </div>
+                <a href="contact.html" class="room-cta">예약하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suite Room -->
+    <section class="room-detail">
+        <div class="room-detail-content">
+            <div class="room-image-large room-image-suite">
+            </div>
+            <div class="room-info">
+                <span class="room-type-label">Luxury</span>
+                <h2 class="room-name-large">스위트 룸</h2>
+                <p class="room-desc-large">
+                    거실과 침실이 분리된 최고급 스위트 객실입니다.
+                    프라이빗한 공간에서 가족 또는 비즈니스 미팅을 위한
+                    완벽한 환경을 제공합니다.
+                </p>
+                <div class="room-specs">
+                    <div class="room-spec">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                        <span>55m² 면적</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-user"></i>
+                        <span>최대 4인</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-bed"></i>
+                        <span>킹 베드 1개 + 소파베드</span>
+                    </div>
+                    <div class="room-spec">
+                        <i class="fas fa-bath"></i>
+                        <span>자쿠지 욕조</span>
+                    </div>
+                </div>
+                <div class="room-amenities">
+                    <h4>객실 어메니티</h4>
+                    <div class="amenities-list">
+                        <span class="amenity-tag">무료 WiFi</span>
+                        <span class="amenity-tag">프리미엄 미니바</span>
+                        <span class="amenity-tag">에어컨</span>
+                        <span class="amenity-tag">금고</span>
+                        <span class="amenity-tag">럭셔리 욕실용품</span>
+                        <span class="amenity-tag">목욕가운</span>
+                        <span class="amenity-tag">네스프레소 머신</span>
+                        <span class="amenity-tag">거실 공간</span>
+                        <span class="amenity-tag">다이닝 테이블</span>
+                    </div>
+                </div>
+                <div class="room-price-large">
+                    <span class="amount">450,000원</span>
+                    <span class="period">/ 1박</span>
+                </div>
+                <a href="contact.html" class="room-cta">예약하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="packages">
+        <div class="section-header">
+            <span class="section-label">Special Offers</span>
+            <h2 class="section-title">패키지</h2>
+            <div class="section-divider"></div>
+            <p class="section-desc">특별한 혜택이 담긴 패키지로 더욱 풍성한 여행을 즐기세요.</p>
+        </div>
+        <div class="packages-grid">
+            <div class="package-card">
+                <div class="package-header">
+                    <h3 class="package-name">비즈니스 패키지</h3>
+                    <p class="package-price">220,000원 <span>/ 1박</span></p>
+                </div>
+                <div class="package-content">
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 디럭스 룸 1박</li>
+                        <li><i class="fas fa-check"></i> 조식 뷔페 1인</li>
+                        <li><i class="fas fa-check"></i> 비즈니스 센터 이용</li>
+                        <li><i class="fas fa-check"></i> 무료 주차</li>
+                        <li><i class="fas fa-check"></i> 레이트 체크아웃 (14시)</li>
+                    </ul>
+                    <a href="contact.html" class="package-cta">예약하기</a>
+                </div>
+            </div>
+            <div class="package-card featured">
+                <div class="package-header">
+                    <h3 class="package-name">로맨틱 패키지</h3>
+                    <p class="package-price">380,000원 <span>/ 1박</span></p>
+                </div>
+                <div class="package-content">
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 프리미엄 룸 1박</li>
+                        <li><i class="fas fa-check"></i> 조식 뷔페 2인</li>
+                        <li><i class="fas fa-check"></i> 웰컴 와인 & 과일</li>
+                        <li><i class="fas fa-check"></i> 스파 이용권 2매</li>
+                        <li><i class="fas fa-check"></i> 레이트 체크아웃 (15시)</li>
+                    </ul>
+                    <a href="contact.html" class="package-cta">예약하기</a>
+                </div>
+            </div>
+            <div class="package-card">
+                <div class="package-header">
+                    <h3 class="package-name">패밀리 패키지</h3>
+                    <p class="package-price">520,000원 <span>/ 1박</span></p>
+                </div>
+                <div class="package-content">
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 스위트 룸 1박</li>
+                        <li><i class="fas fa-check"></i> 조식 뷔페 4인</li>
+                        <li><i class="fas fa-check"></i> 키즈 어메니티</li>
+                        <li><i class="fas fa-check"></i> 수영장 이용</li>
+                        <li><i class="fas fa-check"></i> 무료 주차</li>
+                    </ul>
+                    <a href="contact.html" class="package-cta">예약하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies Section -->
+    <section class="policies">
+        <div class="section-header">
+            <span class="section-label">Information</span>
+            <h2 class="section-title">이용 안내</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="policies-grid">
+            <div class="policy-item">
+                <i class="fas fa-clock"></i>
+                <h4>체크인/아웃</h4>
+                <p>체크인 15:00<br>체크아웃 11:00</p>
+            </div>
+            <div class="policy-item">
+                <i class="fas fa-utensils"></i>
+                <h4>조식</h4>
+                <p>06:30 - 10:00<br>더 라운지 레스토랑</p>
+            </div>
+            <div class="policy-item">
+                <i class="fas fa-ban"></i>
+                <h4>취소 규정</h4>
+                <p>3일 전 무료 취소<br>당일 취소 시 요금 100%</p>
+            </div>
+            <div class="policy-item">
+                <i class="fas fa-baby"></i>
+                <h4>아동 정책</h4>
+                <p>만 12세 이하 무료<br>베이비 코트 무료 제공</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Namsan Hotel</a>
+                <p>서울 도심의 프리미엄 비즈니스 호텔. 남산의 아름다운 전경과 함께 최상의 서비스를 경험하세요.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>객실</h4>
+                <ul>
+                    <li><a href="rooms.html">디럭스 룸</a></li>
+                    <li><a href="rooms.html">프리미엄 룸</a></li>
+                    <li><a href="rooms.html">스위트 룸</a></li>
+                    <li><a href="rooms.html">패키지</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>시설</h4>
+                <ul>
+                    <li><a href="facilities.html">피트니스 센터</a></li>
+                    <li><a href="facilities.html">스파 & 사우나</a></li>
+                    <li><a href="facilities.html">비즈니스 센터</a></li>
+                    <li><a href="facilities.html">레스토랑</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">예약 문의</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="contact.html">오시는 길</a></li>
+                    <li><a href="about.html">호텔 소개</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 남산 호텔. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+                <a href="#">사이트맵</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuToggle = document.querySelector('.menu-toggle');
+            mobileNav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.room-detail, .package-card, .policy-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

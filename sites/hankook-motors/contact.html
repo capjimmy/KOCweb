@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 - 한국자동차정비</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared/css/common.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">한국자동차정비</a>
+            <nav class="nav-menu">
+                <a href="index.html">홈</a>
+                <a href="about.html">회사소개</a>
+                <a href="services.html">서비스</a>
+                <a href="contact.html" class="active">문의하기</a>
+            </nav>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>문의하기</h1>
+            <p>견적 문의 및 상담을 신청하세요</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">T</div>
+                    <div class="contact-text">
+                        <h4>전화번호</h4>
+                        <p>02-2682-5500</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">L</div>
+                    <div class="contact-text">
+                        <h4>주소</h4>
+                        <p>서울특별시 구로구 경인로 445</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">C</div>
+                    <div class="contact-text">
+                        <h4>영업시간</h4>
+                        <p>평일 09:00-18:00 / 토 09:00-15:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <h3 style="margin-bottom: 30px; text-align: center;">온라인 문의</h3>
+                <form id="contactForm" class="contact-form">
+                    <input type="hidden" name="site" value="hankook-motors">
+                    <div class="form-group">
+                        <label for="name">성함 *</label>
+                        <input type="text" id="name" name="name" required placeholder="성함을 입력해주세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처 *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="연락처를 입력해주세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="car_model">차량 정보</label>
+                        <input type="text" id="car_model" name="car_model" placeholder="예: BMW 320d 2020년식">
+                    </div>
+                    <div class="form-group">
+                        <label for="service_type">문의 유형</label>
+                        <select id="service_type" name="service_type">
+                            <option value="">선택해주세요</option>
+                            <option value="정기점검">정기점검</option>
+                            <option value="엔진정비">엔진정비</option>
+                            <option value="브레이크">브레이크</option>
+                            <option value="서스펜션">서스펜션</option>
+                            <option value="변속기">변속기</option>
+                            <option value="에어컨/히터">에어컨/히터</option>
+                            <option value="튜닝">튜닝</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용 *</label>
+                        <textarea id="message" name="message" required placeholder="문의하실 내용을 상세히 적어주세요"></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn btn-primary" style="width: 200px;">문의하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="section-title">
+                <h2>찾아오시는 길</h2>
+            </div>
+            <div style="width: 100%; height: 400px; background: #ddd; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center;">
+                    <h3>서울특별시 구로구 경인로 445</h3>
+                    <p style="margin-top: 10px; color: #666;">지하철 1호선 구로역 2번 출구에서 도보 5분</p>
+                    <p style="color: #666;">주차공간 완비</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>한국자동차정비</h4>
+                    <p>수입차 전문 정비 및 튜닝 서비스</p>
+                    <p>1992년 설립</p>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <p>전화: 02-2682-5500</p>
+                    <p>서울특별시 구로구 경인로 445</p>
+                </div>
+                <div class="footer-section">
+                    <h4>영업시간</h4>
+                    <p>평일: 09:00 - 18:00</p>
+                    <p>토요일: 09:00 - 15:00</p>
+                    <p>일요일/공휴일 휴무</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <a href="about.html">회사소개</a><br>
+                    <a href="services.html">서비스</a><br>
+                    <a href="contact.html">문의하기</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2024 한국자동차정비. All rights reserved. 대표: 권영철</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../shared/js/common.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

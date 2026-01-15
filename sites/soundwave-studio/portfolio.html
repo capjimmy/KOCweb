@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포트폴리오 | 사운드웨이브 스튜디오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0d0015;
+            --primary-purple: #1a0a2e;
+            --accent-purple: #6b21a8;
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --neon-blue: #06b6d4;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-neon: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-purple);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(13, 0, 21, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-neon);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8); }
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-neon);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--neon-purple);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 30px;
+            height: 3px;
+            background: var(--neon-purple);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 5% 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-purple) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 30% 70%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--neon-purple);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .page-title span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--neon-purple);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-section {
+            background: var(--primary-purple);
+            padding: 60px 5%;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-tab {
+            padding: 12px 30px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50px;
+            color: var(--text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--gradient-neon);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Portfolio Grid */
+        .portfolio {
+            background: var(--primary-purple);
+            padding-top: 0;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 0, 21, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .play-btn {
+            transform: scale(1);
+        }
+
+        .portfolio-content {
+            padding: 30px;
+        }
+
+        .portfolio-category {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(168, 85, 247, 0.15);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--neon-purple);
+            margin-bottom: 15px;
+        }
+
+        .portfolio-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .portfolio-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .portfolio-artist {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .artist-avatar {
+            width: 35px;
+            height: 35px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .portfolio-year {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Featured Projects */
+        .featured {
+            background: linear-gradient(180deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-item {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            transition: all 0.4s ease;
+        }
+
+        .featured-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.2);
+        }
+
+        .featured-image {
+            height: 100%;
+            min-height: 350px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--gradient-neon);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .featured-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .featured-content p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .featured-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .featured-stat {
+            text-align: center;
+        }
+
+        .featured-stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .featured-stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Clients Section */
+        .clients {
+            background: var(--primary-dark);
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .client-card {
+            background: rgba(26, 10, 46, 0.4);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .client-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.2);
+        }
+
+        .client-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+
+        .client-card h4 {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--primary-purple);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.2);
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .author-info span {
+            color: var(--neon-purple);
+            font-size: 0.85rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(180deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta h2 span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-neon);
+            color: white;
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(168, 85, 247, 0.6);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-purple);
+            padding: 80px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-purple);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--neon-purple);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-purple);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-item {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 250px;
+            }
+
+            .clients-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--primary-purple);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .filter-tabs {
+                gap: 10px;
+            }
+
+            .filter-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .clients-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-music"></i>
+            </div>
+            <span class="logo-text">SOUNDWAVE</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">소개</a></li>
+            <li><a href="services.html">서비스</a></li>
+            <li><a href="portfolio.html" class="active">포트폴리오</a></li>
+            <li><a href="contact.html">예약문의</a></li>
+        </ul>
+        <div class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-content">
+            <span class="page-badge">Our Work</span>
+            <h1 class="page-title">포트<span>폴리오</span></h1>
+            <p class="page-description">
+                500개 이상의 프로젝트에서 만들어낸 최고의 사운드를 확인하세요
+            </p>
+        </div>
+    </header>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">전체</button>
+            <button class="filter-tab" data-filter="kpop">K-POP</button>
+            <button class="filter-tab" data-filter="ballad">발라드</button>
+            <button class="filter-tab" data-filter="hiphop">힙합</button>
+            <button class="filter-tab" data-filter="ost">OST</button>
+            <button class="filter-tab" data-filter="cm">광고음악</button>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="portfolio">
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in" data-category="kpop">
+                <div class="portfolio-image">
+                    <i class="fas fa-compact-disc"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">K-POP</span>
+                    <h3>NOVA - "Starlight"</h3>
+                    <p>신인 걸그룹 NOVA의 데뷔 앨범 타이틀곡. 청량한 보컬과 트렌디한 사운드로 차트 상위권 진입.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-user"></i></div>
+                            <span>NOVA</span>
+                        </div>
+                        <span class="portfolio-year">2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="ballad">
+                <div class="portfolio-image">
+                    <i class="fas fa-heart"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">발라드</span>
+                    <h3>김소리 - "겨울이 오면"</h3>
+                    <p>감성 발라더 김소리의 윈터 발라드. 섬세한 보컬 녹음과 깊이 있는 믹싱으로 완성.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-user"></i></div>
+                            <span>김소리</span>
+                        </div>
+                        <span class="portfolio-year">2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="hiphop">
+                <div class="portfolio-image">
+                    <i class="fas fa-microphone-alt"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">힙합</span>
+                    <h3>MC FLOW - "Street Dreams"</h3>
+                    <p>언더그라운드 래퍼 MC FLOW의 정규 2집. 강렬한 비트와 리얼리즘 넘치는 가사.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-user"></i></div>
+                            <span>MC FLOW</span>
+                        </div>
+                        <span class="portfolio-year">2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="ost">
+                <div class="portfolio-image">
+                    <i class="fas fa-film"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">OST</span>
+                    <h3>드라마 "별의 시간" OST</h3>
+                    <p>tvN 인기 드라마 메인 테마곡 및 삽입곡 10곡 제작. 오케스트라 녹음 포함.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-tv"></i></div>
+                            <span>tvN</span>
+                        </div>
+                        <span class="portfolio-year">2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="cm">
+                <div class="portfolio-image">
+                    <i class="fas fa-bullhorn"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">광고음악</span>
+                    <h3>삼성전자 Galaxy 캠페인</h3>
+                    <p>삼성전자 갤럭시 글로벌 광고 캠페인 BGM 제작. 미래지향적 사운드 디자인.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-mobile-alt"></i></div>
+                            <span>Samsung</span>
+                        </div>
+                        <span class="portfolio-year">2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="kpop">
+                <div class="portfolio-image">
+                    <i class="fas fa-star"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">K-POP</span>
+                    <h3>PULSE - "Heartbeat"</h3>
+                    <p>대형 기획사 소속 보이그룹 PULSE의 컴백 앨범. Billboard 200 차트 진입.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-user"></i></div>
+                            <span>PULSE</span>
+                        </div>
+                        <span class="portfolio-year">2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="ballad">
+                <div class="portfolio-image">
+                    <i class="fas fa-music"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">발라드</span>
+                    <h3>이하늘 - "첫사랑"</h3>
+                    <p>OST 퀸 이하늘의 정규 앨범. 라이브 밴드 세션으로 풍성한 사운드 완성.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-user"></i></div>
+                            <span>이하늘</span>
+                        </div>
+                        <span class="portfolio-year">2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="hiphop">
+                <div class="portfolio-image">
+                    <i class="fas fa-headphones"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">힙합</span>
+                    <h3>BEATZ CREW - "LEGACY"</h3>
+                    <p>힙합 크루 BEATZ CREW의 콜라보 앨범. 20명의 아티스트가 참여한 대작.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-users"></i></div>
+                            <span>BEATZ CREW</span>
+                        </div>
+                        <span class="portfolio-year">2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="ost">
+                <div class="portfolio-image">
+                    <i class="fas fa-gamepad"></i>
+                    <div class="portfolio-overlay">
+                        <div class="play-btn">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">게임 OST</span>
+                    <h3>에픽게임즈 "REALM"</h3>
+                    <p>대작 RPG 게임 REALM의 오리지널 사운드트랙. 오케스트라 & 일렉트로닉 융합.</p>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-artist">
+                            <div class="artist-avatar"><i class="fas fa-gamepad"></i></div>
+                            <span>Epic Games</span>
+                        </div>
+                        <span class="portfolio-year">2022</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="featured">
+        <div class="section-header fade-in">
+            <span class="section-badge">Featured</span>
+            <h2 class="section-title">대표 <span>프로젝트</span></h2>
+            <p class="section-subtitle">
+                사운드웨이브 스튜디오를 대표하는 성공적인 프로젝트들입니다
+            </p>
+        </div>
+        <div class="featured-grid">
+            <div class="featured-item fade-in">
+                <div class="featured-image">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="featured-content">
+                    <span class="featured-badge">
+                        <i class="fas fa-trophy"></i> 골든디스크 수상
+                    </span>
+                    <h3>AURORA - "ECLIPSE" 정규 3집</h3>
+                    <p>
+                        대표 K-POP 걸그룹 AURORA의 정규 3집 전곡 녹음, 믹싱, 마스터링을 담당했습니다.
+                        발매 후 빌보드 200 TOP10 진입 및 국내 음원차트 올킬을 기록했습니다.
+                    </p>
+                    <div class="featured-stats">
+                        <div class="featured-stat">
+                            <div class="featured-stat-number">1억+</div>
+                            <div class="featured-stat-label">스트리밍</div>
+                        </div>
+                        <div class="featured-stat">
+                            <div class="featured-stat-number">12곡</div>
+                            <div class="featured-stat-label">수록곡</div>
+                        </div>
+                        <div class="featured-stat">
+                            <div class="featured-stat-number">3개월</div>
+                            <div class="featured-stat-label">작업기간</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="featured-item fade-in">
+                <div class="featured-image">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="featured-content">
+                    <span class="featured-badge">
+                        <i class="fas fa-star"></i> 대상 수상작
+                    </span>
+                    <h3>영화 "불꽃처럼" OST</h3>
+                    <p>
+                        2023년 대종상 음악상을 수상한 영화 OST 프로젝트입니다.
+                        60인조 오케스트라 녹음과 Dolby Atmos 믹싱으로 몰입감 넘치는 사운드를 완성했습니다.
+                    </p>
+                    <div class="featured-stats">
+                        <div class="featured-stat">
+                            <div class="featured-stat-number">23곡</div>
+                            <div class="featured-stat-label">수록곡</div>
+                        </div>
+                        <div class="featured-stat">
+                            <div class="featured-stat-number">60인조</div>
+                            <div class="featured-stat-label">오케스트라</div>
+                        </div>
+                        <div class="featured-stat">
+                            <div class="featured-stat-number">Atmos</div>
+                            <div class="featured-stat-label">믹싱</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients">
+        <div class="section-header fade-in">
+            <span class="section-badge">Clients</span>
+            <h2 class="section-title">함께한 <span>클라이언트</span></h2>
+            <p class="section-subtitle">
+                국내외 유수의 기업 및 아티스트들과 함께하고 있습니다
+            </p>
+        </div>
+        <div class="clients-grid">
+            <div class="client-card fade-in">
+                <div class="client-logo"><i class="fas fa-building"></i></div>
+                <h4>SM Entertainment</h4>
+            </div>
+            <div class="client-card fade-in">
+                <div class="client-logo"><i class="fas fa-building"></i></div>
+                <h4>JYP Entertainment</h4>
+            </div>
+            <div class="client-card fade-in">
+                <div class="client-logo"><i class="fas fa-building"></i></div>
+                <h4>HYBE</h4>
+            </div>
+            <div class="client-card fade-in">
+                <div class="client-logo"><i class="fas fa-tv"></i></div>
+                <h4>tvN</h4>
+            </div>
+            <div class="client-card fade-in">
+                <div class="client-logo"><i class="fas fa-mobile-alt"></i></div>
+                <h4>Samsung</h4>
+            </div>
+            <div class="client-card fade-in">
+                <div class="client-logo"><i class="fas fa-car"></i></div>
+                <h4>Hyundai Motor</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-header fade-in">
+            <span class="section-badge">Reviews</span>
+            <h2 class="section-title">클라이언트 <span>후기</span></h2>
+            <p class="section-subtitle">
+                사운드웨이브 스튜디오와 함께한 클라이언트들의 솔직한 후기입니다
+            </p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-quote">"</div>
+                <p>
+                    5년째 모든 앨범 작업을 사운드웨이브에서 진행하고 있습니다.
+                    전문적인 엔지니어 팀과 최고의 장비가 만들어내는 사운드는
+                    다른 곳에서는 경험할 수 없는 퀄리티입니다.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fas fa-user"></i></div>
+                    <div class="author-info">
+                        <h4>박음악</h4>
+                        <span>싱어송라이터</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-quote">"</div>
+                <p>
+                    영화 OST 작업 시 60인조 오케스트라 녹음을 진행했는데,
+                    완벽한 방음과 음향 환경에서 최고의 결과물을 얻을 수 있었습니다.
+                    대종상 음악상 수상의 숨은 공로자입니다.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fas fa-user"></i></div>
+                    <div class="author-info">
+                        <h4>최영화</h4>
+                        <span>영화음악감독</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-quote">"</div>
+                <p>
+                    데뷔 앨범 작업을 사운드웨이브에서 진행했습니다.
+                    신인임에도 불구하고 끝까지 세심하게 케어해주셔서
+                    최고의 첫 앨범을 만들 수 있었습니다. 앞으로도 쭉 함께하고 싶습니다.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fas fa-user"></i></div>
+                    <div class="author-info">
+                        <h4>이신인</h4>
+                        <span>신인 아티스트</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content fade-in">
+            <h2>다음 프로젝트의<br><span>주인공이 되어보세요</span></h2>
+            <p>
+                사운드웨이브 스튜디오와 함께 당신만의 특별한 사운드를 만들어 보세요.
+                지금 바로 상담을 예약하세요.
+            </p>
+            <a href="contact.html" class="btn btn-primary">
+                <i class="fas fa-calendar-check"></i> 예약하기
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <span class="logo-text">SOUNDWAVE</span>
+                </a>
+                <p>
+                    사운드웨이브 스튜디오는 최첨단 장비와 전문 엔지니어가 함께하는
+                    프리미엄 음원 제작 전문 스튜디오입니다. 당신의 음악적 비전을 현실로 만들어 드립니다.
+                </p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-soundcloud"></i></a>
+                    <a href="#"><i class="fab fa-spotify"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">스튜디오 소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="contact.html">예약문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">레코딩</a></li>
+                    <li><a href="services.html">믹싱 & 마스터링</a></li>
+                    <li><a href="services.html">편곡 & 작곡</a></li>
+                    <li><a href="services.html">영상 제작</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="contact.html">오시는 길</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 사운드웨이브 스튜디오. All rights reserved.</p>
+            <p>대표: 김사운드 | 사업자등록번호: 123-45-67890</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

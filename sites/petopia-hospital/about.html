@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>병원소개 - 펫토피아 동물병원</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF9A56;
+            --primary-orange-light: #FFB885;
+            --primary-teal: #4ECDC4;
+            --primary-teal-light: #7EDDD6;
+            --white: #FFFFFF;
+            --cream: #FFF9F5;
+            --gray-light: #F5F5F5;
+            --gray: #888888;
+            --gray-dark: #333333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 0 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--gray-dark);
+        }
+
+        .logo-text span {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+            transition: var(--transition);
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--gray-dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '🏥';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        .page-header::after {
+            content: '🐾';
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 span {
+            color: var(--primary-orange);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* About Intro */
+        .about-intro {
+            background: var(--white);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-content h2 span {
+            color: var(--primary-orange);
+        }
+
+        .about-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--cream);
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        /* Values Section */
+        .values-section {
+            background: var(--cream);
+        }
+
+        .values-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .value-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--cream), var(--white));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 25px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .value-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--gray-dark);
+        }
+
+        .value-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* History Section */
+        .history-section {
+            background: var(--white);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 25px;
+            background: var(--cream);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-year {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-teal);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            background: var(--cream);
+        }
+
+        .equipment-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .equipment-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .equipment-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .equipment-card .content {
+            padding: 20px;
+        }
+
+        .equipment-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--gray-dark);
+        }
+
+        .equipment-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer ul a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .equipment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .emergency-btn {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+                padding-left: 50px;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                width: 100%;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🐾</div>
+                <div class="logo-text">펫토피아 <span>동물병원</span></div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">병원소개</a></li>
+                <li><a href="services.html">진료안내</a></li>
+                <li><a href="facilities.html">시설안내</a></li>
+                <li><a href="reservation.html">예약하기</a></li>
+                <li><a href="contact.html">오시는길</a></li>
+            </ul>
+            <a href="tel:02-1234-5678" class="emergency-btn">
+                🚨 24시 응급: 02-1234-5678
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>병원소개</h1>
+        <p>펫토피아 동물병원을 소개합니다</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a>
+            <span>›</span>
+            <span>병원소개</span>
+        </div>
+    </section>
+
+    <!-- About Intro -->
+    <section class="section about-intro">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&h=400&fit=crop" alt="펫토피아 동물병원 외관">
+            </div>
+            <div class="about-content">
+                <h2><span>펫토피아</span> 동물병원을 소개합니다</h2>
+                <p>
+                    2005년 개원 이래 펫토피아 동물병원은 반려동물의 건강과 행복을 위해
+                    최선을 다해왔습니다. 우리는 단순한 치료를 넘어 반려동물과 보호자
+                    모두가 안심할 수 있는 의료 서비스를 제공합니다.
+                </p>
+                <p>
+                    24시간 응급진료 시스템과 최신 의료장비, 그리고 경험 풍부한
+                    전문 수의사 팀이 여러분의 소중한 가족을 책임집니다.
+                </p>
+                <p>
+                    펫토피아는 '동물과 사람이 함께 행복한 세상'을 꿈꾸며,
+                    모든 생명을 소중히 여기는 마음으로 진료에 임하고 있습니다.
+                </p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">19</div>
+                        <div class="stat-label">년 전통</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50,000+</div>
+                        <div class="stat-label">누적 진료</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">전문 수의사</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values-section">
+        <div class="section-header">
+            <h2>펫토피아의 <span>핵심 가치</span></h2>
+            <p>우리가 중요하게 생각하는 것들</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">💖</div>
+                <h3>사랑과 존중</h3>
+                <p>모든 동물은 가족입니다. 우리는 여러분의 반려동물을 내 가족처럼 사랑과 존중으로 대합니다.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🔬</div>
+                <h3>전문성</h3>
+                <p>끊임없는 연구와 교육을 통해 최신 의료 기술을 습득하고 최상의 진료를 제공합니다.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>신뢰와 소통</h3>
+                <p>보호자와의 투명한 소통을 통해 신뢰를 쌓고, 함께 최선의 치료 방향을 결정합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="section history-section">
+        <div class="section-header">
+            <h2>펫토피아의 <span>발자취</span></h2>
+            <p>함께 걸어온 소중한 시간들</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2005</div>
+                    <h4>펫토피아 동물병원 개원</h4>
+                    <p>김민수 원장님의 꿈이 시작된 곳, 작은 동물병원으로 시작했습니다.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2010</div>
+                    <h4>24시간 응급진료 시작</h4>
+                    <p>야간 응급 환자를 위한 24시간 진료 시스템을 도입했습니다.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2015</div>
+                    <h4>신사옥 이전 및 확장</h4>
+                    <p>더 많은 환자를 위해 현재의 위치로 이전하고 시설을 확장했습니다.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2020</div>
+                    <h4>최신 의료장비 도입</h4>
+                    <p>CT, MRI 등 첨단 의료장비를 도입하여 진단 능력을 향상시켰습니다.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h4>누적 진료 50,000건 달성</h4>
+                    <p>19년간의 노력이 결실을 맺어 5만 건의 진료를 달성했습니다.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="section equipment-section">
+        <div class="section-header">
+            <h2>최신 <span>의료 장비</span></h2>
+            <p>정확한 진단과 안전한 치료를 위한 첨단 장비</p>
+        </div>
+        <div class="equipment-grid">
+            <div class="equipment-card">
+                <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=250&fit=crop" alt="디지털 X-ray">
+                <div class="content">
+                    <h4>디지털 X-ray</h4>
+                    <p>고화질 디지털 방사선 촬영으로 정확한 진단</p>
+                </div>
+            </div>
+            <div class="equipment-card">
+                <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=400&h=250&fit=crop" alt="초음파 진단기">
+                <div class="content">
+                    <h4>초음파 진단기</h4>
+                    <p>비침습적 검사로 내부 장기 상태 확인</p>
+                </div>
+            </div>
+            <div class="equipment-card">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=250&fit=crop" alt="혈액분석기">
+                <div class="content">
+                    <h4>혈액분석기</h4>
+                    <p>신속하고 정확한 혈액 검사 결과 제공</p>
+                </div>
+            </div>
+            <div class="equipment-card">
+                <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=250&fit=crop" alt="수술실">
+                <div class="content">
+                    <h4>무균 수술실</h4>
+                    <p>철저한 무균 관리로 안전한 수술 환경</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-text">펫토피아 <span style="color: var(--primary-orange);">동물병원</span></div>
+                <p>소중한 가족의 건강을 24시간 책임지는<br>믿을 수 있는 동물병원입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">📺</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+            <div>
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="services.html">일반진료</a></li>
+                    <li><a href="services.html">외과수술</a></li>
+                    <li><a href="services.html">치과진료</a></li>
+                    <li><a href="services.html">예방접종</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>병원안내</h4>
+                <ul>
+                    <li><a href="about.html">병원소개</a></li>
+                    <li><a href="facilities.html">시설안내</a></li>
+                    <li><a href="contact.html">오시는길</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>연락처</h4>
+                <ul>
+                    <li>📞 02-1234-5678</li>
+                    <li>📱 010-1234-5678</li>
+                    <li>📧 info@petopia.kr</li>
+                    <li>📍 서울시 강남구 테헤란로 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 펫토피아 동물병원. All rights reserved.</p>
+            <p>24시간 응급진료 운영 | 주차가능</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>

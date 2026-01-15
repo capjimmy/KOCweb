@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="그린클린 서비스 예약 및 문의 - 무료 견적 상담">
+    <title>예약/문의 | 그린클린 서비스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2E7D32;
+            --light-green: #4CAF50;
+            --pale-green: #E8F5E9;
+            --dark-green: #1B5E20;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--light-green);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--primary-green);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-green);
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 2rem;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form-wrapper h2 {
+            color: var(--primary-green);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form-wrapper > p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label .required {
+            color: #e53935;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--pale-green);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--light-green);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background-color: var(--primary-green);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(46, 125, 50, 0.3);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background-color: var(--pale-green);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .info-card h3 {
+            color: var(--primary-green);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .info-content h4 {
+            color: var(--dark-green);
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .info-content a {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .info-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Business Hours */
+        .hours-card {
+            background-color: var(--white);
+            border: 2px solid var(--pale-green);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .hours-card h3 {
+            color: var(--primary-green);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--pale-green);
+            color: var(--text-dark);
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .hours-list li span:last-child {
+            color: var(--primary-green);
+            font-weight: 500;
+        }
+
+        /* Quick Contact */
+        .quick-contact {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .quick-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .quick-contact p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .phone-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .quick-contact .kakao-btn {
+            display: inline-block;
+            background-color: #FEE500;
+            color: #3C1E1E;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .quick-contact .kakao-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 5rem 2rem;
+            background-color: var(--light-gray);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .map-placeholder {
+            background-color: var(--pale-green);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .map-placeholder .map-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-placeholder h3 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-placeholder p {
+            color: var(--text-light);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 2rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--white);
+            border: 2px solid var(--pale-green);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--light-green);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .faq-question::after {
+            content: "+";
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--pale-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--pale-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-wrapper {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .page-header {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .contact-section,
+            .map-section,
+            .faq-section {
+                padding: 3rem 1rem;
+            }
+
+            .contact-form-wrapper h2 {
+                font-size: 1.5rem;
+            }
+
+            .phone-number {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">그린<span>클린</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="pricing.html">요금안내</a></li>
+                <li><a href="contact.html" class="active">예약/문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(135deg, rgba(232, 245, 233, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&q=80') center/cover no-repeat;">
+        <h1>예약 / 문의</h1>
+        <p>그린클린 서비스에 대해 궁금하신 점이 있으시면 언제든지 문의해 주세요</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h2>무료 견적 신청</h2>
+                <p>아래 양식을 작성해 주시면 빠른 시일 내에 연락드리겠습니다.</p>
+
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>이름 <span class="required">*</span></label>
+                            <input type="text" name="name" required placeholder="홍길동">
+                        </div>
+                        <div class="form-group">
+                            <label>연락처 <span class="required">*</span></label>
+                            <input type="tel" name="phone" required placeholder="010-1234-5678">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>이메일</label>
+                        <input type="email" name="email" placeholder="example@email.com">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>서비스 종류 <span class="required">*</span></label>
+                            <select name="service" required>
+                                <option value="">선택해 주세요</option>
+                                <option value="home">가정집 청소</option>
+                                <option value="office">사무실 청소</option>
+                                <option value="move">이사 청소</option>
+                                <option value="disinfection">방역 서비스</option>
+                                <option value="special">특수 청소</option>
+                                <option value="regular">정기 청소</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>희망 서비스 일자</label>
+                            <input type="date" name="date">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>주소</label>
+                        <input type="text" name="address" placeholder="서비스 받으실 주소를 입력해 주세요">
+                    </div>
+
+                    <div class="form-group">
+                        <label>평수/면적</label>
+                        <input type="text" name="size" placeholder="예: 32평, 약 100m2">
+                    </div>
+
+                    <div class="form-group">
+                        <label>문의 내용</label>
+                        <textarea name="message" placeholder="궁금하신 점이나 요청사항을 자유롭게 작성해 주세요."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">견적 신청하기</button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <!-- Quick Contact -->
+                <div class="quick-contact">
+                    <h3>빠른 상담</h3>
+                    <p>지금 바로 전화 또는 카카오톡으로 상담하세요</p>
+                    <span class="phone-number">1588-1234</span>
+                    <a href="#" class="kakao-btn">카카오톡 상담</a>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="info-card">
+                    <h3>연락처 정보</h3>
+                    <div class="info-item">
+                        <span class="info-icon">📞</span>
+                        <div class="info-content">
+                            <h4>대표전화</h4>
+                            <p><a href="tel:1588-1234">1588-1234</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📧</span>
+                        <div class="info-content">
+                            <h4>이메일</h4>
+                            <p><a href="mailto:clean@greenclean.kr">clean@greenclean.kr</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <div class="info-content">
+                            <h4>주소</h4>
+                            <p>서울시 영등포구 여의대로 100<br>그린빌딩 5층</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Hours -->
+                <div class="hours-card">
+                    <h3>영업시간</h3>
+                    <ul class="hours-list">
+                        <li><span>월요일 - 금요일</span><span>09:00 - 18:00</span></li>
+                        <li><span>토요일</span><span>09:00 - 15:00</span></li>
+                        <li><span>일요일 / 공휴일</span><span>휴무</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <div class="section-title">
+                <h2>오시는 길</h2>
+                <p>그린클린 서비스 본사 위치</p>
+            </div>
+            <div class="map-placeholder" style="background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=400&fit=crop&q=80') center/cover no-repeat; position:relative;">
+                <div style="position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(232, 245, 233, 0.85); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                    <h3 style="color:#2E7D32; font-size:1.5rem; margin-bottom:0.5rem;">서울시 영등포구 여의대로 100</h3>
+                    <p style="color:#666;">지하철 5호선 여의도역 3번 출구에서 도보 5분</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="section-title">
+                <h2>자주 묻는 질문</h2>
+                <p>고객님들이 자주 문의하시는 내용입니다</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">견적은 어떻게 받을 수 있나요?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        위 견적 신청 양식을 작성해 주시거나 전화(1588-1234)로 문의해 주시면 무료 방문 견적을 제공해 드립니다. 정확한 견적을 위해 방문 후 상태를 확인하고 견적서를 발송해 드립니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">청소 시 필요한 준비사항이 있나요?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        특별한 준비는 필요 없습니다. 귀중품만 안전한 곳에 보관해 주시면 됩니다. 저희 전문가가 모든 장비와 친환경 세제를 가지고 방문합니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">정기 청소는 어떻게 이용하나요?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        주 1회, 격주, 월 1회 등 고객님의 일정에 맞춰 정기 청소 서비스를 이용하실 수 있습니다. 정기 청소 고객님께는 특별 할인이 적용됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">결제 방법은 무엇이 있나요?</div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        현금, 신용카드, 계좌이체 모두 가능합니다. 법인 고객의 경우 세금계산서 발행도 가능하며, 정기 청소 고객은 월 단위 결제도 가능합니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>그린클린 서비스</h4>
+                <p>친환경 청소 및 방역 전문 업체</p>
+                <p>깨끗한 공간, 건강한 내일을 만듭니다.</p>
+            </div>
+            <div class="footer-section">
+                <h4>빠른 링크</h4>
+                <a href="about.html">회사소개</a>
+                <a href="services.html">서비스 안내</a>
+                <a href="pricing.html">요금 안내</a>
+                <a href="contact.html">예약/문의</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📞 1588-1234</p>
+                <p>📧 clean@greenclean.kr</p>
+                <p>📍 서울시 영등포구 여의대로 100</p>
+                <p>⏰ 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>대표: 박청결 | 사업자등록번호: 123-45-67890</p>
+            <p>&copy; 2024 그린클린 서비스. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('견적 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

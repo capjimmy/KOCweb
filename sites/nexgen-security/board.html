@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보안 뉴스 | 넥스젠 시큐리티 - NexGen Security</title>
+    <meta name="description" content="넥스젠 시큐리티가 전하는 최신 보안 동향, 위협 인텔리전스, 보안 팁 등 다양한 보안 정보를 확인하세요.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="cyber-loader"></div>
+            <div class="loader-text glitch" data-text="LOADING...">LOADING...</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matrix Background Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                <span class="logo-text">
+                    <span class="logo-main glitch" data-text="NEXGEN">NEXGEN</span>
+                    <span class="logo-sub">SECURITY</span>
+                </span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-link-text">HOME</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <span class="nav-link-text">ABOUT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="services.html" class="nav-link">
+                    <span class="nav-link-text">SERVICES</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="board.html" class="nav-link active">
+                    <span class="nav-link-text">BOARD</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="contact.html" class="nav-link">
+                    <span class="nav-link-text">CONTACT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button class="cyber-btn btn-outline" onclick="location.href='contact.html'">
+                    <span class="btn-text">GET SECURE</span>
+                    <span class="btn-glitch"></span>
+                </button>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1920&h=600&fit=crop" alt="Security News">
+            <div class="header-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="page-header-content">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="separator">/</span>
+                    <span class="current">Board</span>
+                </div>
+                <h1 class="page-title glitch" data-text="SECURITY NEWS">SECURITY NEWS</h1>
+                <p class="page-subtitle">보안 뉴스 및 공지사항</p>
+            </div>
+        </div>
+        <div class="header-decoration">
+            <div class="line-1"></div>
+            <div class="line-2"></div>
+        </div>
+    </section>
+
+    <!-- Board Section -->
+    <section class="section board-section">
+        <div class="container">
+            <!-- Board Filters -->
+            <div class="board-filters" data-aos="fade-up">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-category="all">
+                        <i class="fas fa-th-large"></i> 전체
+                    </button>
+                    <button class="filter-tab" data-category="threat">
+                        <i class="fas fa-exclamation-triangle"></i> 위협 동향
+                    </button>
+                    <button class="filter-tab" data-category="tech">
+                        <i class="fas fa-code"></i> 기술 블로그
+                    </button>
+                    <button class="filter-tab" data-category="notice">
+                        <i class="fas fa-bullhorn"></i> 공지사항
+                    </button>
+                    <button class="filter-tab" data-category="guide">
+                        <i class="fas fa-book"></i> 가이드
+                    </button>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="boardSearch" placeholder="검색어를 입력하세요...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <!-- Board List -->
+            <div class="board-list" id="boardList">
+                <!-- Board items will be populated by JavaScript -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Modal -->
+    <div class="modal" id="postModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <span class="post-category"></span>
+                <h2 class="post-title"></h2>
+                <div class="post-meta">
+                    <span class="post-author"><i class="fas fa-user"></i> <span></span></span>
+                    <span class="post-date"><i class="fas fa-calendar"></i> <span></span></span>
+                    <span class="post-views"><i class="fas fa-eye"></i> <span></span></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="post-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="cyber-btn btn-outline" onclick="closeModal()">
+                    <span class="btn-text">닫기</span>
+                    <span class="btn-glitch"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter-section">
+        <div class="container">
+            <div class="newsletter-wrapper" data-aos="fade-up">
+                <div class="newsletter-content">
+                    <div class="newsletter-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3>보안 뉴스레터 구독</h3>
+                    <p>최신 보안 동향과 위협 인텔리전스를 이메일로 받아보세요.</p>
+                </div>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="form-group">
+                        <input type="email" id="newsletterEmail" placeholder="이메일 주소를 입력하세요" required>
+                        <button type="submit" class="cyber-btn btn-primary">
+                            <span class="btn-text">구독하기</span>
+                            <span class="btn-glitch"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                            <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                            <span class="logo-text">
+                                <span class="logo-main">NEXGEN</span>
+                                <span class="logo-sub">SECURITY</span>
+                            </span>
+                        </a>
+                        <p class="footer-description">
+                            넥스젠 시큐리티는 기업 정보보안 솔루션 전문기업으로,
+                            최첨단 보안 기술과 전문 인력으로 고객의 디지털 자산을 보호합니다.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> 홈</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> 회사소개</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 서비스</a></li>
+                            <li><a href="board.html"><i class="fas fa-chevron-right"></i> 보안뉴스</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> 문의하기</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Services</h4>
+                        <ul>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 통합 보안관제</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 모의해킹</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> ISMS 인증</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 클라우드 보안</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 취약점 진단</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4 class="footer-title">Contact Info</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>서울특별시 금천구 가산디지털1로 168</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>02-2026-8500</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>secure@nexgen-security.kr</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 보안관제센터 운영</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        &copy; 2024 NexGen Security. All rights reserved. | 대표: 서정우 | 설립: 2015년
+                    </p>
+                    <div class="footer-legal">
+                        <a href="#">개인정보처리방침</a>
+                        <a href="#">이용약관</a>
+                        <a href="#">보안정책</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/board.js"></script>
+</body>
+</html>

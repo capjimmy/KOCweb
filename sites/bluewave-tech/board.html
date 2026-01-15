@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 | 블루웨이브 테크놀로지</title>
+    <meta name="description" content="블루웨이브 테크놀로지의 최신 소식과 공지사항을 확인하세요.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #00a8ff;
+            --primary-purple: #9c27b0;
+            --dark-bg: #0a0a1a;
+            --dark-surface: #12122a;
+            --dark-card: #1a1a3a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --gradient-1: linear-gradient(135deg, #00a8ff 0%, #9c27b0 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glow-blue: 0 0 40px rgba(0, 168, 255, 0.3);
+            --glow-purple: 0 0 40px rgba(156, 39, 176, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 4px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.7rem 5%;
+            background: rgba(10, 10, 26, 0.95);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.7rem 1.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .page-header {
+            position: relative;
+            padding: 180px 5% 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-blue);
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-purple);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .page-badge span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .page-title .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid rgba(0, 168, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        #board-main {
+            background: var(--dark-surface);
+        }
+
+        .board-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .board-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: white;
+        }
+
+        .board-list {
+            background: var(--dark-card);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .board-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            align-items: center;
+        }
+
+        .board-item:last-child {
+            border-bottom: none;
+        }
+
+        .board-item:hover {
+            background: rgba(0, 168, 255, 0.05);
+        }
+
+        .board-category {
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 168, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--primary-blue);
+            white-space: nowrap;
+        }
+
+        .board-category.notice {
+            background: rgba(156, 39, 176, 0.1);
+            color: var(--primary-purple);
+        }
+
+        .board-category.event {
+            background: rgba(0, 200, 150, 0.1);
+            color: #00c896;
+        }
+
+        .board-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            transition: color 0.3s ease;
+        }
+
+        .board-item:hover .board-content h3 {
+            color: var(--primary-blue);
+        }
+
+        .board-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .board-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: white;
+        }
+
+        #cta {
+            background: var(--dark-bg);
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--dark-card);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .cta-container p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-blue);
+        }
+
+        footer {
+            background: var(--dark-surface);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--dark-surface);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .board-item {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .board-category {
+                justify-self: start;
+            }
+
+            .board-date {
+                justify-self: start;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 5%;
+            }
+
+            .page-header {
+                padding: 140px 5% 60px;
+            }
+
+            .board-item {
+                padding: 1.2rem 1.5rem;
+            }
+
+            .cta-container {
+                padding: 2rem;
+            }
+
+            .cta-container h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">BlueWave Tech</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div id="canvas-container"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="page-header-content">
+            <div class="page-badge">
+                <span>Notice Board</span>
+            </div>
+            <h1 class="page-title">
+                블루웨이브<br>
+                <span class="gradient-text">공지사항</span>
+            </h1>
+            <p class="page-subtitle">
+                블루웨이브 테크놀로지의 최신 소식과 공지사항을 확인하세요.
+            </p>
+        </div>
+    </header>
+
+    <section id="board-main">
+        <div class="board-container">
+            <div class="board-filters">
+                <button class="filter-btn active">전체</button>
+                <button class="filter-btn">공지</button>
+                <button class="filter-btn">뉴스</button>
+                <button class="filter-btn">이벤트</button>
+            </div>
+
+            <div class="board-list">
+                <a href="#" class="board-item">
+                    <span class="board-category notice">공지</span>
+                    <div class="board-content">
+                        <h3>2024년 연말 휴무 안내</h3>
+                        <p>12월 30일부터 1월 2일까지 연말연시 휴무입니다. 긴급 문의는 이메일로 연락주세요.</p>
+                    </div>
+                    <span class="board-date">2024.12.20</span>
+                </a>
+                <a href="#" class="board-item">
+                    <span class="board-category">뉴스</span>
+                    <div class="board-content">
+                        <h3>AWS 어드밴스드 파트너 자격 갱신 완료</h3>
+                        <p>블루웨이브 테크놀로지가 AWS 어드밴스드 컨설팅 파트너 자격을 성공적으로 갱신했습니다.</p>
+                    </div>
+                    <span class="board-date">2024.12.15</span>
+                </a>
+                <a href="#" class="board-item">
+                    <span class="board-category event">이벤트</span>
+                    <div class="board-content">
+                        <h3>클라우드 마이그레이션 무료 세미나 개최</h3>
+                        <p>2025년 1월 클라우드 마이그레이션 전략 세미나를 무료로 개최합니다. 지금 신청하세요.</p>
+                    </div>
+                    <span class="board-date">2024.12.10</span>
+                </a>
+                <a href="#" class="board-item">
+                    <span class="board-category">뉴스</span>
+                    <div class="board-content">
+                        <h3>시리즈 B 투자 유치 성공</h3>
+                        <p>블루웨이브 테크놀로지가 100억 규모의 시리즈 B 투자를 성공적으로 유치했습니다.</p>
+                    </div>
+                    <span class="board-date">2024.11.28</span>
+                </a>
+                <a href="#" class="board-item">
+                    <span class="board-category notice">공지</span>
+                    <div class="board-content">
+                        <h3>개인정보처리방침 개정 안내</h3>
+                        <p>개인정보보호법 개정에 따라 당사의 개인정보처리방침이 2024년 12월 1일부터 변경됩니다.</p>
+                    </div>
+                    <span class="board-date">2024.11.20</span>
+                </a>
+                <a href="#" class="board-item">
+                    <span class="board-category">뉴스</span>
+                    <div class="board-content">
+                        <h3>싱가포르 지사 설립</h3>
+                        <p>동남아시아 시장 진출을 위한 싱가포르 지사를 공식 설립했습니다.</p>
+                    </div>
+                    <span class="board-date">2024.11.15</span>
+                </a>
+                <a href="#" class="board-item">
+                    <span class="board-category event">이벤트</span>
+                    <div class="board-content">
+                        <h3>AI 솔루션 도입 상담 이벤트</h3>
+                        <p>AI 솔루션 도입 상담 시 무료 컨설팅을 제공합니다. 11월 한정 이벤트입니다.</p>
+                    </div>
+                    <span class="board-date">2024.11.01</span>
+                </a>
+                <a href="#" class="board-item">
+                    <span class="board-category">뉴스</span>
+                    <div class="board-content">
+                        <h3>ISO 27001 인증 획득</h3>
+                        <p>정보보안 경영시스템 국제 표준 ISO 27001 인증을 성공적으로 획득했습니다.</p>
+                    </div>
+                    <span class="board-date">2024.10.25</span>
+                </a>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta">
+        <div class="cta-container">
+            <h2>프로젝트를 시작해볼까요?</h2>
+            <p>
+                비즈니스의 디지털 전환을 위한 첫 걸음,<br>
+                블루웨이브 테크놀로지와 함께하세요.
+            </p>
+            <a href="contact.html" class="btn-primary">
+                무료 상담 신청
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">BlueWave Tech</a>
+                <p>
+                    클라우드 엔터프라이즈 솔루션으로<br>
+                    비즈니스의 디지털 전환을 이끕니다.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="LinkedIn">in</a>
+                    <a href="#" class="social-link" title="GitHub">GH</a>
+                    <a href="#" class="social-link" title="Twitter">X</a>
+                    <a href="#" class="social-link" title="YouTube">YT</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">클라우드 마이그레이션</a></li>
+                    <li><a href="services.html">소프트웨어 개발</a></li>
+                    <li><a href="services.html">데이터 분석</a></li>
+                    <li><a href="services.html">보안 솔루션</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>회사</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="#">블로그</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">기술 문서</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 블루웨이브 테크놀로지. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function initParticles() {
+            const container = document.getElementById('canvas-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.6);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 2000;
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorsArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i += 3) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+                posArray[i + 1] = (Math.random() - 0.5) * 10;
+                posArray[i + 2] = (Math.random() - 0.5) * 10;
+
+                const t = Math.random();
+                colorsArray[i] = 0 + t * 0.61;
+                colorsArray[i + 1] = 0.66 - t * 0.51;
+                colorsArray[i + 2] = 1 - t * 0.31;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            camera.position.z = 3;
+
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particlesMesh.rotation.x += 0.001;
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += mouseY * 0.005;
+                particlesMesh.rotation.y += mouseX * 0.005;
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight * 0.6);
+            });
+        }
+
+        function initAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) {
+                    document.querySelector('.navbar').classList.add('scrolled');
+                } else {
+                    document.querySelector('.navbar').classList.remove('scrolled');
+                }
+            });
+
+            gsap.from('.page-badge', { opacity: 0, y: 30, duration: 1, delay: 0.3 });
+            gsap.from('.page-title', { opacity: 0, y: 50, duration: 1, delay: 0.5 });
+            gsap.from('.page-subtitle', { opacity: 0, y: 30, duration: 1, delay: 0.7 });
+
+            gsap.from('.board-filters', {
+                scrollTrigger: {
+                    trigger: '.board-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6
+            });
+
+            gsap.from('.board-list', {
+                scrollTrigger: {
+                    trigger: '.board-list',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8
+            });
+
+            gsap.from('.cta-container', {
+                scrollTrigger: {
+                    trigger: '.cta-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8
+            });
+        }
+
+        function initFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+        }
+
+        function initMobileMenu() {
+            const toggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    toggle.classList.remove('active');
+                });
+            });
+        }
+
+        function hideLoader() {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 800);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            initAnimations();
+            initFilters();
+            initMobileMenu();
+            hideLoader();
+        });
+    </script>
+</body>
+</html>

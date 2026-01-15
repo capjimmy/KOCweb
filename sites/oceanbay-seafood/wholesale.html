@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="오션베이 수산 - 도매/유통 안내 | 식당, 마트, 호텔을 위한 B2B 수산물 공급">
+    <title>도매/유통 안내 | 오션베이 수산</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: #0a3d62;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #48dbfb;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #48dbfb;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(10, 61, 98, 0.95), rgba(23, 107, 135, 0.9));
+            padding: 8rem 5% 4rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: #0a3d62;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #0a3d62, #48dbfb);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Intro Section */
+        .intro {
+            background: #fff;
+        }
+
+        .intro-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .intro-content p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Partner Types */
+        .partners {
+            background: #f8f9fa;
+        }
+
+        .partners-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .partner-card {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .partner-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .partner-card h3 {
+            color: #0a3d62;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .partner-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: #fff;
+        }
+
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .benefits-image {
+            background: linear-gradient(135deg, #0a3d62, #176b87);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits-image::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 20px,
+                rgba(72, 219, 251, 0.1) 20px,
+                rgba(72, 219, 251, 0.1) 40px
+            );
+            animation: wave 3s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-40px); }
+        }
+
+        .benefits-image-icon {
+            font-size: 6rem;
+            z-index: 1;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .benefits-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .benefit-icon {
+            background: #48dbfb;
+            color: #0a3d62;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h4 {
+            color: #0a3d62;
+            margin-bottom: 0.3rem;
+        }
+
+        .benefit-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Process Section */
+        .process {
+            background: linear-gradient(135deg, #0a3d62, #176b87);
+            color: #fff;
+        }
+
+        .process .section-title h2 {
+            color: #fff;
+        }
+
+        .process .section-title p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .process-steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            right: -1rem;
+            width: calc(100% - 70px);
+            height: 3px;
+            background: rgba(72, 219, 251, 0.3);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: rgba(72, 219, 251, 0.2);
+            border: 3px solid #48dbfb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #48dbfb;
+            margin: 0 auto 1rem;
+        }
+
+        .process-step h4 {
+            color: #48dbfb;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Pricing Info */
+        .pricing {
+            background: #f8f9fa;
+        }
+
+        .pricing-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            border-color: #48dbfb;
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border-color: #0a3d62;
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: '추천';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0a3d62;
+            color: #fff;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .pricing-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card h3 {
+            color: #0a3d62;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .volume {
+            color: #48dbfb;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-card li {
+            padding: 0.5rem 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-card li::before {
+            content: '✓';
+            color: #48dbfb;
+            margin-right: 0.5rem;
+        }
+
+        .pricing-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #0a3d62;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .pricing-btn:hover {
+            background: #48dbfb;
+            color: #0a3d62;
+        }
+
+        /* Delivery Info */
+        .delivery {
+            background: #fff;
+        }
+
+        .delivery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .delivery-card {
+            background: linear-gradient(135deg, #f8f9fa, #fff);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .delivery-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .delivery-card h3 {
+            color: #0a3d62;
+            margin-bottom: 0.5rem;
+        }
+
+        .delivery-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0a3d62, #176b87);
+            color: #fff;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #48dbfb;
+            color: #0a3d62;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 0.5rem;
+        }
+
+        .cta-btn:hover {
+            background: #fff;
+            transform: translateY(-3px);
+        }
+
+        .cta-btn.outline {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .cta-btn.outline:hover {
+            background: #fff;
+            color: #0a3d62;
+        }
+
+        /* Footer */
+        footer {
+            background: #052642;
+            color: #fff;
+            padding: 3rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #48dbfb;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.8;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: opacity 0.3s, color 0.3s;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: #48dbfb;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom .company-name {
+            font-weight: bold;
+            color: #48dbfb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-step::after {
+                display: none;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .delivery-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #0a3d62;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .benefits-image {
+                height: 300px;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">오션베이 <span>수산</span></a>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="products.html">제품</a></li>
+            <li><a href="wholesale.html" class="active">도매/유통</a></li>
+            <li><a href="contact.html">연락처</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>도매/유통 안내</h1>
+        <p>식당, 마트, 호텔을 위한 B2B 수산물 공급 서비스</p>
+    </header>
+
+    <!-- Intro Section -->
+    <section class="intro">
+        <div class="intro-content">
+            <p>
+                오션베이 수산은 전국의 식당, 마트, 호텔, 급식업체에 신선한 수산물을 안정적으로 공급하고 있습니다.
+                20년 이상의 유통 경험과 철저한 품질 관리 시스템을 바탕으로 합리적인 가격에 최상급 수산물을 제공합니다.
+            </p>
+            <p>
+                정기 거래 고객에게는 특별 할인 혜택과 우선 배송 서비스를 제공해 드립니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Partner Types -->
+    <section class="partners">
+        <div class="section-title">
+            <h2>거래 대상</h2>
+            <p>다양한 업종의 파트너와 함께합니다</p>
+        </div>
+        <div class="partners-grid">
+            <div class="partner-card">
+                <div class="partner-icon">🍽️</div>
+                <h3>음식점</h3>
+                <p>횟집, 일식당, 한식당 등<br>각종 요식업체</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-icon">🏪</div>
+                <h3>마트/슈퍼</h3>
+                <p>대형마트, 슈퍼마켓,<br>재래시장 소매상</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-icon">🏨</div>
+                <h3>호텔/리조트</h3>
+                <p>호텔, 리조트, 연회장<br>뷔페 레스토랑</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-icon">🍱</div>
+                <h3>급식업체</h3>
+                <p>단체급식, 케이터링,<br>식품 제조업체</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="section-title">
+            <h2>거래 혜택</h2>
+            <p>오션베이 수산과 함께하면 누릴 수 있는 혜택</p>
+        </div>
+        <div class="benefits-container">
+            <div class="benefits-image">
+                <span class="benefits-image-icon">🤝</span>
+            </div>
+            <ul class="benefits-list">
+                <li>
+                    <span class="benefit-icon">💰</span>
+                    <div class="benefit-content">
+                        <h4>도매가 공급</h4>
+                        <p>산지 직거래로 중간 유통 마진을 줄여 경쟁력 있는 가격을 제공합니다</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="benefit-icon">📦</span>
+                    <div class="benefit-content">
+                        <h4>정기 배송</h4>
+                        <p>매일/주간/월간 정기 배송으로 안정적인 수급을 보장합니다</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="benefit-icon">🏆</span>
+                    <div class="benefit-content">
+                        <h4>품질 보증</h4>
+                        <p>HACCP 인증 시설에서 관리된 믿을 수 있는 품질의 수산물</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="benefit-icon">📞</span>
+                    <div class="benefit-content">
+                        <h4>전담 담당자</h4>
+                        <p>거래처별 전담 담당자가 배정되어 신속한 응대를 해드립니다</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="benefit-icon">🔄</span>
+                    <div class="benefit-content">
+                        <h4>교환/반품 보장</h4>
+                        <p>품질 문제 시 무조건 교환 또는 환불을 보장합니다</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="section-title">
+            <h2>거래 절차</h2>
+            <p>간단한 절차로 거래를 시작하세요</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>문의</h4>
+                <p>전화 또는 이메일로<br>거래 문의</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>상담</h4>
+                <p>담당자와 상담 후<br>견적 및 조건 협의</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>계약</h4>
+                <p>거래 조건 확정 및<br>계약 체결</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>납품</h4>
+                <p>정기/수시 납품<br>시작</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Info -->
+    <section class="pricing">
+        <div class="section-title">
+            <h2>거래 유형</h2>
+            <p>업체 규모와 필요에 맞는 거래 방식을 선택하세요</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-icon">🏠</div>
+                <h3>소규모 거래</h3>
+                <div class="volume">월 100만원 이상</div>
+                <ul>
+                    <li>도매가 5% 할인</li>
+                    <li>주 2회 배송</li>
+                    <li>최소 주문 수량 협의</li>
+                    <li>전화/카카오톡 주문</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn">문의하기</a>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-icon">🏢</div>
+                <h3>중규모 거래</h3>
+                <div class="volume">월 300만원 이상</div>
+                <ul>
+                    <li>도매가 10% 할인</li>
+                    <li>매일 배송 가능</li>
+                    <li>전담 담당자 배정</li>
+                    <li>월말 정산 가능</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn">문의하기</a>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-icon">🏭</div>
+                <h3>대규모 거래</h3>
+                <div class="volume">월 1000만원 이상</div>
+                <ul>
+                    <li>도매가 15% 할인</li>
+                    <li>우선 배송 서비스</li>
+                    <li>연간 계약 특별 혜택</li>
+                    <li>맞춤형 패키징 가능</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn">문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Info -->
+    <section class="delivery">
+        <div class="section-title">
+            <h2>배송 안내</h2>
+            <p>전국 어디든 신선하게 배송합니다</p>
+        </div>
+        <div class="delivery-grid">
+            <div class="delivery-card">
+                <div class="delivery-icon">🚚</div>
+                <h3>수도권</h3>
+                <p>새벽 배송 / 당일 배송<br>배송비 무료 (최소 주문금액 이상)</p>
+            </div>
+            <div class="delivery-card">
+                <div class="delivery-icon">✈️</div>
+                <h3>전국</h3>
+                <p>익일 배송<br>도서산간 제외 전국 배송</p>
+            </div>
+            <div class="delivery-card">
+                <div class="delivery-icon">❄️</div>
+                <h3>콜드체인</h3>
+                <p>저온 유통 차량<br>신선도 유지 보장</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>지금 바로 거래 문의하세요</h2>
+            <p>담당자가 친절하게 상담해 드리겠습니다.<br>전화 또는 이메일로 편하게 문의해 주세요.</p>
+            <a href="tel:051-777-8888" class="cta-btn">전화 문의</a>
+            <a href="contact.html" class="cta-btn outline">온라인 문의</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>오션베이 수산</h4>
+                <p>
+                    부산 자갈치 수산시장을 기반으로 전국에 신선한 수산물을
+                    공급하는 전문 유통기업입니다. 20년 이상의 경험과 노하우로
+                    최상의 품질을 약속드립니다.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품</a>
+                <a href="wholesale.html">도매/유통</a>
+                <a href="contact.html">연락처</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>전화: 051-777-8888</p>
+                <p>이메일: order@oceanbay.co.kr</p>
+            </div>
+            <div class="footer-section">
+                <h4>주소</h4>
+                <p>부산광역시 중구<br>자갈치로 56</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 <span class="company-name">오션베이 수산</span>. All Rights Reserved. | 대표: 박해수</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

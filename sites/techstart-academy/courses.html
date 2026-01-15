@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육과정 | 테크스타트 아카데미</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --primary-cyan: #06B6D4;
+            --primary-green: #10B981;
+            --primary-orange: #F59E0B;
+            --neon-purple: #A855F7;
+            --neon-cyan: #22D3EE;
+            --neon-green: #34D399;
+            --dark-bg: #0F0F1A;
+            --dark-card: #1A1A2E;
+            --dark-border: #2D2D44;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --text-muted: #6B6B80;
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            --gradient-cyan: linear-gradient(135deg, #06B6D4 0%, #22D3EE 100%);
+            --gradient-green: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-orange: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+            --gradient-mixed: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #10B981 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-mixed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-mixed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-purple);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 160px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Tabs */
+        .courses-section {
+            padding: 0 2rem 100px;
+        }
+
+        .courses-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--dark-border);
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary-purple);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-purple);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .tab-btn[data-tab="web"].active {
+            background: var(--gradient-purple);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .tab-btn[data-tab="data"].active {
+            background: var(--gradient-cyan);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+        }
+
+        .tab-btn[data-tab="ai"].active {
+            background: var(--gradient-green);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .tab-btn[data-tab="mobile"].active {
+            background: var(--gradient-orange);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Course Hero */
+        .course-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+            padding: 3rem;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .course-hero.web::before { background: var(--gradient-purple); }
+        .course-hero.data::before { background: var(--gradient-cyan); }
+        .course-hero.ai::before { background: var(--gradient-green); }
+        .course-hero.mobile::before { background: var(--gradient-orange); }
+
+        .course-hero-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .course-hero-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .course-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-meta-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border-radius: 12px;
+        }
+
+        .course-meta-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .web .course-meta-value { color: var(--neon-purple); }
+        .data .course-meta-value { color: var(--neon-cyan); }
+        .ai .course-meta-value { color: var(--neon-green); }
+        .mobile .course-meta-value { color: #FBBF24; }
+
+        .course-meta-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .course-hero-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .course-hero-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-purple);
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-item {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-purple);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .tech-type {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Course Features */
+        .course-features {
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-cyan);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Schedule */
+        .course-schedule {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--dark-bg);
+            border-radius: 12px;
+        }
+
+        .schedule-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(6, 182, 212, 0.2);
+            flex-shrink: 0;
+        }
+
+        .schedule-content h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .schedule-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .course-pricing {
+            text-align: center;
+            padding: 3rem;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+        }
+
+        .pricing-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--neon-green);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-amount {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-amount span {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .pricing-note {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-feature::before {
+            content: '✓';
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .course-hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--dark-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .tabs-container {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .course-meta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">&lt;/&gt;</div>
+                <div class="logo-text">테크스타트 <span>아카데미</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="courses.html" class="active">교육과정</a></li>
+                <li><a href="curriculum.html">커리큘럼</a></li>
+                <li><a href="success.html">수료생 후기</a></li>
+                <li><a href="contact.html">상담신청</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">무료 상담</a>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg"></div>
+        <div class="page-header-content">
+            <span class="page-tag">&lt;courses&gt;</span>
+            <h1 class="page-title">교육과정 안내</h1>
+            <p class="page-subtitle">
+                실무 중심 커리큘럼으로 여러분의 커리어를 설계합니다.<br>
+                나에게 맞는 과정을 선택하세요.
+            </p>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section">
+        <div class="courses-container">
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="web">
+                    <span>🌐</span> 풀스택 웹 개발
+                </button>
+                <button class="tab-btn" data-tab="data">
+                    <span>📊</span> 데이터 사이언스
+                </button>
+                <button class="tab-btn" data-tab="ai">
+                    <span>🤖</span> AI/머신러닝
+                </button>
+                <button class="tab-btn" data-tab="mobile">
+                    <span>📱</span> 모바일 앱 개발
+                </button>
+            </div>
+
+            <!-- Web Development Tab -->
+            <div class="tab-content active" id="web">
+                <div class="course-hero web">
+                    <div class="course-hero-content">
+                        <h2>풀스택 웹 개발 과정</h2>
+                        <p>
+                            프론트엔드부터 백엔드까지, 웹 개발의 전체 스택을 마스터합니다.
+                            React와 Node.js를 활용한 현대적인 웹 애플리케이션 개발 역량을 갖추고,
+                            실제 서비스를 운영하는 프로젝트 경험을 쌓습니다.
+                        </p>
+                        <div class="course-meta-grid">
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">24주</div>
+                                <div class="course-meta-label">교육 기간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">800+</div>
+                                <div class="course-meta-label">총 교육 시간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">20명</div>
+                                <div class="course-meta-label">정원</div>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="btn btn-primary">수강 상담 신청</a>
+                    </div>
+                    <div class="course-hero-image">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop" alt="웹 개발">
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <div class="section-header">
+                        <span class="section-tag">// tech_stack</span>
+                        <h3 class="section-title">배우게 될 기술</h3>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">⚛️</div>
+                            <div class="tech-name">React</div>
+                            <div class="tech-type">Frontend</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📘</div>
+                            <div class="tech-name">TypeScript</div>
+                            <div class="tech-type">Language</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🟢</div>
+                            <div class="tech-name">Node.js</div>
+                            <div class="tech-type">Backend</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🍃</div>
+                            <div class="tech-name">MongoDB</div>
+                            <div class="tech-type">Database</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐘</div>
+                            <div class="tech-name">PostgreSQL</div>
+                            <div class="tech-type">Database</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐳</div>
+                            <div class="tech-name">Docker</div>
+                            <div class="tech-type">DevOps</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">☁️</div>
+                            <div class="tech-name">AWS</div>
+                            <div class="tech-type">Cloud</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔄</div>
+                            <div class="tech-name">Git</div>
+                            <div class="tech-type">Version Control</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-features">
+                    <div class="section-header">
+                        <span class="section-tag">// features</span>
+                        <h3 class="section-title">과정 특징</h3>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">💻</div>
+                            <h4 class="feature-title">실습 중심 수업</h4>
+                            <p class="feature-desc">이론 30%, 실습 70%의 비율로 진행되며, 매일 코딩 실습을 통해 체화합니다.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h4 class="feature-title">실전 프로젝트</h4>
+                            <p class="feature-desc">4개의 개인/팀 프로젝트를 통해 실제 서비스 개발 경험을 쌓습니다.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">👨‍💻</div>
+                            <h4 class="feature-title">코드 리뷰</h4>
+                            <p class="feature-desc">현업 개발자의 상세한 코드 리뷰로 좋은 코드 작성법을 배웁니다.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h4 class="feature-title">취업 연계</h4>
+                            <p class="feature-desc">파트너 기업 채용 연계 및 모의 기술 면접으로 취업을 지원합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-schedule">
+                    <div class="section-header">
+                        <span class="section-tag">// schedule</span>
+                        <h3 class="section-title">수업 일정</h3>
+                    </div>
+                    <div class="schedule-grid">
+                        <div class="schedule-item">
+                            <div class="schedule-icon">📅</div>
+                            <div class="schedule-content">
+                                <h4>수업 요일</h4>
+                                <p>월 ~ 금 (주 5일)</p>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-icon">⏰</div>
+                            <div class="schedule-content">
+                                <h4>수업 시간</h4>
+                                <p>09:30 ~ 18:30 (8시간)</p>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-icon">🗓️</div>
+                            <div class="schedule-content">
+                                <h4>다음 개강일</h4>
+                                <p>2024년 3월 4일</p>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-icon">📍</div>
+                            <div class="schedule-content">
+                                <h4>교육 장소</h4>
+                                <p>강남 캠퍼스 3층</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-pricing">
+                    <span class="pricing-tag">국비지원 가능</span>
+                    <div class="pricing-amount">550만원 <span>→ 실비 0원</span></div>
+                    <p class="pricing-note">내일배움카드 소지자 전액 국비지원</p>
+                    <div class="pricing-features">
+                        <span class="pricing-feature">24주 집중 교육</span>
+                        <span class="pricing-feature">1:1 멘토링</span>
+                        <span class="pricing-feature">취업 지원</span>
+                        <span class="pricing-feature">수료증 발급</span>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">무료 상담 신청</a>
+                </div>
+            </div>
+
+            <!-- Data Science Tab -->
+            <div class="tab-content" id="data">
+                <div class="course-hero data">
+                    <div class="course-hero-content">
+                        <h2>데이터 사이언스 과정</h2>
+                        <p>
+                            Python을 활용한 데이터 분석 및 시각화 전문가로 성장합니다.
+                            통계, 머신러닝 기초, 데이터 엔지니어링까지 포괄적으로 학습하여
+                            데이터 기반 의사결정을 리드하는 인재가 됩니다.
+                        </p>
+                        <div class="course-meta-grid">
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">20주</div>
+                                <div class="course-meta-label">교육 기간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">650+</div>
+                                <div class="course-meta-label">총 교육 시간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">18명</div>
+                                <div class="course-meta-label">정원</div>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="btn btn-primary">수강 상담 신청</a>
+                    </div>
+                    <div class="course-hero-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="데이터 사이언스">
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <div class="section-header">
+                        <span class="section-tag">// tech_stack</span>
+                        <h3 class="section-title">배우게 될 기술</h3>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">🐍</div>
+                            <div class="tech-name">Python</div>
+                            <div class="tech-type">Language</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐼</div>
+                            <div class="tech-name">Pandas</div>
+                            <div class="tech-type">Data Analysis</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📊</div>
+                            <div class="tech-name">NumPy</div>
+                            <div class="tech-type">Scientific</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📈</div>
+                            <div class="tech-name">Matplotlib</div>
+                            <div class="tech-type">Visualization</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🗃️</div>
+                            <div class="tech-name">SQL</div>
+                            <div class="tech-type">Database</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📉</div>
+                            <div class="tech-name">Tableau</div>
+                            <div class="tech-type">BI Tool</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔬</div>
+                            <div class="tech-name">Scikit-learn</div>
+                            <div class="tech-type">ML Library</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">⚡</div>
+                            <div class="tech-name">Spark</div>
+                            <div class="tech-type">Big Data</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-pricing">
+                    <span class="pricing-tag">국비지원 가능</span>
+                    <div class="pricing-amount">480만원 <span>→ 실비 0원</span></div>
+                    <p class="pricing-note">내일배움카드 소지자 전액 국비지원</p>
+                    <div class="pricing-features">
+                        <span class="pricing-feature">20주 집중 교육</span>
+                        <span class="pricing-feature">실무 데이터 분석</span>
+                        <span class="pricing-feature">포트폴리오 완성</span>
+                        <span class="pricing-feature">취업 연계</span>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">무료 상담 신청</a>
+                </div>
+            </div>
+
+            <!-- AI/ML Tab -->
+            <div class="tab-content" id="ai">
+                <div class="course-hero ai">
+                    <div class="course-hero-content">
+                        <h2>AI/머신러닝 과정</h2>
+                        <p>
+                            딥러닝과 머신러닝의 핵심 알고리즘을 이해하고 구현합니다.
+                            TensorFlow와 PyTorch를 활용한 AI 모델 개발부터
+                            실제 서비스 배포까지 End-to-End 프로젝트를 경험합니다.
+                        </p>
+                        <div class="course-meta-grid">
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">28주</div>
+                                <div class="course-meta-label">교육 기간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">900+</div>
+                                <div class="course-meta-label">총 교육 시간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">15명</div>
+                                <div class="course-meta-label">정원</div>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="btn btn-primary">수강 상담 신청</a>
+                    </div>
+                    <div class="course-hero-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop" alt="AI 머신러닝">
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <div class="section-header">
+                        <span class="section-tag">// tech_stack</span>
+                        <h3 class="section-title">배우게 될 기술</h3>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">🔥</div>
+                            <div class="tech-name">PyTorch</div>
+                            <div class="tech-type">Deep Learning</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🧠</div>
+                            <div class="tech-name">TensorFlow</div>
+                            <div class="tech-type">Deep Learning</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🤗</div>
+                            <div class="tech-name">Hugging Face</div>
+                            <div class="tech-type">NLP/LLM</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">👁️</div>
+                            <div class="tech-name">OpenCV</div>
+                            <div class="tech-type">Computer Vision</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐍</div>
+                            <div class="tech-name">Python</div>
+                            <div class="tech-type">Language</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📊</div>
+                            <div class="tech-name">MLflow</div>
+                            <div class="tech-type">MLOps</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">☁️</div>
+                            <div class="tech-name">AWS SageMaker</div>
+                            <div class="tech-type">Cloud ML</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐳</div>
+                            <div class="tech-name">Docker</div>
+                            <div class="tech-type">Container</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-pricing">
+                    <span class="pricing-tag">국비지원 가능</span>
+                    <div class="pricing-amount">680만원 <span>→ 실비 0원</span></div>
+                    <p class="pricing-note">내일배움카드 소지자 전액 국비지원</p>
+                    <div class="pricing-features">
+                        <span class="pricing-feature">28주 심화 교육</span>
+                        <span class="pricing-feature">GPU 실습 환경</span>
+                        <span class="pricing-feature">논문 리딩 스터디</span>
+                        <span class="pricing-feature">AI 기업 취업 연계</span>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">무료 상담 신청</a>
+                </div>
+            </div>
+
+            <!-- Mobile Tab -->
+            <div class="tab-content" id="mobile">
+                <div class="course-hero mobile">
+                    <div class="course-hero-content">
+                        <h2>모바일 앱 개발 과정</h2>
+                        <p>
+                            React Native로 iOS와 Android를 동시에 개발하는 크로스플랫폼 앱 개발을 배웁니다.
+                            하나의 코드베이스로 두 플랫폼에 배포하는 효율적인 개발 방법론과
+                            앱 스토어 출시까지의 전 과정을 경험합니다.
+                        </p>
+                        <div class="course-meta-grid">
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">20주</div>
+                                <div class="course-meta-label">교육 기간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">650+</div>
+                                <div class="course-meta-label">총 교육 시간</div>
+                            </div>
+                            <div class="course-meta-item">
+                                <div class="course-meta-value">18명</div>
+                                <div class="course-meta-label">정원</div>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="btn btn-primary">수강 상담 신청</a>
+                    </div>
+                    <div class="course-hero-image">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop" alt="모바일 앱 개발">
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <div class="section-header">
+                        <span class="section-tag">// tech_stack</span>
+                        <h3 class="section-title">배우게 될 기술</h3>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">⚛️</div>
+                            <div class="tech-name">React Native</div>
+                            <div class="tech-type">Cross-platform</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📘</div>
+                            <div class="tech-name">TypeScript</div>
+                            <div class="tech-type">Language</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔥</div>
+                            <div class="tech-name">Firebase</div>
+                            <div class="tech-type">Backend</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔄</div>
+                            <div class="tech-name">Redux</div>
+                            <div class="tech-type">State Management</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📱</div>
+                            <div class="tech-name">Expo</div>
+                            <div class="tech-type">Development</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🍎</div>
+                            <div class="tech-name">iOS Deploy</div>
+                            <div class="tech-type">App Store</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🤖</div>
+                            <div class="tech-name">Android Deploy</div>
+                            <div class="tech-type">Play Store</div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔔</div>
+                            <div class="tech-name">Push Notification</div>
+                            <div class="tech-type">Feature</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-pricing">
+                    <span class="pricing-tag">국비지원 가능</span>
+                    <div class="pricing-amount">480만원 <span>→ 실비 0원</span></div>
+                    <p class="pricing-note">내일배움카드 소지자 전액 국비지원</p>
+                    <div class="pricing-features">
+                        <span class="pricing-feature">20주 집중 교육</span>
+                        <span class="pricing-feature">실제 앱 출시</span>
+                        <span class="pricing-feature">크로스플랫폼 개발</span>
+                        <span class="pricing-feature">취업 연계</span>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">무료 상담 신청</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">&lt;/&gt;</div>
+                        <div class="logo-text">테크스타트 <span>아카데미</span></div>
+                    </a>
+                    <p class="footer-desc">
+                        테크스타트 아카데미는 실무 중심의 IT 교육으로
+                        여러분의 성공적인 개발자 커리어를 응원합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="YouTube">▶</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Blog">📝</a>
+                        <a href="#" aria-label="GitHub">⌨</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">교육과정</h4>
+                    <ul class="footer-links">
+                        <li><a href="courses.html">풀스택 웹 개발</a></li>
+                        <li><a href="courses.html">데이터 사이언스</a></li>
+                        <li><a href="courses.html">AI/머신러닝</a></li>
+                        <li><a href="courses.html">모바일 앱 개발</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">아카데미</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">소개</a></li>
+                        
+                        <li><a href="success.html">수료생 후기</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">고객지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">환불 정책</a></li>
+                        <li><a href="#">제휴 문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 테크스타트 아카데미. All rights reserved.<br>
+                    서울특별시 강남구 테헤란로 123 테크빌딩 5층 | 사업자등록번호: 123-45-67890
+                </p>
+                <div class="footer-legal">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        }
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+
+                // Remove active from all
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active to clicked
+                btn.classList.add('active');
+                document.getElementById(tab).classList.add('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.75rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.98)';
+            } else {
+                navbar.style.padding = '1rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

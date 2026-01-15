@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서비스 | 사운드웨이브 스튜디오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0d0015;
+            --primary-purple: #1a0a2e;
+            --accent-purple: #6b21a8;
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --neon-blue: #06b6d4;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-neon: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-purple);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(13, 0, 21, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-neon);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8); }
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-neon);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--neon-purple);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 30px;
+            height: 3px;
+            background: var(--neon-purple);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 5% 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-purple) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 30% 70%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--neon-purple);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .page-title span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--neon-purple);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Services Section */
+        .main-services {
+            background: var(--primary-purple);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(26, 10, 46, 0.8) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-neon);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.2);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-neon);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .service-card > p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-list li {
+            padding: 12px 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+
+        .service-list li i {
+            color: var(--neon-purple);
+            font-size: 0.9rem;
+        }
+
+        .service-price {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-price .price {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-price small {
+            color: var(--text-muted);
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-neon);
+            color: white;
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(168, 85, 247, 0.6);
+        }
+
+        /* Process Section */
+        .process {
+            background: linear-gradient(180deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+        }
+
+        .process-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-container::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: var(--gradient-neon);
+            border-radius: 2px;
+            z-index: 0;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
+        }
+
+        .process-step h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--primary-dark);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--neon-purple);
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3);
+        }
+
+        .pricing-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-neon);
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 25px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+        }
+
+        .pricing-card .price small {
+            font-size: 1rem;
+            font-weight: 400;
+            background: none;
+            -webkit-text-fill-color: var(--text-muted);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li i {
+            color: var(--neon-purple);
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .pricing-btn.primary {
+            background: var(--gradient-neon);
+            border: none;
+            color: white;
+        }
+
+        .pricing-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--neon-purple);
+            color: var(--text-light);
+        }
+
+        .pricing-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Equipment Section */
+        .equipment {
+            background: var(--primary-purple);
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .equipment-card {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.2);
+        }
+
+        .equipment-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-neon);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+        }
+
+        .equipment-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .equipment-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(180deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta h2 span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-purple);
+            padding: 80px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-purple);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--neon-purple);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-purple);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .process-container::before {
+                display: none;
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+
+            .equipment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--primary-purple);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .service-card {
+                padding: 30px;
+            }
+
+            .process-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-music"></i>
+            </div>
+            <span class="logo-text">SOUNDWAVE</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">소개</a></li>
+            <li><a href="services.html" class="active">서비스</a></li>
+            <li><a href="portfolio.html">포트폴리오</a></li>
+            <li><a href="contact.html">예약문의</a></li>
+        </ul>
+        <div class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-content">
+            <span class="page-badge">Our Services</span>
+            <h1 class="page-title">프리미엄 <span>서비스</span></h1>
+            <p class="page-description">
+                음원 제작의 모든 과정을 원스톱으로 제공합니다
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Services Section -->
+    <section class="main-services">
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3>레코딩</h3>
+                <p>전문 엔지니어와 함께 최고 품질의 녹음을 경험하세요. 보컬, 악기, 밴드 세션 모두 가능합니다.</p>
+                <ul class="service-list">
+                    <li><i class="fas fa-check"></i> 보컬 레코딩 (솔로/듀엣/그룹)</li>
+                    <li><i class="fas fa-check"></i> 악기 레코딩 (기타/피아노/드럼 등)</li>
+                    <li><i class="fas fa-check"></i> 밴드 라이브 세션</li>
+                    <li><i class="fas fa-check"></i> 더빙 / ADR / 성우 녹음</li>
+                    <li><i class="fas fa-check"></i> 팟캐스트 / 오디오북 녹음</li>
+                </ul>
+                <div class="service-price">
+                    <div>
+                        <span class="price">50,000원</span>
+                        <small>/ 시간</small>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">예약하기</a>
+                </div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <h3>믹싱 & 마스터링</h3>
+                <p>숙련된 엔지니어가 당신의 음악에 완벽한 사운드를 입혀드립니다.</p>
+                <ul class="service-list">
+                    <li><i class="fas fa-check"></i> 스테레오 믹싱</li>
+                    <li><i class="fas fa-check"></i> Dolby Atmos 공간 음향 믹싱</li>
+                    <li><i class="fas fa-check"></i> 스테레오 마스터링</li>
+                    <li><i class="fas fa-check"></i> 스트리밍 플랫폼 최적화</li>
+                    <li><i class="fas fa-check"></i> 무제한 수정 (3회까지)</li>
+                </ul>
+                <div class="service-price">
+                    <div>
+                        <span class="price">200,000원</span>
+                        <small>/ 곡</small>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">예약하기</a>
+                </div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-guitar"></i>
+                </div>
+                <h3>편곡 & 작곡</h3>
+                <p>경험 풍부한 작곡가와 편곡자가 당신만의 음악을 만들어 드립니다.</p>
+                <ul class="service-list">
+                    <li><i class="fas fa-check"></i> 맞춤 작곡 (발라드/댄스/힙합 등)</li>
+                    <li><i class="fas fa-check"></i> 편곡 / 리메이크 / 리믹스</li>
+                    <li><i class="fas fa-check"></i> MR 제작 (반주 트랙)</li>
+                    <li><i class="fas fa-check"></i> BGM / CM / OST 제작</li>
+                    <li><i class="fas fa-check"></i> MIDI 프로그래밍</li>
+                </ul>
+                <div class="service-price">
+                    <div>
+                        <span class="price">500,000원</span>
+                        <small>~</small>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">상담하기</a>
+                </div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>영상 & 콘텐츠</h3>
+                <p>뮤직비디오, 라이브 세션 영상 등 다양한 영상 콘텐츠를 제작합니다.</p>
+                <ul class="service-list">
+                    <li><i class="fas fa-check"></i> 뮤직비디오 기획 및 제작</li>
+                    <li><i class="fas fa-check"></i> 라이브 세션 영상 촬영</li>
+                    <li><i class="fas fa-check"></i> 앨범 자켓 디자인</li>
+                    <li><i class="fas fa-check"></i> SNS 콘텐츠 제작</li>
+                    <li><i class="fas fa-check"></i> 유튜브 채널 운영 지원</li>
+                </ul>
+                <div class="service-price">
+                    <div>
+                        <span class="price">별도 협의</span>
+                    </div>
+                    <a href="contact.html" class="btn btn-primary">상담하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="section-header fade-in">
+            <span class="section-badge">Work Process</span>
+            <h2 class="section-title">작업 <span>프로세스</span></h2>
+            <p class="section-subtitle">
+                체계적인 프로세스로 최고의 결과물을 만들어 드립니다
+            </p>
+        </div>
+        <div class="process-container">
+            <div class="process-step fade-in">
+                <div class="step-number">1</div>
+                <h3>상담</h3>
+                <p>프로젝트 목표와 방향성에 대해 상담합니다</p>
+            </div>
+            <div class="process-step fade-in">
+                <div class="step-number">2</div>
+                <h3>기획</h3>
+                <p>세부 일정과 작업 범위를 확정합니다</p>
+            </div>
+            <div class="process-step fade-in">
+                <div class="step-number">3</div>
+                <h3>녹음</h3>
+                <p>프로페셔널 환경에서 녹음을 진행합니다</p>
+            </div>
+            <div class="process-step fade-in">
+                <div class="step-number">4</div>
+                <h3>믹싱</h3>
+                <p>녹음된 음원을 믹싱하고 수정합니다</p>
+            </div>
+            <div class="process-step fade-in">
+                <div class="step-number">5</div>
+                <h3>마스터링</h3>
+                <p>최종 마스터링 후 음원을 전달합니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="section-header fade-in">
+            <span class="section-badge">Pricing</span>
+            <h2 class="section-title">패키지 <span>요금</span></h2>
+            <p class="section-subtitle">
+                합리적인 가격으로 프리미엄 서비스를 경험하세요
+            </p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card fade-in">
+                <div class="pricing-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3>BASIC</h3>
+                <div class="price">300,000원<small>/곡</small></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> 보컬 레코딩 3시간</li>
+                    <li><i class="fas fa-check"></i> 스테레오 믹싱</li>
+                    <li><i class="fas fa-check"></i> 기본 마스터링</li>
+                    <li><i class="fas fa-check"></i> 수정 1회</li>
+                    <li><i class="fas fa-check"></i> WAV/MP3 납품</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn secondary">선택하기</a>
+            </div>
+            <div class="pricing-card featured fade-in">
+                <div class="pricing-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>PROFESSIONAL</h3>
+                <div class="price">600,000원<small>/곡</small></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> 보컬 레코딩 6시간</li>
+                    <li><i class="fas fa-check"></i> 프리미엄 믹싱</li>
+                    <li><i class="fas fa-check"></i> 프리미엄 마스터링</li>
+                    <li><i class="fas fa-check"></i> 수정 3회</li>
+                    <li><i class="fas fa-check"></i> 모든 포맷 납품</li>
+                    <li><i class="fas fa-check"></i> 가이드 MR 제공</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn primary">선택하기</a>
+            </div>
+            <div class="pricing-card fade-in">
+                <div class="pricing-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3>PREMIUM</h3>
+                <div class="price">1,200,000원<small>/곡</small></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> 무제한 레코딩</li>
+                    <li><i class="fas fa-check"></i> Dolby Atmos 믹싱</li>
+                    <li><i class="fas fa-check"></i> 프리미엄 마스터링</li>
+                    <li><i class="fas fa-check"></i> 무제한 수정</li>
+                    <li><i class="fas fa-check"></i> 전용 엔지니어 배정</li>
+                    <li><i class="fas fa-check"></i> 앨범 자켓 디자인</li>
+                </ul>
+                <a href="contact.html" class="pricing-btn secondary">선택하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="equipment">
+        <div class="section-header fade-in">
+            <span class="section-badge">Equipment</span>
+            <h2 class="section-title">보유 <span>장비</span></h2>
+            <p class="section-subtitle">
+                세계적인 수준의 프로페셔널 장비를 갖추고 있습니다
+            </p>
+        </div>
+        <div class="equipment-grid">
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <h3>SSL Duality</h3>
+                <p>세계적으로 인정받는 SSL 아날로그 콘솔</p>
+            </div>
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <h3>Neumann U87</h3>
+                <p>업계 표준 스튜디오 컨덴서 마이크</p>
+            </div>
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h3>Pro Tools HDX</h3>
+                <p>최신 디지털 오디오 워크스테이션</p>
+            </div>
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <h3>Focal SM9</h3>
+                <p>정밀한 모니터링을 위한 스피커</p>
+            </div>
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <h3>Dolby Atmos</h3>
+                <p>공간 음향 믹싱 시스템</p>
+            </div>
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h3>Avalon VT-737</h3>
+                <p>프리미엄 튜브 채널 스트립</p>
+            </div>
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-compact-disc"></i>
+                </div>
+                <h3>Antelope Audio</h3>
+                <p>고정밀 오디오 인터페이스</p>
+            </div>
+            <div class="equipment-card fade-in">
+                <div class="equipment-icon">
+                    <i class="fas fa-guitar"></i>
+                </div>
+                <h3>악기 컬렉션</h3>
+                <p>빈티지 기타, 피아노, 드럼</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content fade-in">
+            <h2>프로젝트를<br><span>시작하실 준비가 되셨나요?</span></h2>
+            <p>
+                지금 바로 상담을 예약하고, 사운드웨이브 스튜디오에서
+                당신만의 특별한 사운드를 만들어 보세요.
+            </p>
+            <a href="contact.html" class="btn btn-primary">
+                <i class="fas fa-calendar-check"></i> 예약하기
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <span class="logo-text">SOUNDWAVE</span>
+                </a>
+                <p>
+                    사운드웨이브 스튜디오는 최첨단 장비와 전문 엔지니어가 함께하는
+                    프리미엄 음원 제작 전문 스튜디오입니다. 당신의 음악적 비전을 현실로 만들어 드립니다.
+                </p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-soundcloud"></i></a>
+                    <a href="#"><i class="fab fa-spotify"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">스튜디오 소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="contact.html">예약문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">레코딩</a></li>
+                    <li><a href="services.html">믹싱 & 마스터링</a></li>
+                    <li><a href="services.html">편곡 & 작곡</a></li>
+                    <li><a href="services.html">영상 제작</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="contact.html">오시는 길</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 사운드웨이브 스튜디오. All rights reserved.</p>
+            <p>대표: 김사운드 | 사업자등록번호: 123-45-67890</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

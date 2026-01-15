@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="성우건설 사업분야 - 건축시공, 토목공사, 리모델링, 플랜트 설비 등 종합건설 서비스를 제공합니다.">
+    <meta name="keywords" content="성우건설, 사업분야, 건축시공, 토목공사, 리모델링, 플랜트">
+    <title>사업분야 | 성우건설</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a1628;
+            --primary-blue: #1a3a5c;
+            --secondary-blue: #2d5a87;
+            --accent-orange: #e67e22;
+            --accent-orange-light: #f39c12;
+            --accent-orange-dark: #d35400;
+            --text-light: #ffffff;
+            --text-gray: #b0bec5;
+            --text-dark: #2c3e50;
+            --bg-light: #f8f9fa;
+            --bg-gray: #ecf0f1;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.25);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 22, 40, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-phone {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .nav-phone span {
+            color: var(--accent-orange);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--text-light);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 50%, var(--secondary-blue) 100%);
+            padding: 180px 40px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 span {
+            color: var(--accent-orange);
+        }
+
+        .page-hero p {
+            font-size: 18px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+
+        .breadcrumb span {
+            color: var(--accent-orange);
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 120px 40px;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.1), rgba(230, 126, 34, 0.05));
+            color: var(--accent-orange);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(230, 126, 34, 0.2);
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--accent-orange);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Service Overview */
+        .service-overview {
+            background: var(--bg-light);
+        }
+
+        .service-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.3);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-number span {
+            font-size: 24px;
+            color: var(--accent-orange);
+        }
+
+        .stat-label {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .service-icon-large {
+            font-size: 100px;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .service-content {
+            padding: 40px;
+        }
+
+        .service-content h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .service-content > p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .service-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .service-feature::before {
+            content: '>';
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        .service-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(230, 126, 34, 0.3);
+        }
+
+        .service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(230, 126, 34, 0.4);
+        }
+
+        /* Process Section */
+        .process-section {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid2)"/></svg>');
+        }
+
+        .process-section .section-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-section .section-tag {
+            background: rgba(230, 126, 34, 0.2);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .process-section .section-title {
+            color: white;
+        }
+
+        .process-section .section-subtitle {
+            color: var(--text-gray);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px 25px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-orange-light));
+            border-radius: 24px 24px 0 0;
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .process-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .process-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .process-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.3);
+        }
+
+        .process-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .process-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .process-card p {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Specializations */
+        .specializations {
+            background: var(--bg-light);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .spec-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .spec-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.15), rgba(230, 126, 34, 0.05));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+        }
+
+        .spec-card h4 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .spec-card p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: white;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            border-radius: 30px;
+            padding: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(230, 126, 34, 0.2) 0%, transparent 60%);
+        }
+
+        .cta-box h2 {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box h2 span {
+            color: var(--accent-orange);
+        }
+
+        .cta-box p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(230, 126, 34, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(230, 126, 34, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 80px 40px 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-certifications {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cert-badge {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-column ul a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-legal a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(230, 126, 34, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.98);
+            z-index: 999;
+            padding: 100px 40px 40px;
+            transform: translateX(100%);
+            transition: var(--transition);
+        }
+
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav-links a {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .service-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 15px 25px;
+            }
+
+            .nav-links,
+            .nav-contact {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .page-hero {
+                padding: 150px 25px 80px;
+            }
+
+            .page-hero h1 {
+                font-size: 36px;
+            }
+
+            section {
+                padding: 80px 25px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 50px 30px;
+            }
+
+            .cta-box h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .service-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .service-features {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-certifications {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">SW</div>
+                <div class="logo-text">성우<span>건설</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html" class="active">사업분야</a></li>
+                <li><a href="projects.html">시공실적</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <div class="nav-contact">
+                <div class="nav-phone"><span>TEL</span> 02-1111-2222</div>
+                <a href="contact.html" class="nav-cta">견적문의</a>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" onclick="toggleMobileNav()">홈</a></li>
+            <li><a href="about.html" onclick="toggleMobileNav()">회사소개</a></li>
+            <li><a href="services.html" onclick="toggleMobileNav()">사업분야</a></li>
+            <li><a href="projects.html" onclick="toggleMobileNav()">시공실적</a></li>
+            <li><a href="contact.html" onclick="toggleMobileNav()">문의하기</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>사업<span>분야</span></h1>
+            <p>건축시공, 토목공사, 리모델링, 플랜트 설비까지<br>종합건설 서비스를 제공합니다.</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a>
+                <span>/</span>
+                <span>사업분야</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Overview -->
+    <section class="service-overview">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Our Services</span>
+                <h2 class="section-title">전문 <span>시공 서비스</span></h2>
+                <p class="section-subtitle">
+                    30년 경험의 전문가가 최고의 품질로 시공합니다
+                </p>
+            </div>
+
+            <div class="service-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">&#127959;</div>
+                    <div class="stat-number">500<span>+</span></div>
+                    <div class="stat-label">완공 프로젝트</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128119;</div>
+                    <div class="stat-number">150<span>+</span></div>
+                    <div class="stat-label">전문 기술인력</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128200;</div>
+                    <div class="stat-number">98<span>%</span></div>
+                    <div class="stat-label">고객 만족도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#127942;</div>
+                    <div class="stat-number">30<span>+</span></div>
+                    <div class="stat-label">수상 실적</div>
+                </div>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80" alt="Building architecture">
+                    </div>
+                    <div class="service-content">
+                        <h3>건축 시공</h3>
+                        <p>주거, 상업, 산업시설 등 모든 유형의 건축물을 최고의 품질로 시공합니다. 최신 공법과 철저한 공정관리로 고객 만족을 실현합니다.</p>
+                        <div class="service-features">
+                            <div class="service-feature">공동주택 건설</div>
+                            <div class="service-feature">오피스빌딩 시공</div>
+                            <div class="service-feature">상가/쇼핑몰</div>
+                            <div class="service-feature">물류센터</div>
+                            <div class="service-feature">공장 건설</div>
+                            <div class="service-feature">교육시설</div>
+                        </div>
+                        <a href="contact.html" class="service-btn">견적 문의 <span>&#8594;</span></a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <div class="service-icon-large">&#128739;</div>
+                    </div>
+                    <div class="service-content">
+                        <h3>토목 공사</h3>
+                        <p>도로, 교량, 터널 등 사회기반시설을 안전하고 정확하게 건설합니다. 첨단 장비와 숙련된 기술력으로 최상의 품질을 보장합니다.</p>
+                        <div class="service-features">
+                            <div class="service-feature">도로 및 포장공사</div>
+                            <div class="service-feature">교량 건설</div>
+                            <div class="service-feature">터널 공사</div>
+                            <div class="service-feature">하천 정비</div>
+                            <div class="service-feature">지반 공사</div>
+                            <div class="service-feature">옹벽 시공</div>
+                        </div>
+                        <a href="contact.html" class="service-btn">견적 문의 <span>&#8594;</span></a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <div class="service-icon-large">&#127961;</div>
+                    </div>
+                    <div class="service-content">
+                        <h3>리모델링</h3>
+                        <p>노후 건축물의 가치를 높이는 전문 리모델링 서비스를 제공합니다. 구조 안전성 확보와 현대적 디자인으로 새로운 가치를 창출합니다.</p>
+                        <div class="service-features">
+                            <div class="service-feature">외관 리모델링</div>
+                            <div class="service-feature">내부 인테리어</div>
+                            <div class="service-feature">구조 보강</div>
+                            <div class="service-feature">설비 개선</div>
+                            <div class="service-feature">단열 보강</div>
+                            <div class="service-feature">방수 공사</div>
+                        </div>
+                        <a href="contact.html" class="service-btn">견적 문의 <span>&#8594;</span></a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <div class="service-icon-large">&#128640;</div>
+                    </div>
+                    <div class="service-content">
+                        <h3>플랜트 설비</h3>
+                        <p>산업 플랜트 및 특수 설비를 전문 시공합니다. 최첨단 기술과 풍부한 경험으로 복잡한 설비도 완벽하게 구현합니다.</p>
+                        <div class="service-features">
+                            <div class="service-feature">발전 플랜트</div>
+                            <div class="service-feature">환경 설비</div>
+                            <div class="service-feature">화학 플랜트</div>
+                            <div class="service-feature">기계 설비</div>
+                            <div class="service-feature">전기 설비</div>
+                            <div class="service-feature">배관 공사</div>
+                        </div>
+                        <a href="contact.html" class="service-btn">견적 문의 <span>&#8594;</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Work Process</span>
+                <h2 class="section-title">시공 <span>프로세스</span></h2>
+                <p class="section-subtitle">
+                    체계적인 프로세스로 완벽한 시공을 보장합니다
+                </p>
+            </div>
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <div class="process-icon">&#128172;</div>
+                    <h4>상담 및 현장조사</h4>
+                    <p>고객 요구사항 파악 및 현장 실측</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <div class="process-icon">&#128203;</div>
+                    <h4>설계 및 견적</h4>
+                    <p>맞춤 설계 및 상세 견적서 제공</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <div class="process-icon">&#128221;</div>
+                    <h4>계약 체결</h4>
+                    <p>투명한 계약 및 공정 일정 확정</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <div class="process-icon">&#127959;</div>
+                    <h4>시공 진행</h4>
+                    <p>철저한 품질관리 하에 시공</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">05</div>
+                    <div class="process-icon">&#9989;</div>
+                    <h4>준공 및 A/S</h4>
+                    <p>최종 검수 및 하자보수 서비스</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specializations -->
+    <section class="specializations">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Specializations</span>
+                <h2 class="section-title">전문 <span>특화 분야</span></h2>
+                <p class="section-subtitle">
+                    성우건설만의 차별화된 전문 기술력을 소개합니다
+                </p>
+            </div>
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div class="spec-icon">&#127968;</div>
+                    <h4>스마트 빌딩</h4>
+                    <p>IoT 기술을 활용한 스마트 빌딩 시스템 구축. 에너지 효율화 및 자동화 시스템으로 미래형 건축물을 구현합니다.</p>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">&#127795;</div>
+                    <h4>친환경 건축</h4>
+                    <p>녹색건축인증(G-SEED) 획득을 위한 친환경 설계 및 시공. 탄소 배출 저감과 에너지 절약을 실현합니다.</p>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">&#128737;</div>
+                    <h4>내진 설계</h4>
+                    <p>최신 내진 설계 기준을 적용한 안전한 건축물 시공. 지진에 강한 구조 설계로 안전을 보장합니다.</p>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">&#128187;</div>
+                    <h4>BIM 설계</h4>
+                    <p>3D BIM 기술을 활용한 정밀 설계 및 시공. 설계 오류를 최소화하고 효율적인 공정 관리를 실현합니다.</p>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">&#9889;</div>
+                    <h4>신재생 에너지</h4>
+                    <p>태양광, 지열 등 신재생 에너지 설비 시공. 친환경 에너지로 건물 운영비를 절감합니다.</p>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">&#128736;</div>
+                    <h4>모듈러 건축</h4>
+                    <p>공장 제작 모듈러 공법으로 빠른 시공. 공기 단축과 품질 균일화를 동시에 실현합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <div class="cta-box">
+                <h2>프로젝트를 <span>시작</span>하세요</h2>
+                <p>30년 경험의 전문가가 최적의 솔루션을 제안해 드립니다</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn-primary">
+                        무료 견적 상담
+                        <span>&#8594;</span>
+                    </a>
+                    <a href="projects.html" class="btn-secondary">
+                        시공 실적 보기
+                        <span>&#9658;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">SW</div>
+                        <div class="logo-text">성우<span>건설</span></div>
+                    </a>
+                    <p>
+                        30년 전통의 종합건설 전문기업 성우건설은<br>
+                        신뢰와 품질을 바탕으로 고객의 꿈을 현실로 만들어 드립니다.
+                    </p>
+                    <div class="footer-certifications">
+                        <div class="cert-badge">ISO<br>9001</div>
+                        <div class="cert-badge">ISO<br>14001</div>
+                        <div class="cert-badge">KOSHA<br>18001</div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>사업분야</h4>
+                    <ul>
+                        <li><a href="services.html">건축 시공</a></li>
+                        <li><a href="services.html">토목 공사</a></li>
+                        <li><a href="services.html">리모델링</a></li>
+                        <li><a href="services.html">플랜트 설비</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>회사정보</h4>
+                    <ul>
+                        <li><a href="about.html">회사소개</a></li>
+                        <li><a href="projects.html">시공실적</a></li>
+                        <li><a href="about.html#certifications">인증 및 특허</a></li>
+                        <li><a href="about.html#careers">채용정보</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">견적문의</a></li>
+                        <li><a href="contact.html">하자보수 신청</a></li>
+                        <li><a href="contact.html#faq">FAQ</a></li>
+                        <li><a href="contact.html#location">오시는 길</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 성우건설. All Rights Reserved. | 대표: 박건설</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">이메일무단수집거부</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#" class="scroll-top" id="scrollTop" onclick="scrollToTop(event)">&#8593;</a>
+
+    <script>
+        // Scroll to top button visibility
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top function
+        function scrollToTop(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Animate elements on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.stat-card, .service-card, .process-card, .spec-card');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        document.querySelectorAll('.stat-card, .service-card, .process-card, .spec-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Counter animation for stats
+        const animateCounter = (element, target, suffix = '') => {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.innerHTML = Math.floor(current) + '<span>' + suffix + '</span>';
+            }, 30);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = document.querySelectorAll('.stat-number');
+                    animateCounter(statNumbers[0], 500, '+');
+                    animateCounter(statNumbers[1], 150, '+');
+                    animateCounter(statNumbers[2], 98, '%');
+                    animateCounter(statNumbers[3], 30, '+');
+                    statsObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.service-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

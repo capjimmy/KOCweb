@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="해밀 베이커리 메뉴 - 천연발효 숙성빵, 페이스트리, 케이크 등 다양한 메뉴를 만나보세요.">
+    <title>메뉴 | 해밀 베이커리</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --beige-light: #FDF8F3;
+            --beige: #F5E6D3;
+            --beige-dark: #E8D4BE;
+            --brown-light: #A67C52;
+            --brown: #8B5A2B;
+            --brown-dark: #5D3A1A;
+            --text-dark: #3D2814;
+            --text-light: #6B4423;
+            --white: #FFFFFF;
+            --cream: #FFF9F0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--beige-light);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(93, 58, 26, 0.08);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--brown-light);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--brown);
+            border-radius: 1px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--brown-dark);
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--beige-light) 100%);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Menu Categories */
+        .menu-categories {
+            padding: 2rem;
+            background-color: var(--white);
+            position: sticky;
+            top: 65px;
+            z-index: 100;
+            border-bottom: 1px solid var(--beige-dark);
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-tab {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--beige-light);
+            border: 2px solid transparent;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            background-color: var(--beige);
+        }
+
+        .category-tab.active {
+            background-color: var(--brown);
+            color: var(--white);
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 4rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .menu-category {
+            margin-bottom: 4rem;
+        }
+
+        .menu-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            margin-bottom: 2rem;
+        }
+
+        .category-header h2 {
+            font-size: 1.8rem;
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-header p {
+            color: var(--text-light);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(93, 58, 26, 0.12);
+        }
+
+        .menu-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--beige-dark) 0%, var(--beige) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .menu-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .menu-badge.best {
+            background-color: var(--brown);
+            color: var(--white);
+        }
+
+        .menu-badge.new {
+            background-color: #E74C3C;
+            color: var(--white);
+        }
+
+        .menu-badge.organic {
+            background-color: #27AE60;
+            color: var(--white);
+        }
+
+        .menu-info {
+            padding: 1.5rem;
+        }
+
+        .menu-info h3 {
+            font-size: 1.2rem;
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .menu-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--brown);
+        }
+
+        .menu-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .menu-tag {
+            display: inline-block;
+            background-color: var(--beige);
+            color: var(--brown);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        /* Notice Section */
+        .notice {
+            padding: 3rem 2rem;
+            background-color: var(--white);
+        }
+
+        .notice-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--beige-light);
+            padding: 2rem;
+            border-radius: 20px;
+            border-left: 4px solid var(--brown);
+        }
+
+        .notice-content h3 {
+            font-size: 1.2rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .notice-content ul {
+            list-style: none;
+        }
+
+        .notice-content li {
+            color: var(--text-light);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .notice-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--brown);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--brown) 0%, var(--brown-dark) 100%);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: var(--beige);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--white);
+            color: var(--brown-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--beige);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brown-dark);
+            color: var(--beige);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--beige);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-info {
+            text-align: right;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--beige-light);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(93, 58, 26, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-tabs {
+                gap: 0.5rem;
+            }
+
+            .category-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .page-header {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .menu-section, .notice, .cta {
+                padding: 3rem 1.5rem;
+            }
+
+            .menu-image {
+                height: 160px;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">해밀<span>베이커리</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="menu.html" class="active">메뉴</a></li>
+                <li><a href="story.html">스토리</a></li>
+                <li><a href="contact.html">매장안내</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>메뉴</h1>
+        <p>천연발효 숙성빵부터 디저트까지, 해밀의 정성이 담긴 메뉴를 만나보세요</p>
+    </section>
+
+    <!-- Menu Categories -->
+    <div class="menu-categories">
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">전체</button>
+            <button class="category-tab" data-category="bread">식사빵</button>
+            <button class="category-tab" data-category="pastry">페이스트리</button>
+            <button class="category-tab" data-category="dessert">디저트</button>
+            <button class="category-tab" data-category="beverage">음료</button>
+        </div>
+    </div>
+
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <div class="container">
+            <!-- 식사빵 -->
+            <div class="menu-category" id="bread">
+                <div class="category-header">
+                    <h2>식사빵</h2>
+                    <p>천연발효종으로 정성껏 발효시킨 건강한 식사빵</p>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=800&h=600&fit=crop');">
+                            <span class="menu-badge best">BEST</span>
+                        </div>
+                        <div class="menu-info">
+                            <h3>천연발효 바게트</h3>
+                            <p>48시간 저온 숙성으로 깊은 풍미와 바삭한 크러스트가 특징인 시그니처 바게트</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">천연발효</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=800&h=600&fit=crop');">
+                            <span class="menu-badge new">NEW</span>
+                        </div>
+                        <div class="menu-info">
+                            <h3>우리밀 식빵</h3>
+                            <p>국내산 우리밀 100%로 만든 촉촉하고 담백한 식빵</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">6,000원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">우리밀</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image" style="background-image: url('https://images.unsplash.com/photo-1585535108806-5ebb1ab6e76c?w=800&h=600&fit=crop');"></div>
+                        <div class="menu-info">
+                            <h3>사워도우 브레드</h3>
+                            <p>7일간 키운 천연 발효종으로 만든 새콤한 풍미의 사워도우</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">7,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">천연발효</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            🌾
+                            <span class="menu-badge organic">유기농</span>
+                        </div>
+                        <div class="menu-info">
+                            <h3>통밀빵</h3>
+                            <p>유기농 통밀로 만든 건강하고 고소한 통밀빵</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">5,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">유기농</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🥖</div>
+                        <div class="menu-info">
+                            <h3>치아바타</h3>
+                            <p>이탈리아 전통 방식으로 만든 쫄깃한 치아바타</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,000원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">천연발효</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍞</div>
+                        <div class="menu-info">
+                            <h3>호밀빵</h3>
+                            <p>독일식 정통 호밀빵, 깊고 진한 풍미</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">6,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">저당</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 페이스트리 -->
+            <div class="menu-category" id="pastry">
+                <div class="category-header">
+                    <h2>페이스트리</h2>
+                    <p>프랑스산 버터로 결결이 구워낸 페이스트리</p>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            🥐
+                            <span class="menu-badge best">BEST</span>
+                        </div>
+                        <div class="menu-info">
+                            <h3>버터 크루아상</h3>
+                            <p>프랑스산 버터로 72겹 결을 낸 바삭한 크루아상</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">3,800원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">AOP버터</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🥐</div>
+                        <div class="menu-info">
+                            <h3>아몬드 크루아상</h3>
+                            <p>수제 아몬드 크림을 채운 고소한 크루아상</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">견과류</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍫</div>
+                        <div class="menu-info">
+                            <h3>팡 오 쇼콜라</h3>
+                            <p>발로나 다크초콜릿을 품은 초콜릿 페이스트리</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,200원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">발로나</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            🥧
+                            <span class="menu-badge new">NEW</span>
+                        </div>
+                        <div class="menu-info">
+                            <h3>애플 타르틴</h3>
+                            <p>캐러멜라이즈한 사과를 올린 바삭한 타르틴</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">5,000원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">계절</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🧈</div>
+                        <div class="menu-info">
+                            <h3>데니쉬 페이스트리</h3>
+                            <p>계절 과일과 크림치즈를 올린 달콤한 데니쉬</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,800원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">계절과일</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🥖</div>
+                        <div class="menu-info">
+                            <h3>에그 타르트</h3>
+                            <p>무항생제 계란으로 만든 부드러운 에그 타르트</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">3,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">무항생제</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 디저트 -->
+            <div class="menu-category" id="dessert">
+                <div class="category-header">
+                    <h2>디저트</h2>
+                    <p>달콤하고 행복한 해밀의 디저트 컬렉션</p>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            🧁
+                            <span class="menu-badge best">BEST</span>
+                        </div>
+                        <div class="menu-info">
+                            <h3>당근 케이크</h3>
+                            <p>유기농 당근과 호두의 조화, 크림치즈 프로스팅</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">5,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">유기농</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍰</div>
+                        <div class="menu-info">
+                            <h3>티라미수</h3>
+                            <p>마스카포네 치즈와 에스프레소의 클래식 티라미수</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">6,000원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">커피</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍓</div>
+                        <div class="menu-info">
+                            <h3>딸기 쇼트케이크</h3>
+                            <p>생크림과 신선한 딸기가 어우러진 클래식 쇼트케이크</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">6,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">제철</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍫</div>
+                        <div class="menu-info">
+                            <h3>초콜릿 브라우니</h3>
+                            <p>진한 다크초콜릿의 촉촉한 브라우니</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,000원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">글루텐프리</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">
+                            🍋
+                            <span class="menu-badge new">NEW</span>
+                        </div>
+                        <div class="menu-info">
+                            <h3>레몬 타르트</h3>
+                            <p>상큼한 레몬 커드와 바삭한 타르트지</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">5,000원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">상큼</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍪</div>
+                        <div class="menu-info">
+                            <h3>오트밀 쿠키</h3>
+                            <p>오트밀과 건포도가 들어간 건강한 쿠키</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">2,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">저당</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 음료 -->
+            <div class="menu-category" id="beverage">
+                <div class="category-header">
+                    <h2>음료</h2>
+                    <p>빵과 함께 즐기는 향긋한 음료</p>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-image">☕</div>
+                        <div class="menu-info">
+                            <h3>아메리카노</h3>
+                            <p>스페셜티 원두로 내린 깔끔한 아메리카노</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">스페셜티</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🥛</div>
+                        <div class="menu-info">
+                            <h3>카페 라떼</h3>
+                            <p>부드러운 우유거품과 진한 에스프레소의 조화</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">5,000원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">인기</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍵</div>
+                        <div class="menu-info">
+                            <h3>얼그레이 티</h3>
+                            <p>향긋한 베르가못 향의 프리미엄 홍차</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">4,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">프리미엄</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-image">🍊</div>
+                        <div class="menu-info">
+                            <h3>자몽 에이드</h3>
+                            <p>생자몽으로 만든 상큼한 에이드</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">5,500원</span>
+                                <div class="menu-tags">
+                                    <span class="menu-tag">생과일</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notice Section -->
+    <section class="notice">
+        <div class="notice-content">
+            <h3>주문 안내</h3>
+            <ul>
+                <li>모든 빵은 당일 소진을 원칙으로 합니다.</li>
+                <li>케이크와 홀 사이즈 빵은 하루 전 예약 주문해 주세요.</li>
+                <li>재료 수급에 따라 일부 메뉴가 조기 소진될 수 있습니다.</li>
+                <li>알레르기 정보는 매장 직원에게 문의해 주세요.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>직접 맛보러 오세요</h2>
+        <p>갓 구운 빵의 향기가 가득한 해밀 베이커리로 오세요</p>
+        <a href="contact.html" class="btn">매장 안내</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">해밀베이커리</div>
+            <ul class="footer-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="story.html">스토리</a></li>
+                <li><a href="contact.html">매장안내</a></li>
+            </ul>
+            <div class="footer-info">
+                <div>02-333-4444</div>
+                <div>hello@haemil-bakery.kr</div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 해밀 베이커리. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 30px rgba(93, 58, 26, 0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 20px rgba(93, 58, 26, 0.08)';
+            }
+        });
+
+        // Category filter
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const menuCategories = document.querySelectorAll('.menu-category');
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const category = tab.dataset.category;
+
+                if (category === 'all') {
+                    menuCategories.forEach(cat => cat.style.display = 'block');
+                } else {
+                    menuCategories.forEach(cat => {
+                        if (cat.id === category) {
+                            cat.style.display = 'block';
+                        } else {
+                            cat.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

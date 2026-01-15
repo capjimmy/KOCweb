@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - 아티산 퍼니처 | 맞춤 제작 상담</title>
+    <meta name="description" content="아티산 퍼니처 맞춤 제작 상담. 당신만의 특별한 가구를 디자인해 드립니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+KR:wght@200;300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --color-cream: #F5F1EB;
+            --color-beige: #E8E0D5;
+            --color-wood-light: #D4C4B0;
+            --color-wood: #B8A088;
+            --color-wood-dark: #8B7355;
+            --color-charcoal: #2C2C2C;
+            --color-black: #1A1A1A;
+            --color-white: #FFFFFF;
+            --color-gold: #C9A962;
+            --font-serif: 'Cormorant Garamond', 'Noto Serif KR', serif;
+            --font-sans: 'Noto Sans KR', sans-serif;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-elegant: cubic-bezier(0.6, 0.01, 0.05, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 241, 235, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s var(--transition-smooth);
+        }
+
+        .nav.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            font-size: 0.85rem;
+            color: var(--color-charcoal);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-gold);
+            transition: width 0.4s var(--transition-smooth);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            width: 28px;
+            height: 1px;
+            background: var(--color-black);
+            transition: all 0.4s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-black);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transition: right 0.6s var(--transition-elegant);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .page-hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 300;
+        }
+
+        /* Section */
+        .section {
+            padding: 6rem 4rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            background: var(--color-charcoal);
+            padding: 5rem;
+            color: var(--color-cream);
+        }
+
+        .contact-info h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info > p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--color-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--color-gold);
+        }
+
+        .info-content h4 {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-content p {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+        }
+
+        .showroom-hours {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .showroom-hours h4 {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background: var(--color-white);
+            padding: 5rem;
+        }
+
+        .contact-form-wrapper h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            color: var(--color-charcoal);
+        }
+
+        .contact-form-wrapper > p {
+            color: var(--color-wood-dark);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: var(--color-charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label span {
+            color: var(--color-gold);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--color-beige);
+            background: var(--color-cream);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--color-charcoal);
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            background: var(--color-white);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238B7355' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            accent-color: var(--color-gold);
+        }
+
+        .checkbox-item span {
+            font-size: 0.9rem;
+            color: var(--color-wood-dark);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--color-charcoal);
+            color: var(--color-white);
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--color-gold);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--color-charcoal);
+            color: var(--color-white);
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s var(--transition-elegant);
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--color-gold);
+        }
+
+        .toast.error {
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Map Section */
+        .map-section {
+            position: relative;
+            height: 500px;
+            background: var(--color-beige);
+        }
+
+        .map-section iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(20%);
+        }
+
+        .map-overlay-card {
+            position: absolute;
+            bottom: 3rem;
+            left: 4rem;
+            background: var(--color-white);
+            padding: 2.5rem;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .map-overlay-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .map-overlay-card p {
+            font-size: 0.95rem;
+            color: var(--color-wood-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .map-overlay-card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-charcoal);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .map-overlay-card a:hover {
+            color: var(--color-gold);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--color-white);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--color-gold);
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--color-charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 1px;
+            background: var(--color-gold);
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--color-beige);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--color-gold);
+        }
+
+        .faq-question h4 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .faq-icon {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: currentColor;
+            transition: transform 0.3s;
+        }
+
+        .faq-icon::before {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .faq-icon::after {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+        }
+
+        .faq-item.active .faq-icon::after {
+            transform: rotate(90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s var(--transition-smooth);
+        }
+
+        .faq-answer p {
+            padding-bottom: 1.5rem;
+            color: var(--color-wood-dark);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-cream);
+            padding: 6rem 4rem 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: var(--color-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-contact p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 2rem;
+            }
+
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info,
+            .contact-form-wrapper {
+                padding: 3rem 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .map-overlay-card {
+                left: 2rem;
+                right: 2rem;
+                max-width: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .map-section {
+                height: 400px;
+            }
+
+            .map-overlay-card {
+                position: relative;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: 0 2rem;
+                transform: translateY(-50%);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .toast {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">ARTISAN FURNITURE</a>
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="products.html">PRODUCTS</a></li>
+            <li><a href="board.html">REVIEWS</a></li>
+            <li><a href="contact.html" class="active">CONTACT</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="products.html">PRODUCTS</a>
+        <a href="board.html">REVIEWS</a>
+        <a href="contact.html">CONTACT</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <p class="page-hero-subtitle">GET IN TOUCH</p>
+            <h1 class="page-hero-title">맞춤 제작 상담</h1>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-info">
+            <h2>Contact Us</h2>
+            <p>당신만의 특별한 가구를 디자인해 드립니다.<br>아래 정보를 통해 연락 주시거나 상담 폼을 작성해 주세요.</p>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <h4>SHOWROOM</h4>
+                    <p>경기도 파주시 탄현면<br>헤이리마을길 59-85</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <h4>PHONE</h4>
+                    <p>031-949-7788</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <path d="M22 6l-10 7L2 6"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <h4>EMAIL</h4>
+                    <p>design@artisan-furniture.kr</p>
+                </div>
+            </div>
+
+            <div class="showroom-hours">
+                <h4>SHOWROOM HOURS</h4>
+                <ul class="hours-list">
+                    <li><span>월요일 - 금요일</span><span>10:00 - 19:00</span></li>
+                    <li><span>토요일</span><span>11:00 - 18:00</span></li>
+                    <li><span>일요일</span><span>예약제 운영</span></li>
+                    <li><span>공휴일</span><span>휴무</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contact-form-wrapper">
+            <h2>상담 신청</h2>
+            <p>맞춤 제작 상담을 원하시면 아래 양식을 작성해 주세요.</p>
+
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>이름 <span>*</span></label>
+                        <input type="text" name="name" required placeholder="홍길동">
+                    </div>
+                    <div class="form-group">
+                        <label>연락처 <span>*</span></label>
+                        <input type="tel" name="phone" required placeholder="010-0000-0000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>이메일 <span>*</span></label>
+                    <input type="email" name="email" required placeholder="example@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>관심 카테고리</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="category" value="소파 & 체어">
+                            <span>소파 & 체어</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="category" value="테이블">
+                            <span>테이블</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="category" value="수납장">
+                            <span>수납장</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="category" value="침실">
+                            <span>침실</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="category" value="맞춤제작">
+                            <span>맞춤 제작</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="category" value="기타">
+                            <span>기타</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>예산 범위</label>
+                    <select name="budget">
+                        <option value="">선택해 주세요</option>
+                        <option value="100만원 미만">100만원 미만</option>
+                        <option value="100-300만원">100만원 - 300만원</option>
+                        <option value="300-500만원">300만원 - 500만원</option>
+                        <option value="500-1000만원">500만원 - 1,000만원</option>
+                        <option value="1000만원 이상">1,000만원 이상</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>희망 상담 방법</label>
+                    <select name="consultation_type">
+                        <option value="">선택해 주세요</option>
+                        <option value="전화 상담">전화 상담</option>
+                        <option value="쇼룸 방문">쇼룸 방문</option>
+                        <option value="이메일 상담">이메일 상담</option>
+                        <option value="출장 상담">출장 상담</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>문의 내용 <span>*</span></label>
+                    <textarea name="message" required placeholder="원하시는 가구 스타일, 공간 크기, 특별 요청 사항 등을 자유롭게 작성해 주세요."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">상담 신청하기</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.8354345093747!2d126.6940!3d37.7570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ1JzI1LjIiTiAxMjbCsDQxJzM4LjQiRQ!5e0!3m2!1sko!2skr!4v1699000000000!5m2!1sko!2skr" allowfullscreen="" loading="lazy"></iframe>
+        <div class="map-overlay-card">
+            <h3>아티산 퍼니처 쇼룸</h3>
+            <p>헤이리 예술마을에 위치한 저희 쇼룸에서 직접 가구를 체험해 보세요. 장인이 직접 상담해 드립니다.</p>
+            <a href="https://map.naver.com" target="_blank">
+                네이버 지도로 보기 &rarr;
+            </a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq-section">
+        <div class="section-header">
+            <p class="section-subtitle">FAQ</p>
+            <h2 class="section-title">자주 묻는 질문</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>맞춤 제작 가구의 제작 기간은 어느 정도인가요?</h4>
+                    <div class="faq-icon"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>가구의 종류와 복잡도에 따라 다르지만, 일반적으로 4-8주 정도 소요됩니다. 상담 시 정확한 제작 기간을 안내해 드립니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>배송 및 설치는 어떻게 진행되나요?</h4>
+                    <div class="faq-icon"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>전문 배송팀이 원하시는 장소까지 안전하게 배송하고 설치해 드립니다. 수도권 지역은 무료 배송이며, 그 외 지역은 별도 협의가 필요합니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>A/S 및 보증 기간은 어떻게 되나요?</h4>
+                    <div class="faq-icon"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>모든 가구에 3년 품질 보증이 적용됩니다. 사용 중 발생한 문제에 대해 무상 수리 서비스를 제공하며, 평생 유상 관리 서비스도 운영하고 있습니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>쇼룸 방문 시 예약이 필요한가요?</h4>
+                    <div class="faq-icon"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>평일과 토요일은 예약 없이 방문 가능합니다. 일요일은 예약제로 운영되며, 전화나 온라인으로 사전 예약해 주시기 바랍니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>사용하는 목재는 어디서 공급받나요?</h4>
+                    <div class="faq-icon"></div>
+                </div>
+                <div class="faq-answer">
+                    <p>북미산 블랙 월넛, 유럽산 화이트 오크 등 친환경 인증을 받은 최상급 원목만을 사용합니다. 모든 목재는 6개월 이상 자연 건조 과정을 거칩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>ARTISAN FURNITURE</h3>
+                <p>장인의 손길로 완성되는 프리미엄 수제 원목 가구.<br>2012년부터 이어온 장인정신으로 최고급 맞춤 가구를 제작합니다.</p>
+            </div>
+            <div class="footer-nav">
+                <h4 class="footer-title">MENU</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="board.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-categories">
+                <h4 class="footer-title">CATEGORIES</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html">소파 & 체어</a></li>
+                    <li><a href="products.html">테이블</a></li>
+                    <li><a href="products.html">수납장</a></li>
+                    <li><a href="products.html">침실</a></li>
+                    <li><a href="products.html">맞춤 제작</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4 class="footer-title">CONTACT</h4>
+                <p>경기도 파주시 탄현면<br>헤이리마을길 59-85</p>
+                <p>031-949-7788</p>
+                <p>design@artisan-furniture.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Artisan Furniture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rurnsbtzdglmjpftwzfi.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_OxjmpMoJbRAJouMG6aIwjw_FFFcfOjZ';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Mobile menu
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = contactForm.querySelector('.btn-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '전송 중...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(contactForm);
+
+            // Get selected categories
+            const categories = [];
+            formData.getAll('category').forEach(cat => categories.push(cat));
+
+            const data = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                category: categories.join(', '),
+                budget: formData.get('budget'),
+                consultation_type: formData.get('consultation_type'),
+                message: formData.get('message'),
+                created_at: new Date().toISOString()
+            };
+
+            try {
+                const { error } = await supabase
+                    .from('artisan_inquiries')
+                    .insert([data]);
+
+                if (error) throw error;
+
+                showToast('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.', 'success');
+                contactForm.reset();
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('전송 중 오류가 발생했습니다. 다시 시도해 주세요.', 'error');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page Hero Animation
+        gsap.from('.page-hero-content', {
+            opacity: 0,
+            y: 50,
+            duration: 1.2,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        // Contact Info Animation
+        gsap.from('.contact-info', {
+            scrollTrigger: {
+                trigger: '.contact-section',
+                start: 'top 70%'
+            },
+            x: -50,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.contact-form-wrapper', {
+            scrollTrigger: {
+                trigger: '.contact-section',
+                start: 'top 70%'
+            },
+            x: 50,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        // FAQ Animation
+        gsap.utils.toArray('.faq-item').forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 85%'
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                delay: index * 0.1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Parallax on hero
+        gsap.to('.page-hero-bg', {
+            scrollTrigger: {
+                trigger: '.page-hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 100,
+            ease: 'none'
+        });
+    </script>
+</body>
+</html>

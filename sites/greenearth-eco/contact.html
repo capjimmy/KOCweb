@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 | 그린어스 에코 - GreenEarth Eco</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --leaf-green: #4A7C23;
+            --sage-green: #8FB573;
+            --sand: #E8DCC4;
+            --cream: #FAF7F2;
+            --sky-blue: #87CEEB;
+            --ocean-blue: #5BA4C9;
+            --earth-brown: #8B7355;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(45, 80, 22, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--leaf-green), var(--forest-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon::before {
+            content: "🌿";
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--forest-green);
+        }
+
+        .logo-text span {
+            color: var(--leaf-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--leaf-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--leaf-green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--forest-green);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 5% 80px;
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.85), rgba(74, 124, 35, 0.75)),
+                        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1920') center/cover;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23FAF7F2' d='M0,50 C360,100 720,0 1080,50 C1260,75 1380,50 1440,50 L1440,100 L0,100 Z'/%3E%3C/svg%3E") no-repeat bottom/cover;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.3rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .leaf-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .leaf-divider span {
+            font-size: 1.5rem;
+        }
+
+        .leaf-divider::before,
+        .leaf-divider::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--sage-green), transparent);
+        }
+
+        /* Contact Info Cards */
+        .contact-info-section {
+            background: var(--white);
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--cream);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sage-green), var(--leaf-green));
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
+        }
+
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--sage-green), var(--leaf-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .contact-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-card a {
+            color: var(--leaf-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: var(--forest-green);
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            background: var(--cream);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .form-container {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.1);
+        }
+
+        .form-container h3 {
+            font-size: 1.6rem;
+            color: var(--forest-green);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group label .required {
+            color: #E74C3C;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--cream);
+            border-radius: 12px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--leaf-green);
+            box-shadow: 0 0 0 4px rgba(74, 124, 35, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--leaf-green);
+            margin-top: 3px;
+        }
+
+        .checkbox-group label {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .checkbox-group a {
+            color: var(--leaf-green);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--leaf-green), var(--forest-green));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.3);
+        }
+
+        /* Map & Info */
+        .map-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .map-wrapper {
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.1);
+            flex: 1;
+            min-height: 350px;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+            background: linear-gradient(135deg, var(--sage-green), var(--leaf-green));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .map-placeholder .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .map-placeholder h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .map-placeholder p {
+            opacity: 0.9;
+        }
+
+        .office-info {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.08);
+        }
+
+        .office-info h4 {
+            color: var(--forest-green);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-item .icon {
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+
+        .info-item .text {
+            color: var(--text-light);
+        }
+
+        .info-item .text strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--white);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--cream);
+            margin-bottom: 15px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(143, 181, 115, 0.2);
+        }
+
+        .faq-question h4 {
+            font-size: 1.1rem;
+            color: var(--forest-green);
+            font-weight: 500;
+        }
+
+        .faq-question .toggle {
+            font-size: 1.5rem;
+            color: var(--leaf-green);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question .toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            padding: 0 25px 20px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Social & Support */
+        .support-section {
+            background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .support-section h2 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .support-section p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-btn:hover {
+            background: var(--white);
+            color: var(--forest-green);
+            transform: translateY(-3px);
+        }
+
+        .social-btn .icon {
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--forest-green);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--sage-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--sage-green);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--leaf-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .map-container {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">GreenEarth <span>Eco</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="products.html">제품</a></li>
+            <li><a href="shop.html">쇼핑</a></li>
+            <li><a href="impact.html">환경영향</a></li>
+            <li><a href="blog.html">블로그</a></li>
+            <li><a href="contact.html" class="active">문의하기</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>문의하기</h1>
+        <p>그린어스 에코에 문의 사항이 있으시면 언제든지 연락주세요</p>
+    </header>
+
+    <!-- Contact Info Cards -->
+    <section class="contact-info-section">
+        <div class="section-title">
+            <h2>연락처 정보</h2>
+            <div class="leaf-divider"><span>📞</span></div>
+        </div>
+        <div class="contact-cards">
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h3>전화 문의</h3>
+                <p>고객센터 운영시간</p>
+                <p>평일 09:00 - 18:00</p>
+                <a href="tel:02-1234-5678">02-1234-5678</a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">✉️</div>
+                <h3>이메일 문의</h3>
+                <p>24시간 접수 가능</p>
+                <p>영업일 기준 1-2일 내 답변</p>
+                <a href="mailto:hello@greenearth-eco.kr">hello@greenearth-eco.kr</a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <h3>카카오톡 상담</h3>
+                <p>실시간 채팅 상담</p>
+                <p>평일 09:00 - 18:00</p>
+                <a href="#">@greenearth_eco</a>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <h3>오프라인 방문</h3>
+                <p>쇼룸 운영</p>
+                <p>평일 10:00 - 17:00 (예약제)</p>
+                <a href="#">위치 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="contact-layout">
+            <div class="form-container">
+                <h3>문의 양식</h3>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">이름 <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="홍길동" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일 <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">연락처</label>
+                            <input type="tel" id="phone" name="phone" placeholder="010-1234-5678">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">문의 유형 <span class="required">*</span></label>
+                            <select id="category" name="category" required>
+                                <option value="">선택해주세요</option>
+                                <option value="product">제품 문의</option>
+                                <option value="order">주문/배송 문의</option>
+                                <option value="return">교환/반품 문의</option>
+                                <option value="wholesale">도매/대량구매 문의</option>
+                                <option value="partnership">제휴/협력 문의</option>
+                                <option value="other">기타 문의</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">제목 <span class="required">*</span></label>
+                        <input type="text" id="subject" name="subject" placeholder="문의 제목을 입력해주세요" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">문의 내용 <span class="required">*</span></label>
+                        <textarea id="message" name="message" placeholder="문의 내용을 자세히 작성해주세요" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <label for="privacy">
+                                <a href="#">개인정보처리방침</a>에 동의합니다. (필수)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="marketing" name="marketing">
+                            <label for="marketing">
+                                마케팅 정보 수신에 동의합니다. (선택)
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">문의하기</button>
+                </form>
+            </div>
+
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <div class="map-placeholder">
+                        <div class="icon">📍</div>
+                        <h4>그린어스 에코 본사</h4>
+                        <p>서울특별시 강남구 테헤란로 123<br>그린빌딩 5층</p>
+                    </div>
+                </div>
+                <div class="office-info">
+                    <h4>오시는 길</h4>
+                    <div class="info-item">
+                        <span class="icon">🚇</span>
+                        <div class="text">
+                            <strong>지하철</strong>
+                            2호선 강남역 3번 출구에서 도보 5분
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">🚌</span>
+                        <div class="text">
+                            <strong>버스</strong>
+                            간선: 140, 144, 145 / 지선: 3412, 4412
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">🚗</span>
+                        <div class="text">
+                            <strong>주차</strong>
+                            건물 지하주차장 이용 가능 (2시간 무료)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-title">
+            <h2>자주 묻는 질문</h2>
+            <div class="leaf-divider"><span>❓</span></div>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>배송은 얼마나 걸리나요?</h4>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>주문 확인 후 1-2일 내 출고되며, 출고 후 1-2일 내 배송됩니다. 주말 및 공휴일은 배송이 진행되지 않습니다. 50,000원 이상 구매 시 무료배송 혜택이 제공됩니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>교환/반품은 어떻게 하나요?</h4>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>상품 수령 후 30일 이내 교환/반품이 가능합니다. 단순 변심의 경우 반품 배송비가 부과되며, 제품 하자의 경우 무료로 처리해 드립니다. 고객센터 또는 카카오톡으로 문의해주세요.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>도매/대량구매 할인이 있나요?</h4>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>네, 기업, 매장, 단체 고객을 위한 도매가 할인을 제공합니다. 구매 수량에 따라 10-30%까지 할인이 적용됩니다. 문의 양식에서 '도매/대량구매 문의'를 선택하여 연락주세요.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>제품은 정말 친환경적인가요?</h4>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>모든 제품은 친환경 인증을 획득하였으며, 제3자 기관의 검증을 거쳤습니다. 제품별 상세 인증 정보는 각 제품 페이지에서 확인하실 수 있습니다. B Corp, 환경부 친환경 인증, Vegan, Cruelty-Free 등의 인증을 보유하고 있습니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>나무 심기 프로그램은 어떻게 운영되나요?</h4>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>제품 구매 1건당 나무 1그루를 심고 있습니다. 국내외 파트너 NGO들과 함께 강원도, 인도네시아, 케냐, 브라질 등에서 조림 사업을 진행하고 있으며, 나무 심기 현황은 환경영향 페이지에서 확인하실 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social & Support -->
+    <section class="support-section">
+        <h2>SNS에서도 만나보세요</h2>
+        <p>친환경 라이프스타일 팁과 신제품 소식을 가장 먼저 받아보세요</p>
+        <div class="social-grid">
+            <a href="#" class="social-btn">
+                <span class="icon">📘</span>
+                Facebook
+            </a>
+            <a href="#" class="social-btn">
+                <span class="icon">📸</span>
+                Instagram
+            </a>
+            <a href="#" class="social-btn">
+                <span class="icon">📺</span>
+                YouTube
+            </a>
+            <a href="#" class="social-btn">
+                <span class="icon">💬</span>
+                KakaoTalk
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <span>🌿 GreenEarth Eco</span>
+                </div>
+                <p>그린어스 에코는 지속 가능한 미래를 위해 친환경 제품을 제공하는 기업입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품</a>
+                <a href="shop.html">쇼핑</a>
+                <a href="impact.html">환경영향</a>
+                <a href="blog.html">블로그</a>
+            </div>
+            <div class="footer-section">
+                <h4>고객지원</h4>
+                <a href="contact.html">문의하기</a>
+                <a href="#">배송 안내</a>
+                <a href="#">교환/반품</a>
+                <a href="#">자주 묻는 질문</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📍 서울특별시 강남구 테헤란로 123</p>
+                <p>📞 02-1234-5678</p>
+                <p>✉️ hello@greenearth-eco.kr</p>
+                <p>🕐 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 그린어스 에코 (GreenEarth Eco). All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('active');
+                });
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('문의가 접수되었습니다. 빠른 시일 내에 답변 드리겠습니다. 감사합니다! 🌿');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

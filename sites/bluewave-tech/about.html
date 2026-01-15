@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 소개 | 블루웨이브 테크놀로지</title>
+    <meta name="description" content="블루웨이브 테크놀로지 - 2015년 설립 이래 대한민국 기업들의 디지털 혁신을 이끌어 온 클라우드 엔터프라이즈 솔루션 전문 기업입니다.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #00a8ff;
+            --primary-purple: #9c27b0;
+            --dark-bg: #0a0a1a;
+            --dark-surface: #12122a;
+            --dark-card: #1a1a3a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --gradient-1: linear-gradient(135deg, #00a8ff 0%, #9c27b0 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glow-blue: 0 0 40px rgba(0, 168, 255, 0.3);
+            --glow-purple: 0 0 40px rgba(156, 39, 176, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 4px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.7rem 5%;
+            background: rgba(10, 10, 26, 0.95);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.7rem 1.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .page-header {
+            position: relative;
+            padding: 180px 5% 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-blue);
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-purple);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .page-badge span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .page-title .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid rgba(0, 168, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        #mission-vision {
+            background: var(--dark-surface);
+        }
+
+        .mv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mv-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .mv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .mv-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .mv-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .mv-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .mv-card p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        #history {
+            background: var(--dark-bg);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--gradient-1);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            border: 4px solid var(--dark-bg);
+        }
+
+        #team {
+            background: var(--dark-surface);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .team-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-role {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        #values {
+            background: var(--dark-bg);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        #stats {
+            background: var(--dark-surface);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        #cta {
+            background: var(--dark-bg);
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--dark-card);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .cta-container p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-blue);
+        }
+
+        footer {
+            background: var(--dark-surface);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .mv-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--dark-surface);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 50px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 5%;
+            }
+
+            .page-header {
+                padding: 140px 5% 60px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-container {
+                padding: 2rem;
+            }
+
+            .cta-container h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">BlueWave Tech</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div id="canvas-container"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="page-header-content">
+            <div class="page-badge">
+                <span>About BlueWave</span>
+            </div>
+            <h1 class="page-title">
+                기술로 미래를 만드는<br>
+                <span class="gradient-text">블루웨이브 테크놀로지</span>
+            </h1>
+            <p class="page-subtitle">
+                2015년 설립 이래 대한민국 기업들의 디지털 혁신을 선도해온
+                클라우드 엔터프라이즈 솔루션 전문 기업입니다.
+            </p>
+        </div>
+    </header>
+
+    <section id="mission-vision">
+        <div class="section-header">
+            <span class="section-tag">Mission & Vision</span>
+            <h2 class="section-title">미션 & 비전</h2>
+            <p class="section-desc">
+                기술 혁신을 통해 고객의 비즈니스 성공을 이끕니다
+            </p>
+        </div>
+        <div class="mv-grid">
+            <div class="mv-card">
+                <div class="mv-icon">&#127919;</div>
+                <h3>미션</h3>
+                <p>
+                    우리는 최첨단 클라우드 기술과 혁신적인 솔루션을 통해
+                    기업의 디지털 전환을 가속화하고, 비즈니스 성장을 위한
+                    최적의 파트너가 되는 것을 목표로 합니다. 모든 기업이
+                    기술의 힘을 통해 더 큰 가치를 창출할 수 있도록 지원합니다.
+                </p>
+            </div>
+            <div class="mv-card">
+                <div class="mv-icon">&#128161;</div>
+                <h3>비전</h3>
+                <p>
+                    대한민국을 넘어 아시아 최고의 클라우드 솔루션 기업으로
+                    성장하여, 글로벌 시장에서 인정받는 기술 혁신 리더가
+                    되고자 합니다. 우리의 기술이 모든 산업의 디지털 혁신을
+                    이끄는 핵심 동력이 될 것입니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="history">
+        <div class="section-header">
+            <span class="section-tag">Our History</span>
+            <h2 class="section-title">성장 스토리</h2>
+            <p class="section-desc">
+                블루웨이브 테크놀로지의 혁신 여정
+            </p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2015</div>
+                    <h4>회사 설립</h4>
+                    <p>서울 강남에서 5명의 엔지니어로 블루웨이브 테크놀로지 설립</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2017</div>
+                    <h4>AWS 파트너 인증</h4>
+                    <p>AWS 어드밴스드 컨설팅 파트너 자격 취득</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h4>50억 매출 달성</h4>
+                    <p>연 매출 50억 돌파 및 직원 50명 규모로 성장</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2021</div>
+                    <h4>AI 사업부 신설</h4>
+                    <p>AI/ML 전문 사업부 설립 및 빅데이터 분석 서비스 런칭</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2023</div>
+                    <h4>시리즈 B 투자 유치</h4>
+                    <p>100억 규모 시리즈 B 투자 유치 및 글로벌 진출 준비</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h4>아시아 시장 확장</h4>
+                    <p>싱가포르, 일본 지사 설립 및 아시아 시장 본격 진출</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="section-header">
+            <span class="section-tag">Our Team</span>
+            <h2 class="section-title">리더십 팀</h2>
+            <p class="section-desc">
+                최고의 전문가들이 함께합니다
+            </p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">&#128104;</div>
+                <h4>김테크</h4>
+                <div class="team-role">CEO & Founder</div>
+                <p>前 삼성SDS, AWS 솔루션 아키텍트 15년 경력</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">&#128105;</div>
+                <h4>이클라우드</h4>
+                <div class="team-role">CTO</div>
+                <p>前 네이버 클라우드, 클라우드 아키텍처 전문가</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">&#128104;</div>
+                <h4>박데이터</h4>
+                <div class="team-role">CDO</div>
+                <p>前 카카오, 빅데이터 & AI 전문가 10년 경력</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">&#128105;</div>
+                <h4>최비즈니스</h4>
+                <div class="team-role">COO</div>
+                <p>前 맥킨지, 디지털 전환 컨설팅 전문가</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="values">
+        <div class="section-header">
+            <span class="section-tag">Core Values</span>
+            <h2 class="section-title">핵심 가치</h2>
+            <p class="section-desc">
+                블루웨이브를 이끄는 핵심 가치
+            </p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">&#128640;</div>
+                <h3>혁신</h3>
+                <p>끊임없는 기술 혁신을 통해 고객에게 최고의 가치를 제공합니다. 새로운 기술 트렌드를 선도하며 미래를 준비합니다.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">&#129309;</div>
+                <h3>신뢰</h3>
+                <p>투명한 커뮤니케이션과 약속 이행으로 고객과의 신뢰를 쌓아갑니다. 파트너십을 통한 상생을 추구합니다.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">&#127775;</div>
+                <h3>탁월함</h3>
+                <p>모든 프로젝트에서 최고의 품질을 추구합니다. 전문성과 열정으로 고객의 기대를 뛰어넘습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats">
+        <div class="section-header">
+            <span class="section-tag">By Numbers</span>
+            <h2 class="section-title">숫자로 보는 블루웨이브</h2>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-target="150">0</div>
+                <div class="stat-label">완료 프로젝트</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="50">0</div>
+                <div class="stat-label">엔터프라이즈 고객</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="80">0</div>
+                <div class="stat-label">전문 인력</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="9">0</div>
+                <div class="stat-label">운영 연수</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta">
+        <div class="cta-container">
+            <h2>함께 성장할 준비가 되셨나요?</h2>
+            <p>
+                블루웨이브 테크놀로지와 함께 디지털 혁신을 시작하세요.
+            </p>
+            <a href="contact.html" class="btn-primary">
+                문의하기
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">BlueWave Tech</a>
+                <p>
+                    클라우드 엔터프라이즈 솔루션으로<br>
+                    비즈니스의 디지털 전환을 이끕니다.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="LinkedIn">in</a>
+                    <a href="#" class="social-link" title="GitHub">GH</a>
+                    <a href="#" class="social-link" title="Twitter">X</a>
+                    <a href="#" class="social-link" title="YouTube">YT</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">클라우드 마이그레이션</a></li>
+                    <li><a href="services.html">소프트웨어 개발</a></li>
+                    <li><a href="services.html">데이터 분석</a></li>
+                    <li><a href="services.html">보안 솔루션</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>회사</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="#">블로그</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">기술 문서</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 블루웨이브 테크놀로지. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function initParticles() {
+            const container = document.getElementById('canvas-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.6);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 2000;
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorsArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i += 3) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+                posArray[i + 1] = (Math.random() - 0.5) * 10;
+                posArray[i + 2] = (Math.random() - 0.5) * 10;
+
+                const t = Math.random();
+                colorsArray[i] = 0 + t * 0.61;
+                colorsArray[i + 1] = 0.66 - t * 0.51;
+                colorsArray[i + 2] = 1 - t * 0.31;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            camera.position.z = 3;
+
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particlesMesh.rotation.x += 0.001;
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += mouseY * 0.005;
+                particlesMesh.rotation.y += mouseX * 0.005;
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight * 0.6);
+            });
+        }
+
+        function initAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) {
+                    document.querySelector('.navbar').classList.add('scrolled');
+                } else {
+                    document.querySelector('.navbar').classList.remove('scrolled');
+                }
+            });
+
+            gsap.from('.page-badge', { opacity: 0, y: 30, duration: 1, delay: 0.3 });
+            gsap.from('.page-title', { opacity: 0, y: 50, duration: 1, delay: 0.5 });
+            gsap.from('.page-subtitle', { opacity: 0, y: 30, duration: 1, delay: 0.7 });
+
+            gsap.utils.toArray('.section-header').forEach(header => {
+                gsap.from(header, {
+                    scrollTrigger: {
+                        trigger: header,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8
+                });
+            });
+
+            gsap.utils.toArray('.mv-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 60,
+                    duration: 0.6,
+                    delay: i * 0.2
+                });
+            });
+
+            gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    x: i % 2 === 0 ? 50 : -50,
+                    duration: 0.6,
+                    delay: 0.1
+                });
+            });
+
+            gsap.utils.toArray('.team-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 60,
+                    duration: 0.6,
+                    delay: i * 0.1
+                });
+            });
+
+            gsap.utils.toArray('.value-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 60,
+                    duration: 0.6,
+                    delay: i * 0.1
+                });
+            });
+
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.dataset.target);
+
+                ScrollTrigger.create({
+                    trigger: stat,
+                    start: 'top 85%',
+                    onEnter: () => {
+                        gsap.to(stat, {
+                            duration: 2,
+                            innerHTML: target,
+                            snap: { innerHTML: 1 },
+                            ease: 'power2.out'
+                        });
+                    },
+                    once: true
+                });
+            });
+
+            gsap.from('.cta-container', {
+                scrollTrigger: {
+                    trigger: '.cta-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8
+            });
+        }
+
+        function initMobileMenu() {
+            const toggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    toggle.classList.remove('active');
+                });
+            });
+        }
+
+        function hideLoader() {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 800);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            initAnimations();
+            initMobileMenu();
+            hideLoader();
+        });
+    </script>
+</body>
+</html>

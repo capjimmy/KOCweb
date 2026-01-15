@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="진생당 한의원 예약/문의 - 진료예약, 오시는 길, 진료시간 안내">
+    <title>예약/문의 | 진생당 한의원</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d5a27;
+            --secondary-green: #4a7c43;
+            --light-green: #7ba375;
+            --accent-green: #8fb88a;
+            --beige-light: #f5f1e8;
+            --beige: #e8e0d0;
+            --beige-dark: #d4c8b0;
+            --brown: #6b5344;
+            --dark-brown: #3d2e24;
+            --text-dark: #2c2c2c;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+            --gold: #c4a35a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--beige-light);
+            line-height: 1.7;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.99);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 85px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-phone {
+            font-weight: 600;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+        }
+
+        .btn-reservation {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
+        }
+
+        .btn-reservation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(45, 90, 39, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 180px 40px 100px;
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.9), rgba(74, 124, 67, 0.85));
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 50%, rgba(196, 163, 90, 0.2) 0%, transparent 50%);
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            background: var(--white);
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .contact-card {
+            background: var(--beige-light);
+            border-radius: 25px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
+            border-radius: 2px;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(45, 90, 39, 0.15);
+        }
+
+        .contact-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
+            color: var(--white);
+            transition: all 0.4s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+        }
+
+        .contact-card h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .contact-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .contact-card a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card a:hover {
+            color: var(--gold);
+        }
+
+        /* Reservation Form Section */
+        .reservation-section {
+            background: var(--beige-light);
+        }
+
+        .reservation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .reservation-info {
+            padding: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 30px;
+            color: var(--white);
+        }
+
+        .reservation-info h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .reservation-info p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            opacity: 0.9;
+            margin-bottom: 35px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-list .icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .info-list .text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+
+        .info-list .text p {
+            font-size: 1rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .reservation-form {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .reservation-form h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .form-group label span {
+            color: #e74c3c;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--beige);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 4px rgba(45, 90, 39, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(45, 90, 39, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(45, 90, 39, 0.4);
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Hours Section */
+        .hours-section {
+            background: var(--white);
+        }
+
+        .hours-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hours-table {
+            background: var(--beige-light);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .hours-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            padding: 25px 40px;
+            align-items: center;
+            border-bottom: 1px solid var(--beige);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row.header {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+        }
+
+        .hours-row.header span {
+            font-weight: 600;
+        }
+
+        .hours-row .day {
+            font-weight: 600;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+        }
+
+        .hours-row .time {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+        }
+
+        .hours-row .note {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            text-align: right;
+        }
+
+        .hours-row.closed .day,
+        .hours-row.closed .time {
+            color: var(--text-light);
+        }
+
+        .hours-notice {
+            margin-top: 30px;
+            padding: 25px 30px;
+            background: rgba(45, 90, 39, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .hours-notice p {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: var(--beige);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-wrapper {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 30px;
+            overflow: hidden;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .map-placeholder {
+            text-align: center;
+            color: var(--white);
+            z-index: 1;
+        }
+
+        .map-placeholder .icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .map-placeholder h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .map-placeholder p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .directions-grid {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .direction-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .direction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .direction-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .direction-card h4 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .direction-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--white);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--beige-light);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(45, 90, 39, 0.05);
+        }
+
+        .faq-question h4 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.15rem;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .faq-question h4 span {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .faq-toggle {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding: 0 30px 25px;
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-brown);
+            color: var(--white);
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 15px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 85px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 15px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--beige);
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary-green);
+            background: var(--beige-light);
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .directions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links,
+            .nav-contact .nav-phone {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .reservation-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hours-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .hours-row .note {
+                grid-column: span 2;
+                text-align: left;
+                margin-top: 5px;
+            }
+
+            .directions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 20px;
+            }
+
+            .page-hero {
+                padding: 140px 20px 60px;
+            }
+
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-info,
+            .reservation-form {
+                padding: 35px;
+            }
+
+            .hours-row {
+                padding: 20px 25px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">參</div>
+                <div>
+                    <div class="logo-text">진생당 한의원</div>
+                    <div class="logo-sub">JINSENG CLINIC</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">한의원 소개</a></li>
+                <li><a href="treatments.html">진료과목</a></li>
+                <li><a href="medicine.html">한약/처방</a></li>
+                <li><a href="contact.html" class="active">예약/문의</a></li>
+            </ul>
+            <div class="nav-contact">
+                <span class="nav-phone">02-888-9999</span>
+                <a href="contact.html" class="btn-reservation">진료예약</a>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">홈</a>
+            <a href="about.html">한의원 소개</a>
+            <a href="treatments.html">진료과목</a>
+            <a href="medicine.html">한약/처방</a>
+            <a href="contact.html">예약/문의</a>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>예약/문의</h1>
+            <p>진생당 한의원 방문을 환영합니다</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a> / 예약/문의
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-info">
+        <div class="section-header fade-in">
+            <div class="section-label">CONTACT INFO</div>
+            <h2 class="section-title">연락처 안내</h2>
+            <p class="section-subtitle">다양한 방법으로 문의하실 수 있습니다</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card fade-in">
+                <div class="contact-icon">電</div>
+                <h3>전화 상담</h3>
+                <p><a href="tel:02-888-9999">02-888-9999</a></p>
+                <p>평일 09:00 - 19:00</p>
+            </div>
+            <div class="contact-card fade-in">
+                <div class="contact-icon">話</div>
+                <h3>카카오톡</h3>
+                <p><a href="#">@진생당</a></p>
+                <p>실시간 상담 가능</p>
+            </div>
+            <div class="contact-card fade-in">
+                <div class="contact-icon">信</div>
+                <h3>이메일</h3>
+                <p><a href="mailto:clinic@jinseng.kr">clinic@jinseng.kr</a></p>
+                <p>24시간 접수 가능</p>
+            </div>
+            <div class="contact-card fade-in">
+                <div class="contact-icon">訪</div>
+                <h3>방문 상담</h3>
+                <p>서울시 종로구 인사동길 45</p>
+                <p>3호선 안국역 6번 출구</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Form Section -->
+    <section class="reservation-section">
+        <div class="reservation-container">
+            <div class="reservation-info fade-in">
+                <h3>진료 예약 안내</h3>
+                <p>
+                    진생당 한의원은 예약제로 운영되어 대기 시간 없이
+                    편안하게 진료받으실 수 있습니다. 온라인 예약 또는
+                    전화로 예약해 주세요.
+                </p>
+                <ul class="info-list">
+                    <li>
+                        <div class="icon">一</div>
+                        <div class="text">
+                            <h4>초진 안내</h4>
+                            <p>처음 방문하시는 분은 예약 시간 10분 전에 도착하셔서 문진표를 작성해 주세요.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon">二</div>
+                        <div class="text">
+                            <h4>준비물</h4>
+                            <p>신분증과 건강보험증을 지참해 주세요. 기존 복용 약물이 있다면 함께 가져와 주세요.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon">三</div>
+                        <div class="text">
+                            <h4>예약 변경/취소</h4>
+                            <p>예약 변경이나 취소는 하루 전까지 연락 부탁드립니다.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="reservation-form fade-in">
+                <h3>온라인 예약</h3>
+                <form id="reservationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">이름 <span>*</span></label>
+                            <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">연락처 <span>*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">희망 날짜 <span>*</span></label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">희망 시간 <span>*</span></label>
+                            <select id="time" name="time" required>
+                                <option value="">시간을 선택하세요</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09:30">09:30</option>
+                                <option value="10:00">10:00</option>
+                                <option value="10:30">10:30</option>
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                                <option value="18:30">18:30</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">진료 과목</label>
+                        <select id="department" name="department">
+                            <option value="">선택하세요</option>
+                            <option value="acupuncture">침구치료</option>
+                            <option value="herbal">한약처방</option>
+                            <option value="chuna">추나요법</option>
+                            <option value="beauty">미용한방</option>
+                            <option value="pediatric">소아한방</option>
+                            <option value="women">여성한방</option>
+                            <option value="obesity">비만클리닉</option>
+                            <option value="stress">스트레스클리닉</option>
+                            <option value="etc">기타/상담</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="symptoms">증상 및 문의사항</label>
+                        <textarea id="symptoms" name="symptoms" placeholder="현재 증상이나 문의사항을 간략히 적어주세요"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">예약 신청하기</button>
+                    <p class="form-note">예약 신청 후 확정 전화를 드립니다.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="hours-section">
+        <div class="section-header fade-in">
+            <div class="section-label">HOURS</div>
+            <h2 class="section-title">진료시간 안내</h2>
+            <p class="section-subtitle">환자분들의 편의를 위해 다양한 시간대에 진료합니다</p>
+        </div>
+        <div class="hours-container fade-in">
+            <div class="hours-table">
+                <div class="hours-row header">
+                    <span>요일</span>
+                    <span>진료시간</span>
+                    <span>비고</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">월요일</span>
+                    <span class="time">09:00 - 19:00</span>
+                    <span class="note">점심시간 13:00-14:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">화요일</span>
+                    <span class="time">09:00 - 19:00</span>
+                    <span class="note">점심시간 13:00-14:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">수요일</span>
+                    <span class="time">09:00 - 19:00</span>
+                    <span class="note">점심시간 13:00-14:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">목요일</span>
+                    <span class="time">09:00 - 19:00</span>
+                    <span class="note">점심시간 13:00-14:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">금요일</span>
+                    <span class="time">09:00 - 19:00</span>
+                    <span class="note">점심시간 13:00-14:00</span>
+                </div>
+                <div class="hours-row">
+                    <span class="day">토요일</span>
+                    <span class="time">09:00 - 15:00</span>
+                    <span class="note">점심시간 없이 진료</span>
+                </div>
+                <div class="hours-row closed">
+                    <span class="day">일요일/공휴일</span>
+                    <span class="time">휴진</span>
+                    <span class="note">-</span>
+                </div>
+            </div>
+            <div class="hours-notice">
+                <p>
+                    <strong>안내사항:</strong> 점심시간(13:00-14:00)에는 진료가 중단됩니다.
+                    공휴일은 휴진이며, 명절 연휴 진료 일정은 별도 공지됩니다.
+                    응급 상황 시 응급실을 이용해 주세요.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="section-header fade-in">
+            <div class="section-label">LOCATION</div>
+            <h2 class="section-title">오시는 길</h2>
+            <p class="section-subtitle">편리하게 방문하실 수 있도록 안내해 드립니다</p>
+        </div>
+        <div class="map-container">
+            <div class="map-wrapper fade-in">
+                <div class="map-placeholder">
+                    <div class="icon">地</div>
+                    <h3>서울시 종로구 인사동길 45</h3>
+                    <p>3호선 안국역 6번 출구에서 도보 5분</p>
+                </div>
+            </div>
+            <div class="directions-grid">
+                <div class="direction-card fade-in">
+                    <div class="direction-icon">地</div>
+                    <h4>지하철</h4>
+                    <p>3호선 안국역 6번 출구<br>도보 5분 거리</p>
+                </div>
+                <div class="direction-card fade-in">
+                    <div class="direction-icon">車</div>
+                    <h4>버스</h4>
+                    <p>인사동 정류장 하차<br>간선: 109, 151, 162<br>지선: 7025</p>
+                </div>
+                <div class="direction-card fade-in">
+                    <div class="direction-icon">駐</div>
+                    <h4>주차</h4>
+                    <p>건물 내 전용 주차장<br>2시간 무료 주차<br>이후 30분당 1,000원</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-header fade-in">
+            <div class="section-label">FAQ</div>
+            <h2 class="section-title">자주 묻는 질문</h2>
+            <p class="section-subtitle">궁금하신 점을 확인해 보세요</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4><span>Q</span> 첫 방문 시 어떤 준비가 필요한가요?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>신분증과 건강보험증을 지참해 주세요. 기존에 복용하시는 약이 있다면 함께 가져오시면 진료에 도움이 됩니다. 예약 시간 10분 전에 도착하셔서 문진표를 작성해 주시면 됩니다.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4><span>Q</span> 한약 처방 시 건강보험 적용이 되나요?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>일부 한약 처방에 대해 건강보험이 적용됩니다. 첩약 건강보험 시범사업에 해당하는 질환(안면신경마비, 뇌혈관질환 후유증, 월경통 등)의 경우 보험 적용이 가능합니다. 자세한 내용은 방문 상담 시 안내해 드립니다.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4><span>Q</span> 진료 시간은 얼마나 걸리나요?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>초진의 경우 문진과 상담을 포함하여 약 30-40분 정도 소요됩니다. 재진의 경우 치료 내용에 따라 20-30분 정도 걸립니다. 침 치료만 받으시는 경우 시술 후 20-30분 정도 안정을 취하시게 됩니다.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4><span>Q</span> 주차는 어떻게 하나요?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>건물 내 전용 주차장이 있으며 진료 환자분께는 2시간 무료 주차가 제공됩니다. 2시간 초과 시 30분당 1,000원의 주차 요금이 발생합니다. 주차 공간이 협소하오니 가급적 대중교통 이용을 권장합니다.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h4><span>Q</span> 예약 없이 방문해도 되나요?</h4>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>진생당 한의원은 예약제로 운영됩니다. 예약 없이 방문하시면 대기 시간이 길어지거나 당일 진료가 어려울 수 있습니다. 편안한 진료를 위해 미리 예약해 주시기 바랍니다. 전화, 카카오톡, 또는 홈페이지에서 예약이 가능합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">參</div>
+                    <div class="logo-text">진생당 한의원</div>
+                </a>
+                <p>30년 전통의 진생당 한의원에서<br>자연과 함께하는 건강한 삶을 시작하세요.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">in</a>
+                    <a href="#" aria-label="Blog">B</a>
+                    <a href="#" aria-label="YouTube">Y</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>한의원</h4>
+                <ul>
+                    <li><a href="about.html">한의원 소개</a></li>
+                    <li><a href="about.html#doctor">의료진 소개</a></li>
+                    <li><a href="about.html#facilities">시설 안내</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="treatments.html">진료과목</a></li>
+                    <li><a href="medicine.html">한약/처방</a></li>
+                    <li><a href="contact.html">진료예약</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>이용안내</h4>
+                <ul>
+                    <li><a href="contact.html">오시는 길</a></li>
+                    <li><a href="contact.html">진료시간</a></li>
+                    <li><a href="#">비급여 안내</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 진생당 한의원. All rights reserved.</p>
+            <p>서울시 종로구 인사동길 45 | 02-888-9999 | clinic@jinseng.kr</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+
+        // Form Submission
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('예약 신청이 완료되었습니다. 확정 전화를 드리겠습니다.');
+            this.reset();
+        });
+
+        // Set minimum date to today
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

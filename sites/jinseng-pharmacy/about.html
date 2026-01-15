@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="진생당 한의원 소개 - 30년 전통의 한방 치료 전문 한의원">
+    <title>한의원 소개 | 진생당 한의원</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2d5a27;
+            --secondary-green: #4a7c43;
+            --light-green: #7ba375;
+            --accent-green: #8fb88a;
+            --beige-light: #f5f1e8;
+            --beige: #e8e0d0;
+            --beige-dark: #d4c8b0;
+            --brown: #6b5344;
+            --dark-brown: #3d2e24;
+            --text-dark: #2c2c2c;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+            --gold: #c4a35a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--beige-light);
+            line-height: 1.7;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.99);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 85px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-phone {
+            font-weight: 600;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+        }
+
+        .btn-reservation {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
+        }
+
+        .btn-reservation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(45, 90, 39, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-green);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 180px 40px 100px;
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.9), rgba(74, 124, 67, 0.85));
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(196, 163, 90, 0.2) 0%, transparent 50%);
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Intro */
+        .about-intro {
+            background: var(--white);
+        }
+
+        .about-intro-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-intro-image {
+            height: 500px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-intro-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .about-intro-content h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.2rem;
+            color: var(--primary-green);
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .about-intro-content p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+
+        .about-intro-content .highlight {
+            background: var(--beige-light);
+            padding: 25px 30px;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-green);
+            margin-top: 30px;
+        }
+
+        .about-intro-content .highlight p {
+            margin: 0;
+            font-style: italic;
+            color: var(--text-dark);
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: var(--beige-light);
+        }
+
+        .philosophy-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .philosophy-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
+            border-radius: 2px;
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(45, 90, 39, 0.15);
+        }
+
+        .philosophy-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--beige-light), var(--beige));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 3rem;
+            color: var(--primary-green);
+        }
+
+        .philosophy-card h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .philosophy-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Doctor Section */
+        .doctor {
+            background: var(--white);
+        }
+
+        .doctor-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .doctor-card {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            background: var(--beige-light);
+            border-radius: 30px;
+            padding: 60px;
+        }
+
+        .doctor-image {
+            flex-shrink: 0;
+            width: 350px;
+            height: 450px;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doctor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .doctor-info h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.2rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .doctor-title {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .doctor-credentials {
+            list-style: none;
+            margin-bottom: 35px;
+        }
+
+        .doctor-credentials li {
+            padding: 12px 0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.05rem;
+            border-bottom: 1px solid var(--beige);
+        }
+
+        .doctor-credentials li:last-child {
+            border-bottom: none;
+        }
+
+        .doctor-credentials li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .doctor-philosophy {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .doctor-philosophy::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--accent-green);
+            opacity: 0.3;
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .doctor-philosophy p {
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            padding-left: 30px;
+        }
+
+        /* Facilities Section */
+        .facilities {
+            background: var(--beige);
+        }
+
+        .facilities-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .facility-card {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            height: 320px;
+            cursor: pointer;
+        }
+
+        .facility-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: transform 0.5s ease;
+        }
+
+        .facility-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .facility-card:hover .facility-bg {
+            transform: scale(1.1);
+        }
+
+        .facility-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+
+        .facility-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            z-index: 2;
+            color: var(--white);
+        }
+
+        .facility-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .facility-card h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .facility-card p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* History Section */
+        .history {
+            background: var(--white);
+        }
+
+        .history-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary-green), var(--accent-green));
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .history-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .history-year {
+            flex: 1;
+            text-align: center;
+        }
+
+        .history-year span {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .history-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border: 4px solid var(--primary-green);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .history-content {
+            flex: 1;
+            background: var(--beige-light);
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .history-content h4 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .history-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-brown);
+            color: var(--white);
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 15px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 85px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 15px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--beige);
+            font-weight: 500;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary-green);
+            background: var(--beige-light);
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .philosophy-grid,
+            .facilities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links,
+            .nav-contact .nav-phone {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .about-intro-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about-intro-image {
+                height: 350px;
+            }
+
+            .doctor-card {
+                flex-direction: column;
+                gap: 40px;
+                padding: 40px;
+            }
+
+            .doctor-image {
+                width: 100%;
+                height: 350px;
+            }
+
+            .history-timeline::before {
+                left: 20px;
+            }
+
+            .history-item,
+            .history-item:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 50px;
+            }
+
+            .history-dot {
+                left: 20px;
+            }
+
+            .history-year {
+                text-align: left;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 20px;
+            }
+
+            .page-hero {
+                padding: 140px 20px 60px;
+            }
+
+            .page-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .philosophy-grid,
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">參</div>
+                <div>
+                    <div class="logo-text">진생당 한의원</div>
+                    <div class="logo-sub">JINSENG CLINIC</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">한의원 소개</a></li>
+                <li><a href="treatments.html">진료과목</a></li>
+                <li><a href="medicine.html">한약/처방</a></li>
+                <li><a href="contact.html">예약/문의</a></li>
+            </ul>
+            <div class="nav-contact">
+                <span class="nav-phone">02-888-9999</span>
+                <a href="contact.html" class="btn-reservation">진료예약</a>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">홈</a>
+            <a href="about.html">한의원 소개</a>
+            <a href="treatments.html">진료과목</a>
+            <a href="medicine.html">한약/처방</a>
+            <a href="contact.html">예약/문의</a>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>한의원 소개</h1>
+            <p>30년 전통의 진생당 한의원을 소개합니다</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a> / 한의원 소개
+            </div>
+        </div>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="about-intro-container">
+            <div class="about-intro-image fade-in">
+                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80" alt="전통 한방 약재와 인삼">
+            </div>
+            <div class="about-intro-content fade-in">
+                <h2>자연의 지혜로<br>건강을 지키는 한의원</h2>
+                <p>
+                    진생당 한의원은 1994년 개원 이래 30년간 한결같은 마음으로
+                    환자분들의 건강을 지켜왔습니다. '진생(眞生)'이라는 이름에는
+                    '참된 삶', '진정한 생명력'이라는 뜻이 담겨 있습니다.
+                </p>
+                <p>
+                    우리 한의원은 전통 한의학의 정수를 지키면서도 현대 의학의
+                    과학적 접근을 조화롭게 접목하여, 환자 개개인에게 최적화된
+                    맞춤형 치료를 제공합니다.
+                </p>
+                <div class="highlight">
+                    <p>"병을 치료하는 것이 아니라 사람을 치료합니다.
+                    몸과 마음의 균형을 회복하여 스스로 치유하는 힘을 되찾도록 돕습니다."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="section-header fade-in">
+            <div class="section-label">PHILOSOPHY</div>
+            <h2 class="section-title">진생당의 치료 철학</h2>
+            <p class="section-subtitle">환자 중심의 전인적 치료를 추구합니다</p>
+        </div>
+        <div class="philosophy-grid">
+            <div class="philosophy-card fade-in">
+                <div class="philosophy-icon">心</div>
+                <h3>심신일여 (心身一如)</h3>
+                <p>몸과 마음은 하나입니다. 신체의 증상뿐 아니라 정서적, 정신적 측면까지 함께 살펴 근본적인 치유를 추구합니다.</p>
+            </div>
+            <div class="philosophy-card fade-in">
+                <div class="philosophy-icon">人</div>
+                <h3>인체존중 (人體尊重)</h3>
+                <p>각 환자의 체질과 상태에 맞는 맞춤형 치료를 제공합니다. 획일적인 치료가 아닌 개인화된 접근을 중시합니다.</p>
+            </div>
+            <div class="philosophy-card fade-in">
+                <div class="philosophy-icon">和</div>
+                <h3>조화균형 (調和均衡)</h3>
+                <p>음양의 균형과 기혈의 조화를 회복하여 인체 스스로 치유하는 힘을 되살립니다. 자연치유력을 극대화합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctor Section -->
+    <section class="doctor" id="doctor">
+        <div class="section-header fade-in">
+            <div class="section-label">MEDICAL STAFF</div>
+            <h2 class="section-title">의료진 소개</h2>
+            <p class="section-subtitle">풍부한 임상 경험을 갖춘 전문 한의사가 진료합니다</p>
+        </div>
+        <div class="doctor-container">
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80" alt="한의사 원장">
+                </div>
+                <div class="doctor-info">
+                    <h3>김한방 원장</h3>
+                    <div class="doctor-title">대표원장 / 한의학박사</div>
+                    <ul class="doctor-credentials">
+                        <li>경희대학교 한의과대학 졸업</li>
+                        <li>경희대학교 대학원 한의학박사</li>
+                        <li>대한한의사협회 정회원</li>
+                        <li>대한침구학회 정회원</li>
+                        <li>대한한방내과학회 정회원</li>
+                        <li>前 경희대학교 한방병원 수련의</li>
+                    </ul>
+                    <div class="doctor-philosophy">
+                        <p>환자의 몸과 마음을 함께 살피는 것이 진정한 치료의 시작입니다.
+                        전통 한의학의 지혜와 현대 의학의 발전을 조화롭게 접목하여
+                        최선의 치료를 제공하겠습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities" id="facilities">
+        <div class="section-header fade-in">
+            <div class="section-label">FACILITIES</div>
+            <h2 class="section-title">시설 안내</h2>
+            <p class="section-subtitle">편안하고 쾌적한 환경에서 치료받으실 수 있습니다</p>
+        </div>
+        <div class="facilities-grid">
+            <div class="facility-card fade-in">
+                <div class="facility-bg"><img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80" alt="진료실"></div>
+                <div class="facility-overlay"></div>
+                <div class="facility-content">
+                    <div class="facility-icon">診</div>
+                    <h3>진료실</h3>
+                    <p>개인 프라이버시가 보장되는 독립 진료실</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <div class="facility-bg"><img src="https://images.unsplash.com/photo-1598153346810-860daa814c4b?w=600&q=80" alt="침구치료실"></div>
+                <div class="facility-overlay"></div>
+                <div class="facility-content">
+                    <div class="facility-icon">鍼</div>
+                    <h3>침구치료실</h3>
+                    <p>청결하고 위생적인 침구 치료 공간</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <div class="facility-bg"><img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=600&q=80" alt="한약조제실"></div>
+                <div class="facility-overlay"></div>
+                <div class="facility-content">
+                    <div class="facility-icon">藥</div>
+                    <h3>한약조제실</h3>
+                    <p>엄선된 한약재로 정성껏 조제</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <div class="facility-bg"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80" alt="물리치료실"></div>
+                <div class="facility-overlay"></div>
+                <div class="facility-content">
+                    <div class="facility-icon">療</div>
+                    <h3>물리치료실</h3>
+                    <p>최신 물리치료 장비 완비</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <div class="facility-bg"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="대기실"></div>
+                <div class="facility-overlay"></div>
+                <div class="facility-content">
+                    <div class="facility-icon">待</div>
+                    <h3>대기실</h3>
+                    <p>편안한 소파와 차 서비스 제공</p>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <div class="facility-bg"><img src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=600&q=80" alt="주차시설"></div>
+                <div class="facility-overlay"></div>
+                <div class="facility-content">
+                    <div class="facility-icon">車</div>
+                    <h3>주차시설</h3>
+                    <p>건물 내 전용 주차장 이용 가능</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history">
+        <div class="section-header fade-in">
+            <div class="section-label">HISTORY</div>
+            <h2 class="section-title">진생당의 발자취</h2>
+            <p class="section-subtitle">30년간 걸어온 길을 소개합니다</p>
+        </div>
+        <div class="history-timeline">
+            <div class="history-item fade-in">
+                <div class="history-year"><span>1994</span></div>
+                <div class="history-dot"></div>
+                <div class="history-content">
+                    <h4>진생당 한의원 개원</h4>
+                    <p>서울 종로구 인사동에서 첫 진료를 시작했습니다.</p>
+                </div>
+            </div>
+            <div class="history-item fade-in">
+                <div class="history-year"><span>2000</span></div>
+                <div class="history-dot"></div>
+                <div class="history-content">
+                    <h4>한의원 확장 이전</h4>
+                    <p>환자 증가로 더 넓은 공간으로 이전하였습니다.</p>
+                </div>
+            </div>
+            <div class="history-item fade-in">
+                <div class="history-year"><span>2010</span></div>
+                <div class="history-dot"></div>
+                <div class="history-content">
+                    <h4>현대식 시설 리모델링</h4>
+                    <p>최신 의료 장비와 쾌적한 시설로 새롭게 단장했습니다.</p>
+                </div>
+            </div>
+            <div class="history-item fade-in">
+                <div class="history-year"><span>2020</span></div>
+                <div class="history-dot"></div>
+                <div class="history-content">
+                    <h4>15,000명 치료 환자 달성</h4>
+                    <p>지역사회 건강 지킴이로서의 역할을 인정받았습니다.</p>
+                </div>
+            </div>
+            <div class="history-item fade-in">
+                <div class="history-year"><span>2024</span></div>
+                <div class="history-dot"></div>
+                <div class="history-content">
+                    <h4>개원 30주년</h4>
+                    <p>30년 전통을 이어가며 새로운 도약을 준비합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">參</div>
+                    <div class="logo-text">진생당 한의원</div>
+                </a>
+                <p>30년 전통의 진생당 한의원에서<br>자연과 함께하는 건강한 삶을 시작하세요.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">in</a>
+                    <a href="#" aria-label="Blog">B</a>
+                    <a href="#" aria-label="YouTube">Y</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>한의원</h4>
+                <ul>
+                    <li><a href="about.html">한의원 소개</a></li>
+                    <li><a href="about.html#doctor">의료진 소개</a></li>
+                    <li><a href="about.html#facilities">시설 안내</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="treatments.html">진료과목</a></li>
+                    <li><a href="medicine.html">한약/처방</a></li>
+                    <li><a href="contact.html">진료예약</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>이용안내</h4>
+                <ul>
+                    <li><a href="contact.html">오시는 길</a></li>
+                    <li><a href="contact.html">진료시간</a></li>
+                    <li><a href="#">비급여 안내</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 진생당 한의원. All rights reserved.</p>
+            <p>서울시 종로구 인사동길 45 | 02-888-9999 | clinic@jinseng.kr</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

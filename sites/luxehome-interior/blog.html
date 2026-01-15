@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블로그 | 럭스홈 인테리어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --cream: #FAF7F2;
+            --cream-dark: #F0EBE1;
+            --dark-wood: #2C1810;
+            --brown: #5C3D2E;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-wood);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark-wood);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--cream);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--dark-wood);
+        }
+
+        /* Page Header */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(44, 24, 16, 0.6), rgba(44, 24, 16, 0.7)),
+                        url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1920') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header span {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--dark-wood);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--cream-dark);
+            color: var(--text-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* Featured Post */
+        .featured-section {
+            background: var(--white);
+        }
+
+        .featured-post {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .featured-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .featured-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .featured-content {
+            padding: 2rem 0;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .featured-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-meta svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--gold);
+        }
+
+        .featured-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--dark-wood);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+        }
+
+        .read-more svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--gold);
+        }
+
+        /* Blog Grid */
+        .blog-section {
+            background: var(--cream);
+        }
+
+        .blog-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--white);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-card-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .blog-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-card-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .blog-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--dark-wood);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .blog-card h3 a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        .blog-card h3 a:hover {
+            color: var(--gold);
+        }
+
+        .blog-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Tips Section */
+        .tips-section {
+            background: var(--dark-wood);
+            color: var(--white);
+        }
+
+        .tips-section .section-header h2 {
+            color: var(--white);
+        }
+
+        .tips-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .tip-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .tip-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--white);
+        }
+
+        .tip-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .tip-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: var(--cream);
+        }
+
+        .newsletter-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dark-wood);
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-container p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--cream-dark);
+            background: var(--white);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--gold);
+            color: var(--white);
+            border: 2px solid var(--gold);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .pagination button {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--cream-dark);
+            background: var(--white);
+            color: var(--text-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover,
+        .pagination button.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-wood);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tips-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .featured-image img {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Luxe<span>Home</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="portfolio.html">포트폴리오</a></li>
+                <li><a href="process.html">진행과정</a></li>
+                <li><a href="blog.html" class="active">블로그</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-close" onclick="toggleMobileMenu()">&times;</span>
+        <a href="index.html" onclick="toggleMobileMenu()">홈</a>
+        <a href="about.html" onclick="toggleMobileMenu()">회사소개</a>
+        <a href="services.html" onclick="toggleMobileMenu()">서비스</a>
+        <a href="portfolio.html" onclick="toggleMobileMenu()">포트폴리오</a>
+        <a href="process.html" onclick="toggleMobileMenu()">진행과정</a>
+        <a href="blog.html" onclick="toggleMobileMenu()">블로그</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">문의하기</a>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div>
+            <h1>블로그</h1>
+            <p>인테리어 트렌드와 유용한 팁을 만나보세요</p>
+        </div>
+    </header>
+
+    <!-- Featured Post -->
+    <section class="featured-section">
+        <div class="featured-post fade-in">
+            <div class="featured-image">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200" alt="2024 인테리어 트렌드">
+                <div class="featured-badge">FEATURED</div>
+            </div>
+            <div class="featured-content">
+                <div class="featured-meta">
+                    <span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        2024.01.15
+                    </span>
+                    <span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        럭스홈 에디터
+                    </span>
+                </div>
+                <h2>2024 인테리어 트렌드: 자연과 기술의 조화</h2>
+                <p>올해 인테리어 트렌드의 핵심은 '자연'과 '기술'의 조화입니다.
+                바이오필릭 디자인과 스마트홈 기술이 결합된 새로운 라이프스타일이
+                주거 공간의 변화를 이끌고 있습니다. 지속가능한 소재와 에너지 효율성을
+                고려한 친환경 인테리어가 더욱 주목받고 있으며...</p>
+                <a href="#" class="read-more">
+                    자세히 보기
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="section-header fade-in">
+            <span>ARTICLES</span>
+            <h2>인테리어 매거진</h2>
+        </div>
+
+        <div class="category-filter fade-in">
+            <button class="filter-btn active" data-filter="all">전체</button>
+            <button class="filter-btn" data-filter="trend">트렌드</button>
+            <button class="filter-btn" data-filter="tips">인테리어 팁</button>
+            <button class="filter-btn" data-filter="diy">DIY</button>
+            <button class="filter-btn" data-filter="story">프로젝트 스토리</button>
+        </div>
+
+        <div class="blog-grid">
+            <div class="blog-card fade-in" data-category="trend">
+                <div class="blog-card-image">
+                    <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800" alt="미니멀리즘 인테리어">
+                    <span class="blog-category">TREND</span>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span>2024.01.10</span>
+                        <span>3분 읽기</span>
+                    </div>
+                    <h3><a href="#">미니멀리즘의 진화: 따뜻한 미니멀 스타일</a></h3>
+                    <p>차갑게만 느껴졌던 미니멀리즘이 변화하고 있습니다.
+                    자연 소재와 따뜻한 컬러를 활용한 '웜 미니멀리즘'이 새로운 트렌드로 떠오르고 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="blog-card fade-in" data-category="tips">
+                <div class="blog-card-image">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800" alt="수납 아이디어">
+                    <span class="blog-category">TIPS</span>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span>2024.01.08</span>
+                        <span>5분 읽기</span>
+                    </div>
+                    <h3><a href="#">작은 공간을 넓게! 수납 아이디어 10가지</a></h3>
+                    <p>제한된 공간을 효율적으로 활용하는 수납 노하우를 소개합니다.
+                    숨겨진 공간을 활용한 창의적인 아이디어를 만나보세요.</p>
+                </div>
+            </div>
+
+            <div class="blog-card fade-in" data-category="story">
+                <div class="blog-card-image">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="한남동 펜트하우스">
+                    <span class="blog-category">STORY</span>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span>2024.01.05</span>
+                        <span>7분 읽기</span>
+                    </div>
+                    <h3><a href="#">프로젝트 스토리: 한남동 펜트하우스</a></h3>
+                    <p>2023 대한민국 인테리어 대상 수상작, 한남동 펜트하우스의
+                    디자인 컨셉부터 완공까지의 이야기를 담았습니다.</p>
+                </div>
+            </div>
+
+            <div class="blog-card fade-in" data-category="diy">
+                <div class="blog-card-image">
+                    <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=800" alt="DIY 페인팅">
+                    <span class="blog-category">DIY</span>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span>2024.01.03</span>
+                        <span>4분 읽기</span>
+                    </div>
+                    <h3><a href="#">초보자를 위한 셀프 페인팅 가이드</a></h3>
+                    <p>벽지 대신 페인트로 분위기 변화를 주고 싶다면?
+                    초보자도 쉽게 따라할 수 있는 셀프 페인팅 방법을 알려드립니다.</p>
+                </div>
+            </div>
+
+            <div class="blog-card fade-in" data-category="tips">
+                <div class="blog-card-image">
+                    <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800" alt="조명 선택">
+                    <span class="blog-category">TIPS</span>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span>2023.12.28</span>
+                        <span>6분 읽기</span>
+                    </div>
+                    <h3><a href="#">공간별 조명 선택 가이드</a></h3>
+                    <p>조명 하나로 공간의 분위기가 완전히 달라집니다.
+                    거실, 침실, 주방 등 공간별 최적의 조명 선택법을 알아봅니다.</p>
+                </div>
+            </div>
+
+            <div class="blog-card fade-in" data-category="trend">
+                <div class="blog-card-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800" alt="컬러 트렌드">
+                    <span class="blog-category">TREND</span>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <span>2023.12.25</span>
+                        <span>4분 읽기</span>
+                    </div>
+                    <h3><a href="#">2024 인테리어 컬러 트렌드 TOP 5</a></h3>
+                    <p>올해 주목해야 할 인테리어 컬러 트렌드를 소개합니다.
+                    어스톤부터 젠틀 파스텔까지, 공간에 생기를 불어넣는 컬러들.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination fade-in">
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips-section">
+        <div class="section-header fade-in">
+            <span style="color: var(--gold);">QUICK TIPS</span>
+            <h2>인테리어 꿀팁</h2>
+        </div>
+        <div class="tips-grid">
+            <div class="tip-card fade-in">
+                <div class="tip-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                </div>
+                <h4>자연광 활용</h4>
+                <p>거울과 밝은 컬러를 활용해 자연광을 극대화하세요</p>
+            </div>
+            <div class="tip-card fade-in">
+                <div class="tip-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h4>레이어링 효과</h4>
+                <p>다양한 텍스처와 소재를 레이어링하면 공간에 깊이가 생깁니다</p>
+            </div>
+            <div class="tip-card fade-in">
+                <div class="tip-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                    </svg>
+                </div>
+                <h4>60-30-10 법칙</h4>
+                <p>주조색 60%, 보조색 30%, 강조색 10%로 컬러 밸런스를</p>
+            </div>
+            <div class="tip-card fade-in">
+                <div class="tip-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <h4>포컬 포인트</h4>
+                <p>방마다 시선을 끄는 포인트 요소를 하나씩 배치하세요</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="newsletter-container fade-in">
+            <h2>인테리어 뉴스레터 구독</h2>
+            <p>매주 새로운 인테리어 트렌드와 유용한 팁을 이메일로 받아보세요</p>
+            <form class="newsletter-form" onsubmit="return false;">
+                <input type="email" placeholder="이메일 주소를 입력하세요" required>
+                <button type="submit">구독하기</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Luxe<span>Home</span></a>
+                <p>20년 전통의 프리미엄 인테리어 전문 기업 럭스홈입니다.</p>
+                <div class="social-links">
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="process.html">진행과정</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="blog.html">블로그</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>연락처</h4>
+                <ul>
+                    <li>서울시 강남구 테헤란로 123</li>
+                    <li>럭스홈 빌딩 5층</li>
+                    <li>02-1234-5678</li>
+                    <li>info@luxehome.kr</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LuxeHome Interior. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Category Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const blogCards = document.querySelectorAll('.blog-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                blogCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => card.style.opacity = '1', 10);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="아트스페이스 갤러리 - 현대미술 전시 전문 갤러리">
+    <title>아트스페이스 갤러리 | Artspace Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #ffffff;
+            --black: #0a0a0a;
+            --gray-100: #f8f8f8;
+            --gray-200: #e8e8e8;
+            --gray-300: #d0d0d0;
+            --gray-600: #666666;
+            --gray-800: #333333;
+            --accent: #c9a962;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--white);
+            letter-spacing: 8px;
+            overflow: hidden;
+        }
+
+        .loader-text span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 20px 60px;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        nav.scrolled .logo {
+            color: var(--black);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--black);
+        }
+
+        nav.scrolled .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: currentColor;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 1px;
+            background-color: var(--white);
+            transition: var(--transition);
+        }
+
+        nav.scrolled .menu-toggle span {
+            background-color: var(--black);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://images.unsplash.com/photo-1544967082-d9d25d867d66?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            transform: scale(1.1);
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            opacity: 0;
+            color: var(--accent);
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 10px;
+            line-height: 1.2;
+            margin-bottom: 35px;
+            opacity: 0;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-cta {
+            opacity: 0;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--white), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0%, 100% { transform: scaleY(1); opacity: 1; }
+            50% { transform: scaleY(0.5); opacity: 0.5; }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 140px 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 1px;
+            background-color: var(--black);
+            margin: 30px auto;
+        }
+
+        /* Featured Works */
+        .featured {
+            background-color: var(--gray-100);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .featured-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        .featured-image {
+            position: relative;
+            overflow: hidden;
+            height: 450px;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .featured-item:hover .featured-image img {
+            transform: scale(1.1);
+        }
+
+        .featured-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .featured-item:hover .featured-overlay {
+            opacity: 1;
+        }
+
+        .featured-info {
+            padding: 30px;
+        }
+
+        .featured-artist {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .featured-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .featured-meta {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        /* Current Exhibition Highlight */
+        .exhibition-highlight {
+            background: var(--black);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exhibition-highlight .section-label {
+            color: var(--accent);
+        }
+
+        .exhibition-highlight .section-title {
+            color: var(--white);
+        }
+
+        .exhibition-highlight .section-divider {
+            background-color: var(--accent);
+        }
+
+        .exhibition-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .exhibition-image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exhibition-image-wrapper img {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .exhibition-badge {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background-color: var(--accent);
+            color: var(--black);
+            padding: 10px 25px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .exhibition-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .exhibition-artist {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .exhibition-date {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .exhibition-desc {
+            font-size: 1.05rem;
+            color: var(--gray-300);
+            line-height: 2;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid var(--white);
+            background-color: transparent;
+            color: var(--white);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            color: var(--black);
+        }
+
+        .btn-dark {
+            border-color: var(--black);
+            color: var(--black);
+        }
+
+        .btn-dark::before {
+            background: var(--black);
+        }
+
+        .btn-dark:hover {
+            color: var(--white);
+        }
+
+        .btn-accent {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .btn-accent::before {
+            background: var(--white);
+        }
+
+        .btn-accent:hover {
+            color: var(--black);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1577720580479-7d845d3d60c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat fixed;
+            padding: 180px 60px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+        }
+
+        .cta-desc {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: var(--gray-300);
+            letter-spacing: 1px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 80px 60px 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto 60px;
+        }
+
+        .footer-brand .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+        }
+
+        .footer-brand p {
+            font-size: 0.95rem;
+            color: var(--gray-300);
+            line-height: 1.8;
+            max-width: 300px;
+        }
+
+        .footer-column h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul a {
+            color: var(--gray-300);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-column ul a:hover {
+            color: var(--white);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--black);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--black);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .featured-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            section {
+                padding: 100px 40px;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .exhibition-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .exhibition-image-wrapper img {
+                height: 500px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+                background-color: var(--white);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+                background-color: var(--white);
+            }
+
+            section {
+                padding: 80px 20px;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+
+            .hero-subtitle {
+                font-size: 0.75rem;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                height: 350px;
+            }
+
+            .exhibition-content h3 {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2.5rem;
+            }
+
+            footer {
+                padding: 60px 20px 30px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .footer-brand p {
+                max-width: 100%;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        /* GSAP Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-text">
+            <span>A</span><span>R</span><span>T</span><span>S</span><span>P</span><span>A</span><span>C</span><span>E</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="index.html" class="logo">ARTSPACE</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="exhibitions.html">Exhibitions</a></li>
+            <li><a href="artists.html">Artists</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="exhibitions.html">Exhibitions</a>
+        <a href="artists.html">Artists</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Contemporary Art Gallery</p>
+            <h1 class="hero-title">ARTSPACE<br>GALLERY</h1>
+            <p class="hero-desc">현대미술의 새로운 시선을 제안합니다.<br>예술과 공간이 만나는 특별한 경험</p>
+            <div class="hero-cta">
+                <a href="exhibitions.html" class="btn btn-accent">View Exhibitions</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Featured Works -->
+    <section class="featured">
+        <div class="section-header">
+            <p class="section-label">Featured Works</p>
+            <h2 class="section-title">대표 작품</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="featured-grid">
+            <div class="featured-item reveal">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="작품 1">
+                    <div class="featured-overlay"></div>
+                </div>
+                <div class="featured-info">
+                    <p class="featured-artist">박서연</p>
+                    <h3 class="featured-title">경계를 넘어서 #1</h3>
+                    <p class="featured-meta">Oil on Canvas, 180 x 240cm, 2024</p>
+                </div>
+            </div>
+            <div class="featured-item reveal">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="작품 2">
+                    <div class="featured-overlay"></div>
+                </div>
+                <div class="featured-info">
+                    <p class="featured-artist">이현우</p>
+                    <h3 class="featured-title">빛의 기억</h3>
+                    <p class="featured-meta">Installation, Variable Dimensions, 2024</p>
+                </div>
+            </div>
+            <div class="featured-item reveal">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="작품 3">
+                    <div class="featured-overlay"></div>
+                </div>
+                <div class="featured-info">
+                    <p class="featured-artist">김지혜</p>
+                    <h3 class="featured-title">도시의 층위</h3>
+                    <p class="featured-meta">Mixed Media, 150 x 200cm, 2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Exhibition Highlight -->
+    <section class="exhibition-highlight">
+        <div class="section-header">
+            <p class="section-label">Now Showing</p>
+            <h2 class="section-title">현재 전시</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="exhibition-grid">
+            <div class="exhibition-image-wrapper reveal-left">
+                <span class="exhibition-badge">Now Showing</span>
+                <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="현재 전시">
+            </div>
+            <div class="exhibition-content reveal-right">
+                <h3>경계를 넘어서</h3>
+                <p class="exhibition-artist">박서연 개인전</p>
+                <p class="exhibition-date">2024.01.15 - 2024.03.30</p>
+                <p class="exhibition-desc">
+                    현대 사회의 경계와 분리에 대한 깊은 성찰을 담은 박서연 작가의 신작 25점을 선보입니다.
+                    회화, 설치, 영상 등 다양한 매체를 통해 우리가 만들어 놓은 보이지 않는 경계들을 탐구하며,
+                    그것을 넘어서는 새로운 가능성을 제시합니다.
+                </p>
+                <a href="exhibitions.html" class="btn">View Exhibition</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title reveal">예술과 함께하는 특별한 경험</h2>
+        <p class="cta-desc reveal">아트스페이스 갤러리에서 현대미술의 새로운 흐름을 만나보세요</p>
+        <div class="cta-buttons reveal">
+            <a href="exhibitions.html" class="btn">View All Exhibitions</a>
+            <a href="contact.html" class="btn btn-accent">Plan Your Visit</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">ARTSPACE GALLERY</div>
+                <p>현대미술 전시 전문 갤러리로서 새로운 예술적 시선과 경험을 제공합니다.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="YouTube">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Gallery</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="exhibitions.html">Exhibitions</a></li>
+                    <li><a href="artists.html">Artists</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Visit</h4>
+                <ul>
+                    <li><a href="contact.html">Location</a></li>
+                    <li><a href="contact.html">Hours</a></li>
+                    <li><a href="contact.html">Admission</a></li>
+                    <li><a href="contact.html">Accessibility</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:02-777-8888">02-777-8888</a></li>
+                    <li><a href="mailto:info@artspace.kr">info@artspace.kr</a></li>
+                    <li>서울시 종로구 삼청로 89</li>
+                </ul>
+            </div>
+        </div>
+        <p class="copyright">
+            &copy; 2024 Artspace Gallery. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Loader Animation
+        const loader = document.getElementById('loader');
+        const loaderChars = document.querySelectorAll('.loader-text span');
+
+        gsap.to(loaderChars, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            onComplete: () => {
+                gsap.to(loader, {
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        loader.style.display = 'none';
+                        initAnimations();
+                    }
+                });
+            }
+        });
+
+        function initAnimations() {
+            // Hero animations
+            const heroTl = gsap.timeline();
+
+            heroTl.to('.hero-bg', {
+                scale: 1,
+                duration: 1.5,
+                ease: "power2.out"
+            })
+            .to('.hero-subtitle', {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.8")
+            .to('.hero-title', {
+                opacity: 1,
+                duration: 1,
+                ease: "power2.out"
+            }, "-=0.5")
+            .to('.hero-desc', {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.5")
+            .to('.hero-cta', {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.3")
+            .to('.scroll-indicator', {
+                opacity: 1,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.3");
+
+            // Scroll animations
+            gsap.utils.toArray('.reveal').forEach(elem => {
+                gsap.to(elem, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+
+            gsap.utils.toArray('.reveal-left').forEach(elem => {
+                gsap.to(elem, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+
+            gsap.utils.toArray('.reveal-right').forEach(elem => {
+                gsap.to(elem, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            });
+
+            // Parallax effect for hero
+            gsap.to('.hero-bg', {
+                yPercent: 30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        }
+
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+</body>
+</html>

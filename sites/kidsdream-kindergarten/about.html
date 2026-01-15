@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유치원 소개 - 키즈드림 유치원</title>
+    <meta name="description" content="키즈드림 유치원 소개 - 교육 철학, 원장 인사말, 연혁, 교사진 소개">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Jua&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B9D;
+            --primary-dark: #E91E63;
+            --secondary: #4FC3F7;
+            --accent-yellow: #FFD54F;
+            --accent-green: #81C784;
+            --accent-purple: #BA68C8;
+            --accent-orange: #FFB74D;
+            --text-dark: #37474F;
+            --text-light: #78909C;
+            --bg-light: #FAFAFA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 20px;
+            --radius-sm: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .logo-emoji {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            color: white;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #FFF5F8 0%, #F0F9FF 50%, #FFF9E6 100%);
+            padding: 150px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary), transparent);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), transparent);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .page-header h1 {
+            font-family: 'Jua', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Principal Section */
+        .principal-section {
+            background: var(--white);
+        }
+
+        .principal-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .principal-image {
+            position: relative;
+        }
+
+        .principal-image img {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-hover);
+            width: 100%;
+        }
+
+        .principal-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            color: white;
+            padding: 20px 30px;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .principal-badge span {
+            display: block;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .principal-badge small {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .principal-text h3 {
+            font-family: 'Jua', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .principal-text p {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .principal-sign {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-top: 30px;
+        }
+
+        /* Philosophy Section */
+        .philosophy-section {
+            background: var(--bg-light);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .philosophy-card {
+            background: white;
+            padding: 50px 35px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .philosophy-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 3rem;
+        }
+
+        .philosophy-card h3 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .philosophy-card p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* History Section */
+        .history-section {
+            background: var(--white);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--accent-purple));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 30px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--primary);
+            z-index: 1;
+        }
+
+        .timeline-year {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .timeline-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Teachers Section */
+        .teachers-section {
+            background: var(--bg-light);
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .teacher-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .teacher-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .teacher-card:hover .teacher-image img {
+            transform: scale(1.1);
+        }
+
+        .teacher-info {
+            padding: 25px;
+        }
+
+        .teacher-info h3 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .teacher-role {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .teacher-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Values Section */
+        .values-section {
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            color: white;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .value-item {
+            text-align: center;
+        }
+
+        .value-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .value-item h3 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .value-item p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 20px rgba(255,107,157,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255,107,157,0.5);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-desc {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact h4 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(255,107,157,0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .principal-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .principal-image {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .teachers-grid,
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 50px;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                width: 100%;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .principal-badge {
+                position: relative;
+                bottom: 0;
+                right: 0;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-emoji">&#127752;</span>
+                <span class="logo-text">키즈드림</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="about.html" class="nav-link active">유치원 소개</a></li>
+                <li><a href="programs.html" class="nav-link">교육 프로그램</a></li>
+                <li><a href="facilities.html" class="nav-link">시설 안내</a></li>
+                <li><a href="contact.html" class="nav-link">입학 상담</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="fade-in">유치원 <span class="highlight">소개</span></h1>
+            <p class="fade-in">아이들의 꿈과 행복을 위해 함께하는 키즈드림 유치원입니다</p>
+        </div>
+    </section>
+
+    <!-- Principal Section -->
+    <section class="section principal-section">
+        <div class="container">
+            <div class="principal-content">
+                <div class="principal-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=500" alt="원장 선생님">
+                    <div class="principal-badge">
+                        <span>14년</span>
+                        <small>교육 경력</small>
+                    </div>
+                </div>
+                <div class="principal-text fade-in">
+                    <h3>&#128140; 원장 인사말</h3>
+                    <p>
+                        안녕하세요, 키즈드림 유치원 원장 문희정입니다.
+                    </p>
+                    <p>
+                        아이들은 무한한 가능성을 가진 작은 씨앗입니다.
+                        키즈드림 유치원은 그 소중한 씨앗이 건강하게 자라날 수 있도록
+                        따뜻한 사랑과 전문적인 교육으로 아이들을 보살피고 있습니다.
+                    </p>
+                    <p>
+                        우리는 아이 한 명 한 명의 개성과 잠재력을 존중하며,
+                        창의적이고 자율적인 사고를 할 수 있는 인재로 성장할 수 있도록
+                        최선의 교육 환경을 제공하고 있습니다.
+                    </p>
+                    <p>
+                        아이들의 행복한 미래를 위해 학부모님과 함께
+                        최고의 파트너가 되겠습니다.
+                    </p>
+                    <div class="principal-sign">
+                        키즈드림 유치원 원장 문희정
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="section philosophy-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128161;</span>
+                <h2 class="section-title">교육 <span class="highlight">철학</span></h2>
+                <p class="section-desc">키즈드림이 추구하는 교육의 가치입니다</p>
+            </div>
+            <div class="philosophy-grid">
+                <div class="philosophy-card fade-in">
+                    <div class="philosophy-icon" style="background: #FFE5E5;">
+                        <span>&#127912;</span>
+                    </div>
+                    <h3>창의성 교육</h3>
+                    <p>
+                        정해진 답을 찾는 것이 아닌, 스스로 생각하고
+                        새로운 것을 만들어내는 창의적인 사고력을 키웁니다.
+                    </p>
+                </div>
+                <div class="philosophy-card fade-in">
+                    <div class="philosophy-icon" style="background: #E5F3FF;">
+                        <span>&#129309;</span>
+                    </div>
+                    <h3>인성 교육</h3>
+                    <p>
+                        배려, 존중, 협동의 가치를 배우며
+                        따뜻한 마음을 가진 아이로 성장합니다.
+                    </p>
+                </div>
+                <div class="philosophy-card fade-in">
+                    <div class="philosophy-icon" style="background: #E5FFE9;">
+                        <span>&#127793;</span>
+                    </div>
+                    <h3>자연친화 교육</h3>
+                    <p>
+                        자연과 함께하는 다양한 활동을 통해
+                        생명을 존중하고 환경을 사랑하는 마음을 키웁니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="section history-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128197;</span>
+                <h2 class="section-title">키즈드림 <span class="highlight">연혁</span></h2>
+                <p class="section-desc">키즈드림의 성장 이야기</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <h4>교육부 우수 유치원 선정</h4>
+                        <p>창의융합 교육 프로그램 우수 기관 인증</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <h4>신규 시설 확장</h4>
+                        <p>자연친화 야외 놀이터 및 과학실 신설</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2018</div>
+                        <h4>STEAM 교육 도입</h4>
+                        <p>창의융합 STEAM 교육 프로그램 런칭</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015</div>
+                        <h4>학부모 만족도 1위</h4>
+                        <p>분당 지역 학부모 만족도 조사 1위 달성</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010</div>
+                        <h4>키즈드림 유치원 개원</h4>
+                        <p>경기도 분당구 정자동에 첫 문을 열다</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section class="section teachers-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128105;&#8205;&#127979;</span>
+                <h2 class="section-title">선생님 <span class="highlight">소개</span></h2>
+                <p class="section-desc">아이들을 사랑하는 28명의 전문 교사진</p>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card fade-in">
+                    <div class="teacher-image">
+                        <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=400" alt="김지영 선생님">
+                    </div>
+                    <div class="teacher-info">
+                        <h3>김지영 선생님</h3>
+                        <div class="teacher-role">햇살반 담임</div>
+                        <p>유아교육 석사 / 경력 8년</p>
+                    </div>
+                </div>
+                <div class="teacher-card fade-in">
+                    <div class="teacher-image">
+                        <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400" alt="박서연 선생님">
+                    </div>
+                    <div class="teacher-info">
+                        <h3>박서연 선생님</h3>
+                        <div class="teacher-role">무지개반 담임</div>
+                        <p>유아교육 학사 / 경력 5년</p>
+                    </div>
+                </div>
+                <div class="teacher-card fade-in">
+                    <div class="teacher-image">
+                        <img src="https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?w=400" alt="이수진 선생님">
+                    </div>
+                    <div class="teacher-info">
+                        <h3>이수진 선생님</h3>
+                        <div class="teacher-role">별님반 담임</div>
+                        <p>유아교육 학사 / 경력 6년</p>
+                    </div>
+                </div>
+                <div class="teacher-card fade-in">
+                    <div class="teacher-image">
+                        <img src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?w=400" alt="최미나 선생님">
+                    </div>
+                    <div class="teacher-info">
+                        <h3>최미나 선생님</h3>
+                        <div class="teacher-role">창의미술 전담</div>
+                        <p>미술치료 전공 / 경력 7년</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 50px;">
+                <a href="contact.html" class="btn btn-primary fade-in">선생님과 상담하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values-section">
+        <div class="container">
+            <div class="values-grid">
+                <div class="value-item fade-in">
+                    <div class="value-icon">&#128150;</div>
+                    <h3>사랑</h3>
+                    <p>모든 아이를 내 아이처럼 사랑합니다</p>
+                </div>
+                <div class="value-item fade-in">
+                    <div class="value-icon">&#128170;</div>
+                    <h3>믿음</h3>
+                    <p>아이의 무한한 가능성을 믿습니다</p>
+                </div>
+                <div class="value-item fade-in">
+                    <div class="value-icon">&#129309;</div>
+                    <h3>소통</h3>
+                    <p>학부모님과 열린 마음으로 소통합니다</p>
+                </div>
+                <div class="value-item fade-in">
+                    <div class="value-icon">&#127775;</div>
+                    <h3>성장</h3>
+                    <p>아이와 함께 성장하는 교육을 합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <span class="logo-emoji">&#127752;</span>
+                        <span class="logo-text">키즈드림</span>
+                    </a>
+                    <p class="footer-desc">
+                        창의융합 교육 전문 프리미엄 유치원<br>
+                        아이들의 꿈이 자라는 곳
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="about.html">유치원 소개</a></li>
+                        <li><a href="programs.html">교육 프로그램</a></li>
+                        <li><a href="facilities.html">시설 안내</a></li>
+                        <li><a href="contact.html">입학 상담</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>프로그램</h4>
+                    <ul>
+                        <li><a href="programs.html">창의미술</a></li>
+                        <li><a href="programs.html">영어동화</a></li>
+                        <li><a href="programs.html">과학탐구</a></li>
+                        <li><a href="programs.html">음악놀이</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>연락처</h4>
+                    <p><span>&#128205;</span> 경기도 분당구 정자동 178-1</p>
+                    <p><span>&#128222;</span> 031-714-8900</p>
+                    <p><span>&#9200;</span> 평일 07:30 - 19:30</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 키즈드림 유치원. All Rights Reserved.</p>
+                <p>원장: 문희정 | 설립: 2010년</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" aria-label="맨 위로">
+        <span>&#8593;</span>
+    </button>
+
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

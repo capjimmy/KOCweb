@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - 아티산 퍼니처 | 브랜드 스토리</title>
+    <meta name="description" content="아티산 퍼니처 브랜드 스토리. 2012년부터 이어온 장인정신으로 최고급 수제 원목 가구를 제작합니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+KR:wght@200;300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --color-cream: #F5F1EB;
+            --color-beige: #E8E0D5;
+            --color-wood-light: #D4C4B0;
+            --color-wood: #B8A088;
+            --color-wood-dark: #8B7355;
+            --color-charcoal: #2C2C2C;
+            --color-black: #1A1A1A;
+            --color-white: #FFFFFF;
+            --color-gold: #C9A962;
+            --font-serif: 'Cormorant Garamond', 'Noto Serif KR', serif;
+            --font-sans: 'Noto Sans KR', sans-serif;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-elegant: cubic-bezier(0.6, 0.01, 0.05, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 241, 235, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s var(--transition-smooth);
+        }
+
+        .nav.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            font-size: 0.85rem;
+            color: var(--color-charcoal);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-gold);
+            transition: width 0.4s var(--transition-smooth);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            width: 28px;
+            height: 1px;
+            background: var(--color-black);
+            transition: all 0.4s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-black);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transition: right 0.6s var(--transition-elegant);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            position: relative;
+            height: 60vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .page-hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 300;
+        }
+
+        /* Section */
+        .section {
+            padding: 6rem 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--color-gold);
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--color-charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 1px;
+            background: var(--color-gold);
+            margin: 0 auto;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: var(--color-white);
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .story-image {
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .story-image-accent {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 60%;
+            height: 60%;
+            border: 1px solid var(--color-gold);
+            z-index: -1;
+        }
+
+        .story-text h3 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--color-charcoal);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .story-text p {
+            color: var(--color-wood-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .story-text .highlight {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--color-charcoal);
+            border-left: 2px solid var(--color-gold);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Values Section */
+        .values-section {
+            background: var(--color-beige);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: var(--color-white);
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border: 1px solid var(--color-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .value-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: var(--color-gold);
+        }
+
+        .value-card h4 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-charcoal);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: var(--color-wood-dark);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: var(--color-charcoal);
+            color: var(--color-cream);
+        }
+
+        .timeline-section .section-title {
+            color: var(--color-cream);
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: var(--color-gold);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            width: calc(100% - 40px);
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            text-align: left;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--color-gold);
+            border-radius: 50%;
+            top: 2rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+
+        .timeline-year {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: var(--color-white);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            text-align: center;
+        }
+
+        .team-image {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--color-beige);
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h4 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--color-charcoal);
+            margin-bottom: 0.3rem;
+        }
+
+        .team-role {
+            font-size: 0.85rem;
+            color: var(--color-gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .team-card p {
+            font-size: 0.9rem;
+            color: var(--color-wood-dark);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            position: relative;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+            color: var(--color-white);
+        }
+
+        .cta-content h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 1.2rem 3.5rem;
+            background: var(--color-gold);
+            color: var(--color-black);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            transition: all 0.4s;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-white);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-cream);
+            padding: 6rem 4rem 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: var(--color-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-contact p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 2rem;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 40px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-item .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                text-align: left;
+            }
+
+            .timeline-item .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: -8px;
+                right: auto;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">ARTISAN FURNITURE</a>
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html" class="active">ABOUT</a></li>
+            <li><a href="products.html">PRODUCTS</a></li>
+            <li><a href="board.html">REVIEWS</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="products.html">PRODUCTS</a>
+        <a href="board.html">REVIEWS</a>
+        <a href="contact.html">CONTACT</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <p class="page-hero-subtitle">OUR STORY</p>
+            <h1 class="page-hero-title">브랜드 스토리</h1>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="section story-section">
+        <div class="story-content">
+            <div class="story-image">
+                <img src="https://images.unsplash.com/photo-1565372195458-9de0b320ef04?w=800" alt="장인의 작업">
+                <div class="story-image-accent"></div>
+            </div>
+            <div class="story-text">
+                <p class="section-subtitle">SINCE 2012</p>
+                <h3>12년의 장인정신,<br>세대를 잇는 가구</h3>
+                <p>아티산 퍼니처는 2012년, 대한민국 목공예 명장 박진우 대표가 헤이리 예술마을에 작은 공방을 열면서 시작되었습니다. 30년 이상의 목공예 경력을 바탕으로, 우리는 단순한 가구가 아닌 예술 작품을 만들어 왔습니다.</p>
+                <p class="highlight">"나무는 살아있습니다. 그 생명을 이해하고 존중하는 것이 진정한 장인의 자세입니다."</p>
+                <p>우리는 기계에 의존하지 않습니다. 모든 가구는 숙련된 장인의 손끝에서 탄생하며, 한 점 한 점 고객의 이야기를 담아 제작됩니다. 빠르게 변하는 시대 속에서도 변하지 않는 가치, 그것이 아티산 퍼니처입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section values-section">
+        <div class="section-header">
+            <p class="section-subtitle">OUR VALUES</p>
+            <h2 class="section-title">우리가 추구하는 가치</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h4>장인정신</h4>
+                <p>30년 이상의 경험을 가진 목공예 장인들이 한 점 한 점 정성을 담아 제작합니다. 기계가 대신할 수 없는 섬세함과 완성도를 추구합니다.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <h4>최상의 소재</h4>
+                <p>북미산 블랙 월넛, 유럽산 화이트 오크 등 친환경 인증을 받은 최상급 원목만을 사용합니다. 6개월 이상 자연 건조 과정을 거쳐 안정성을 확보합니다.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h4>세대를 잇는 품질</h4>
+                <p>우리 가구는 3년 품질 보증과 평생 관리 서비스를 제공합니다. 세대를 넘어 대물림되는 가구를 만들어 가치 있는 소비를 돕습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section timeline-section">
+        <div class="section-header">
+            <p class="section-subtitle">MILESTONES</p>
+            <h2 class="section-title">아티산의 여정</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2012</div>
+                    <h4>아티산 퍼니처 설립</h4>
+                    <p>헤이리 예술마을에 첫 공방 오픈</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2015</div>
+                    <h4>대한민국 가구 대전 대상 수상</h4>
+                    <p>맞춤 제작 다이닝 테이블로 최고 영예</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2018</div>
+                    <h4>쇼룸 확장 이전</h4>
+                    <p>헤이리 200평 규모 쇼룸으로 확장</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2020</div>
+                    <h4>목공예 명장 지정</h4>
+                    <p>박진우 대표, 대한민국 목공예 명장 선정</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2023</div>
+                    <h4>3,000건 프로젝트 달성</h4>
+                    <p>누적 3,000건의 맞춤 가구 제작 완료</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2024</div>
+                    <h4>새로운 도약</h4>
+                    <p>온라인 상담 서비스 및 전국 배송 시작</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team-section">
+        <div class="section-header">
+            <p class="section-subtitle">OUR TEAM</p>
+            <h2 class="section-title">아티산의 장인들</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1564429238535-03bd0d8cf9f2?w=400" alt="박진우 대표">
+                </div>
+                <h4>박진우</h4>
+                <p class="team-role">MASTER CRAFTSMAN & CEO</p>
+                <p>35년 경력의 목공예 명장. 전통 한국 목공예 기법과 현대적 디자인을 융합한 독자적 스타일 확립.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400" alt="김서연 디자이너">
+                </div>
+                <h4>김서연</h4>
+                <p class="team-role">LEAD DESIGNER</p>
+                <p>밀라노 공업 디자인 석사. 10년간 유럽 명품 가구 브랜드에서 경력을 쌓은 후 아티산에 합류.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=400" alt="이재민 장인">
+                </div>
+                <h4>이재민</h4>
+                <p class="team-role">SENIOR CRAFTSMAN</p>
+                <p>20년 경력의 수제 가구 전문가. 소파와 체어 제작 분야의 베테랑으로 가죽 가공 기술의 달인.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="cta-overlay"></div>
+        <div class="cta-content">
+            <p class="section-subtitle">VISIT US</p>
+            <h2>쇼룸에서 직접 만나보세요</h2>
+            <p>헤이리 예술마을에 위치한 저희 쇼룸에서 장인의 작품을 직접 경험하실 수 있습니다</p>
+            <a href="contact.html" class="btn-primary">쇼룸 방문 예약</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>ARTISAN FURNITURE</h3>
+                <p>장인의 손길로 완성되는 프리미엄 수제 원목 가구.<br>2012년부터 이어온 장인정신으로 최고급 맞춤 가구를 제작합니다.</p>
+            </div>
+            <div class="footer-nav">
+                <h4 class="footer-title">MENU</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="board.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-categories">
+                <h4 class="footer-title">CATEGORIES</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html">소파 & 체어</a></li>
+                    <li><a href="products.html">테이블</a></li>
+                    <li><a href="products.html">수납장</a></li>
+                    <li><a href="products.html">침실</a></li>
+                    <li><a href="products.html">맞춤 제작</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4 class="footer-title">CONTACT</h4>
+                <p>경기도 파주시 탄현면<br>헤이리마을길 59-85</p>
+                <p>031-949-7788</p>
+                <p>design@artisan-furniture.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Artisan Furniture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page Hero Animation
+        gsap.from('.page-hero-content', {
+            opacity: 0,
+            y: 50,
+            duration: 1.2,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        // Story Section Animation
+        gsap.from('.story-image', {
+            scrollTrigger: {
+                trigger: '.story-section',
+                start: 'top 70%'
+            },
+            x: -50,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.story-text', {
+            scrollTrigger: {
+                trigger: '.story-section',
+                start: 'top 70%'
+            },
+            x: 50,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        // Values Cards Animation
+        gsap.utils.toArray('.value-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: index * 0.15,
+                ease: 'power3.out'
+            });
+        });
+
+        // Timeline Animation
+        gsap.utils.toArray('.timeline-item').forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 80%'
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                delay: index * 0.1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Team Cards Animation
+        gsap.utils.toArray('.team-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: index * 0.15,
+                ease: 'power3.out'
+            });
+        });
+
+        // Parallax on hero
+        gsap.to('.page-hero-bg', {
+            scrollTrigger: {
+                trigger: '.page-hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 100,
+            ease: 'none'
+        });
+
+        // Parallax on CTA
+        gsap.to('.cta-bg', {
+            scrollTrigger: {
+                trigger: '.cta-section',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 100,
+            ease: 'none'
+        });
+    </script>
+</body>
+</html>

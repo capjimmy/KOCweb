@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="펫러브 동물병원 소개 - 24시간 응급진료 동물병원의 철학과 시설을 소개합니다.">
+    <title>병원소개 | 펫러브 동물병원</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --pastel-blue: #A8D5E5;
+            --pastel-blue-dark: #7BC0D4;
+            --pastel-pink: #F8C8DC;
+            --pastel-pink-dark: #F0A0C0;
+            --pastel-mint: #B8E8D0;
+            --pastel-yellow: #FFF0C8;
+            --text-dark: #2D3748;
+            --text-gray: #5A6978;
+            --white: #FFFFFF;
+            --bg-light: #FAFCFE;
+            --shadow: 0 4px 20px rgba(168, 213, 229, 0.3);
+            --shadow-hover: 0 8px 30px rgba(168, 213, 229, 0.5);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background-color: var(--bg-light);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .logo-text span {
+            color: var(--pastel-blue-dark);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--pastel-pink), var(--pastel-blue));
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--pastel-blue-dark);
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(248, 200, 220, 0.4);
+        }
+
+        .emergency-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248, 200, 220, 0.6);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 0 80px;
+            background: linear-gradient(135deg, rgba(168, 213, 229, 0.3) 0%, rgba(248, 200, 220, 0.3) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(248, 200, 220, 0.2) 0%, transparent 70%);
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--text-gray);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Common */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(168, 213, 229, 0.3), rgba(248, 200, 220, 0.3));
+            color: var(--pastel-blue-dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 17px;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Intro Section */
+        .about-intro {
+            background: white;
+        }
+
+        .about-intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            height: 450px;
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-pink) 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .about-content h2 .highlight {
+            background: linear-gradient(135deg, var(--pastel-pink-dark), var(--pastel-blue-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .about-feature .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .about-feature:nth-child(1) .icon {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+        }
+
+        .about-feature:nth-child(2) .icon {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
+        }
+
+        .about-feature:nth-child(3) .icon {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
+        }
+
+        .about-feature:nth-child(4) .icon {
+            background: linear-gradient(135deg, var(--pastel-mint), #80D4B0);
+        }
+
+        .about-feature span {
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: linear-gradient(180deg, var(--bg-light) 0%, rgba(168, 213, 229, 0.1) 100%);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .philosophy-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pastel-pink), var(--pastel-blue));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .philosophy-card:hover::before {
+            opacity: 1;
+        }
+
+        .philosophy-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .philosophy-card:nth-child(1) .philosophy-icon {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
+        }
+
+        .philosophy-card:nth-child(2) .philosophy-icon {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
+        }
+
+        .philosophy-card:nth-child(3) .philosophy-icon {
+            background: linear-gradient(135deg, var(--pastel-mint), #80D4B0);
+        }
+
+        .philosophy-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .philosophy-card p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* Facilities Section */
+        .facilities {
+            background: white;
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .facility-card {
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+            cursor: pointer;
+        }
+
+        .facility-card.large {
+            grid-column: span 2;
+            height: 350px;
+        }
+
+        .facility-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .facility-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .facility-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 30%, rgba(45, 55, 72, 0.9) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .facility-card:hover .facility-overlay {
+            background: linear-gradient(180deg, transparent 0%, rgba(45, 55, 72, 0.95) 100%);
+        }
+
+        .facility-overlay h3 {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .facility-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .facility-card:hover .facility-overlay p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-pink) 100%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--pastel-pink);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .about-intro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 350px;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .emergency-btn {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .facility-card.large {
+                grid-column: span 1;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-paw"></i>
+                </div>
+                <span class="logo-text">펫러브<span>동물병원</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">병원소개</a></li>
+                <li><a href="services.html">진료안내</a></li>
+                <li><a href="contact.html">예약문의</a></li>
+            </ul>
+            <a href="tel:02-1588-7788" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                24시 응급진료
+            </a>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>병원 소개</h1>
+            <p>사랑과 정성으로 반려동물을 돌보는 펫러브 동물병원을 소개합니다</p>
+        </div>
+    </section>
+
+    <!-- About Intro Section -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="about-intro-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=900&fit=crop" alt="동물병원 진료실 내부">
+                </div>
+                <div class="about-content">
+                    <h2>
+                        반려동물의 <span class="highlight">건강한 삶</span>을<br>
+                        함께 만들어갑니다
+                    </h2>
+                    <p>
+                        펫러브 동물병원은 2010년 개원 이래 지역사회의 반려동물과 보호자님들께
+                        최고의 수의학적 치료를 제공하기 위해 노력해 왔습니다.
+                        최신 의료 장비와 지속적인 의료진 교육을 통해 반려동물의 건강을
+                        책임지고 있으며, 24시간 응급 진료 체계를 갖추어 언제든지
+                        여러분의 소중한 가족을 돌볼 준비가 되어 있습니다.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span>24시간 응급 진료</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <span>전문 수의사 3인 상주</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="icon">
+                                <i class="fas fa-x-ray"></i>
+                            </div>
+                            <span>첨단 영상진단 장비</span>
+                        </div>
+                        <div class="about-feature">
+                            <div class="icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <span>정성 어린 케어</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">경영 철학</span>
+                <h2>펫러브의 약속</h2>
+                <p>반려동물과 보호자님께 드리는 펫러브 동물병원의 약속입니다</p>
+            </div>
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>사랑으로 진료</h3>
+                    <p>
+                        모든 반려동물을 내 가족처럼 생각하며,
+                        사랑과 정성을 담아 진료합니다.
+                        보호자님의 마음을 이해하고
+                        함께 걱정하며 치료합니다.
+                    </p>
+                </div>
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>전문성 추구</h3>
+                    <p>
+                        끊임없는 학습과 연구를 통해
+                        최신 수의학 지식을 습득하고,
+                        최첨단 의료 장비를 도입하여
+                        최고의 진료를 제공합니다.
+                    </p>
+                </div>
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>신뢰 구축</h3>
+                    <p>
+                        투명한 진료 과정과 정직한 소통으로
+                        보호자님과의 신뢰를 쌓아갑니다.
+                        모든 치료 과정을 상세히
+                        설명해 드립니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">시설 안내</span>
+                <h2>최신 의료 시설</h2>
+                <p>쾌적하고 안전한 환경에서 최고의 의료 서비스를 경험하세요</p>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-card large">
+                    <div class="facility-bg">
+                        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=1200&h=700&fit=crop" alt="동물병원 수술실">
+                    </div>
+                    <div class="facility-overlay">
+                        <h3>첨단 수술실</h3>
+                        <p>무균 환경의 수술실에서 안전한 수술을 진행합니다. 최신 마취장비와 모니터링 시스템을 갖추고 있습니다.</p>
+                    </div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-bg">
+                        <img src="https://images.unsplash.com/photo-1579165466741-7f35e4755660?w=600&h=600&fit=crop" alt="영상진단 장비">
+                    </div>
+                    <div class="facility-overlay">
+                        <h3>영상진단실</h3>
+                        <p>디지털 X-ray, 초음파, CT 등 첨단 영상진단 장비를 보유하고 있습니다.</p>
+                    </div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-bg">
+                        <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=600&fit=crop" alt="검사실 장비">
+                    </div>
+                    <div class="facility-overlay">
+                        <h3>검사실</h3>
+                        <p>혈액검사, 소변검사 등 다양한 검사를 원내에서 신속하게 진행합니다.</p>
+                    </div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-bg">
+                        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&h=600&fit=crop" alt="입원실의 반려동물">
+                    </div>
+                    <div class="facility-overlay">
+                        <h3>입원실</h3>
+                        <p>24시간 모니터링이 가능한 쾌적한 입원 환경을 제공합니다.</p>
+                    </div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-bg">
+                        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&h=600&fit=crop" alt="재활 치료를 받는 강아지">
+                    </div>
+                    <div class="facility-overlay">
+                        <h3>재활 치료실</h3>
+                        <p>수술 후 회복과 재활을 위한 전문 치료 공간입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">14+</div>
+                    <div class="stat-label">년간의 진료 경험</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30,000+</div>
+                    <div class="stat-label">누적 진료 케이스</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">전문 수의사</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24H</div>
+                    <div class="stat-label">응급진료 운영</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <span class="logo-text">펫러브 동물병원</span>
+                    </a>
+                    <p>
+                        24시간 응급진료 전문 동물병원<br>
+                        사랑하는 반려동물의 건강한 행복을 위해<br>
+                        최선을 다하겠습니다.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-blog"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>진료 안내</h4>
+                    <ul>
+                        <li><a href="services.html">24시간 응급진료</a></li>
+                        <li><a href="services.html">내과 진료</a></li>
+                        <li><a href="services.html">외과 수술</a></li>
+                        <li><a href="services.html">영상 진단</a></li>
+                        <li><a href="services.html">예방 접종</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>병원 안내</h4>
+                    <ul>
+                        <li><a href="about.html">병원 소개</a></li>
+                        <li><a href="about.html">시설 안내</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>고객 센터</h4>
+                    <ul>
+                        <li><a href="tel:02-1588-7788">02-1588-7788</a></li>
+                        <li><a href="mailto:care@petlove.kr">care@petlove.kr</a></li>
+                        <li><a href="contact.html">진료 예약</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 펫러브 동물병원. All rights reserved. 서울시 송파구 올림픽로 300 | 대표: 박수의</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe elements
+        document.querySelectorAll('.philosophy-card, .facility-card, .stat-card, .about-feature').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

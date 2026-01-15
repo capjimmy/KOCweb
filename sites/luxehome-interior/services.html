@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서비스 | 럭스홈 인테리어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --cream: #FAF7F2;
+            --cream-dark: #F0EBE1;
+            --dark-wood: #2C1810;
+            --brown: #5C3D2E;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-wood);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark-wood);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--cream);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(44, 24, 16, 0.6), rgba(44, 24, 16, 0.7)),
+                        url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header span {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--dark-wood);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+
+        /* Main Services */
+        .main-services {
+            background: var(--white);
+        }
+
+        .service-block {
+            max-width: 1400px;
+            margin: 0 auto 6rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .service-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-block:nth-child(even) {
+            direction: rtl;
+        }
+
+        .service-block:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .service-content {
+            padding: 2rem 0;
+        }
+
+        .service-content span {
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+        }
+
+        .service-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--dark-wood);
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .service-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        .service-features svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        /* Additional Services */
+        .additional-services {
+            background: var(--cream);
+        }
+
+        .additional-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .additional-card {
+            background: var(--white);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .additional-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-bottom-color: var(--gold);
+        }
+
+        .additional-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .additional-card:hover .additional-icon {
+            background: var(--gold);
+        }
+
+        .additional-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--gold);
+            transition: stroke 0.3s ease;
+        }
+
+        .additional-card:hover .additional-icon svg {
+            stroke: var(--white);
+        }
+
+        .additional-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--dark-wood);
+            margin-bottom: 1rem;
+        }
+
+        .additional-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: var(--dark-wood);
+            color: var(--white);
+        }
+
+        .pricing .section-header h2 {
+            color: var(--white);
+        }
+
+        .pricing .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-card.featured {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .pricing-card.featured::before {
+            content: 'BEST';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            color: var(--gold);
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .pricing-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .pricing-card .description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .pricing-card.featured .pricing-features svg {
+            stroke: var(--white);
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .pricing-card.featured .btn {
+            background: var(--white);
+            color: var(--gold);
+            border-color: var(--white);
+        }
+
+        .pricing-card.featured .btn:hover {
+            background: transparent;
+            color: var(--white);
+        }
+
+        /* Process Preview */
+        .process-preview {
+            background: var(--cream);
+        }
+
+        .process-steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .process-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-step h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--dark-wood);
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(rgba(44, 24, 16, 0.85), rgba(44, 24, 16, 0.85)),
+                        url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920') center/cover fixed;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-wood);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .service-block {
+                grid-template-columns: 1fr;
+            }
+
+            .service-block:nth-child(even) {
+                direction: ltr;
+            }
+
+            .additional-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Luxe<span>Home</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html" class="active">서비스</a></li>
+                <li><a href="portfolio.html">포트폴리오</a></li>
+                <li><a href="process.html">진행과정</a></li>
+                <li><a href="blog.html">블로그</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-close" onclick="toggleMobileMenu()">&times;</span>
+        <a href="index.html">홈</a>
+        <a href="about.html">회사소개</a>
+        <a href="services.html">서비스</a>
+        <a href="portfolio.html">포트폴리오</a>
+        <a href="process.html">진행과정</a>
+        <a href="blog.html">블로그</a>
+        <a href="contact.html">문의하기</a>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div>
+            <h1>서비스</h1>
+            <p>프리미엄 인테리어의 모든 것</p>
+        </div>
+    </header>
+
+    <!-- Main Services -->
+    <section class="main-services">
+        <div class="service-block fade-in">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800" alt="주거 인테리어">
+                <div class="service-badge">RESIDENTIAL</div>
+            </div>
+            <div class="service-content">
+                <span>01</span>
+                <h3>주거 인테리어</h3>
+                <p>아파트, 빌라, 단독주택 등 주거 공간에 맞춤형 디자인을 제공합니다.
+                가족의 라이프스타일을 깊이 이해하고, 편안함과 아름다움이 공존하는
+                특별한 공간을 만들어 드립니다.</p>
+                <ul class="service-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        공간 분석 및 맞춤 설계
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        3D 렌더링 시뮬레이션
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        프리미엄 자재 및 가구 제안
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        전문 시공팀 직영 관리
+                    </li>
+                </ul>
+                <a href="contact.html" class="btn">상담 신청</a>
+            </div>
+        </div>
+
+        <div class="service-block fade-in">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800" alt="상업 인테리어">
+                <div class="service-badge">COMMERCIAL</div>
+            </div>
+            <div class="service-content">
+                <span>02</span>
+                <h3>상업 인테리어</h3>
+                <p>오피스, 호텔, 레스토랑, 리테일 등 상업 공간의 브랜드 아이덴티티를
+                공간에 담아냅니다. 고객 경험을 극대화하고 비즈니스 성과를 높이는
+                전략적 디자인을 제안합니다.</p>
+                <ul class="service-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        브랜드 아이덴티티 분석
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        동선 및 공간 효율 최적화
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        조명 및 사이니지 디자인
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        프로젝트 일정 관리
+                    </li>
+                </ul>
+                <a href="contact.html" class="btn">상담 신청</a>
+            </div>
+        </div>
+
+        <div class="service-block fade-in">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800" alt="디자인 컨설팅">
+                <div class="service-badge">CONSULTING</div>
+            </div>
+            <div class="service-content">
+                <span>03</span>
+                <h3>디자인 컨설팅</h3>
+                <p>전문 디자이너의 1:1 컨설팅을 통해 공간 활용, 컬러 선택, 가구 배치 등
+                인테리어 전반에 대한 전문적인 조언을 제공합니다. 직접 시공을 원하시는
+                분들에게 최적의 솔루션입니다.</p>
+                <ul class="service-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        현장 방문 분석
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        맞춤형 디자인 제안서
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        자재 및 가구 쇼핑 리스트
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        예산 계획 가이드
+                    </li>
+                </ul>
+                <a href="contact.html" class="btn">상담 신청</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Services -->
+    <section class="additional-services">
+        <div class="section-header fade-in">
+            <span>ADDITIONAL SERVICES</span>
+            <h2>특화 서비스</h2>
+            <p>럭스홈만의 전문 서비스를 경험해 보세요</p>
+        </div>
+        <div class="additional-grid">
+            <div class="additional-card fade-in">
+                <div class="additional-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <path d="M21 15l-5-5L5 21"/>
+                    </svg>
+                </div>
+                <h4>3D 인테리어 시뮬레이션</h4>
+                <p>시공 전 완성된 공간을 미리 확인할 수 있습니다.
+                실시간 수정과 VR 체험으로 완벽한 결과를 보장합니다.</p>
+            </div>
+            <div class="additional-card fade-in">
+                <div class="additional-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                        <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/>
+                    </svg>
+                </div>
+                <h4>가구 맞춤 제작</h4>
+                <p>공간에 완벽히 맞는 맞춤형 가구를 제작합니다.
+                숙련된 장인이 최고급 소재로 제작합니다.</p>
+            </div>
+            <div class="additional-card fade-in">
+                <div class="additional-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                        <circle cx="12" cy="12" r="4"/>
+                    </svg>
+                </div>
+                <h4>조명 디자인</h4>
+                <p>공간의 분위기를 결정하는 조명 계획을 수립합니다.
+                자연광과 인공조명의 조화를 설계합니다.</p>
+            </div>
+            <div class="additional-card fade-in">
+                <div class="additional-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                    </svg>
+                </div>
+                <h4>스타일링 서비스</h4>
+                <p>소품, 아트워크, 식물 등으로 공간을 완성합니다.
+                전문 스타일리스트가 디테일을 살립니다.</p>
+            </div>
+            <div class="additional-card fade-in">
+                <div class="additional-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                    </svg>
+                </div>
+                <h4>애프터 케어</h4>
+                <p>시공 완료 후에도 지속적인 관리를 제공합니다.
+                1년간 무상 A/S와 정기 점검 서비스를 포함합니다.</p>
+            </div>
+            <div class="additional-card fade-in">
+                <div class="additional-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <h4>스마트홈 시스템</h4>
+                <p>IoT 기반 스마트홈 시스템을 구축합니다.
+                조명, 온도, 보안을 스마트하게 제어합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing">
+        <div class="section-header fade-in">
+            <span style="color: var(--gold);">PRICING</span>
+            <h2>서비스 패키지</h2>
+            <p>프로젝트 규모와 요구에 맞는 패키지를 선택하세요</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card fade-in">
+                <h4>Essential</h4>
+                <div class="price">250<span>만원~</span></div>
+                <p class="description">심플하고 기능적인 디자인</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        현장 실측 및 분석
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        기본 평면 설계
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        컬러 & 자재 제안
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        기본 시공 관리
+                    </li>
+                </ul>
+                <a href="contact.html" class="btn">문의하기</a>
+            </div>
+            <div class="pricing-card featured fade-in">
+                <h4>Premium</h4>
+                <div class="price">450<span>만원~</span></div>
+                <p class="description">프리미엄 맞춤형 디자인</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        Essential 전체 포함
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        3D 렌더링 & VR 체험
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        맞춤 가구 제작
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        스타일링 서비스
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        1년 무상 A/S
+                    </li>
+                </ul>
+                <a href="contact.html" class="btn">문의하기</a>
+            </div>
+            <div class="pricing-card fade-in">
+                <h4>Luxury</h4>
+                <div class="price">별도 협의</div>
+                <p class="description">최고급 럭셔리 토탈 서비스</p>
+                <ul class="pricing-features">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        Premium 전체 포함
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        수입 프리미엄 자재
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        스마트홈 시스템
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        전담 매니저 배정
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        평생 A/S 보장
+                    </li>
+                </ul>
+                <a href="contact.html" class="btn">문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Preview -->
+    <section class="process-preview">
+        <div class="section-header fade-in">
+            <span>OUR PROCESS</span>
+            <h2>진행 과정</h2>
+            <p>체계적인 프로세스로 완벽한 결과를 보장합니다</p>
+        </div>
+        <div class="process-steps fade-in">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <h4>상담</h4>
+                <p>요구사항 파악</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <h4>설계</h4>
+                <p>디자인 제안</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <h4>계약</h4>
+                <p>세부사항 확정</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <h4>시공</h4>
+                <p>전문 시공</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">05</div>
+                <h4>완성</h4>
+                <p>최종 점검</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="process.html" class="btn" style="background: var(--dark-wood); border-color: var(--dark-wood);">자세히 보기</a>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>지금 무료 상담을 신청하세요</h2>
+        <p>전문 디자이너가 맞춤형 솔루션을 제안해 드립니다</p>
+        <a href="contact.html" class="btn">무료 상담 신청</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Luxe<span>Home</span></a>
+                <p>20년 전통의 프리미엄 인테리어 전문 기업 럭스홈입니다.</p>
+                <div class="social-links">
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="process.html">진행과정</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="blog.html">블로그</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>연락처</h4>
+                <ul>
+                    <li>서울시 강남구 테헤란로 123</li>
+                    <li>럭스홈 빌딩 5층</li>
+                    <li>02-1234-5678</li>
+                    <li>info@luxehome.kr</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LuxeHome Interior. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

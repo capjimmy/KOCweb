@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사소개 | 글로벌브릿지 무역</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2a4a;
+            --navy-dark: #0f1a2e;
+            --navy-light: #2a3a5a;
+            --gold: #c9a227;
+            --gold-light: #d4b84a;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray: #666666;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--navy);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            transition: 0.3s;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(15, 26, 46, 0.85) 0%, rgba(26, 42, 74, 0.85) 50%, rgba(42, 58, 90, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80') center/cover no-repeat;
+            padding: 150px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a227' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .page-hero h1 span {
+            color: var(--gold);
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .breadcrumb {
+            margin-top: 20px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .breadcrumb a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .gold-line {
+            width: 60px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 15px auto;
+        }
+
+        /* Company Intro Section */
+        .company-intro {
+            background-color: var(--white);
+        }
+
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .intro-text h3 {
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 25px;
+        }
+
+        .intro-text h3 span {
+            color: var(--gold);
+        }
+
+        .intro-text p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .intro-image {
+            background: linear-gradient(135deg, rgba(26, 42, 74, 0.85) 0%, rgba(42, 58, 90, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1605732562742-3023a888e56e?w=800&q=80') center/cover no-repeat;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .intro-image h4 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .intro-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .intro-stat {
+            background-color: rgba(255,255,255,0.1);
+            padding: 30px 20px;
+            border-radius: 15px;
+        }
+
+        .intro-stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .intro-stat-label {
+            color: rgba(255,255,255,0.8);
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* CEO Message Section */
+        .ceo-message {
+            background-color: var(--gray-light);
+        }
+
+        .message-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .ceo-profile {
+            text-align: center;
+        }
+
+        .ceo-photo {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .ceo-profile h4 {
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 5px;
+        }
+
+        .ceo-profile p {
+            color: var(--gray);
+        }
+
+        .message-text {
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .message-text::before {
+            content: '"';
+            font-size: 8rem;
+            color: var(--gold);
+            opacity: 0.2;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .message-text h3 {
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .message-text p {
+            color: var(--gray);
+            line-height: 2;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .message-text .signature {
+            text-align: right;
+            margin-top: 30px;
+            color: var(--navy);
+            font-weight: bold;
+        }
+
+        /* Core Values Section */
+        .core-values {
+            background: linear-gradient(135deg, rgba(15, 26, 46, 0.9) 0%, rgba(26, 42, 74, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1605732562742-3023a888e56e?w=1920&q=80') center/cover no-repeat;
+            color: var(--white);
+        }
+
+        .core-values .section-title h2 {
+            color: var(--white);
+        }
+
+        .core-values .section-title p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .value-card {
+            background-color: rgba(255,255,255,0.1);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            background-color: rgba(255,255,255,0.15);
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--navy);
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .value-card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* History Section */
+        .history {
+            background-color: var(--white);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background-color: var(--gold);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+            padding-right: 60px;
+            padding-left: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            padding-left: 60px;
+        }
+
+        .timeline-content {
+            width: 50%;
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 3px var(--gold);
+        }
+
+        /* Global Network Section */
+        .network {
+            background-color: var(--gray-light);
+        }
+
+        .network-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .network-map {
+            background: linear-gradient(135deg, rgba(26, 42, 74, 0.9) 0%, rgba(42, 58, 90, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?w=800&q=80') center/cover no-repeat;
+            border-radius: 20px;
+            padding: 50px;
+            color: var(--white);
+        }
+
+        .map-title {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .region-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .region-item {
+            background-color: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .region-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .network-info h3 {
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 25px;
+        }
+
+        .network-info p {
+            color: var(--gray);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .network-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .network-stat {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .network-stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .network-stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--navy-dark);
+            color: var(--white);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand span {
+            color: var(--gold);
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .footer-links h4,
+        .footer-contact h4,
+        .footer-hours h4 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-contact p,
+        .footer-hours p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: var(--navy);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .intro-content,
+            .network-content {
+                grid-template-columns: 1fr;
+            }
+
+            .message-content {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: 100%;
+                padding-left: 60px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .region-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .network-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Global<span>Bridge</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="products.html">취급품목</a></li>
+                <li><a href="contact.html">연락처</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>회사<span>소개</span></h1>
+            <p>30년 신뢰의 글로벌 무역 파트너</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a> &gt; 회사소개
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Intro Section -->
+    <section class="company-intro">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-text">
+                    <h3>글로벌브릿지 <span>무역</span></h3>
+                    <p>글로벌브릿지 무역은 1994년 설립 이래 아시아와 유럽을 연결하는 종합무역 전문기업으로 성장해 왔습니다.</p>
+                    <p>30년 이상의 풍부한 경험과 전문 인력을 바탕으로 수출입 대행, 국제물류, 통관 서비스, 해외시장 개척 등 다양한 무역 서비스를 제공하고 있습니다.</p>
+                    <p>우리는 고객사의 글로벌 비즈니스 성공을 위한 최적의 솔루션을 제안하며, 신뢰와 전문성을 바탕으로 지속적인 파트너십을 구축하고 있습니다.</p>
+                </div>
+                <div class="intro-image">
+                    <h4>글로벌브릿지 현황</h4>
+                    <div class="intro-stats">
+                        <div class="intro-stat">
+                            <div class="intro-stat-number">1994</div>
+                            <div class="intro-stat-label">설립연도</div>
+                        </div>
+                        <div class="intro-stat">
+                            <div class="intro-stat-number">150+</div>
+                            <div class="intro-stat-label">전문 인력</div>
+                        </div>
+                        <div class="intro-stat">
+                            <div class="intro-stat-number">50+</div>
+                            <div class="intro-stat-label">파트너 국가</div>
+                        </div>
+                        <div class="intro-stat">
+                            <div class="intro-stat-number">1,000+</div>
+                            <div class="intro-stat-label">거래 기업</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEO Message Section -->
+    <section class="ceo-message">
+        <div class="container">
+            <div class="section-title">
+                <h2>CEO 인사말</h2>
+                <div class="gold-line"></div>
+            </div>
+            <div class="message-content">
+                <div class="ceo-profile">
+                    <div class="ceo-photo">&#128100;</div>
+                    <h4>김무역</h4>
+                    <p>대표이사</p>
+                </div>
+                <div class="message-text">
+                    <h3>글로벌브릿지 무역을 찾아주신 여러분께 감사드립니다</h3>
+                    <p>저희 글로벌브릿지 무역은 1994년 창립 이래 "신뢰와 전문성으로 세계를 연결한다"는 경영 철학 아래, 대한민국 무역 산업의 발전과 함께 성장해 왔습니다.</p>
+                    <p>급변하는 글로벌 무역 환경 속에서 저희는 끊임없는 혁신과 도전을 통해 고객 여러분께 최상의 무역 솔루션을 제공하기 위해 노력하고 있습니다.</p>
+                    <p>50개국 이상의 글로벌 네트워크와 30년간 축적된 노하우를 바탕으로, 고객 여러분의 성공적인 해외 비즈니스를 위한 든든한 파트너가 되겠습니다.</p>
+                    <div class="signature">글로벌브릿지 무역 대표이사 김무역</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values Section -->
+    <section class="core-values">
+        <div class="container">
+            <div class="section-title">
+                <h2>핵심 가치</h2>
+                <div class="gold-line"></div>
+                <p>글로벌브릿지를 이끄는 네 가지 핵심 가치</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">&#128176;</div>
+                    <h3>신뢰 (Trust)</h3>
+                    <p>30년간 쌓아온 신뢰를 바탕으로 고객과의 진정한 파트너십을 구축합니다</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">&#127891;</div>
+                    <h3>전문성 (Expertise)</h3>
+                    <p>무역 전문가 그룹의 체계적인 서비스로 최적의 솔루션을 제공합니다</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">&#127760;</div>
+                    <h3>글로벌 (Global)</h3>
+                    <p>50개국 이상의 글로벌 네트워크로 세계 어디든 연결합니다</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">&#128161;</div>
+                    <h3>혁신 (Innovation)</h3>
+                    <p>디지털 기반의 스마트 무역 솔루션으로 미래를 선도합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history">
+        <div class="container">
+            <div class="section-title">
+                <h2>회사 연혁</h2>
+                <div class="gold-line"></div>
+                <p>글로벌브릿지 무역의 30년 성장 스토리</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <h4>창립 30주년 기념</h4>
+                        <p>연간 거래액 1조원 달성, 디지털 무역 플랫폼 런칭</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2020</span>
+                        <h4>동남아 시장 확대</h4>
+                        <p>베트남, 인도네시아 지사 설립, 아세안 시장 진출 본격화</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2015</span>
+                        <h4>유럽 네트워크 구축</h4>
+                        <p>독일 프랑크푸르트 지사 설립, 유럽 시장 진출</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2010</span>
+                        <h4>중국 사업 확장</h4>
+                        <p>상하이, 베이징 지사 설립, 중국 시장 본격 진출</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2005</span>
+                        <h4>종합무역회사 전환</h4>
+                        <p>물류 서비스 확대, 통관 대행 서비스 시작</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1994</span>
+                        <h4>글로벌브릿지 무역 설립</h4>
+                        <p>서울 중구 본사 설립, 아시아 무역 전문기업 출범</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Network Section -->
+    <section class="network">
+        <div class="container">
+            <div class="section-title">
+                <h2>글로벌 네트워크</h2>
+                <div class="gold-line"></div>
+                <p>전 세계 50개국 이상의 파트너와 함께합니다</p>
+            </div>
+            <div class="network-content">
+                <div class="network-map">
+                    <div class="map-title">주요 거래 지역</div>
+                    <div class="region-grid">
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>중국 (베이징, 상하이)</span>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>일본 (도쿄, 오사카)</span>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>베트남 (호치민, 하노이)</span>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>독일 (프랑크푸르트)</span>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>네덜란드 (로테르담)</span>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>영국 (런던)</span>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>미국 (LA, 뉴욕)</span>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-dot"></div>
+                            <span>싱가포르</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="network-info">
+                    <h3>세계를 연결하는 무역 파트너</h3>
+                    <p>글로벌브릿지 무역은 아시아, 유럽, 북미, 동남아시아 등 전 세계 주요 무역 거점에 파트너 네트워크를 보유하고 있습니다.</p>
+                    <p>현지 파트너와의 긴밀한 협력을 통해 실시간 시장 정보와 신속한 대응 서비스를 제공합니다.</p>
+                    <div class="network-stats">
+                        <div class="network-stat">
+                            <div class="network-stat-number">50+</div>
+                            <div class="network-stat-label">파트너 국가</div>
+                        </div>
+                        <div class="network-stat">
+                            <div class="network-stat-number">200+</div>
+                            <div class="network-stat-label">현지 파트너사</div>
+                        </div>
+                        <div class="network-stat">
+                            <div class="network-stat-number">15+</div>
+                            <div class="network-stat-label">해외 지사</div>
+                        </div>
+                        <div class="network-stat">
+                            <div class="network-stat-number">24h</div>
+                            <div class="network-stat-label">글로벌 대응</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Global<span>Bridge</span></h3>
+                <p>아시아와 유럽을 연결하는 종합무역 전문기업<br>글로벌브릿지 무역은 30년 이상의 경험을 바탕으로<br>신뢰할 수 있는 국제무역 파트너가 되겠습니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="products.html">취급품목</a></li>
+                    <li><a href="contact.html">연락처</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>연락처</h4>
+                <p>Tel: 02-3333-4444</p>
+                <p>Fax: 02-3333-4445</p>
+                <p>trade@globalbridge.co.kr</p>
+            </div>
+            <div class="footer-hours">
+                <h4>영업시간</h4>
+                <p>평일: 09:00 - 18:00</p>
+                <p>토요일: 09:00 - 13:00</p>
+                <p>일요일/공휴일: 휴무</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 글로벌브릿지 무역. All Rights Reserved. | 서울시 중구 을지로 234</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(26, 42, 74, 0.98)';
+            } else {
+                header.style.backgroundColor = 'var(--navy)';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.value-card, .timeline-item, .intro-stat').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

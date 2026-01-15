@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스카이뷰 부동산 - 강남권 프리미엄 부동산 전문</title>
+    <meta name="description" content="스카이뷰 부동산 - 강남권 프리미엄 부동산 전문 중개. 아파트, 빌라, 상가 등 최고급 매물 중개 서비스">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #c9a962;
+            --primary-gold-light: #d4ba7a;
+            --primary-gold-dark: #a88a45;
+            --dark: #1a1a1a;
+            --dark-light: #2a2a2a;
+            --gray: #888;
+            --gray-light: #f5f5f5;
+            --white: #ffffff;
+            --gradient-gold: linear-gradient(135deg, #c9a962 0%, #e0c989 50%, #c9a962 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            letter-spacing: 0.3em;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loader-bar span {
+            display: block;
+            width: 0;
+            height: 100%;
+            background: var(--gradient-gold);
+            animation: loading 2s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            to { width: 100%; }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-gold);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-gold);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            animation: heroZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroZoom {
+            from { transform: scale(1.1); }
+            to { transform: scale(1); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(26,26,26,0.6) 50%, rgba(26,26,26,0.8) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--primary-gold);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .gold-text {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-gold {
+            background: var(--gradient-gold);
+            color: var(--dark);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+        }
+
+        .btn-outline-gold {
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+        }
+
+        .btn-outline-gold:hover {
+            background: var(--primary-gold);
+            color: var(--dark);
+        }
+
+        .btn-sm {
+            padding: 10px 25px;
+            font-size: 0.8rem;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-scroll span {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 10px;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--primary-gold), transparent);
+            margin: 0 auto;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(10px); opacity: 0.5; }
+        }
+
+        /* Sections */
+        .section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--gray);
+        }
+
+        /* Featured Properties */
+        .featured-section {
+            background: var(--dark-light);
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .property-card {
+            background: var(--dark);
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .property-image {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .property-card:hover .property-image img {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 6px 15px;
+            background: var(--primary-gold);
+            color: var(--dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        .property-badge.hot {
+            background: #e74c3c;
+            color: var(--white);
+        }
+
+        .property-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26,26,26,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .property-card:hover .property-overlay {
+            opacity: 1;
+        }
+
+        .property-info {
+            padding: 25px;
+        }
+
+        .property-type {
+            font-size: 0.75rem;
+            color: var(--primary-gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+
+        .property-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .property-location {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .property-details {
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .property-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .price-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-5 {
+            margin-top: 50px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            position: relative;
+            padding: 100px 0;
+        }
+
+        .stats-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .stats-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3);
+        }
+
+        .stats-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 40px 20px;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+        }
+
+        .stat-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Services Section */
+        .services-section {
+            background: var(--dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            padding: 50px 35px;
+            background: var(--dark-light);
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: var(--primary-gold);
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* About Preview */
+        .about-preview {
+            background: var(--dark-light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-images {
+            position: relative;
+        }
+
+        .about-img-main {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-img-main img {
+            width: 85%;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .about-img-sub {
+            position: absolute;
+            bottom: -40px;
+            right: 0;
+            z-index: 2;
+            border: 8px solid var(--dark-light);
+        }
+
+        .about-img-sub img {
+            width: 220px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .about-badge {
+            position: absolute;
+            top: 30px;
+            right: 80px;
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+
+        .badge-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1;
+        }
+
+        .badge-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .about-content .section-label {
+            text-align: left;
+        }
+
+        .about-content .section-title {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .about-desc {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .about-list {
+            list-style: none;
+            margin-bottom: 35px;
+        }
+
+        .about-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            font-size: 0.95rem;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-gold);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Testimonials */
+        .testimonial-section {
+            background: var(--dark);
+        }
+
+        .testimonial-slider {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--dark-light);
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(201, 169, 98, 0.3);
+        }
+
+        .quote-icon {
+            font-size: 4rem;
+            line-height: 1;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-content p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-gold);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .author-deal {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            position: relative;
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .cta-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .phone-icon {
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f0f0f;
+            padding: 80px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo .logo-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 1.2rem;
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            padding: 10px 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .footer-contact p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-contact strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .footer-bottom {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-gold);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        .scroll-top svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--dark);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .property-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                padding: 100px 40px;
+                gap: 30px;
+                transition: right 0.3s;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .testimonial-slider {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 80px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader-content">
+            <div class="loader-logo">SKYVIEW</div>
+            <div class="loader-bar"><span></span></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">S</span>
+                <span class="logo-text">SKYVIEW</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">HOME</a></li>
+                <li><a href="about.html" class="nav-link">회사소개</a></li>
+                <li><a href="services.html" class="nav-link">매물안내</a></li>
+                <li><a href="board.html" class="nav-link">매물소식</a></li>
+                <li><a href="contact.html" class="nav-link">문의하기</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920" alt="럭셔리 아파트">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <p class="hero-label fade-in">Premium Real Estate Since 2009</p>
+                <h1 class="hero-title fade-in">
+                    <span class="gold-text">강남권 프리미엄</span><br>
+                    부동산의 새로운 기준
+                </h1>
+                <p class="hero-subtitle fade-in">
+                    최상의 가치를 추구하는 고객님께<br>
+                    최고급 매물만을 엄선하여 제안해드립니다
+                </p>
+                <div class="hero-buttons fade-in">
+                    <a href="services.html" class="btn btn-gold">매물 보기</a>
+                    <a href="contact.html" class="btn btn-outline">상담 예약</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="section featured-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">FEATURED PROPERTIES</span>
+                <h2 class="section-title">추천 프리미엄 매물</h2>
+                <p class="section-desc">스카이뷰가 엄선한 최고급 프리미엄 매물을 만나보세요</p>
+            </div>
+            <div class="property-grid">
+                <div class="property-card fade-in">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600" alt="래미안 퍼스티지">
+                        <span class="property-badge">NEW</span>
+                        <div class="property-overlay">
+                            <a href="services.html" class="btn btn-sm btn-gold">상세보기</a>
+                        </div>
+                    </div>
+                    <div class="property-info">
+                        <span class="property-type">아파트 | 매매</span>
+                        <h3 class="property-title">래미안 퍼스티지</h3>
+                        <p class="property-location">강남구 도곡동</p>
+                        <div class="property-details">
+                            <span>59평</span>
+                            <span>|</span>
+                            <span>32층</span>
+                            <span>|</span>
+                            <span>남향</span>
+                        </div>
+                        <div class="property-price">
+                            <span class="price-label">매매가</span>
+                            <span class="price-value">48억</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card fade-in">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600" alt="아크로리버파크">
+                        <span class="property-badge hot">HOT</span>
+                        <div class="property-overlay">
+                            <a href="services.html" class="btn btn-sm btn-gold">상세보기</a>
+                        </div>
+                    </div>
+                    <div class="property-info">
+                        <span class="property-type">아파트 | 매매</span>
+                        <h3 class="property-title">아크로리버파크</h3>
+                        <p class="property-location">서초구 반포동</p>
+                        <div class="property-details">
+                            <span>84평</span>
+                            <span>|</span>
+                            <span>45층</span>
+                            <span>|</span>
+                            <span>한강뷰</span>
+                        </div>
+                        <div class="property-price">
+                            <span class="price-label">매매가</span>
+                            <span class="price-value">85억</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card fade-in">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" alt="타워팰리스">
+                        <div class="property-overlay">
+                            <a href="services.html" class="btn btn-sm btn-gold">상세보기</a>
+                        </div>
+                    </div>
+                    <div class="property-info">
+                        <span class="property-type">펜트하우스 | 매매</span>
+                        <h3 class="property-title">타워팰리스 G동</h3>
+                        <p class="property-location">강남구 도곡동</p>
+                        <div class="property-details">
+                            <span>120평</span>
+                            <span>|</span>
+                            <span>66층</span>
+                            <span>|</span>
+                            <span>전망특급</span>
+                        </div>
+                        <div class="property-price">
+                            <span class="price-label">매매가</span>
+                            <span class="price-value">120억</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5 fade-in">
+                <a href="services.html" class="btn btn-outline-gold">전체 매물 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="stats-bg">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920" alt="빌딩">
+        </div>
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <div class="stat-number"><span class="counter" data-target="16">0</span></div>
+                    <div class="stat-label">Years of Experience</div>
+                    <div class="stat-desc">2009년부터 강남 부동산 전문</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number"><span class="counter" data-target="2500">0</span>+</div>
+                    <div class="stat-label">Successful Deals</div>
+                    <div class="stat-desc">성공적인 계약 체결</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number"><span class="counter" data-target="98">0</span>%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                    <div class="stat-desc">고객 만족도</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number"><span class="counter" data-target="350">0</span>+</div>
+                    <div class="stat-label">Premium Properties</div>
+                    <div class="stat-desc">현재 보유 프리미엄 매물</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">OUR SERVICES</span>
+                <h2 class="section-title">스카이뷰 프리미엄 서비스</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                        </svg>
+                    </div>
+                    <h3>프리미엄 주거</h3>
+                    <p>강남권 최고급 아파트, 펜트하우스, 빌라 등 엄선된 프리미엄 주거 매물</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3>상업용 부동산</h3>
+                    <p>강남 핵심 상권의 프라임급 오피스, 상가, 빌딩 등 수익형 부동산</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                    </div>
+                    <h3>토지 및 개발</h3>
+                    <p>강남권 개발 가능 토지 및 재개발, 재건축 추진 물건 전문</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12,6 12,12 16,14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>VIP 컨시어지</h3>
+                    <p>고객님만을 위한 1:1 맞춤 컨설팅 및 전담 매물 관리 서비스</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="section about-preview">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-images fade-in-left">
+                    <div class="about-img-main">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600" alt="부동산 상담">
+                    </div>
+                    <div class="about-img-sub">
+                        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=400" alt="오피스">
+                    </div>
+                    <div class="about-badge">
+                        <span class="badge-number">16</span>
+                        <span class="badge-text">Years<br>Experience</span>
+                    </div>
+                </div>
+                <div class="about-content fade-in-right">
+                    <span class="section-label">ABOUT SKYVIEW</span>
+                    <h2 class="section-title">최고의 가치를<br>만들어갑니다</h2>
+                    <p class="about-desc">
+                        2009년 설립 이래 스카이뷰 부동산은 강남권 프리미엄 부동산 시장을
+                        선도해 왔습니다. 임하늘 대표와 함께하는 전문 컨설턴트 팀이
+                        고객님의 소중한 자산 가치를 극대화하기 위해 최선을 다합니다.
+                    </p>
+                    <ul class="about-list">
+                        <li>
+                            <span class="check-icon">&#10003;</span>
+                            강남권 10년 이상 경력의 전문 컨설턴트
+                        </li>
+                        <li>
+                            <span class="check-icon">&#10003;</span>
+                            프라이빗 VIP 고객 전담 서비스
+                        </li>
+                        <li>
+                            <span class="check-icon">&#10003;</span>
+                            투명하고 신뢰할 수 있는 거래 진행
+                        </li>
+                        <li>
+                            <span class="check-icon">&#10003;</span>
+                            체계적인 사후관리 서비스 제공
+                        </li>
+                    </ul>
+                    <a href="about.html" class="btn btn-gold">더 알아보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonial-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">TESTIMONIALS</span>
+                <h2 class="section-title">고객 후기</h2>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">"</div>
+                        <p>스카이뷰 덕분에 원하던 한강뷰 아파트를 좋은 조건에 계약할 수 있었습니다.
+                        전문적인 상담과 꼼꼼한 진행 감사드립니다.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">K</div>
+                        <div class="author-info">
+                            <span class="author-name">김** 고객님</span>
+                            <span class="author-deal">아크로리버파크 매매</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">"</div>
+                        <p>VIP 컨시어지 서비스가 정말 인상적이었습니다. 바쁜 일정에도
+                        모든 과정을 대행해주셔서 편하게 거래를 마칠 수 있었습니다.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">L</div>
+                        <div class="author-info">
+                            <span class="author-name">이** 대표님</span>
+                            <span class="author-deal">강남 상가빌딩 매입</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">"</div>
+                        <p>투자 목적으로 상담받았는데, 시장 분석력이 뛰어나시고
+                        정확한 정보를 바탕으로 좋은 물건을 추천받았습니다.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div class="author-info">
+                            <span class="author-name">박** 고객님</span>
+                            <span class="author-deal">도곡동 아파트 투자</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="cta-bg">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920" alt="럭셔리 하우스">
+        </div>
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>프리미엄 부동산의<br>새로운 경험을 시작하세요</h2>
+                <p>스카이뷰 전문 컨설턴트가 고객님의 니즈에 맞는 최적의 매물을 제안해 드립니다</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-gold">무료 상담 신청</a>
+                    <a href="tel:02-512-7700" class="btn btn-outline">
+                        <span class="phone-icon">&#9742;</span>
+                        02-512-7700
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <span class="logo-icon">S</span>
+                        <span class="logo-text">SKYVIEW</span>
+                    </a>
+                    <p class="footer-desc">
+                        강남권 프리미엄 부동산 전문 중개<br>
+                        최상의 가치를 추구하는 고객님과 함께합니다
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link">Blog</a>
+                        <a href="#" class="social-link">Cafe</a>
+                        <a href="#" class="social-link">Insta</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">회사소개</a></li>
+                        <li><a href="services.html">매물안내</a></li>
+                        <li><a href="board.html">매물소식</a></li>
+                        <li><a href="contact.html">문의하기</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Properties</h4>
+                    <ul>
+                        <li><a href="services.html">아파트</a></li>
+                        <li><a href="services.html">빌라/주택</a></li>
+                        <li><a href="services.html">오피스/상가</a></li>
+                        <li><a href="services.html">토지</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><strong>주소</strong><br>서울특별시 강남구 논현로 508</p>
+                    <p><strong>전화</strong><br>02-512-7700</p>
+                    <p><strong>영업시간</strong><br>평일 09:00 - 19:00 / 토요일 10:00 - 16:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 스카이뷰 부동산. All Rights Reserved.</p>
+                <p>대표: 임하늘 | 사업자등록번호: 123-45-67890 | 중개등록번호: 제2009-서울강남-12345호</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" aria-label="맨 위로">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18,15 12,9 6,15"></polyline>
+        </svg>
+    </button>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        function animateCounter(el) {
+            const target = parseInt(el.dataset.target);
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+
+        const counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(el => {
+            counterObserver.observe(el);
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

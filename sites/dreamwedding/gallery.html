@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="드림웨딩 플래너 갤러리 - 아름다운 웨딩 포트폴리오를 만나보세요. 가든 웨딩, 호텔 웨딩, 야외 웨딩 등 다양한 스타일의 웨딩을 감상하세요.">
+    <title>웨딩 갤러리 | 드림웨딩 플래너</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --rose-gold: #B76E79;
+            --rose-gold-light: #D4A5A5;
+            --rose-gold-dark: #8B4D57;
+            --soft-pink: #FDF2F4;
+            --soft-pink-dark: #F5E1E4;
+            --white: #FFFFFF;
+            --ivory: #FFFEF9;
+            --text-dark: #2D2D2D;
+            --text-light: #6B6B6B;
+            --gold-accent: #C9A96E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Serif KR', serif;
+            color: var(--text-dark);
+            background-color: var(--ivory);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 30px rgba(183, 110, 121, 0.1);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--rose-gold);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--rose-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--rose-gold);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--rose-gold);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 12rem 5% 6rem;
+            background: linear-gradient(135deg, rgba(253, 242, 244, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 8rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--rose-gold);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--rose-gold);
+            margin: 1.5rem auto 0;
+        }
+
+        /* Gallery Filter */
+        .gallery-section {
+            background: var(--white);
+        }
+
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid var(--rose-gold-light);
+            color: var(--text-dark);
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--rose-gold);
+            border-color: var(--rose-gold);
+            color: var(--white);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            height: 100%;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(183, 110, 121, 0.9) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            color: var(--white);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .gallery-overlay .view-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .view-icon {
+            opacity: 1;
+        }
+
+        .gallery-overlay .view-icon i {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        /* Featured Wedding Section */
+        .featured-wedding {
+            background: var(--soft-pink);
+        }
+
+        .featured-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .featured-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .featured-images img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 4px;
+            transition: transform 0.4s ease;
+        }
+
+        .featured-images img:first-child {
+            grid-column: span 2;
+            height: 300px;
+        }
+
+        .featured-images img:hover {
+            transform: scale(1.02);
+        }
+
+        .featured-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .featured-content .wedding-info {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--rose-gold);
+            font-size: 0.9rem;
+        }
+
+        .featured-content .wedding-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-content p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .featured-content blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text-dark);
+            border-left: 3px solid var(--rose-gold);
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-content .couple-name {
+            font-size: 0.95rem;
+            color: var(--rose-gold);
+        }
+
+        /* Video Section */
+        .video-section {
+            background: var(--white);
+        }
+
+        .video-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .video-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 45, 45, 0.4);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: var(--rose-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .play-button:hover {
+            background: var(--rose-gold-dark);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-button i {
+            color: var(--white);
+            font-size: 2rem;
+            margin-left: 5px;
+        }
+
+        .video-info {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            color: var(--white);
+        }
+
+        .video-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-info p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Instagram Section */
+        .instagram-section {
+            background: var(--soft-pink);
+        }
+
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .instagram-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .instagram-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .instagram-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .instagram-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(183, 110, 121, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .instagram-item:hover .instagram-overlay {
+            opacity: 1;
+        }
+
+        .instagram-overlay i {
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .instagram-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .instagram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--rose-gold);
+            color: var(--rose-gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .instagram-btn:hover {
+            background: var(--rose-gold);
+            color: var(--white);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(139, 77, 87, 0.8) 100%),
+                        url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--rose-gold);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            border-radius: 4px;
+        }
+
+        .cta-btn:hover {
+            background: var(--white);
+            color: var(--rose-gold);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--white);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: var(--rose-gold);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--white);
+            cursor: pointer;
+            padding: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            color: var(--rose-gold);
+        }
+
+        .lightbox-prev {
+            left: 2rem;
+        }
+
+        .lightbox-next {
+            right: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--rose-gold-light);
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--rose-gold);
+            border-color: var(--rose-gold);
+        }
+
+        .footer-column h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--rose-gold-light);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--rose-gold-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 45, 45, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--rose-gold-light);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .instagram-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .featured-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                height: 300px;
+            }
+
+            .instagram-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .video-thumbnail {
+                height: 300px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 10rem 5% 4rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <a href="index.html" class="nav-logo">Dream Wedding</a>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-toggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Wedding Gallery</h1>
+        <p>드림웨딩 플래너가 만들어낸 아름다운 순간들을 만나보세요</p>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="section-header">
+            <p class="section-label">Portfolio</p>
+            <h2 class="section-title">웨딩 포트폴리오</h2>
+        </div>
+
+        <div class="gallery-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="garden">Garden Wedding</button>
+            <button class="filter-btn" data-filter="hotel">Hotel Wedding</button>
+            <button class="filter-btn" data-filter="outdoor">Outdoor Wedding</button>
+            <button class="filter-btn" data-filter="classic">Classic Wedding</button>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item large" data-category="garden" onclick="openLightbox(0)">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Romantic Garden Wedding">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Romantic Garden Wedding</h3>
+                    <p>자연 속에서 펼쳐진 로맨틱한 가든 웨딩</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" onclick="openLightbox(1)">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Hotel Wedding">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Luxury Hotel Wedding</h3>
+                    <p>화려한 호텔 볼룸 웨딩</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="classic" onclick="openLightbox(2)">
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Classic Elegance">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Classic Elegance</h3>
+                    <p>클래식한 우아함의 정수</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="outdoor" onclick="openLightbox(3)">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sunset Beach Wedding">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Sunset Beach Wedding</h3>
+                    <p>노을빛 아래 해변 웨딩</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="garden" onclick="openLightbox(4)">
+                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Spring Garden Party">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Spring Garden Party</h3>
+                    <p>봄꽃이 만개한 가든 파티</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" onclick="openLightbox(5)">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Grand Ballroom">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Grand Ballroom</h3>
+                    <p>그랜드 볼룸의 화려함</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="outdoor" onclick="openLightbox(6)">
+                <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Forest Wedding">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Forest Wedding</h3>
+                    <p>숲속의 동화같은 웨딩</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="classic" onclick="openLightbox(7)">
+                <img src="https://images.unsplash.com/photo-1460978812857-470ed1c77af0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Timeless Romance">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Timeless Romance</h3>
+                    <p>시간을 초월한 로맨스</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="garden" onclick="openLightbox(8)">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Floral Paradise">
+                <div class="gallery-overlay">
+                    <div class="view-icon"><i class="fas fa-expand"></i></div>
+                    <h3>Floral Paradise</h3>
+                    <p>꽃으로 가득한 낙원</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Wedding Section -->
+    <section class="featured-wedding">
+        <div class="section-header">
+            <p class="section-label">Featured Story</p>
+            <h2 class="section-title">이달의 웨딩 스토리</h2>
+        </div>
+        <div class="featured-container">
+            <div class="featured-images">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Featured Wedding 1">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Featured Wedding 2">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Featured Wedding 3">
+            </div>
+            <div class="featured-content">
+                <h3>A Romantic Garden Wedding</h3>
+                <div class="wedding-info">
+                    <span><i class="fas fa-calendar"></i> 2024년 5월</span>
+                    <span><i class="fas fa-map-marker-alt"></i> 청담 가든</span>
+                </div>
+                <p>
+                    봄날의 따스한 햇살 아래, 200명의 하객이 함께한 이 특별한 가든 웨딩은
+                    신부님의 오랜 꿈이었습니다. 하얀 장미와 라일락으로 가득 채운 플라워 아치 아래에서
+                    두 분의 영원한 사랑을 약속했습니다.
+                </p>
+                <blockquote>
+                    "드림웨딩 플래너 덕분에 정말 꿈꾸던 것 이상의 웨딩을 할 수 있었어요.
+                    모든 순간이 완벽했습니다."
+                </blockquote>
+                <p class="couple-name">- 김지현 & 박준호 커플</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="section-header">
+            <p class="section-label">Wedding Film</p>
+            <h2 class="section-title">웨딩 영상</h2>
+        </div>
+        <div class="video-container">
+            <div class="video-thumbnail">
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-info">
+                    <h3>Jiyeon & Junho Wedding Film</h3>
+                    <p>2024년 5월 청담 가든 웨딩</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <section class="instagram-section">
+        <div class="section-header">
+            <p class="section-label">Follow Us</p>
+            <h2 class="section-title">Instagram</h2>
+        </div>
+        <div class="instagram-grid">
+            <div class="instagram-item">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Instagram 1">
+                <div class="instagram-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-item">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Instagram 2">
+                <div class="instagram-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-item">
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Instagram 3">
+                <div class="instagram-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-item">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Instagram 4">
+                <div class="instagram-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-item">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Instagram 5">
+                <div class="instagram-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+            <div class="instagram-item">
+                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Instagram 6">
+                <div class="instagram-overlay">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+        <div class="instagram-cta">
+            <a href="https://instagram.com" target="_blank" class="instagram-btn">
+                <i class="fab fa-instagram"></i>
+                @dreamwedding_official
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>당신만의 특별한 웨딩을 계획하세요</h2>
+            <p>드림웨딩 플래너와 함께라면 당신의 꿈꾸던 웨딩이 현실이 됩니다.</p>
+            <a href="contact.html" class="cta-btn">무료 상담 예약</a>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" onclick="closeLightbox()">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="lightbox-nav lightbox-prev" onclick="changeLightbox(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="lightbox-content">
+            <img src="" alt="Lightbox Image" id="lightbox-img">
+        </div>
+        <div class="lightbox-nav lightbox-next" onclick="changeLightbox(1)">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Dream Wedding</h3>
+                <p>럭셔리 웨딩 토탈 플래닝<br>당신의 꿈꾸던 웨딩을 현실로 만들어 드립니다.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html">토탈 플래닝</a></li>
+                    <li><a href="services.html">스타일링 & 데코</a></li>
+                    <li><a href="services.html">웨딩 촬영</a></li>
+                    <li><a href="services.html">케이터링 & 플라워</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="gallery.html">포트폴리오</a></li>
+                    <li><a href="about.html#testimonials">고객 후기</a></li>
+                    <li><a href="contact.html">제휴 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:02-888-7777">02-888-7777</a></li>
+                    <li><a href="mailto:hello@dreamwedding.kr">hello@dreamwedding.kr</a></li>
+                    <li><a href="contact.html">서울시 강남구 청담동 123</a></li>
+                    <li><a href="contact.html">영업시간: 10:00 - 19:00</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 드림웨딩 플래너. All Rights Reserved. 대표: 이웨딩</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Gallery filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const galleryImages = [
+            'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1460978812857-470ed1c77af0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+        ];
+
+        let currentImageIndex = 0;
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = galleryImages[index];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeLightbox(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex >= galleryImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = galleryImages.length - 1;
+            }
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = galleryImages[currentImageIndex];
+        }
+
+        // Close lightbox with escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                changeLightbox(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeLightbox(1);
+            }
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply animation to elements
+        document.querySelectorAll('.gallery-item, .featured-images, .featured-content, .instagram-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

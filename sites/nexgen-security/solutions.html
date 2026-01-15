@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보안 솔루션 | 넥스젠 시큐리티 - NexGen Security</title>
+    <meta name="description" content="넥스젠 시큐리티가 제공하는 방화벽, SIEM, EDR/XDR, IAM 등 다양한 보안 솔루션을 소개합니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="cyber-loader"></div>
+            <div class="loader-text glitch" data-text="LOADING...">LOADING...</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matrix Background Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                <span class="logo-text">
+                    <span class="logo-main glitch" data-text="NEXGEN">NEXGEN</span>
+                    <span class="logo-sub">SECURITY</span>
+                </span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-link-text">HOME</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <span class="nav-link-text">ABOUT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="services.html" class="nav-link">
+                    <span class="nav-link-text">SERVICES</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="board.html" class="nav-link">
+                    <span class="nav-link-text">BOARD</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="contact.html" class="nav-link">
+                    <span class="nav-link-text">CONTACT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button class="cyber-btn btn-outline" onclick="location.href='contact.html'">
+                    <span class="btn-text">GET SECURE</span>
+                    <span class="btn-glitch"></span>
+                </button>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&h=600&fit=crop" alt="Security Solutions">
+            <div class="header-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="page-header-content">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="separator">/</span>
+                    <span class="current">Solutions</span>
+                </div>
+                <h1 class="page-title glitch" data-text="SECURITY SOLUTIONS">SECURITY SOLUTIONS</h1>
+                <p class="page-subtitle">엔터프라이즈 보안 솔루션</p>
+            </div>
+        </div>
+        <div class="header-decoration">
+            <div class="line-1"></div>
+            <div class="line-2"></div>
+        </div>
+    </section>
+
+    <!-- Solutions Overview -->
+    <section class="section solutions-overview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-cubes"></i> ENTERPRISE SOLUTIONS</span>
+                <h2 class="section-title">통합 보안 솔루션</h2>
+                <p class="section-description">
+                    최신 사이버 위협에 대응하기 위한 엔드투엔드 보안 솔루션을 제공합니다.<br>
+                    넥스젠 시큐리티는 주요 글로벌 벤더의 공식 파트너로서 최적의 솔루션을 구축합니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution 1: Network Security -->
+    <section class="section solution-detail" id="network">
+        <div class="container">
+            <div class="service-detail-wrapper">
+                <div class="service-detail-visual" data-aos="fade-right">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&h=450&fit=crop" alt="Network Security">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-network-wired"></i></span>
+                        <span class="badge-text">NETWORK</span>
+                    </div>
+                </div>
+                <div class="service-detail-content" data-aos="fade-left">
+                    <span class="service-number">01</span>
+                    <h3 class="service-detail-title">네트워크 보안 솔루션</h3>
+                    <p class="service-detail-desc">
+                        차세대 방화벽(NGFW), UTM, IPS/IDS 등 네트워크 레벨의 보안 위협을 차단하고
+                        트래픽을 분석하여 이상 행위를 탐지합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-fire-extinguisher"></i>
+                            <h5>차세대 방화벽</h5>
+                            <p>Palo Alto, Fortinet, Check Point</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-shield-virus"></i>
+                            <h5>IPS/IDS</h5>
+                            <p>실시간 침입 탐지 및 차단</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-laptop-code"></i>
+                            <h5>NAC</h5>
+                            <p>네트워크 접근 제어</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-key"></i>
+                            <h5>VPN</h5>
+                            <p>안전한 원격 접속 환경</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">도입 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution 2: SIEM & Log Management -->
+    <section class="section solution-detail alt" id="siem">
+        <div class="container">
+            <div class="service-detail-wrapper reverse">
+                <div class="service-detail-content" data-aos="fade-right">
+                    <span class="service-number">02</span>
+                    <h3 class="service-detail-title">SIEM / 로그관리</h3>
+                    <p class="service-detail-desc">
+                        다양한 보안 장비와 시스템의 로그를 통합 수집하고 상관관계 분석을 통해
+                        보안 위협을 탐지합니다. 컴플라이언스 준수를 위한 로그 보관도 지원합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-database"></i>
+                            <h5>로그 통합</h5>
+                            <p>모든 소스 로그 중앙 수집</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-project-diagram"></i>
+                            <h5>상관관계 분석</h5>
+                            <p>복합 위협 탐지 룰 적용</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-chart-bar"></i>
+                            <h5>대시보드</h5>
+                            <p>실시간 보안 현황 시각화</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-file-contract"></i>
+                            <h5>컴플라이언스</h5>
+                            <p>감사 보고서 자동 생성</p>
+                        </div>
+                    </div>
+                    <div class="partner-logos">
+                        <span class="partner-label">파트너 솔루션:</span>
+                        <span class="partner-name">Splunk, IBM QRadar, Elastic SIEM, Microsoft Sentinel</span>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">도입 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+                <div class="service-detail-visual" data-aos="fade-left">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="SIEM Dashboard">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="badge-text">SIEM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution 3: Endpoint Security -->
+    <section class="section solution-detail" id="endpoint">
+        <div class="container">
+            <div class="service-detail-wrapper">
+                <div class="service-detail-visual" data-aos="fade-right">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=600&h=450&fit=crop" alt="Endpoint Security">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-desktop"></i></span>
+                        <span class="badge-text">ENDPOINT</span>
+                    </div>
+                </div>
+                <div class="service-detail-content" data-aos="fade-left">
+                    <span class="service-number">03</span>
+                    <h3 class="service-detail-title">엔드포인트 보안 (EDR/XDR)</h3>
+                    <p class="service-detail-desc">
+                        PC, 서버, 모바일 등 엔드포인트에서 발생하는 위협을 탐지하고 대응합니다.
+                        행위 기반 분석으로 제로데이 공격도 효과적으로 방어합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-bug"></i>
+                            <h5>EDR</h5>
+                            <p>엔드포인트 위협 탐지 대응</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                            <h5>XDR</h5>
+                            <p>확장된 탐지 및 대응</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-virus-slash"></i>
+                            <h5>AV/NGAV</h5>
+                            <p>차세대 안티바이러스</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-lock"></i>
+                            <h5>DLP</h5>
+                            <p>데이터 유출 방지</p>
+                        </div>
+                    </div>
+                    <div class="partner-logos">
+                        <span class="partner-label">파트너 솔루션:</span>
+                        <span class="partner-name">CrowdStrike, SentinelOne, Microsoft Defender, Carbon Black</span>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">도입 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution 4: Identity & Access Management -->
+    <section class="section solution-detail alt" id="iam">
+        <div class="container">
+            <div class="service-detail-wrapper reverse">
+                <div class="service-detail-content" data-aos="fade-right">
+                    <span class="service-number">04</span>
+                    <h3 class="service-detail-title">ID/접근 관리 (IAM/PAM)</h3>
+                    <p class="service-detail-desc">
+                        사용자 계정 및 접근 권한을 체계적으로 관리하고, 특권 계정에 대한
+                        강화된 보안 통제를 적용하여 내부 위협을 방지합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-user-shield"></i>
+                            <h5>IAM</h5>
+                            <p>통합 계정 및 권한 관리</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-user-lock"></i>
+                            <h5>PAM</h5>
+                            <p>특권 계정 관리</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-fingerprint"></i>
+                            <h5>MFA</h5>
+                            <p>다중 인증 솔루션</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <h5>SSO</h5>
+                            <p>통합 인증 환경</p>
+                        </div>
+                    </div>
+                    <div class="partner-logos">
+                        <span class="partner-label">파트너 솔루션:</span>
+                        <span class="partner-name">CyberArk, BeyondTrust, Okta, Azure AD</span>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">도입 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+                <div class="service-detail-visual" data-aos="fade-left">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600&h=450&fit=crop" alt="Identity Management">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-id-card"></i></span>
+                        <span class="badge-text">IAM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution 5: Cloud Security -->
+    <section class="section solution-detail" id="cloud-security">
+        <div class="container">
+            <div class="service-detail-wrapper">
+                <div class="service-detail-visual" data-aos="fade-right">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=450&fit=crop" alt="Cloud Security">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-cloud"></i></span>
+                        <span class="badge-text">CLOUD</span>
+                    </div>
+                </div>
+                <div class="service-detail-content" data-aos="fade-left">
+                    <span class="service-number">05</span>
+                    <h3 class="service-detail-title">클라우드 보안</h3>
+                    <p class="service-detail-desc">
+                        AWS, Azure, GCP 등 퍼블릭 클라우드 환경에서의 보안 위협을 탐지하고
+                        잘못된 설정을 자동으로 식별하여 클라우드 자산을 보호합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h5>CSPM</h5>
+                            <p>클라우드 보안 형상 관리</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-shield-alt"></i>
+                            <h5>CWPP</h5>
+                            <p>클라우드 워크로드 보호</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-user-cog"></i>
+                            <h5>CIEM</h5>
+                            <p>클라우드 권한 관리</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-boxes"></i>
+                            <h5>Container</h5>
+                            <p>컨테이너/K8s 보안</p>
+                        </div>
+                    </div>
+                    <div class="partner-logos">
+                        <span class="partner-label">파트너 솔루션:</span>
+                        <span class="partner-name">Prisma Cloud, Wiz, Lacework, Aqua Security</span>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">도입 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution 6: SOAR -->
+    <section class="section solution-detail alt" id="soar">
+        <div class="container">
+            <div class="service-detail-wrapper reverse">
+                <div class="service-detail-content" data-aos="fade-right">
+                    <span class="service-number">06</span>
+                    <h3 class="service-detail-title">보안 자동화 (SOAR)</h3>
+                    <p class="service-detail-desc">
+                        반복적인 보안 작업을 자동화하고, 인시던트 대응 프로세스를 표준화하여
+                        보안팀의 효율성을 극대화하고 대응 시간을 단축합니다.
+                    </p>
+                    <div class="service-features-grid">
+                        <div class="feature-box">
+                            <i class="fas fa-robot"></i>
+                            <h5>자동화</h5>
+                            <p>반복 작업 자동 처리</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-sitemap"></i>
+                            <h5>오케스트레이션</h5>
+                            <p>보안 도구 연동 및 통합</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-tasks"></i>
+                            <h5>플레이북</h5>
+                            <p>대응 절차 표준화</p>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h5>케이스 관리</h5>
+                            <p>인시던트 추적 및 관리</p>
+                        </div>
+                    </div>
+                    <div class="partner-logos">
+                        <span class="partner-label">파트너 솔루션:</span>
+                        <span class="partner-name">Splunk SOAR, Palo Alto XSOAR, IBM Resilient</span>
+                    </div>
+                    <a href="contact.html" class="cyber-btn btn-primary">
+                        <span class="btn-text">도입 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+                <div class="service-detail-visual" data-aos="fade-left">
+                    <div class="detail-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=450&fit=crop" alt="SOAR Automation">
+                        <div class="image-overlay"></div>
+                        <div class="image-frame"></div>
+                    </div>
+                    <div class="service-badge">
+                        <span class="badge-icon"><i class="fas fa-cogs"></i></span>
+                        <span class="badge-text">SOAR</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Solutions Grid -->
+    <section class="section all-services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-th"></i> ALL SOLUTIONS</span>
+                <h2 class="section-title glitch" data-text="솔루션 한눈에 보기">솔루션 한눈에 보기</h2>
+            </div>
+            <div class="all-services-grid">
+                <a href="#network" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-network-wired"></i></div>
+                    <h5>네트워크 보안</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#siem" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-chart-line"></i></div>
+                    <h5>SIEM</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#endpoint" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-desktop"></i></div>
+                    <h5>EDR/XDR</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#iam" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-id-card"></i></div>
+                    <h5>IAM/PAM</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#cloud-security" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-cloud"></i></div>
+                    <h5>클라우드 보안</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="#soar" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-robot"></i></div>
+                    <h5>SOAR</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="services.html#vuln" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-search-plus"></i></div>
+                    <h5>취약점 스캐너</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="services.html#malware" class="service-mini-card">
+                    <div class="mini-icon"><i class="fas fa-bug"></i></div>
+                    <h5>위협 인텔리전스</h5>
+                    <span class="mini-arrow"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="section partners">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-handshake"></i> PARTNERS</span>
+                <h2 class="section-title">글로벌 파트너십</h2>
+                <p class="section-description">
+                    세계 최고의 보안 벤더들과 파트너십을 통해 최적의 솔루션을 제공합니다
+                </p>
+            </div>
+            <div class="cert-slider">
+                <div class="cert-track">
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fab fa-aws"></i></div>
+                        <span>AWS Partner</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                        <span>Microsoft</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+                        <span>Palo Alto</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
+                        <span>Splunk</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-user-shield"></i></div>
+                        <span>CrowdStrike</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-lock"></i></div>
+                        <span>CyberArk</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-fire"></i></div>
+                        <span>Fortinet</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-server"></i></div>
+                        <span>VMware</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fab fa-aws"></i></div>
+                        <span>AWS Partner</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                        <span>Microsoft</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="cta-bg">
+            <div class="cta-particles"></div>
+        </div>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title glitch" data-text="보안 솔루션 도입 상담">보안 솔루션 도입 상담</h2>
+                <p class="cta-description">
+                    귀사에 최적화된 보안 솔루션을 찾아드립니다.<br>
+                    전문 컨설턴트와 무료 상담을 시작하세요.
+                </p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cyber-btn btn-primary btn-lg">
+                        <span class="btn-icon"><i class="fas fa-phone-alt"></i></span>
+                        <span class="btn-text">무료 상담 신청</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                    <a href="services.html" class="cyber-btn btn-secondary btn-lg">
+                        <span class="btn-icon"><i class="fas fa-concierge-bell"></i></span>
+                        <span class="btn-text">서비스 보기</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                            <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                            <span class="logo-text">
+                                <span class="logo-main">NEXGEN</span>
+                                <span class="logo-sub">SECURITY</span>
+                            </span>
+                        </a>
+                        <p class="footer-description">
+                            넥스젠 시큐리티는 기업 정보보안 솔루션 전문기업으로,
+                            최첨단 보안 기술과 전문 인력으로 고객의 디지털 자산을 보호합니다.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> 홈</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> 회사소개</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 서비스</a></li>
+                            <li><a href="board.html"><i class="fas fa-chevron-right"></i> 보안뉴스</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> 문의하기</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Solutions</h4>
+                        <ul>
+                            <li><a href="#network"><i class="fas fa-chevron-right"></i> 네트워크 보안</a></li>
+                            <li><a href="#siem"><i class="fas fa-chevron-right"></i> SIEM</a></li>
+                            <li><a href="#endpoint"><i class="fas fa-chevron-right"></i> EDR/XDR</a></li>
+                            <li><a href="#iam"><i class="fas fa-chevron-right"></i> IAM/PAM</a></li>
+                            <li><a href="#cloud-security"><i class="fas fa-chevron-right"></i> 클라우드 보안</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4 class="footer-title">Contact Info</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>서울특별시 금천구 가산디지털1로 168</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>02-2026-8500</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>secure@nexgen-security.kr</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 보안관제센터 운영</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        &copy; 2024 NexGen Security. All rights reserved. | 대표: 서정우 | 설립: 2015년
+                    </p>
+                    <div class="footer-legal">
+                        <a href="#">개인정보처리방침</a>
+                        <a href="#">이용약관</a>
+                        <a href="#">보안정책</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

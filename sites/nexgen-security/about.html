@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사소개 | 넥스젠 시큐리티 - NexGen Security</title>
+    <meta name="description" content="넥스젠 시큐리티는 2015년 설립 이래 대한민국 최고의 정보보안 전문기업으로 성장했습니다. 52명의 보안 전문가가 귀사의 디지털 자산을 보호합니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="cyber-loader"></div>
+            <div class="loader-text glitch" data-text="LOADING...">LOADING...</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matrix Background Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                <span class="logo-text">
+                    <span class="logo-main glitch" data-text="NEXGEN">NEXGEN</span>
+                    <span class="logo-sub">SECURITY</span>
+                </span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-link-text">HOME</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="about.html" class="nav-link active">
+                    <span class="nav-link-text">ABOUT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="services.html" class="nav-link">
+                    <span class="nav-link-text">SERVICES</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="board.html" class="nav-link">
+                    <span class="nav-link-text">BOARD</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+                <a href="contact.html" class="nav-link">
+                    <span class="nav-link-text">CONTACT</span>
+                    <span class="nav-link-bg"></span>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <button class="cyber-btn btn-outline" onclick="location.href='contact.html'">
+                    <span class="btn-text">GET SECURE</span>
+                    <span class="btn-glitch"></span>
+                </button>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&h=600&fit=crop" alt="About NexGen Security">
+            <div class="header-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="page-header-content">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="separator">/</span>
+                    <span class="current">About</span>
+                </div>
+                <h1 class="page-title glitch" data-text="ABOUT US">ABOUT US</h1>
+                <p class="page-subtitle">대한민국 최고의 정보보안 전문기업</p>
+            </div>
+        </div>
+        <div class="header-decoration">
+            <div class="line-1"></div>
+            <div class="line-2"></div>
+        </div>
+    </section>
+
+    <!-- Company Overview Section -->
+    <section class="section company-overview">
+        <div class="container">
+            <div class="overview-wrapper">
+                <div class="overview-content" data-aos="fade-right">
+                    <span class="section-tag"><i class="fas fa-building"></i> COMPANY OVERVIEW</span>
+                    <h2 class="section-title">넥스젠 시큐리티를 <span class="text-gradient">소개합니다</span></h2>
+                    <p class="overview-intro">
+                        넥스젠 시큐리티는 2015년 설립 이래, 기업 정보보안의 새로운 기준을 만들어 가고 있습니다.
+                        최첨단 보안 기술과 52명의 전문 인력을 바탕으로 500개 이상의 기업 고객에게
+                        신뢰받는 보안 파트너로 자리매김했습니다.
+                    </p>
+                    <div class="company-info-grid">
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="info-content">
+                                <h4>설립일</h4>
+                                <p>2015년 3월</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-user-tie"></i></div>
+                            <div class="info-content">
+                                <h4>대표이사</h4>
+                                <p>서정우</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-users"></i></div>
+                            <div class="info-content">
+                                <h4>임직원</h4>
+                                <p>52명</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-content">
+                                <h4>본사 위치</h4>
+                                <p>서울시 금천구</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="overview-visual" data-aos="fade-left">
+                    <div class="visual-frame">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=500&fit=crop" alt="NexGen Security Office">
+                        <div class="frame-overlay"></div>
+                        <div class="frame-corners">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="section mission-vision">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-bullseye"></i> MISSION & VISION</span>
+                <h2 class="section-title glitch" data-text="미션과 비전">미션과 비전</h2>
+            </div>
+            <div class="mv-grid">
+                <div class="mv-card mission" data-aos="fade-up">
+                    <div class="mv-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>MISSION</h3>
+                    <p class="mv-text">
+                        "디지털 세상을 안전하게"<br><br>
+                        우리는 최첨단 보안 기술과 전문성을 바탕으로
+                        고객의 소중한 디지털 자산을 보호하고,
+                        안전한 비즈니스 환경을 구축하는 데 앞장섭니다.
+                    </p>
+                </div>
+                <div class="mv-card vision" data-aos="fade-up" data-aos-delay="100">
+                    <div class="mv-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>VISION</h3>
+                    <p class="mv-text">
+                        "아시아 최고의 정보보안 기업"<br><br>
+                        2030년까지 아시아를 대표하는 정보보안 전문기업으로 도약하여,
+                        글로벌 수준의 보안 서비스를 제공하는 것을 목표로 합니다.
+                    </p>
+                </div>
+                <div class="mv-card values" data-aos="fade-up" data-aos-delay="200">
+                    <div class="mv-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>CORE VALUES</h3>
+                    <p class="mv-text">
+                        <strong>신뢰(Trust)</strong> - 고객과의 약속을 지킵니다<br>
+                        <strong>전문성(Expertise)</strong> - 최고의 기술력을 추구합니다<br>
+                        <strong>혁신(Innovation)</strong> - 끊임없이 발전합니다<br>
+                        <strong>책임(Responsibility)</strong> - 결과에 책임집니다
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Timeline Section -->
+    <section class="section history">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-history"></i> HISTORY</span>
+                <h2 class="section-title">연혁</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h4>도약의 해</h4>
+                        <ul>
+                            <li>24시간 긴급 대응 서비스 확대</li>
+                            <li>클라우드 보안 서비스 런칭</li>
+                            <li>임직원 52명 달성</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-content">
+                        <h4>성장 가속화</h4>
+                        <ul>
+                            <li>AWS Advanced Partner 인증 획득</li>
+                            <li>500개 기업 고객 돌파</li>
+                            <li>AI 기반 위협 탐지 시스템 도입</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-content">
+                        <h4>인증 획득</h4>
+                        <ul>
+                            <li>ISMS-P 인증 획득</li>
+                            <li>ISO 27001 인증 획득</li>
+                            <li>KISA 정보보호 전문서비스 기업 지정</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-content">
+                        <h4>서비스 확장</h4>
+                        <ul>
+                            <li>통합보안관제센터(SOC) 오픈</li>
+                            <li>모의해킹 서비스 런칭</li>
+                            <li>300개 기업 고객 돌파</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="timeline-year">2017</div>
+                    <div class="timeline-content">
+                        <h4>본격 성장</h4>
+                        <ul>
+                            <li>금천구 가산디지털단지 사옥 이전</li>
+                            <li>ISMS 컨설팅 서비스 시작</li>
+                            <li>100개 기업 고객 달성</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-content">
+                        <h4>창업</h4>
+                        <ul>
+                            <li>넥스젠 시큐리티 설립</li>
+                            <li>취약점 진단 서비스 시작</li>
+                            <li>첫 기업 고객 확보</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-users"></i> OUR TEAM</span>
+                <h2 class="section-title">전문가 팀</h2>
+                <p class="section-description">
+                    국제 공인 자격을 보유한 최고의 보안 전문가들이 함께합니다
+                </p>
+            </div>
+            <div class="team-stats">
+                <div class="team-stat-item" data-aos="zoom-in">
+                    <div class="stat-icon"><i class="fas fa-user-shield"></i></div>
+                    <div class="stat-number counter" data-target="52">0</div>
+                    <div class="stat-label">보안 전문가</div>
+                </div>
+                <div class="team-stat-item" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="stat-number counter" data-target="15">0</div>
+                    <div class="stat-label">CISSP 보유</div>
+                </div>
+                <div class="team-stat-item" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-icon"><i class="fas fa-award"></i></div>
+                    <div class="stat-number counter" data-target="12">0</div>
+                    <div class="stat-label">CISA 보유</div>
+                </div>
+                <div class="team-stat-item" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-icon"><i class="fas fa-user-secret"></i></div>
+                    <div class="stat-number counter" data-target="8">0</div>
+                    <div class="stat-label">CEH 보유</div>
+                </div>
+            </div>
+            <div class="team-grid">
+                <div class="team-card" data-aos="fade-up">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop" alt="CEO">
+                        <div class="team-overlay">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>서정우</h4>
+                        <span class="team-role">CEO / 대표이사</span>
+                        <p>15년 이상의 정보보안 경력, CISSP, CISA</p>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop" alt="CTO">
+                        <div class="team-overlay">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>이해커</h4>
+                        <span class="team-role">CTO / 기술이사</span>
+                        <p>모의해킹 전문가, CEH, OSCP</p>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop" alt="CSO">
+                        <div class="team-overlay">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>김보안</h4>
+                        <span class="team-role">CSO / 보안책임자</span>
+                        <p>컴플라이언스 전문가, CISSP, CISM</p>
+                    </div>
+                </div>
+                <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" alt="SOC Manager">
+                        <div class="team-overlay">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>박방화벽</h4>
+                        <span class="team-role">SOC Manager / 관제센터장</span>
+                        <p>보안관제 전문가, GCIA, GCIH</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="section certifications">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-medal"></i> CERTIFICATIONS</span>
+                <h2 class="section-title">인증 및 파트너십</h2>
+            </div>
+            <div class="cert-slider">
+                <div class="cert-track">
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-award"></i></div>
+                        <span>ISMS-P 인증</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+                        <span>ISO 27001</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+                        <span>KISA 파트너</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fab fa-aws"></i></div>
+                        <span>AWS 파트너</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                        <span>MS Gold Partner</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-lock"></i></div>
+                        <span>PCI DSS</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-award"></i></div>
+                        <span>ISMS-P 인증</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-shield-alt"></i></div>
+                        <span>ISO 27001</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+                        <span>KISA 파트너</span>
+                    </div>
+                    <div class="cert-item">
+                        <div class="cert-icon"><i class="fab fa-aws"></i></div>
+                        <span>AWS 파트너</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="cta-bg">
+            <div class="cta-particles"></div>
+        </div>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title glitch" data-text="함께 일하고 싶으신가요?">함께 일하고 싶으신가요?</h2>
+                <p class="cta-description">
+                    넥스젠 시큐리티와 함께 더 안전한 디지털 세상을 만들어 가세요.
+                </p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cyber-btn btn-primary btn-lg">
+                        <span class="btn-icon"><i class="fas fa-handshake"></i></span>
+                        <span class="btn-text">파트너십 문의</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                    <a href="services.html" class="cyber-btn btn-secondary btn-lg">
+                        <span class="btn-icon"><i class="fas fa-shield-virus"></i></span>
+                        <span class="btn-text">서비스 보기</span>
+                        <span class="btn-glitch"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                            <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+                            <span class="logo-text">
+                                <span class="logo-main">NEXGEN</span>
+                                <span class="logo-sub">SECURITY</span>
+                            </span>
+                        </a>
+                        <p class="footer-description">
+                            넥스젠 시큐리티는 기업 정보보안 솔루션 전문기업으로,
+                            최첨단 보안 기술과 전문 인력으로 고객의 디지털 자산을 보호합니다.
+                        </p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html"><i class="fas fa-chevron-right"></i> 홈</a></li>
+                            <li><a href="about.html"><i class="fas fa-chevron-right"></i> 회사소개</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 서비스</a></li>
+                            <li><a href="board.html"><i class="fas fa-chevron-right"></i> 보안뉴스</a></li>
+                            <li><a href="contact.html"><i class="fas fa-chevron-right"></i> 문의하기</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links">
+                        <h4 class="footer-title">Services</h4>
+                        <ul>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 통합 보안관제</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 모의해킹</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> ISMS 인증</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 클라우드 보안</a></li>
+                            <li><a href="services.html"><i class="fas fa-chevron-right"></i> 취약점 진단</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h4 class="footer-title">Contact Info</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>서울특별시 금천구 가산디지털1로 168</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>02-2026-8500</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>secure@nexgen-security.kr</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 보안관제센터 운영</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        &copy; 2024 NexGen Security. All rights reserved. | 대표: 서정우 | 설립: 2015년
+                    </p>
+                    <div class="footer-legal">
+                        <a href="#">개인정보처리방침</a>
+                        <a href="#">이용약관</a>
+                        <a href="#">보안정책</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

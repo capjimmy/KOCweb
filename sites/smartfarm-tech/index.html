@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="스마트팜 테크 - IoT 기반 스마트팜 시스템으로 농업의 미래를 선도합니다">
+    <meta name="keywords" content="스마트팜, IoT, 농업기술, 스마트농업, 정밀농업">
+    <title>스마트팜 테크 | IoT 기반 스마트팜 시스템</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2ECC71;
+            --dark-green: #1B8A4C;
+            --tech-blue: #0984E3;
+            --dark-blue: #0652DD;
+            --gradient-green: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            --gradient-blue: linear-gradient(135deg, #0984E3 0%, #0652DD 100%);
+            --gradient-mixed: linear-gradient(135deg, #2ECC71 0%, #0984E3 100%);
+            --dark-bg: #0A1628;
+            --darker-bg: #050D1A;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glow-green: 0 0 40px rgba(46, 204, 113, 0.3);
+            --glow-blue: 0 0 40px rgba(9, 132, 227, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(46, 204, 113, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(9, 132, 227, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(46, 204, 113, 0.05) 0%, transparent 40%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+
+        /* Grid Pattern Overlay */
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(46, 204, 113, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(46, 204, 113, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-mixed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            box-shadow: var(--glow-green);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-mixed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 12px 28px;
+            background: var(--gradient-mixed);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 40px 80px;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            margin-bottom: 30px;
+        }
+
+        .hero-badge i {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 30px;
+        }
+
+        .hero-title .highlight {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 16px 36px;
+            background: var(--gradient-mixed);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 25px rgba(46, 204, 113, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 16px 36px;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-green);
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 50px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .farm-visual {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .farm-visual::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(46, 204, 113, 0.2), transparent);
+        }
+
+        .plant-row {
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            right: 10%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .plant {
+            font-size: 3rem;
+            animation: grow 3s ease-in-out infinite;
+        }
+
+        .plant:nth-child(2) { animation-delay: 0.5s; }
+        .plant:nth-child(3) { animation-delay: 1s; }
+        .plant:nth-child(4) { animation-delay: 1.5s; }
+        .plant:nth-child(5) { animation-delay: 2s; }
+
+        @keyframes grow {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.1); }
+        }
+
+        .sensor-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: var(--glow-blue);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .sensor-node:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .sensor-node:nth-child(2) { top: 15%; right: 25%; animation-delay: 1s; }
+        .sensor-node:nth-child(3) { top: 50%; right: 15%; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .data-line {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--tech-blue), transparent);
+            animation: dataFlow 2s linear infinite;
+        }
+
+        .data-line:nth-child(4) { top: 35%; left: 25%; transform: rotate(45deg); }
+        .data-line:nth-child(5) { top: 30%; right: 30%; transform: rotate(-30deg); }
+
+        @keyframes dataFlow {
+            0% { opacity: 0; transform: translateY(-50px) rotate(inherit); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(50px) rotate(inherit); }
+        }
+
+        .floating-card {
+            position: absolute;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: floatCard 5s ease-in-out infinite;
+        }
+
+        .floating-card.temp { top: 10%; left: -20px; }
+        .floating-card.humidity { bottom: 20%; right: -30px; animation-delay: 2.5s; }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-card i {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .floating-card .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .floating-card .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Section Common Styles */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 120px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Solutions Section */
+        .solutions {
+            background: var(--darker-bg);
+        }
+
+        .solutions-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .solution-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-mixed);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(46, 204, 113, 0.3);
+            box-shadow: var(--glow-green);
+        }
+
+        .solution-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .solution-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-mixed);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2);
+        }
+
+        .solution-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .solution-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .solution-features {
+            list-style: none;
+        }
+
+        .solution-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .solution-features li i {
+            color: var(--primary-green);
+            font-size: 0.8rem;
+        }
+
+        .solution-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: gap 0.3s ease;
+        }
+
+        .solution-link:hover {
+            gap: 12px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--dark-bg);
+            padding: 100px 40px;
+        }
+
+        .cta-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            background: var(--gradient-mixed);
+            border-radius: 30px;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-primary {
+            padding: 18px 40px;
+            background: white;
+            color: var(--dark-green);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-btn-secondary {
+            padding: 18px 40px;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 80px 40px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            max-width: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-mixed);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .solutions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin: 0 auto 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .solutions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .cta-container {
+                padding: 60px 30px;
+            }
+
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .nav-container {
+                padding: 0 20px;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--darker-bg);
+            z-index: 2000;
+            padding: 100px 40px 40px;
+            transition: right 0.4s ease;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary-green);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-pattern"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-seedling"></i></div>
+                <span class="logo-text">스마트팜 테크</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="solutions.html">솔루션</a></li>
+                <li><a href="technology.html">기술/제품</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">상담 신청</a>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileClose"><i class="fas fa-times"></i></button>
+        <ul>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="solutions.html">솔루션</a></li>
+            <li><a href="technology.html">기술/제품</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-bolt"></i>
+                    <span>IoT 기반 스마트 농업 솔루션</span>
+                </div>
+                <h1 class="hero-title">
+                    농업의 미래를<br>
+                    <span class="highlight">기술로 혁신</span>합니다
+                </h1>
+                <p class="hero-description">
+                    인공지능과 IoT 센서 기술을 결합한 스마트팜 시스템으로
+                    생산성을 극대화하고 지속가능한 농업을 실현합니다.
+                </p>
+                <div class="hero-buttons">
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        무료 컨설팅 받기
+                    </a>
+                    <a href="technology.html" class="btn-secondary">
+                        <i class="fas fa-play-circle"></i>
+                        기술 알아보기
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">도입 농가</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">35%</div>
+                        <div class="stat-label">평균 수확량 증가</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">40%</div>
+                        <div class="stat-label">에너지 절감</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&q=80" alt="스마트팜 온실 내부 - IoT 기반 현대 농업 시스템">
+                </div>
+                <div class="floating-card temp">
+                    <i class="fas fa-temperature-high"></i>
+                    <div>
+                        <div class="value">24.5°C</div>
+                        <div class="label">온실 온도</div>
+                    </div>
+                </div>
+                <div class="floating-card humidity">
+                    <i class="fas fa-tint"></i>
+                    <div>
+                        <div class="value">68%</div>
+                        <div class="label">토양 습도</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions" id="solutions">
+        <div class="section-header animate-on-scroll">
+            <div class="section-label">
+                <i class="fas fa-cubes"></i>
+                Our Solutions
+            </div>
+            <h2 class="section-title">핵심 스마트팜 솔루션</h2>
+            <p class="section-subtitle">
+                환경 모니터링부터 자동 제어까지, 농업 전 과정을 혁신하는 토탈 솔루션을 제공합니다
+            </p>
+        </div>
+        <div class="solutions-grid">
+            <div class="solution-card animate-on-scroll">
+                <div class="solution-icon"><i class="fas fa-broadcast-tower"></i></div>
+                <h3>환경 모니터링 시스템</h3>
+                <p>실시간 센서 데이터 수집 및 분석으로 최적의 생육 환경을 유지합니다.</p>
+                <ul class="solution-features">
+                    <li><i class="fas fa-check"></i> 온습도 실시간 모니터링</li>
+                    <li><i class="fas fa-check"></i> 토양 수분/EC/pH 측정</li>
+                    <li><i class="fas fa-check"></i> CO2 농도 관리</li>
+                </ul>
+                <a href="solutions.html" class="solution-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="solution-card animate-on-scroll">
+                <div class="solution-icon"><i class="fas fa-robot"></i></div>
+                <h3>자동 제어 시스템</h3>
+                <p>AI 기반 자동화로 관개, 환기, 조명을 최적 상태로 유지합니다.</p>
+                <ul class="solution-features">
+                    <li><i class="fas fa-check"></i> 스마트 관개 자동화</li>
+                    <li><i class="fas fa-check"></i> 천창/측창 자동 제어</li>
+                    <li><i class="fas fa-check"></i> LED 조명 스케줄링</li>
+                </ul>
+                <a href="solutions.html" class="solution-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="solution-card animate-on-scroll">
+                <div class="solution-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>데이터 분석 플랫폼</h3>
+                <p>빅데이터와 AI 분석으로 생산성을 극대화하는 인사이트를 제공합니다.</p>
+                <ul class="solution-features">
+                    <li><i class="fas fa-check"></i> 수확량 예측 분석</li>
+                    <li><i class="fas fa-check"></i> 병해충 조기 경보</li>
+                    <li><i class="fas fa-check"></i> 최적 재배 가이드</li>
+                </ul>
+                <a href="solutions.html" class="solution-link">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container animate-on-scroll">
+            <div class="cta-content">
+                <h2>스마트팜 도입을 고민하고 계신가요?</h2>
+                <p>전문 컨설턴트가 귀하의 농장에 최적화된 맞춤형 솔루션을 무료로 제안해 드립니다.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cta-btn-primary">
+                        <i class="fas fa-phone-alt"></i>
+                        무료 상담 신청
+                    </a>
+                    <a href="about.html" class="cta-btn-secondary">
+                        <i class="fas fa-building"></i>
+                        회사 소개 보기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon"><i class="fas fa-seedling"></i></div>
+                        <span class="logo-text">스마트팜 테크</span>
+                    </a>
+                    <p>IoT 기반 스마트팜 시스템으로 농업의 미래를 선도합니다.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-blog"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>메뉴</h4>
+                    <ul>
+                        <li><a href="about.html">회사소개</a></li>
+                        <li><a href="solutions.html">솔루션</a></li>
+                        <li><a href="technology.html">기술/제품</a></li>
+                        <li><a href="contact.html">문의하기</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>솔루션</h4>
+                    <ul>
+                        <li><a href="solutions.html">환경 모니터링</a></li>
+                        <li><a href="solutions.html">자동 제어 시스템</a></li>
+                        <li><a href="solutions.html">데이터 분석</a></li>
+                        <li><a href="solutions.html">AI 병해충 감지</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">기술 지원</a></li>
+                        <li><a href="contact.html">자주 묻는 질문</a></li>
+                        <li><a href="contact.html">설치 가이드</a></li>
+                        <li><a href="contact.html">A/S 신청</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 스마트팜 테크. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileToggle.addEventListener('click', openMobileMenu);
+        mobileClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking nav links
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Scroll Animation
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        animateElements.forEach(el => observer.observe(el));
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+
+            counters.forEach(counter => {
+                const text = counter.textContent;
+                const hasPlus = text.includes('+');
+                const hasPercent = text.includes('%');
+
+                let numValue = parseFloat(text.replace(/[^0-9.]/g, ''));
+
+                if (isNaN(numValue)) return;
+
+                let current = 0;
+                const increment = numValue / 50;
+                const duration = 2000;
+                const stepTime = duration / 50;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < numValue) {
+                        let display = Math.floor(current);
+                        if (hasPlus) display = display + '+';
+                        if (hasPercent) display = display + '%';
+                        counter.textContent = display;
+                        setTimeout(updateCounter, stepTime);
+                    } else {
+                        counter.textContent = text;
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Trigger counter animation when stats are in view
+        const statsSection = document.querySelector('.hero-stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statsObserver.observe(statsSection);
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const heroVisual = document.querySelector('.hero-visual');
+            if (heroVisual) {
+                const scrolled = window.pageYOffset;
+                heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+
+        // Dynamic sensor data simulation
+        function updateSensorData() {
+            const tempCard = document.querySelector('.floating-card.temp .value');
+            const humidityCard = document.querySelector('.floating-card.humidity .value');
+
+            if (tempCard && humidityCard) {
+                const temp = (22 + Math.random() * 5).toFixed(1);
+                const humidity = Math.floor(60 + Math.random() * 15);
+
+                tempCard.textContent = temp + '°C';
+                humidityCard.textContent = humidity + '%';
+            }
+        }
+
+        setInterval(updateSensorData, 3000);
+    </script>
+</body>
+</html>

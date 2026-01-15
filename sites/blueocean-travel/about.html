@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사소개 - 블루오션 여행사</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0077B6;
+            --light-blue: #00B4D8;
+            --sky-blue: #90E0EF;
+            --pale-blue: #CAF0F8;
+            --dark-blue: #03045E;
+            --white: #FFFFFF;
+            --gray: #6B7280;
+            --light-gray: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .logo-text span {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 119, 182, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            border-radius: 3px;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 20px 100px;
+            background: linear-gradient(135deg, rgba(3, 4, 94, 0.8), rgba(0, 119, 182, 0.7)),
+                        url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80') center/cover;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            margin-top: 25px;
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        /* About Intro */
+        .about-intro {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-intro-content h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .about-intro-content h2 span {
+            color: var(--primary-blue);
+        }
+
+        .about-intro-content p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-intro-content .highlight {
+            background: var(--pale-blue);
+            padding: 25px 30px;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-blue);
+            margin: 30px 0;
+        }
+
+        .about-intro-content .highlight p {
+            margin: 0;
+            color: var(--dark-blue);
+            font-weight: 500;
+        }
+
+        .about-intro-image {
+            position: relative;
+        }
+
+        .about-intro-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-intro-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--light-blue);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 25px 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 119, 182, 0.3);
+        }
+
+        .experience-badge h3 {
+            font-size: 2.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .experience-badge p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: var(--light-gray);
+            padding: 100px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--pale-blue);
+            color: var(--primary-blue);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .philosophy-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .philosophy-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .philosophy-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--pale-blue), var(--sky-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
+        }
+
+        .philosophy-card h3 {
+            font-size: 1.4rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .philosophy-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* History Timeline */
+        .history {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--light-blue));
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 30px 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 450px;
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -10px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--pale-blue);
+        }
+
+        .timeline-year {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Team Section */
+        .team {
+            background: var(--pale-blue);
+            padding: 100px 20px;
+        }
+
+        .team-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-image {
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.1);
+        }
+
+        .team-info {
+            padding: 25px;
+        }
+
+        .team-info h3 {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+
+        .team-info .position {
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .team-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Certifications */
+        .certifications {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .cert-item {
+            background: white;
+            border: 2px solid var(--pale-blue);
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .cert-item:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(0, 119, 182, 0.15);
+        }
+
+        .cert-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--pale-blue), var(--sky-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+
+        .cert-item h3 {
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .cert-item p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 35px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary-blue);
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 80px 20px 30px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-text span {
+            color: var(--light-blue);
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--light-blue);
+            border-radius: 3px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--light-blue);
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .about-intro {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .about-intro-image {
+                order: -1;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-content::before {
+                left: -10px !important;
+                right: auto !important;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .about-intro-content h2 {
+                font-size: 2rem;
+            }
+
+            .experience-badge {
+                position: relative;
+                bottom: 0;
+                left: 0;
+                margin-top: 20px;
+            }
+
+            .about-intro-image::before {
+                display: none;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-column h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                </div>
+                <div class="logo-text">블루<span>오션</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">회사소개</a></li>
+                <li><a href="tours.html">여행상품</a></li>
+                <li><a href="destinations.html">여행지</a></li>
+                <li><a href="reviews.html">고객후기</a></li>
+                <li><a href="booking.html">예약하기</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <a href="booking.html" class="nav-cta">예약하기</a>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>회사 소개</h1>
+        <p>20년 전통의 프리미엄 여행 전문가, 블루오션 여행사입니다</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a> / 회사소개
+        </div>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="about-intro-content">
+            <h2>여행의 가치를<br><span>새롭게 정의합니다</span></h2>
+            <p>블루오션 여행사는 2004년 설립 이래, 단순한 여행이 아닌 '인생의 특별한 순간'을 만들어 드리기 위해 노력해 왔습니다.</p>
+            <p>우리는 모든 고객이 꿈꾸는 완벽한 여행을 현실로 만들어 드립니다. 전문 여행 컨설턴트들이 고객 한 분 한 분의 이야기에 귀 기울이고, 그에 맞는 맞춤형 여행을 설계합니다.</p>
+            <div class="highlight">
+                <p>"모든 여행은 새로운 시작이며, 모든 목적지는 새로운 이야기입니다. 블루오션은 그 이야기의 가장 아름다운 챕터를 써 드립니다."</p>
+            </div>
+            <p>국내외 200여 개 이상의 파트너사와 협력하여 최고의 항공, 호텔, 현지 서비스를 제공하며, 50,000명 이상의 고객님께서 블루오션과 함께 잊지 못할 추억을 만들어 가셨습니다.</p>
+        </div>
+        <div class="about-intro-image">
+            <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" alt="여행 이미지">
+            <div class="experience-badge">
+                <h3>20+</h3>
+                <p>Years Experience</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy">
+        <div class="section-header">
+            <span class="section-badge">경영 철학</span>
+            <h2>블루오션의 핵심 가치</h2>
+            <p>고객 중심의 서비스 철학으로 최고의 여행 경험을 선사합니다</p>
+        </div>
+        <div class="philosophy-grid">
+            <div class="philosophy-card">
+                <div class="philosophy-icon">🎯</div>
+                <h3>맞춤형 서비스</h3>
+                <p>고객 한 분 한 분의 취향과 요구사항을 세심하게 파악하여, 세상에 단 하나뿐인 맞춤형 여행을 설계합니다. 획일화된 패키지가 아닌 개인화된 경험을 제공합니다.</p>
+            </div>
+            <div class="philosophy-card">
+                <div class="philosophy-icon">💎</div>
+                <h3>프리미엄 품질</h3>
+                <p>엄격한 기준으로 선별된 항공, 호텔, 현지 서비스만을 제공합니다. 가격 경쟁이 아닌 품질 경쟁을 통해 고객 만족도 98%를 달성하고 있습니다.</p>
+            </div>
+            <div class="philosophy-card">
+                <div class="philosophy-icon">🤝</div>
+                <h3>신뢰와 안전</h3>
+                <p>20년간 쌓아온 신뢰를 바탕으로 안전하고 편안한 여행을 보장합니다. 24시간 비상 연락망과 현지 서포트 시스템으로 언제 어디서나 고객님을 케어합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- History -->
+    <section class="history">
+        <div class="section-header">
+            <span class="section-badge">연혁</span>
+            <h2>블루오션의 발자취</h2>
+            <p>지난 20년간 걸어온 블루오션의 성장 스토리</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h3>대한민국 여행사 대상 수상</h3>
+                    <p>한국관광공사 주관 '대한민국 여행사 대상' 수상. 프리미엄 여행 서비스 부문 1위 달성.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2020</div>
+                    <h3>디지털 전환 완료</h3>
+                    <p>온라인 예약 시스템 및 모바일 앱 출시. 비대면 상담 서비스 도입.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2015</div>
+                    <h3>해외 지사 설립</h3>
+                    <p>일본, 태국, 베트남 현지 지사 설립. 글로벌 네트워크 확대.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2010</div>
+                    <h3>프리미엄 브랜드 런칭</h3>
+                    <p>'블루오션 시그니처' 프리미엄 여행 브랜드 런칭. VIP 전담팀 신설.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2004</div>
+                    <h3>블루오션 여행사 설립</h3>
+                    <p>서울 강남에 본사 설립. '고객 중심의 프리미엄 여행'이라는 비전으로 시작.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team">
+        <div class="section-header">
+            <span class="section-badge">전문가 팀</span>
+            <h2>블루오션을 이끄는 사람들</h2>
+            <p>풍부한 경험과 전문성을 갖춘 여행 전문가들이 함께합니다</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="대표이사">
+                </div>
+                <div class="team-info">
+                    <h3>김태현</h3>
+                    <p class="position">대표이사</p>
+                    <p>20년 이상의 여행업계 경험. 고객 만족을 최우선으로 하는 경영 철학.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="여행기획팀장">
+                </div>
+                <div class="team-info">
+                    <h3>이수진</h3>
+                    <p class="position">여행기획팀장</p>
+                    <p>15년 경력의 여행 상품 기획 전문가. 창의적인 여행 콘텐츠 개발.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" alt="해외사업팀장">
+                </div>
+                <div class="team-info">
+                    <h3>박준서</h3>
+                    <p class="position">해외사업팀장</p>
+                    <p>글로벌 파트너십 구축 및 해외 네트워크 관리 전문가.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="고객서비스팀장">
+                </div>
+                <div class="team-info">
+                    <h3>최민지</h3>
+                    <p class="position">고객서비스팀장</p>
+                    <p>고객 경험 혁신 전문가. 98% 고객 만족도 달성의 주역.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="certifications">
+        <div class="section-header">
+            <span class="section-badge">인증 및 수상</span>
+            <h2>신뢰할 수 있는 공식 인증</h2>
+            <p>블루오션은 다양한 공식 인증과 수상을 통해 신뢰성을 검증받았습니다</p>
+        </div>
+        <div class="cert-grid">
+            <div class="cert-item">
+                <div class="cert-icon">🏆</div>
+                <h3>대한민국 여행사 대상</h3>
+                <p>2024 한국관광공사 주관</p>
+            </div>
+            <div class="cert-item">
+                <div class="cert-icon">✅</div>
+                <h3>한국관광협회 정회원</h3>
+                <p>공식 등록 여행사</p>
+            </div>
+            <div class="cert-item">
+                <div class="cert-icon">🛡️</div>
+                <h3>여행자보험 제휴</h3>
+                <p>삼성화재, DB손해보험</p>
+            </div>
+            <div class="cert-item">
+                <div class="cert-icon">⭐</div>
+                <h3>소비자 만족 대상</h3>
+                <p>3년 연속 수상</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>블루오션과 함께 특별한 여행을 시작하세요</h2>
+        <p>전문 컨설턴트가 맞춤형 여행 설계를 도와드립니다</p>
+        <a href="contact.html" class="cta-btn">무료 상담 신청하기</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo-text">블루<span>오션</span></div>
+                <p>블루오션 여행사는 2004년 설립 이래 고객님께 최고의 여행 경험을 선사하기 위해 노력하고 있습니다. 프리미엄 여행의 새로운 기준을 만들어 갑니다.</p>
+                <div class="social-links">
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>여행 상품</h4>
+                <ul>
+                    <li><a href="tours.html">국내 여행</a></li>
+                    <li><a href="tours.html">해외 여행</a></li>
+                    <li><a href="tours.html">허니문</a></li>
+                    <li><a href="tours.html">가족 여행</a></li>
+                    <li><a href="tours.html">골프 여행</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>고객 지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="booking.html">예약하기</a></li>
+                    <li><a href="#">취소/환불 안내</a></li>
+                    <li><a href="#">여행자 보험</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>회사 정보</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="#">이용 약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                    <li><a href="#">제휴 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-contact">
+                <h4>연락처</h4>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> 1588-0000</p>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> info@blueocean.co.kr</p>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 서울시 강남구 테헤란로 123</p>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 블루오션 여행사. All Rights Reserved. | 사업자등록번호: 123-45-67890 | 관광사업등록번호: 제2024-000001호</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

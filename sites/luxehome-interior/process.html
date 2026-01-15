@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진행과정 | 럭스홈 인테리어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --cream: #FAF7F2;
+            --cream-dark: #F0EBE1;
+            --dark-wood: #2C1810;
+            --brown: #5C3D2E;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-wood);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark-wood);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--cream);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--dark-wood);
+        }
+
+        /* Page Header */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(44, 24, 16, 0.6), rgba(44, 24, 16, 0.7)),
+                        url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header span {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--dark-wood);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+
+        /* Process Overview */
+        .process-overview {
+            background: var(--white);
+        }
+
+        .process-intro {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .process-intro p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gold), var(--gold-light));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--white);
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--white);
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 5px 20px rgba(201, 169, 98, 0.4);
+        }
+
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--gold);
+        }
+
+        .timeline-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--dark-wood);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-details {
+            list-style: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--cream-dark);
+        }
+
+        .timeline-details li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .timeline-details svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .timeline-duration {
+            display: inline-block;
+            background: var(--cream);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        /* Process Benefits */
+        .process-benefits {
+            background: var(--dark-wood);
+            color: var(--white);
+        }
+
+        .process-benefits .section-header h2 {
+            color: var(--white);
+        }
+
+        .benefits-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .benefit-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--white);
+        }
+
+        .benefit-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .benefit-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--cream);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.05rem;
+            color: var(--dark-wood);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--cream);
+        }
+
+        .faq-question svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 2rem 1.5rem;
+            color: var(--text-light);
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(rgba(44, 24, 16, 0.85), rgba(44, 24, 16, 0.85)),
+                        url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920') center/cover fixed;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .btn:hover {
+            background: transparent;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-wood);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                padding-left: 80px;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: 100%;
+                margin: 0;
+            }
+
+            .timeline-number {
+                left: 30px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Luxe<span>Home</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="portfolio.html">포트폴리오</a></li>
+                <li><a href="process.html" class="active">진행과정</a></li>
+                <li><a href="blog.html">블로그</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-close" onclick="toggleMobileMenu()">&times;</span>
+        <a href="index.html" onclick="toggleMobileMenu()">홈</a>
+        <a href="about.html" onclick="toggleMobileMenu()">회사소개</a>
+        <a href="services.html" onclick="toggleMobileMenu()">서비스</a>
+        <a href="portfolio.html" onclick="toggleMobileMenu()">포트폴리오</a>
+        <a href="process.html" onclick="toggleMobileMenu()">진행과정</a>
+        <a href="blog.html" onclick="toggleMobileMenu()">블로그</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">문의하기</a>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div>
+            <h1>진행과정</h1>
+            <p>체계적인 프로세스로 완벽한 공간을 만듭니다</p>
+        </div>
+    </header>
+
+    <!-- Process Overview -->
+    <section class="process-overview">
+        <div class="section-header fade-in">
+            <span>OUR PROCESS</span>
+            <h2>럭스홈의 인테리어 프로세스</h2>
+        </div>
+        <div class="process-intro fade-in">
+            <p>럭스홈은 고객의 꿈을 현실로 만들기 위해 체계적이고 투명한 프로세스를 운영합니다.
+            상담부터 완공까지 모든 단계에서 고객과 긴밀히 소통하며, 최상의 결과를 약속드립니다.
+            20년간 쌓아온 노하우와 전문성으로 만족스러운 인테리어 경험을 제공합니다.</p>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="timeline">
+            <!-- Step 1: Consultation -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-number">1</div>
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"/>
+                        </svg>
+                    </div>
+                    <h3>상담 (Consultation)</h3>
+                    <p>고객의 요구사항과 라이프스타일을 파악하는 첫 번째 단계입니다.
+                    전문 디자이너가 직접 상담을 진행하며, 예산, 기간, 스타일 선호도 등을 꼼꼼히 확인합니다.</p>
+                    <ul class="timeline-details">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            무료 초기 상담 제공
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            라이프스타일 분석
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            예산 및 일정 협의
+                        </li>
+                    </ul>
+                    <span class="timeline-duration">소요 기간: 1-2일</span>
+                </div>
+            </div>
+
+            <!-- Step 2: Site Survey & Planning -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-number">2</div>
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                        </svg>
+                    </div>
+                    <h3>실측 및 설계 (Planning)</h3>
+                    <p>현장 방문을 통해 정밀한 실측을 진행하고, 공간의 특성을 분석합니다.
+                    고객의 요구사항을 반영한 초안 설계와 3D 시뮬레이션을 제작합니다.</p>
+                    <ul class="timeline-details">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            정밀 현장 실측
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            평면도 및 입면도 제작
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            3D 렌더링 시뮬레이션
+                        </li>
+                    </ul>
+                    <span class="timeline-duration">소요 기간: 1-2주</span>
+                </div>
+            </div>
+
+            <!-- Step 3: Design & Contract -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-number">3</div>
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5L5 21"/>
+                        </svg>
+                    </div>
+                    <h3>디자인 확정 및 계약 (Contract)</h3>
+                    <p>최종 디자인안을 확정하고, 자재 및 가구를 선정합니다.
+                    상세 견적서를 기반으로 계약을 체결하며, 모든 내용을 투명하게 공유합니다.</p>
+                    <ul class="timeline-details">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            자재 및 마감재 선정
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            상세 견적서 제공
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            공사 일정표 확정
+                        </li>
+                    </ul>
+                    <span class="timeline-duration">소요 기간: 3-5일</span>
+                </div>
+            </div>
+
+            <!-- Step 4: Construction -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-number">4</div>
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <h3>시공 (Construction)</h3>
+                    <p>전문 시공팀이 계획에 따라 체계적으로 공사를 진행합니다.
+                    철거, 설비, 목공, 도장, 마감 순서로 진행되며, 주기적으로 진행 상황을 공유합니다.</p>
+                    <ul class="timeline-details">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            전담 현장 매니저 배치
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            주 2회 진행 상황 보고
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            품질 관리 체크리스트 운영
+                        </li>
+                    </ul>
+                    <span class="timeline-duration">소요 기간: 4-8주 (공간 규모에 따라 상이)</span>
+                </div>
+            </div>
+
+            <!-- Step 5: Completion -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-number">5</div>
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                    </div>
+                    <h3>완공 및 인수 (Completion)</h3>
+                    <p>모든 공사가 완료되면 최종 점검을 진행합니다.
+                    고객과 함께 꼼꼼히 확인 후 하자 보수를 완료하고, 공간을 인수합니다.</p>
+                    <ul class="timeline-details">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            최종 품질 검수
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            클리닝 서비스 제공
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                            1년 무상 A/S 보증
+                        </li>
+                    </ul>
+                    <span class="timeline-duration">소요 기간: 2-3일</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Benefits -->
+    <section class="process-benefits">
+        <div class="section-header fade-in">
+            <span style="color: var(--gold);">WHY LUXEHOME</span>
+            <h2>럭스홈을 선택해야 하는 이유</h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card fade-in">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <h4>20년 전문성</h4>
+                <p>5,000건 이상의 프로젝트 경험으로 쌓아온 신뢰와 노하우</p>
+            </div>
+            <div class="benefit-card fade-in">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <h4>프리미엄 품질</h4>
+                <p>최고급 자재와 숙련된 장인의 손길로 완성하는 퀄리티</p>
+            </div>
+            <div class="benefit-card fade-in">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                </div>
+                <h4>투명한 소통</h4>
+                <p>모든 과정을 고객과 실시간으로 공유하는 투명한 진행</p>
+            </div>
+            <div class="benefit-card fade-in">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h4>철저한 일정 관리</h4>
+                <p>약속된 기간 내 완공을 위한 체계적인 프로젝트 관리</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-header fade-in">
+            <span>FAQ</span>
+            <h2>자주 묻는 질문</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    인테리어 비용은 어떻게 산정되나요?
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>인테리어 비용은 공간의 면적, 시공 범위, 자재 등급, 디자인 복잡도에 따라 달라집니다.
+                        럭스홈은 무료 상담 후 현장 실측을 진행하여 정확한 견적서를 제공합니다.
+                        모든 비용은 투명하게 항목별로 안내드리며, 추가 비용 발생 시 반드시 사전 협의를 진행합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    시공 기간은 얼마나 걸리나요?
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>시공 기간은 공간의 규모와 시공 범위에 따라 다릅니다.
+                        일반적으로 30평대 아파트 전체 리모델링의 경우 약 6-8주가 소요됩니다.
+                        부분 인테리어나 스타일링만 진행하는 경우 1-2주 내외로 완료될 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    시공 중에 거주할 수 있나요?
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>전체 리모델링의 경우 안전과 시공 효율성을 위해 별도 거주를 권장합니다.
+                        다만, 부분 시공이나 특정 공간만 진행하는 경우 거주하시면서 진행 가능합니다.
+                        상담 시 상황에 맞는 최적의 방안을 안내해 드립니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    A/S는 어떻게 진행되나요?
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>럭스홈은 완공 후 1년간 무상 A/S를 제공합니다.
+                        시공 하자로 인한 문제는 무상으로 보수해 드리며, 전담 A/S팀이 신속하게 대응합니다.
+                        프리미엄 패키지의 경우 평생 A/S 서비스가 포함됩니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question">
+                    디자인 수정은 몇 번까지 가능한가요?
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>기본적으로 3회의 디자인 수정이 포함되어 있습니다.
+                        고객님께서 완전히 만족하실 때까지 충분한 협의를 진행하며,
+                        필요한 경우 추가 수정도 유연하게 대응해 드립니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>지금 바로 시작하세요</h2>
+        <p>무료 상담을 통해 당신만의 특별한 공간을 설계해 보세요</p>
+        <a href="contact.html" class="btn">무료 상담 신청</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Luxe<span>Home</span></a>
+                <p>20년 전통의 프리미엄 인테리어 전문 기업 럭스홈입니다.</p>
+                <div class="social-links">
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="process.html">진행과정</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="blog.html">블로그</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>연락처</h4>
+                <ul>
+                    <li>서울시 강남구 테헤란로 123</li>
+                    <li>럭스홈 빌딩 5층</li>
+                    <li>02-1234-5678</li>
+                    <li>info@luxehome.kr</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LuxeHome Interior. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

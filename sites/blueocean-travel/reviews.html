@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객 후기 - 블루오션 여행사</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0077B6;
+            --light-blue: #00B4D8;
+            --sky-blue: #90E0EF;
+            --pale-blue: #CAF0F8;
+            --dark-blue: #03045E;
+            --white: #FFFFFF;
+            --gray: #6B7280;
+            --light-gray: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .logo-text span {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 119, 182, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-blue);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 20px 100px;
+            background: linear-gradient(135deg, rgba(3, 4, 94, 0.8), rgba(0, 119, 182, 0.7)),
+                        url('https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1920&q=80') center/cover;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            margin-top: 25px;
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: white;
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--pale-blue);
+            color: var(--primary-blue);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-section {
+            background: var(--light-gray);
+            padding: 40px 20px;
+        }
+
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            border: 2px solid var(--pale-blue);
+            border-radius: 50px;
+            background: white;
+            color: var(--dark-blue);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+
+        .reviews-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .reviewer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .reviewer-info h4 {
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            margin-bottom: 3px;
+        }
+
+        .reviewer-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 15px;
+        }
+
+        .review-rating svg {
+            width: 20px;
+            height: 20px;
+            fill: #FFD93D;
+        }
+
+        .review-destination {
+            display: inline-block;
+            background: var(--pale-blue);
+            color: var(--primary-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .review-content {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .review-images {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .review-images img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .review-images img:hover {
+            transform: scale(1.1);
+        }
+
+        .review-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .review-date {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .review-helpful {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .review-helpful:hover {
+            color: var(--primary-blue);
+        }
+
+        .review-helpful svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Featured Review */
+        .featured-review {
+            grid-column: span 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .featured-image {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .featured-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-content .review-content {
+            font-size: 1.1rem;
+        }
+
+        /* Video Reviews */
+        .video-reviews {
+            padding: 100px 20px;
+            background: white;
+        }
+
+        .video-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .video-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-btn:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary-blue);
+            margin-left: 5px;
+        }
+
+        .video-info {
+            padding: 25px;
+            background: white;
+        }
+
+        .video-info h3 {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            margin-bottom: 8px;
+        }
+
+        .video-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Write Review CTA */
+        .write-review {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            text-align: center;
+            color: white;
+        }
+
+        .write-review h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .write-review p {
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .write-btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary-blue);
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .write-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 60px;
+        }
+
+        .pagination button {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--pale-blue);
+            background: white;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--dark-blue);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pagination button:hover,
+        .pagination button.active {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            border-color: transparent;
+        }
+
+        .pagination button.nav-btn {
+            width: auto;
+            padding: 0 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 80px 20px 30px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-text span {
+            color: var(--light-blue);
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--light-blue);
+            border-radius: 3px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--light-blue);
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-review {
+                grid-column: span 2;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .stat-item h3 {
+                font-size: 2.2rem;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-review {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 250px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-column h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .write-review h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                </div>
+                <div class="logo-text">블루<span>오션</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="tours.html">여행상품</a></li>
+                <li><a href="destinations.html">여행지</a></li>
+                <li><a href="reviews.html" class="active">고객후기</a></li>
+                <li><a href="booking.html">예약하기</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <a href="booking.html" class="nav-cta">예약하기</a>
+            <button class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>고객 후기</h1>
+        <p>블루오션과 함께한 고객님들의 생생한 여행 이야기</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a> / 고객 후기
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>50,000+</h3>
+                <p>누적 고객 수</p>
+            </div>
+            <div class="stat-item">
+                <h3>98%</h3>
+                <p>고객 만족도</p>
+            </div>
+            <div class="stat-item">
+                <h3>4.9</h3>
+                <p>평균 별점</p>
+            </div>
+            <div class="stat-item">
+                <h3>3,200+</h3>
+                <p>등록된 후기</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">전체 후기</button>
+            <button class="filter-btn" data-filter="asia">동남아</button>
+            <button class="filter-btn" data-filter="japan">일본</button>
+            <button class="filter-btn" data-filter="europe">유럽</button>
+            <button class="filter-btn" data-filter="honeymoon">허니문</button>
+            <button class="filter-btn" data-filter="family">가족여행</button>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="reviews-container">
+            <div class="reviews-grid">
+                <!-- Featured Review -->
+                <div class="review-card featured-review" data-category="honeymoon">
+                    <div class="featured-image">
+                        <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80" alt="몰디브 후기">
+                        <span class="featured-badge">BEST 후기</span>
+                    </div>
+                    <div class="featured-content">
+                        <div class="review-header">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="김민지" class="reviewer-avatar">
+                            <div class="reviewer-info">
+                                <h4>김민지 & 이준혁</h4>
+                                <p>2024년 1월 출발</p>
+                            </div>
+                        </div>
+                        <div class="review-rating">
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <span class="review-destination">몰디브 프라이빗 허니문</span>
+                        <p class="review-content">
+                            "평생 잊지 못할 최고의 신혼여행이었습니다! 수상빌라에서 바라보는 인도양의 일출, 프라이빗 비치에서의 캔들라이트 디너, 돌핀 투어까지... 모든 것이 완벽했어요. 블루오션 담당자분이 정말 세심하게 챙겨주셔서 걱정 없이 여행을 즐길 수 있었습니다. 다음 여행도 꼭 블루오션과 함께 할게요!"
+                        </p>
+                        <div class="review-footer">
+                            <span class="review-date">2024.02.15 작성</span>
+                            <span class="review-helpful">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                                도움이 됐어요 (128)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Reviews -->
+                <div class="review-card" data-category="japan">
+                    <div class="review-header">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="박성훈" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4>박성훈</h4>
+                            <p>2024년 2월 출발</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <span class="review-destination">오사카 미식 투어</span>
+                    <p class="review-content">
+                        오사카의 숨은 맛집들을 정말 많이 알려주셔서 매일 맛있는 음식으로 배가 행복했어요. 도톤보리 야경도 예약해주신 레스토랑에서 보니 더 감동이었습니다!
+                    </p>
+                    <div class="review-images">
+                        <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=200&q=80" alt="오사카 여행 사진 1">
+                        <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=200&q=80" alt="오사카 여행 사진 2">
+                        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=200&q=80" alt="오사카 여행 사진 3">
+                    </div>
+                    <div class="review-footer">
+                        <span class="review-date">2024.03.01 작성</span>
+                        <span class="review-helpful">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                            도움이 됐어요 (45)
+                        </span>
+                    </div>
+                </div>
+
+                <div class="review-card" data-category="asia">
+                    <div class="review-header">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="최수아" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4>최수아</h4>
+                            <p>2024년 1월 출발</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <span class="review-destination">다낭 프리미엄 패키지</span>
+                    <p class="review-content">
+                        5성급 리조트가 정말 대만족이었어요! 호이안 야경 투어도 정말 예쁘고, 바나힐 케이블카는 아이들이 너무 좋아했어요. 가성비 최고의 여행이었습니다.
+                    </p>
+                    <div class="review-images">
+                        <img src="https://images.unsplash.com/photo-1540202404-a2f29016b523?w=200&q=80" alt="다낭 여행 사진 1">
+                        <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=200&q=80" alt="다낭 여행 사진 2">
+                    </div>
+                    <div class="review-footer">
+                        <span class="review-date">2024.02.20 작성</span>
+                        <span class="review-helpful">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                            도움이 됐어요 (67)
+                        </span>
+                    </div>
+                </div>
+
+                <div class="review-card" data-category="europe">
+                    <div class="review-header">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="정현우" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4>정현우</h4>
+                            <p>2023년 12월 출발</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <span class="review-destination">이탈리아 완전정복</span>
+                    <p class="review-content">
+                        로마, 피렌체, 베네치아를 7박 8일에 알차게 돌았어요. 전문 가이드분의 설명 덕분에 역사와 문화를 깊이 이해할 수 있었습니다. 바티칸 스킵라인 티켓도 미리 준비해주셔서 시간 절약!
+                    </p>
+                    <div class="review-images">
+                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=200&q=80" alt="이탈리아 여행 사진 1">
+                        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=200&q=80" alt="이탈리아 여행 사진 2">
+                        <img src="https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=200&q=80" alt="이탈리아 여행 사진 3">
+                    </div>
+                    <div class="review-footer">
+                        <span class="review-date">2024.01.10 작성</span>
+                        <span class="review-helpful">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                            도움이 됐어요 (89)
+                        </span>
+                    </div>
+                </div>
+
+                <div class="review-card" data-category="family">
+                    <div class="review-header">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="한지영" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4>한지영</h4>
+                            <p>2024년 2월 출발</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <span class="review-destination">싱가포르 가족 패키지</span>
+                    <p class="review-content">
+                        7살, 10살 아이들과 함께한 싱가포르 여행! 유니버셜 스튜디오 익스프레스 패스 덕분에 대기 없이 놀이기구 탈 수 있었어요. 나이트 사파리도 정말 신기했습니다.
+                    </p>
+                    <div class="review-images">
+                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=200&q=80" alt="싱가포르 여행 사진 1">
+                        <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=200&q=80" alt="싱가포르 여행 사진 2">
+                    </div>
+                    <div class="review-footer">
+                        <span class="review-date">2024.03.05 작성</span>
+                        <span class="review-helpful">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                            도움이 됐어요 (52)
+                        </span>
+                    </div>
+                </div>
+
+                <div class="review-card" data-category="asia">
+                    <div class="review-header">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="이재원" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4>이재원</h4>
+                            <p>2024년 1월 출발</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <span class="review-destination">발리 힐링 리트릿</span>
+                    <p class="review-content">
+                        우붓 라이스테라스에서의 요가 세션이 정말 힐링이었어요. 스파도 매일 받을 수 있어서 몸과 마음이 완전히 재충전되었습니다. 스트레스 만땅이었는데 완전 회복!
+                    </p>
+                    <div class="review-images">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=200&q=80" alt="발리 여행 사진 1">
+                    </div>
+                    <div class="review-footer">
+                        <span class="review-date">2024.02.08 작성</span>
+                        <span class="review-helpful">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+                            도움이 됐어요 (38)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <button class="nav-btn">이전</button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button class="nav-btn">다음</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Reviews -->
+    <section class="video-reviews">
+        <div class="section-header">
+            <span class="section-badge">영상 후기</span>
+            <h2>고객님들의 생생한 여행 영상</h2>
+            <p>블루오션과 함께한 특별한 순간들을 영상으로 만나보세요</p>
+        </div>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80" alt="몰디브 영상">
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3>몰디브 허니문 브이로그</h3>
+                    <p>김민지님 | 조회수 12.5K</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80" alt="오사카 영상">
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3>오사카 먹방 투어 VLOG</h3>
+                    <p>박성훈님 | 조회수 8.3K</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80" alt="이탈리아 영상">
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3>이탈리아 7박 8일 여행기</h3>
+                    <p>정현우님 | 조회수 15.2K</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Write Review CTA -->
+    <section class="write-review">
+        <h2>여행 후기를 남겨주세요</h2>
+        <p>블루오션과 함께한 소중한 여행 경험을 다른 분들과 나눠주세요</p>
+        <a href="contact.html" class="write-btn">후기 작성하기</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo-text">블루<span>오션</span></div>
+                <p>블루오션 여행사는 2004년 설립 이래 고객님께 최고의 여행 경험을 선사하기 위해 노력하고 있습니다. 프리미엄 여행의 새로운 기준을 만들어 갑니다.</p>
+                <div class="social-links">
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+                    <a href="#"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>여행 상품</h4>
+                <ul>
+                    <li><a href="tours.html">국내 여행</a></li>
+                    <li><a href="tours.html">해외 여행</a></li>
+                    <li><a href="tours.html">허니문</a></li>
+                    <li><a href="tours.html">가족 여행</a></li>
+                    <li><a href="tours.html">골프 여행</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>고객 지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="booking.html">예약하기</a></li>
+                    <li><a href="#">취소/환불 안내</a></li>
+                    <li><a href="#">여행자 보험</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>회사 정보</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="#">이용 약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                    <li><a href="#">제휴 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-contact">
+                <h4>연락처</h4>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> 1588-0000</p>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> info@blueocean.co.kr</p>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> 서울시 강남구 테헤란로 123</p>
+                <p><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 블루오션 여행사. All Rights Reserved. | 사업자등록번호: 123-45-67890 | 관광사업등록번호: 제2024-000001호</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            const toggle = document.querySelector('.mobile-toggle');
+            menu.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const reviewCards = document.querySelectorAll('.review-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                reviewCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Helpful button toggle
+        document.querySelectorAll('.review-helpful').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.color = 'var(--primary-blue)';
+            });
+        });
+    </script>
+</body>
+</html>

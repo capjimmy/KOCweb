@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펫토피아 동물병원 - 24시간 응급진료</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF9A56;
+            --primary-orange-light: #FFB885;
+            --primary-teal: #4ECDC4;
+            --primary-teal-light: #7EDDD6;
+            --white: #FFFFFF;
+            --cream: #FFF9F5;
+            --gray-light: #F5F5F5;
+            --gray: #888888;
+            --gray-dark: #333333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 0 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--gray-dark);
+        }
+
+        .logo-text span {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-orange);
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+            transition: var(--transition);
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--gray-dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            display: flex;
+            align-items: center;
+            padding: 60px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🐾';
+            position: absolute;
+            top: 20%;
+            left: 5%;
+            font-size: 100px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '🐕';
+            position: absolute;
+            bottom: 15%;
+            right: 10%;
+            font-size: 80px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--white);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .badge.emergency {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            color: var(--white);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 154, 86, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 154, 86, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-teal);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--primary-teal);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-teal);
+            color: var(--white);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            padding: 30px 5%;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .emergency-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .emergency-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .emergency-phone {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+        }
+
+        /* Services Section */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 span {
+            color: var(--primary-orange);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--cream), var(--white));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--gray-dark);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Doctor Preview */
+        .doctors-preview {
+            background: var(--white);
+        }
+
+        .doctors-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .doctor-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 20px;
+            background: var(--cream);
+            transition: var(--transition);
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .doctor-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .doctor-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .doctor-card .specialty {
+            color: var(--primary-teal);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .doctor-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before,
+        .cta-section::after {
+            content: '🐾';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+        }
+
+        .cta-section::before {
+            top: -30px;
+            left: -30px;
+        }
+
+        .cta-section::after {
+            bottom: -30px;
+            right: -30px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-section .btn-primary {
+            background: var(--white);
+            color: var(--primary-orange);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer ul a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .doctors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .emergency-btn {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .doctors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        /* Decorative Paw Prints */
+        .paw-decoration {
+            position: fixed;
+            opacity: 0.05;
+            font-size: 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🐾</div>
+                <div class="logo-text">펫토피아 <span>동물병원</span></div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">병원소개</a></li>
+                <li><a href="services.html">진료안내</a></li>
+                <li><a href="facilities.html">시설안내</a></li>
+                <li><a href="reservation.html">예약하기</a></li>
+                <li><a href="contact.html">오시는길</a></li>
+            </ul>
+            <a href="tel:02-1234-5678" class="emergency-btn">
+                🚨 24시 응급: 02-1234-5678
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>
+                    소중한 가족의 건강을<br>
+                    <span>24시간</span> 책임집니다
+                </h1>
+                <p>
+                    펫토피아 동물병원은 최신 의료장비와 전문 수의사 팀이<br>
+                    여러분의 반려동물에게 최고의 의료 서비스를 제공합니다.
+                </p>
+                <div class="hero-badges">
+                    <div class="badge emergency">🚨 24시간 응급진료</div>
+                    <div class="badge">🏥 최신 의료장비</div>
+                    <div class="badge">👨‍⚕️ 전문 수의사 8명</div>
+                    <div class="badge">🅿️ 주차가능</div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="reservation.html" class="btn-primary">온라인 예약하기</a>
+                    <a href="services.html" class="btn-secondary">진료 서비스 보기</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=600&h=500&fit=crop" alt="수의사와 강아지">
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Banner -->
+    <section class="emergency-banner">
+        <h2>🚨 24시간 응급진료 운영중</h2>
+        <p>야간, 주말, 공휴일에도 언제든 연락주세요</p>
+        <div class="emergency-phone">📞 02-1234-5678</div>
+        <p>응급 상황 시 먼저 전화 후 내원해 주세요</p>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2>펫토피아 <span>진료 서비스</span></h2>
+            <p>사랑하는 반려동물을 위한 최상의 의료 서비스를 제공합니다</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏥</div>
+                <h3>일반진료</h3>
+                <p>기본 건강검진부터 내과 질환까지 꼼꼼하게 진료합니다</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔪</div>
+                <h3>외과수술</h3>
+                <p>중성화 수술, 종양제거 등 전문 외과 수술을 진행합니다</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🦷</div>
+                <h3>치과진료</h3>
+                <p>스케일링, 발치 등 치아 건강을 책임집니다</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💉</div>
+                <h3>예방접종</h3>
+                <p>필수 예방접종으로 소중한 생명을 보호합니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Preview -->
+    <section class="section doctors-preview">
+        <div class="section-header">
+            <h2>펫토피아 <span>의료진</span></h2>
+            <p>경험 많은 전문 수의사가 최선의 진료를 약속드립니다</p>
+        </div>
+        <div class="doctors-grid">
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face" alt="김민수 원장" class="doctor-image">
+                <h3>김민수 원장</h3>
+                <div class="specialty">외과 전문</div>
+                <p>서울대 수의학과 졸업<br>20년 임상 경력</p>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face" alt="이수진 부원장" class="doctor-image">
+                <h3>이수진 부원장</h3>
+                <div class="specialty">내과 전문</div>
+                <p>고려대 수의학과 졸업<br>15년 임상 경력</p>
+            </div>
+            <div class="doctor-card">
+                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=face" alt="박준혁 수의사" class="doctor-image">
+                <h3>박준혁 수의사</h3>
+                <div class="specialty">치과 전문</div>
+                <p>연세대 수의학과 졸업<br>10년 임상 경력</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>지금 바로 예약하세요</h2>
+        <p>온라인으로 간편하게 진료 예약을 하실 수 있습니다</p>
+        <a href="reservation.html" class="btn-primary">예약하기 →</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-text">펫토피아 <span style="color: var(--primary-orange);">동물병원</span></div>
+                <p>소중한 가족의 건강을 24시간 책임지는<br>믿을 수 있는 동물병원입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">📺</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+            <div>
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="services.html">일반진료</a></li>
+                    <li><a href="services.html">외과수술</a></li>
+                    <li><a href="services.html">치과진료</a></li>
+                    <li><a href="services.html">예방접종</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>병원안내</h4>
+                <ul>
+                    <li><a href="about.html">병원소개</a></li>
+                    <li><a href="facilities.html">시설안내</a></li>
+                    <li><a href="contact.html">오시는길</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>연락처</h4>
+                <ul>
+                    <li>📞 02-1234-5678</li>
+                    <li>📱 010-1234-5678</li>
+                    <li>📧 info@petopia.kr</li>
+                    <li>📍 서울시 강남구 테헤란로 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 펫토피아 동물병원. All rights reserved.</p>
+            <p>24시간 응급진료 운영 | 주차가능</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Scroll animation
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>

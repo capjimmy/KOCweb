@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그린어스 에코 | GreenEarth Eco - 지구를 위한 친환경 제품</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --leaf-green: #4A7C23;
+            --sage-green: #8FB573;
+            --sand: #E8DCC4;
+            --cream: #FAF7F2;
+            --sky-blue: #87CEEB;
+            --ocean-blue: #5BA4C9;
+            --earth-brown: #8B7355;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(45, 80, 22, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--leaf-green), var(--forest-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: "🌿";
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--forest-green);
+        }
+
+        .logo-text span {
+            color: var(--leaf-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--leaf-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--leaf-green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--forest-green);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.7), rgba(74, 124, 35, 0.6)),
+                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23FAF7F2' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'/%3E%3C/svg%3E") no-repeat bottom/cover;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--leaf-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--forest-green);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--forest-green);
+        }
+
+        /* Floating Leaves Animation */
+        .floating-leaf {
+            position: absolute;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .leaf-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .leaf-divider span {
+            font-size: 1.5rem;
+        }
+
+        .leaf-divider::before,
+        .leaf-divider::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--sage-green), transparent);
+        }
+
+        /* Categories Section */
+        .categories {
+            background: var(--white);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: var(--cream);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .category-content {
+            padding: 25px;
+        }
+
+        .category-content h3 {
+            font-size: 1.4rem;
+            color: var(--forest-green);
+            margin-bottom: 10px;
+        }
+
+        .category-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .category-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--sage-green);
+            border-radius: 50%;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Impact Stats */
+        .impact-stats {
+            background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .impact-stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-5 10-15 15-25 15 5 10 15 20 25 35 10-15 20-25 25-35-10 0-20-5-25-15z' fill='rgba(255,255,255,0.05)'/%3E%3C/svg%3E") repeat;
+            opacity: 0.5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Featured Products */
+        .featured-products {
+            background: var(--cream);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(45, 80, 22, 0.1);
+        }
+
+        .product-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .eco-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--leaf-green);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            color: var(--forest-green);
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--leaf-green);
+        }
+
+        /* Why Choose Us */
+        .why-us {
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--sage-green), var(--leaf-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .feature-item h3 {
+            font-size: 1.3rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .feature-item p {
+            color: var(--text-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(91, 164, 201, 0.9), rgba(135, 206, 235, 0.9)),
+                        url('https://images.unsplash.com/photo-1518173946687-a4c036bc3c45?w=1920') center/cover;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--forest-green);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--sage-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--sage-green);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--leaf-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                display: block;
+                margin: 10px auto;
+                text-align: center;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">GreenEarth <span>Eco</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">홈</a></li>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="products.html">제품</a></li>
+            <li><a href="shop.html">쇼핑</a></li>
+            <li><a href="impact.html">환경영향</a></li>
+            <li><a href="blog.html">블로그</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>지구를 위한 작은 선택,<br>큰 변화의 시작</h1>
+            <p>그린어스 에코는 일상 속 친환경 제품으로<br>지속 가능한 미래를 함께 만들어갑니다</p>
+            <a href="products.html" class="btn btn-primary">제품 둘러보기</a>
+            <a href="about.html" class="btn btn-secondary">우리의 이야기</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="section-title">
+            <h2>친환경 제품 카테고리</h2>
+            <div class="leaf-divider"><span>🌱</span></div>
+            <p>일상의 모든 순간을 친환경으로 채워보세요</p>
+        </div>
+        <div class="categories-grid">
+            <a href="products.html#home" class="category-card">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600" alt="홈 & 리빙">
+                <div class="category-content">
+                    <div class="category-icon">🏠</div>
+                    <h3>홈 & 리빙</h3>
+                    <p>자연과 함께하는 편안한 집. 친환경 청소용품, 재사용 가능한 생활용품으로 집안 곳곳을 깨끗하게.</p>
+                </div>
+            </a>
+            <a href="products.html#personal" class="category-card">
+                <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600" alt="퍼스널 케어">
+                <div class="category-content">
+                    <div class="category-icon">🧴</div>
+                    <h3>퍼스널 케어</h3>
+                    <p>피부에도, 지구에도 순한 제품. 천연 성분의 스킨케어와 바디케어 제품을 만나보세요.</p>
+                </div>
+            </a>
+            <a href="products.html#kitchen" class="category-card">
+                <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600" alt="주방용품">
+                <div class="category-content">
+                    <div class="category-icon">🍳</div>
+                    <h3>주방용품</h3>
+                    <p>지속 가능한 주방의 시작. 대나무, 스테인리스 스틸 등 친환경 소재의 주방용품.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section class="impact-stats">
+        <div class="section-title">
+            <h2 style="color: white;">함께 만든 변화</h2>
+            <div class="leaf-divider"><span>🌍</span></div>
+            <p style="color: rgba(255,255,255,0.9);">그린어스 에코와 고객 여러분이 함께 이뤄낸 환경 성과입니다</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">1,250,000</span>
+                <span class="stat-label">절감된 플라스틱 (kg)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">85,000</span>
+                <span class="stat-label">심은 나무 (그루)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">320,000</span>
+                <span class="stat-label">탄소 절감량 (톤)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">150,000+</span>
+                <span class="stat-label">에코 히어로 고객</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="section-title">
+            <h2>인기 친환경 제품</h2>
+            <div class="leaf-divider"><span>🌿</span></div>
+            <p>고객님들이 가장 사랑하는 그린어스 에코 베스트셀러</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=500" alt="대나무 칫솔 세트">
+                    <span class="eco-badge">베스트셀러</span>
+                </div>
+                <div class="product-info">
+                    <h3>대나무 칫솔 세트 (4개입)</h3>
+                    <p>100% 생분해 가능한 대나무 손잡이와 BPA-free 칫솔모</p>
+                    <span class="product-price">₩12,900</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500" alt="스테인리스 물병">
+                    <span class="eco-badge">인기상품</span>
+                </div>
+                <div class="product-info">
+                    <h3>스테인리스 스틸 물병 750ml</h3>
+                    <p>24시간 보온보냉, 일회용 플라스틱 병 대체</p>
+                    <span class="product-price">₩28,000</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500" alt="천연 비누 세트">
+                    <span class="eco-badge">NEW</span>
+                </div>
+                <div class="product-info">
+                    <h3>유기농 천연 비누 세트</h3>
+                    <p>팜오일 프리, 비건 인증, 제로웨이스트 포장</p>
+                    <span class="product-price">₩18,500</span>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=500" alt="실리콘 식품백">
+                    <span class="eco-badge">추천</span>
+                </div>
+                <div class="product-info">
+                    <h3>재사용 실리콘 식품백 세트</h3>
+                    <p>냉동 보관 가능, 전자레인지 사용 OK, 세척 용이</p>
+                    <span class="product-price">₩24,000</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="section-title">
+            <h2>그린어스 에코를 선택해야 하는 이유</h2>
+            <div class="leaf-divider"><span>✨</span></div>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🌱</div>
+                <h3>100% 친환경 소재</h3>
+                <p>모든 제품은 지구에 해를 끼치지 않는 천연 소재와 재활용 가능한 재료로 만들어집니다.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🐰</div>
+                <h3>동물실험 반대</h3>
+                <p>그린어스 에코의 어떤 제품도 동물실험을 거치지 않습니다. Cruelty-Free 인증.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📦</div>
+                <h3>제로웨이스트 포장</h3>
+                <p>플라스틱 없는 포장재, 재활용 가능한 박스, 생분해 가능한 완충재를 사용합니다.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌳</div>
+                <h3>1% for the Planet</h3>
+                <p>수익의 1%를 환경 보호 단체에 기부하여 지구를 되살리는 데 함께합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>지금 시작하세요</h2>
+        <p>작은 변화가 큰 차이를 만듭니다.<br>오늘부터 친환경 라이프스타일을 시작해보세요.</p>
+        <a href="products.html" class="btn btn-primary">쇼핑 시작하기</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <span>🌿 GreenEarth Eco</span>
+                </div>
+                <p>그린어스 에코는 지속 가능한 미래를 위해 친환경 제품을 제공하는 기업입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품</a>
+                <a href="impact.html">환경영향</a>
+                <a href="blog.html">블로그</a>
+            </div>
+            <div class="footer-section">
+                <h4>고객지원</h4>
+                <a href="contact.html">문의하기</a>
+                <a href="shop.html">쇼핑</a>
+                <a href="#">배송 안내</a>
+                <a href="#">교환/반품</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📍 서울특별시 강남구 테헤란로 123</p>
+                <p>📞 02-1234-5678</p>
+                <p>✉️ hello@greenearth-eco.kr</p>
+                <p>🕐 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 그린어스 에코 (GreenEarth Eco). All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(45, 80, 22, 0.15)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(45, 80, 22, 0.1)';
+            }
+        });
+
+        // Animate numbers on scroll
+        const animateNumbers = () => {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent.replace(/[^0-9]/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    stat.textContent = Math.floor(current).toLocaleString() + (stat.textContent.includes('+') ? '+' : '');
+                }, 20);
+            });
+        };
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('impact-stats')) {
+                        animateNumbers();
+                    }
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

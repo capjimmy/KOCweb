@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시설안내 - 펫토피아 동물병원</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF9A56;
+            --primary-orange-light: #FFB885;
+            --primary-teal: #4ECDC4;
+            --primary-teal-light: #7EDDD6;
+            --white: #FFFFFF;
+            --cream: #FFF9F5;
+            --gray-light: #F5F5F5;
+            --gray: #888888;
+            --gray-dark: #333333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 0 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--gray-dark);
+        }
+
+        .logo-text span {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+            transition: var(--transition);
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--gray-dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '🏥';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        .page-header::after {
+            content: '🐾';
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 span {
+            color: var(--primary-orange);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Facility Overview */
+        .overview-section {
+            background: var(--white);
+        }
+
+        .overview-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .overview-card {
+            text-align: center;
+            padding: 40px 25px;
+            background: var(--cream);
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .overview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+
+        .overview-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+
+        .overview-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .overview-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Facility Tour */
+        .tour-section {
+            background: var(--cream);
+        }
+
+        .facility-item {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .facility-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .facility-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .facility-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .facility-images {
+            position: relative;
+        }
+
+        .facility-main-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .facility-thumb {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 5px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .facility-item:nth-child(even) .facility-thumb {
+            right: auto;
+            left: -30px;
+        }
+
+        .facility-content {
+            padding: 20px 0;
+        }
+
+        .facility-number {
+            font-family: 'Nunito', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .facility-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--gray-dark);
+        }
+
+        .facility-content > p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .facility-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .facility-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: var(--white);
+            border-radius: 10px;
+            font-size: 0.95rem;
+        }
+
+        .facility-feature .icon {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-teal-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background: var(--white);
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-label {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: var(--white);
+            font-weight: 500;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .gallery-item:hover .gallery-label {
+            opacity: 1;
+        }
+
+        /* Virtual Tour CTA */
+        .virtual-tour {
+            background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light));
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .virtual-tour::before,
+        .virtual-tour::after {
+            content: '🐾';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+        }
+
+        .virtual-tour::before {
+            top: -30px;
+            left: -30px;
+        }
+
+        .virtual-tour::after {
+            bottom: -30px;
+            right: -30px;
+        }
+
+        .virtual-tour h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .virtual-tour p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-teal);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer ul a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .facility-item {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .facility-item:nth-child(even) {
+                direction: ltr;
+            }
+
+            .facility-thumb {
+                right: 20px;
+                bottom: -20px;
+                width: 120px;
+                height: 120px;
+            }
+
+            .facility-item:nth-child(even) .facility-thumb {
+                left: auto;
+                right: 20px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .emergency-btn {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .facility-features {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 1;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .virtual-tour h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🐾</div>
+                <div class="logo-text">펫토피아 <span>동물병원</span></div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">병원소개</a></li>
+                <li><a href="services.html">진료안내</a></li>
+                <li><a href="facilities.html" class="active">시설안내</a></li>
+                <li><a href="reservation.html">예약하기</a></li>
+                <li><a href="contact.html">오시는길</a></li>
+            </ul>
+            <a href="tel:02-1234-5678" class="emergency-btn">
+                🚨 24시 응급: 02-1234-5678
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>시설안내</h1>
+        <p>최신 시설과 편안한 환경에서 최상의 진료를</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a>
+            <span>›</span>
+            <span>시설안내</span>
+        </div>
+    </section>
+
+    <!-- Facility Overview -->
+    <section class="section overview-section">
+        <div class="section-header">
+            <h2>펫토피아 <span>시설 한눈에 보기</span></h2>
+            <p>반려동물과 보호자 모두를 위한 편안한 공간</p>
+        </div>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <div class="overview-icon">🏥</div>
+                <h3>진료실 5개</h3>
+                <p>쾌적하고 청결한 개별 진료실</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🔪</div>
+                <h3>수술실 3개</h3>
+                <p>무균 환경의 최신 수술실</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🛏️</div>
+                <h3>입원실 20병상</h3>
+                <p>24시간 모니터링 입원 시설</p>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🅿️</div>
+                <h3>주차 30대</h3>
+                <p>넓은 무료 주차 공간</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facility Tour -->
+    <section class="section tour-section">
+        <div class="section-header">
+            <h2>시설 <span>둘러보기</span></h2>
+            <p>펫토피아의 주요 시설을 소개합니다</p>
+        </div>
+
+        <!-- Reception & Waiting Area -->
+        <div class="facility-item">
+            <div class="facility-images">
+                <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&h=400&fit=crop" alt="접수 및 대기실" class="facility-main-image">
+                <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=200&fit=crop" alt="대기실 상세" class="facility-thumb">
+            </div>
+            <div class="facility-content">
+                <div class="facility-number">01</div>
+                <h3>접수 및 대기실</h3>
+                <p>
+                    넓고 밝은 대기실에서 편안하게 진료를 기다리실 수 있습니다.
+                    분리된 대기 공간으로 강아지와 고양이가 서로 스트레스 없이
+                    대기할 수 있도록 배려했습니다.
+                </p>
+                <div class="facility-features">
+                    <div class="facility-feature">
+                        <div class="icon">🐕</div>
+                        <span>강아지 전용 대기 공간</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">🐈</div>
+                        <span>고양이 전용 대기 공간</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">📺</div>
+                        <span>반려동물 교육 영상</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">☕</div>
+                        <span>보호자 음료 서비스</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Examination Rooms -->
+        <div class="facility-item">
+            <div class="facility-images">
+                <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&h=400&fit=crop" alt="진료실" class="facility-main-image">
+                <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=200&h=200&fit=crop" alt="진료 장비" class="facility-thumb">
+            </div>
+            <div class="facility-content">
+                <div class="facility-number">02</div>
+                <h3>진료실</h3>
+                <p>
+                    5개의 독립된 진료실에서 프라이버시를 보장하며 상담과 진료를
+                    진행합니다. 각 진료실에는 최신 진단 장비가 구비되어 있어
+                    신속하고 정확한 진료가 가능합니다.
+                </p>
+                <div class="facility-features">
+                    <div class="facility-feature">
+                        <div class="icon">🔬</div>
+                        <span>최신 진단 장비</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">💻</div>
+                        <span>전자 차트 시스템</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">🔇</div>
+                        <span>방음 설계</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">🌡️</div>
+                        <span>항온 환경 유지</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Surgery Room -->
+        <div class="facility-item">
+            <div class="facility-images">
+                <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&h=400&fit=crop" alt="수술실" class="facility-main-image">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=200&h=200&fit=crop" alt="수술 장비" class="facility-thumb">
+            </div>
+            <div class="facility-content">
+                <div class="facility-number">03</div>
+                <h3>수술실</h3>
+                <p>
+                    3개의 무균 수술실에서 안전한 수술을 진행합니다.
+                    최첨단 마취 모니터링 시스템으로 수술 중 환자의 상태를
+                    실시간으로 체크하며, 응급 상황에도 즉시 대응 가능합니다.
+                </p>
+                <div class="facility-features">
+                    <div class="facility-feature">
+                        <div class="icon">🧪</div>
+                        <span>무균 환경 유지</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">💓</div>
+                        <span>실시간 생체 모니터링</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">🔦</div>
+                        <span>무영등 조명</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">🎥</div>
+                        <span>수술 영상 기록</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ICU & Hospitalization -->
+        <div class="facility-item">
+            <div class="facility-images">
+                <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=600&h=400&fit=crop" alt="입원실" class="facility-main-image">
+                <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=200&h=200&fit=crop" alt="환자 케어" class="facility-thumb">
+            </div>
+            <div class="facility-content">
+                <div class="facility-number">04</div>
+                <h3>입원실 & 중환자실</h3>
+                <p>
+                    20개의 입원 병상과 중환자 전용 ICU를 운영하고 있습니다.
+                    24시간 전담 스태프가 상주하여 입원 환자를 지속적으로
+                    모니터링하고 케어합니다.
+                </p>
+                <div class="facility-features">
+                    <div class="facility-feature">
+                        <div class="icon">🌡️</div>
+                        <span>개별 온도 조절</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">📹</div>
+                        <span>CCTV 실시간 확인</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">🧑‍⚕️</div>
+                        <span>24시간 간호 서비스</span>
+                    </div>
+                    <div class="facility-feature">
+                        <div class="icon">🍽️</div>
+                        <span>맞춤형 식이 관리</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery-section">
+        <div class="section-header">
+            <h2>시설 <span>갤러리</span></h2>
+            <p>펫토피아 동물병원의 다양한 시설을 사진으로 만나보세요</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=600&h=600&fit=crop" alt="수의사 진료">
+                <span class="gallery-label">수의사 진료</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop" alt="진료 모습">
+                <span class="gallery-label">진료 모습</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=300&h=300&fit=crop" alt="대기실">
+                <span class="gallery-label">대기실</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=300&h=300&fit=crop" alt="예방접종">
+                <span class="gallery-label">예방접종실</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1606567595334-d39972c85dfd?w=300&h=300&fit=crop" alt="약국">
+                <span class="gallery-label">약국</span>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&h=300&fit=crop" alt="행복한 반려동물">
+                <span class="gallery-label">행복한 환자들</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Tour CTA -->
+    <section class="virtual-tour">
+        <h2>직접 방문하셔서 확인하세요</h2>
+        <p>온라인 예약 후 방문하시면 시설 투어를 제공해 드립니다</p>
+        <a href="reservation.html" class="btn-primary">예약하기 →</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-text">펫토피아 <span style="color: var(--primary-orange);">동물병원</span></div>
+                <p>소중한 가족의 건강을 24시간 책임지는<br>믿을 수 있는 동물병원입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">📺</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+            <div>
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="services.html">일반진료</a></li>
+                    <li><a href="services.html">외과수술</a></li>
+                    <li><a href="services.html">치과진료</a></li>
+                    <li><a href="services.html">예방접종</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>병원안내</h4>
+                <ul>
+                    <li><a href="about.html">병원소개</a></li>
+                    
+                    <li><a href="facilities.html">시설안내</a></li>
+                    <li><a href="contact.html">오시는길</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>연락처</h4>
+                <ul>
+                    <li>📞 02-1234-5678</li>
+                    <li>📱 010-1234-5678</li>
+                    <li>📧 info@petopia.kr</li>
+                    <li>📍 서울시 강남구 테헤란로 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 펫토피아 동물병원. All rights reserved.</p>
+            <p>24시간 응급진료 운영 | 주차가능</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>

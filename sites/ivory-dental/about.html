@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>치과소개 | 아이보리 치과</title>
+    <meta name="description" content="아이보리 치과 소개 - 최신 장비와 쾌적한 시설, 환자 중심의 진료 철학으로 건강한 미소를 선물합니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-mint: #5CBFB3;
+            --primary-mint-light: #A8DDD6;
+            --primary-mint-dark: #3A9A8E;
+            --gold: #C9A962;
+            --gold-light: #E5D4A1;
+            --ivory: #FFFFF0;
+            --ivory-dark: #F5F5DC;
+            --white: #FFFFFF;
+            --off-white: #F9FAFB;
+            --gray-50: #F8F9FA;
+            --gray-100: #F1F3F5;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-400: #CED4DA;
+            --gray-500: #ADB5BD;
+            --gray-600: #868E96;
+            --gray-700: #495057;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-800);
+            background-color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--white);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--primary-mint);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 10px 18px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-mint);
+            background: var(--gray-50);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark)) !important;
+            color: var(--white) !important;
+            margin-left: 8px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark)) !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--gray-700);
+            transition: var(--transition);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 160px 24px 80px;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--white) 50%, var(--primary-mint-light) 100%);
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+        }
+
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--gray-500);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-mint);
+        }
+
+        .breadcrumb span {
+            color: var(--gray-400);
+        }
+
+        .breadcrumb .current {
+            color: var(--primary-mint);
+            font-weight: 500;
+        }
+
+        /* Section Common */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-mint-light), var(--primary-mint));
+            color: var(--white);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Intro */
+        .about-intro {
+            background: var(--white);
+        }
+
+        .intro-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .intro-image {
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=1000&fit=crop') center/cover no-repeat;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+        }
+
+        .intro-image svg {
+            display: none;
+        }
+
+        .intro-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .intro-content h2 span {
+            color: var(--primary-mint);
+        }
+
+        .intro-content p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            line-height: 1.9;
+            margin-bottom: 24px;
+        }
+
+        .intro-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+
+        .highlight-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-mint-light), var(--primary-mint));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .highlight-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--white);
+        }
+
+        .highlight-item span {
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: var(--gray-50);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .philosophy-card {
+            background: var(--white);
+            padding: 48px 36px;
+            border-radius: 24px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--gray-100);
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .philosophy-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 28px;
+            background: linear-gradient(135deg, var(--primary-mint-light), var(--primary-mint));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .philosophy-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--white);
+        }
+
+        .philosophy-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+        }
+
+        .philosophy-card p {
+            font-size: 1rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        /* Facilities Section */
+        .facilities {
+            background: var(--white);
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .facility-card {
+            background: var(--gray-50);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .facility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .facility-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-mint-dark), var(--primary-mint));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .facility-image svg {
+            display: none;
+        }
+
+        .facility-card:nth-child(1) .facility-image {
+            background: url('https://images.unsplash.com/photo-1516549655169-df83a0774514?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .facility-card:nth-child(2) .facility-image {
+            background: url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .facility-card:nth-child(3) .facility-image {
+            background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .facility-card:nth-child(4) .facility-image {
+            background: url('https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .facility-card:nth-child(5) .facility-image {
+            background: url('https://images.unsplash.com/photo-1629909615184-74f495363b67?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .facility-card:nth-child(6) .facility-image {
+            background: url('https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .facility-content {
+            padding: 28px;
+        }
+
+        .facility-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 10px;
+        }
+
+        .facility-content p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Timeline Section */
+        .history {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+            color: var(--white);
+        }
+
+        .history .section-tag {
+            background: rgba(92, 191, 179, 0.2);
+            color: var(--primary-mint);
+        }
+
+        .history .section-title {
+            color: var(--white);
+        }
+
+        .history .section-desc {
+            color: var(--gray-400);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: calc(50% - 40px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-mint);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid var(--gray-900);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-mint);
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-mint) 0%, var(--primary-mint-dark) 100%);
+            text-align: center;
+            color: var(--white);
+            padding: 80px 24px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-primary {
+            background: var(--white);
+            color: var(--primary-mint-dark);
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 16px 36px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .cta-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 60px 24px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-name {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-mint);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-mint);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .intro-container {
+                gap: 48px;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .facilities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                height: 70px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .intro-container {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-image {
+                height: 350px;
+            }
+
+            .intro-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 50px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5 6 8c0 4 6 10 6 10s6-6 6-10c0-3-2.5-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">아이보리 치과</span>
+                    <span class="logo-sub">IVORY DENTAL CLINIC</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">홈</a>
+                <a href="about.html" class="active">치과소개</a>
+                <a href="services.html">진료과목</a>
+                <a href="contact.html" class="nav-cta">예약문의</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <a href="index.html">홈</a>
+            <a href="about.html">치과소개</a>
+            <a href="services.html">진료과목</a>
+            <a href="contact.html">예약문의</a>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="breadcrumb">
+            <a href="index.html">홈</a>
+            <span>/</span>
+            <span class="current">치과소개</span>
+        </div>
+        <h1>아이보리 치과 소개</h1>
+        <p>환자 중심의 편안하고 안전한 진료로 건강한 미소를 선물합니다</p>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="section-container">
+            <div class="intro-container">
+                <div class="intro-image fade-in">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5 6 8c0 4 6 10 6 10s6-6 6-10c0-3-2.5-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                </div>
+                <div class="intro-content fade-in">
+                    <h2>환자의 <span>건강한 미소</span>를 위해<br>항상 최선을 다합니다</h2>
+                    <p>
+                        아이보리 치과는 2009년 개원 이래 환자 중심의 진료 철학을 바탕으로
+                        최상의 치료 결과를 제공하기 위해 노력해 왔습니다.
+                    </p>
+                    <p>
+                        최신 의료 장비와 숙련된 의료진, 쾌적한 진료 환경을 갖추고
+                        환자 한 분 한 분께 맞춤형 치료를 제공합니다.
+                        아이보리 치과에서 편안하고 안전한 진료를 경험해 보세요.
+                    </p>
+                    <div class="intro-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            </div>
+                            <span>15년+ 진료 경력</span>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            </div>
+                            <span>10,000+ 누적 환자</span>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                            </div>
+                            <span>98% 환자 만족도</span>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                            </div>
+                            <span>철저한 멸균 시스템</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Philosophy</span>
+                <h2 class="section-title">진료 철학</h2>
+                <p class="section-desc">아이보리 치과가 추구하는 3가지 핵심 가치입니다</p>
+            </div>
+            <div class="philosophy-grid">
+                <div class="philosophy-card fade-in">
+                    <div class="philosophy-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <h3>환자 중심 진료</h3>
+                    <p>환자분의 입장에서 생각하고, 충분한 상담을 통해 최적의 치료 계획을 수립합니다. 진료 과정에서 환자분의 편안함을 최우선으로 생각합니다.</p>
+                </div>
+                <div class="philosophy-card fade-in">
+                    <div class="philosophy-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                    </div>
+                    <h3>안전한 진료 환경</h3>
+                    <p>철저한 멸균 시스템과 감염 관리 프로토콜을 통해 안전한 진료 환경을 제공합니다. 모든 진료 기구는 1회용 또는 완벽 멸균 처리됩니다.</p>
+                </div>
+                <div class="philosophy-card fade-in">
+                    <div class="philosophy-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                    </div>
+                    <h3>최신 기술 적용</h3>
+                    <p>지속적인 학술 연구와 최신 치료 기법 도입을 통해 환자분께 최상의 치료 결과를 제공합니다. 3D CT, 디지털 스캐너 등 첨단 장비를 구비하고 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Facilities</span>
+                <h2 class="section-title">시설 및 장비</h2>
+                <p class="section-desc">최신 의료 장비와 쾌적한 진료 환경을 갖추고 있습니다</p>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-card fade-in">
+                    <div class="facility-image">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.49L17.5 6.5 9.99 9.99 6.5 17.5z"/></svg>
+                    </div>
+                    <div class="facility-content">
+                        <h3>3D CT 촬영기</h3>
+                        <p>정밀한 3차원 영상으로 정확한 진단과 치료 계획을 수립합니다</p>
+                    </div>
+                </div>
+                <div class="facility-card fade-in">
+                    <div class="facility-image">
+                        <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+                    </div>
+                    <div class="facility-content">
+                        <h3>디지털 스캐너</h3>
+                        <p>구강 내 정밀 스캔으로 편리하고 정확한 보철 제작이 가능합니다</p>
+                    </div>
+                </div>
+                <div class="facility-card fade-in">
+                    <div class="facility-image">
+                        <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                    </div>
+                    <div class="facility-content">
+                        <h3>멸균 시스템</h3>
+                        <p>철저한 멸균 소독으로 안전한 진료 환경을 제공합니다</p>
+                    </div>
+                </div>
+                <div class="facility-card fade-in">
+                    <div class="facility-image">
+                        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5z"/></svg>
+                    </div>
+                    <div class="facility-content">
+                        <h3>디지털 현미경</h3>
+                        <p>고배율 확대로 미세한 부분까지 정밀한 치료가 가능합니다</p>
+                    </div>
+                </div>
+                <div class="facility-card fade-in">
+                    <div class="facility-image">
+                        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1z"/></svg>
+                    </div>
+                    <div class="facility-content">
+                        <h3>프리미엄 진료실</h3>
+                        <p>개인 프라이버시가 보장되는 편안한 독립 진료공간입니다</p>
+                    </div>
+                </div>
+                <div class="facility-card fade-in">
+                    <div class="facility-image">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                    </div>
+                    <div class="facility-content">
+                        <h3>무통 마취 시스템</h3>
+                        <p>통증 없는 편안한 치료를 위한 최신 무통 마취 장비입니다</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">History</span>
+                <h2 class="section-title">아이보리 치과의 발자취</h2>
+                <p class="section-desc">환자분들과 함께 걸어온 시간입니다</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-title">누적 환자 10,000명 돌파</div>
+                        <div class="timeline-desc">꾸준한 신뢰를 바탕으로 누적 환자 10,000명을 돌파했습니다</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-title">최신 진료 시스템 도입</div>
+                        <div class="timeline-desc">3D CT, 디지털 스캐너 등 최신 진료 장비를 도입했습니다</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-title">임플란트 센터 확장</div>
+                        <div class="timeline-desc">임플란트 전문 진료 센터로 확장 이전했습니다</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2009</div>
+                        <div class="timeline-title">아이보리 치과 개원</div>
+                        <div class="timeline-desc">서울 강남 압구정에 아이보리 치과를 개원했습니다</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container fade-in">
+            <h2>건강한 미소, 지금 시작하세요</h2>
+            <p>편안하고 안전한 진료 환경에서 전문 의료진과 함께 최상의 치료를 경험해 보세요</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-btn-primary">온라인 예약하기</a>
+                <a href="tel:02-2222-3333" class="cta-btn-secondary">전화 상담: 02-2222-3333</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5 6 8c0 4 6 10 6 10s6-6 6-10c0-3-2.5-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-name">아이보리 치과</span>
+                            <span class="logo-sub">IVORY DENTAL CLINIC</span>
+                        </div>
+                    </a>
+                    <p>심미/임플란트 전문 치과<br>환자 중심의 편안하고 안전한 진료로<br>건강한 미소를 선물합니다.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>진료안내</h4>
+                    <ul>
+                        <li><a href="services.html">진료과목</a></li>
+                        <li><a href="about.html">시설안내</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>진료시간</h4>
+                    <ul>
+                        <li><a href="contact.html">평일 09:30-18:30</a></li>
+                        <li><a href="contact.html">토요일 09:30-14:00</a></li>
+                        <li><a href="contact.html">점심 13:00-14:00</a></li>
+                        <li><a href="contact.html">일요일/공휴일 휴진</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>문의</h4>
+                    <ul>
+                        <li><a href="tel:02-2222-3333">02-2222-3333</a></li>
+                        <li><a href="mailto:smile@ivory-dental.kr">smile@ivory-dental.kr</a></li>
+                        <li><a href="contact.html">온라인 예약</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2024 아이보리 치과. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Blog">
+                        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.18 1.897-.962 6.502-1.36 8.627-.168.9-.5 1.2-.82 1.23-.697.064-1.226-.46-1.9-.903-1.056-.692-1.653-1.123-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.178a.57.57 0 01.165.378c.01.1.023.293.013.452z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="스마트팜 테크 문의하기 - IoT 기반 스마트팜 시스템 상담 및 기술 지원">
+    <meta name="keywords" content="스마트팜, IoT, 농업기술, 스마트농업, 상담, 문의">
+    <title>문의하기 | 스마트팜 테크</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2ECC71;
+            --dark-green: #1B8A4C;
+            --tech-blue: #0984E3;
+            --dark-blue: #0652DD;
+            --gradient-green: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            --gradient-blue: linear-gradient(135deg, #0984E3 0%, #0652DD 100%);
+            --gradient-mixed: linear-gradient(135deg, #2ECC71 0%, #0984E3 100%);
+            --dark-bg: #0A1628;
+            --darker-bg: #050D1A;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glow-green: 0 0 40px rgba(46, 204, 113, 0.3);
+            --glow-blue: 0 0 40px rgba(9, 132, 227, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(46, 204, 113, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(9, 132, 227, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(46, 204, 113, 0.05) 0%, transparent 40%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+
+        /* Grid Pattern Overlay */
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(46, 204, 113, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(46, 204, 113, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-mixed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            box-shadow: var(--glow-green);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-mixed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 12px 28px;
+            background: var(--gradient-mixed);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 160px 40px 80px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .page-title .highlight {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 40px 120px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 35px;
+            transition: all 0.4s ease;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(46, 204, 113, 0.3);
+            transform: translateY(-5px);
+            box-shadow: var(--glow-green);
+        }
+
+        .contact-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-card-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--gradient-mixed);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2);
+        }
+
+        .contact-card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .contact-card-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .contact-card-content a {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card-content a:hover {
+            color: var(--tech-blue);
+        }
+
+        .contact-card-content strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Business Hours */
+        .hours-list {
+            margin-top: 15px;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            color: var(--text-secondary);
+        }
+
+        .hours-time {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* Map Card */
+        .map-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .map-card:hover {
+            border-color: rgba(46, 204, 113, 0.3);
+            box-shadow: var(--glow-green);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--darker-bg), var(--dark-bg));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: var(--text-muted);
+        }
+
+        .map-placeholder i {
+            font-size: 3rem;
+            color: var(--primary-green);
+        }
+
+        .map-placeholder span {
+            font-size: 0.9rem;
+        }
+
+        .map-address {
+            padding: 25px;
+        }
+
+        .map-address h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .map-address p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 50px;
+        }
+
+        .form-header {
+            margin-bottom: 40px;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label .required {
+            color: var(--primary-green);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            background: rgba(46, 204, 113, 0.05);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.1);
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 45px;
+        }
+
+        .form-select option {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .checkbox-input {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .checkbox-input:checked {
+            background: var(--gradient-mixed);
+            border-color: transparent;
+        }
+
+        .checkbox-input:checked::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-size: 12px;
+            color: white;
+        }
+
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .checkbox-label a {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            padding: 18px 40px;
+            background: var(--gradient-mixed);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 25px rgba(46, 204, 113, 0.3);
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(-1px);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 40px;
+            background: var(--darker-bg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(46, 204, 113, 0.3);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .faq-question i {
+            color: var(--primary-green);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-content {
+            padding: 0 30px 25px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--dark-bg);
+            padding: 100px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            background: var(--gradient-mixed);
+            border-radius: 30px;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-primary {
+            padding: 18px 40px;
+            background: white;
+            color: var(--dark-green);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-btn-secondary {
+            padding: 18px 40px;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            padding: 80px 40px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            max-width: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-mixed);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu,
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 140px 20px 60px;
+            }
+
+            .contact-section {
+                padding: 40px 20px 80px;
+            }
+
+            .contact-form-wrapper {
+                padding: 35px 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .faq-section {
+                padding: 60px 20px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .cta-container {
+                padding: 60px 30px;
+            }
+
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .contact-card {
+                padding: 25px;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--darker-bg);
+            z-index: 2000;
+            padding: 100px 40px 40px;
+            transition: right 0.4s ease;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary-green);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Success Message */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 60px 30px;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-mixed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 30px;
+            box-shadow: var(--glow-green);
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-reset {
+            padding: 14px 30px;
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-pattern"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-seedling"></i></div>
+                <span class="logo-text">스마트팜 테크</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="solutions.html">솔루션</a></li>
+                <li><a href="technology.html">기술/제품</a></li>
+                <li><a href="contact.html" class="active">문의하기</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">상담 신청</a>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileClose"><i class="fas fa-times"></i></button>
+        <ul>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="solutions.html">솔루션</a></li>
+            <li><a href="technology.html">기술/제품</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-content animate-on-scroll">
+            <div class="page-badge">
+                <i class="fas fa-envelope"></i>
+                <span>Contact Us</span>
+            </div>
+            <h1 class="page-title">
+                <span class="highlight">스마트팜</span> 전문가에게<br>
+                문의하세요
+            </h1>
+            <p class="page-description">
+                스마트팜 도입부터 기술 지원까지, 전문 컨설턴트가 친절하게 상담해 드립니다.
+            </p>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-card-header">
+                        <div class="contact-card-icon"><i class="fas fa-phone-alt"></i></div>
+                        <h3 class="contact-card-title">전화 문의</h3>
+                    </div>
+                    <div class="contact-card-content">
+                        <p><strong>대표전화:</strong> <a href="tel:1588-0000">1588-0000</a></p>
+                        <p><strong>기술지원:</strong> <a href="tel:1588-0001">1588-0001</a></p>
+                        <p><strong>팩스:</strong> 02-1234-5679</p>
+                    </div>
+                </div>
+
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-card-header">
+                        <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                        <h3 class="contact-card-title">이메일 문의</h3>
+                    </div>
+                    <div class="contact-card-content">
+                        <p><strong>일반 문의:</strong> <a href="mailto:info@smartfarm-tech.kr">info@smartfarm-tech.kr</a></p>
+                        <p><strong>기술 지원:</strong> <a href="mailto:support@smartfarm-tech.kr">support@smartfarm-tech.kr</a></p>
+                        <p><strong>제휴 문의:</strong> <a href="mailto:partner@smartfarm-tech.kr">partner@smartfarm-tech.kr</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-card animate-on-scroll">
+                    <div class="contact-card-header">
+                        <div class="contact-card-icon"><i class="fas fa-clock"></i></div>
+                        <h3 class="contact-card-title">운영 시간</h3>
+                    </div>
+                    <div class="contact-card-content">
+                        <div class="hours-list">
+                            <div class="hours-item">
+                                <span class="hours-day">월요일 - 금요일</span>
+                                <span class="hours-time">09:00 - 18:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="hours-day">토요일</span>
+                                <span class="hours-time">10:00 - 14:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="hours-day">일요일/공휴일</span>
+                                <span class="hours-time">휴무</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-card animate-on-scroll">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>지도 영역</span>
+                    </div>
+                    <div class="map-address">
+                        <h4><i class="fas fa-building"></i> 본사</h4>
+                        <p>서울특별시 강남구 테헤란로 123, 스마트팜 빌딩 8층</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper animate-on-scroll">
+                <div class="form-header">
+                    <h2 class="form-title">상담 신청</h2>
+                    <p class="form-subtitle">아래 양식을 작성해 주시면 빠른 시일 내에 연락드리겠습니다.</p>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                이름 <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" placeholder="홍길동" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                회사/농장명
+                            </label>
+                            <input type="text" class="form-input" placeholder="스마트 농장">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                이메일 <span class="required">*</span>
+                            </label>
+                            <input type="email" class="form-input" placeholder="example@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                연락처 <span class="required">*</span>
+                            </label>
+                            <input type="tel" class="form-input" placeholder="010-1234-5678" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            문의 유형 <span class="required">*</span>
+                        </label>
+                        <select class="form-select" required>
+                            <option value="">문의 유형을 선택해 주세요</option>
+                            <option value="consultation">스마트팜 도입 상담</option>
+                            <option value="estimate">견적 문의</option>
+                            <option value="technical">기술 지원</option>
+                            <option value="partnership">제휴/협력 문의</option>
+                            <option value="as">A/S 신청</option>
+                            <option value="other">기타 문의</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            재배 작물
+                        </label>
+                        <select class="form-select">
+                            <option value="">재배 작물을 선택해 주세요 (선택사항)</option>
+                            <option value="vegetable">채소류 (토마토, 파프리카, 상추 등)</option>
+                            <option value="fruit">과일류 (딸기, 멜론, 포도 등)</option>
+                            <option value="flower">화훼류</option>
+                            <option value="mushroom">버섯류</option>
+                            <option value="seedling">육묘/종자</option>
+                            <option value="other">기타</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            농장 규모
+                        </label>
+                        <select class="form-select">
+                            <option value="">농장 규모를 선택해 주세요 (선택사항)</option>
+                            <option value="small">소규모 (1,000평 미만)</option>
+                            <option value="medium">중규모 (1,000평 ~ 5,000평)</option>
+                            <option value="large">대규모 (5,000평 ~ 10,000평)</option>
+                            <option value="enterprise">대형 (10,000평 이상)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            문의 내용 <span class="required">*</span>
+                        </label>
+                        <textarea class="form-textarea" placeholder="문의하실 내용을 상세히 적어주세요." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" class="checkbox-input" id="privacy" required>
+                            <label class="checkbox-label" for="privacy">
+                                <a href="#">개인정보 수집 및 이용</a>에 동의합니다. <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" class="checkbox-input" id="marketing">
+                            <label class="checkbox-label" for="marketing">
+                                마케팅 정보 수신에 동의합니다. (선택)
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        문의하기
+                    </button>
+                </form>
+
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon"><i class="fas fa-check"></i></div>
+                    <h3 class="success-title">문의가 접수되었습니다!</h3>
+                    <p class="success-message">빠른 시일 내에 담당자가 연락드리겠습니다.<br>감사합니다.</p>
+                    <button class="btn-reset" id="resetForm">새 문의 작성하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-label">
+                    <i class="fas fa-question-circle"></i>
+                    FAQ
+                </div>
+                <h2 class="section-title">자주 묻는 질문</h2>
+                <p class="section-subtitle">스마트팜 도입 전 궁금한 점을 확인해 보세요.</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        <h4>스마트팜 시스템 도입 비용은 얼마인가요?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            스마트팜 시스템 도입 비용은 농장 규모, 재배 작물, 필요한 기능에 따라 달라집니다.
+                            기본적인 환경 모니터링 시스템부터 완전 자동화 시스템까지 다양한 옵션을 제공하고 있으며,
+                            정확한 견적은 무료 현장 컨설팅을 통해 안내해 드립니다. 정부 지원금 활용도 가능합니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        <h4>기존 시설에도 스마트팜 시스템을 설치할 수 있나요?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            네, 가능합니다. 저희 시스템은 기존 비닐하우스나 유리온실에도 쉽게 설치할 수 있도록 설계되었습니다.
+                            현장 조사를 통해 기존 시설물과의 호환성을 확인하고, 최적의 설치 방안을 제안해 드립니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        <h4>설치 후 기술 지원은 어떻게 받을 수 있나요?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            24시간 원격 모니터링과 기술 지원 콜센터를 운영하고 있습니다.
+                            긴급 상황 시 원격으로 문제를 진단하고 해결하며, 필요시 현장 방문 서비스도 제공합니다.
+                            또한 정기적인 시스템 점검과 교육 프로그램도 함께 운영하고 있습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        <h4>스마트팜 운영에 특별한 기술이 필요한가요?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            아니요, 스마트폰 사용이 가능한 분이라면 누구나 쉽게 운영할 수 있습니다.
+                            직관적인 모바일 앱과 웹 대시보드를 제공하며, 설치 후 충분한 교육을 진행합니다.
+                            또한 AI가 최적의 재배 환경을 자동으로 유지해주기 때문에 전문 지식 없이도 효율적인 농장 운영이 가능합니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        <h4>정부 지원금을 받을 수 있나요?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            네, 스마트팜 도입 시 다양한 정부 지원 사업을 활용할 수 있습니다.
+                            농림축산식품부의 스마트팜 확산 사업, 지자체별 농업 현대화 지원 사업 등을 통해
+                            설치비의 상당 부분을 지원받을 수 있습니다. 지원금 신청 절차도 저희가 도와드립니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container animate-on-scroll">
+            <div class="cta-content">
+                <h2>전화 상담을 원하시나요?</h2>
+                <p>전문 상담사가 친절하게 안내해 드립니다. 지금 바로 연락주세요!</p>
+                <div class="cta-buttons">
+                    <a href="tel:1588-0000" class="cta-btn-primary">
+                        <i class="fas fa-phone-alt"></i>
+                        1588-0000
+                    </a>
+                    <a href="solutions.html" class="cta-btn-secondary">
+                        <i class="fas fa-cubes"></i>
+                        솔루션 둘러보기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon"><i class="fas fa-seedling"></i></div>
+                        <span class="logo-text">스마트팜 테크</span>
+                    </a>
+                    <p>IoT 기반 스마트팜 시스템으로 농업의 미래를 선도합니다.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-blog"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>메뉴</h4>
+                    <ul>
+                        <li><a href="about.html">회사소개</a></li>
+                        <li><a href="solutions.html">솔루션</a></li>
+                        <li><a href="technology.html">기술/제품</a></li>
+                        <li><a href="contact.html">문의하기</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>솔루션</h4>
+                    <ul>
+                        <li><a href="solutions.html">환경 모니터링</a></li>
+                        <li><a href="solutions.html">자동 제어 시스템</a></li>
+                        <li><a href="solutions.html">데이터 분석</a></li>
+                        <li><a href="solutions.html">AI 병해충 감지</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">기술 지원</a></li>
+                        <li><a href="contact.html">자주 묻는 질문</a></li>
+                        <li><a href="contact.html">설치 가이드</a></li>
+                        <li><a href="contact.html">A/S 신청</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 스마트팜 테크. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileClose = document.getElementById('mobileClose');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileToggle.addEventListener('click', openMobileMenu);
+        mobileClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking nav links
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Scroll Animation
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        animateElements.forEach(el => observer.observe(el));
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all FAQ items
+                faqItems.forEach(faq => faq.classList.remove('active'));
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+        const resetFormBtn = document.getElementById('resetForm');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Hide form and show success message
+            contactForm.style.display = 'none';
+            document.querySelector('.form-header').style.display = 'none';
+            formSuccess.classList.add('show');
+
+            // Scroll to success message
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        resetFormBtn.addEventListener('click', () => {
+            // Reset form and show it again
+            contactForm.reset();
+            contactForm.style.display = 'flex';
+            document.querySelector('.form-header').style.display = 'block';
+            formSuccess.classList.remove('show');
+        });
+
+        // Phone number formatting
+        const phoneInput = document.querySelector('input[type="tel"]');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, '');
+
+                if (value.length > 3 && value.length <= 7) {
+                    value = value.slice(0, 3) + '-' + value.slice(3);
+                } else if (value.length > 7) {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+                }
+
+                e.target.value = value;
+            });
+        }
+    </script>
+</body>
+</html>

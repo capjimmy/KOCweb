@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포트폴리오 | 블루웨이브 테크놀로지</title>
+    <meta name="description" content="블루웨이브 테크놀로지의 성공적인 프로젝트 사례를 확인하세요. 클라우드 마이그레이션, 시스템 개발, AI 솔루션 등 다양한 포트폴리오를 제공합니다.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #00a8ff;
+            --primary-purple: #9c27b0;
+            --dark-bg: #0a0a1a;
+            --dark-surface: #12122a;
+            --dark-card: #1a1a3a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --gradient-1: linear-gradient(135deg, #00a8ff 0%, #9c27b0 100%);
+            --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glow-blue: 0 0 40px rgba(0, 168, 255, 0.3);
+            --glow-purple: 0 0 40px rgba(156, 39, 176, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 4px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.7rem 5%;
+            background: rgba(10, 10, 26, 0.95);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.7rem 1.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .page-header {
+            position: relative;
+            padding: 180px 5% 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary-blue);
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-purple);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .page-badge span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .page-title .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid rgba(0, 168, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        #portfolio-filter {
+            background: var(--dark-surface);
+            padding-bottom: 0;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--dark-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: white;
+        }
+
+        #portfolio-main {
+            background: var(--dark-surface);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, var(--dark-card));
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 168, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.8rem;
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            padding: 0.2rem 0.6rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        #case-study {
+            background: var(--dark-bg);
+        }
+
+        .case-study-card {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--dark-card);
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .case-study-header {
+            padding: 3rem;
+            background: var(--gradient-1);
+            position: relative;
+        }
+
+        .case-study-header h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .case-study-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .case-study-content {
+            padding: 3rem;
+        }
+
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .case-study-section h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .case-study-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .case-study-section ul {
+            list-style: none;
+        }
+
+        .case-study-section li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .case-study-section li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+        }
+
+        .case-study-results {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .result-item {
+            text-align: center;
+        }
+
+        .result-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        #clients {
+            background: var(--dark-surface);
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .client-item {
+            background: var(--dark-card);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .client-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .client-logo {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .client-item span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        #testimonials {
+            background: var(--dark-bg);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--dark-card);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            font-size: 5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .author-info h5 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        #cta {
+            background: var(--dark-surface);
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--dark-card);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .cta-container p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-blue);
+        }
+
+        footer {
+            background: var(--dark-bg);
+            padding: 4rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .case-study-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .clients-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--dark-surface);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .clients-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 5%;
+            }
+
+            .page-header {
+                padding: 140px 5% 60px;
+            }
+
+            .case-study-header,
+            .case-study-content {
+                padding: 2rem;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-container {
+                padding: 2rem;
+            }
+
+            .cta-container h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">BlueWave Tech</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html" class="active">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">Get Started</a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div id="canvas-container"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="page-header-content">
+            <div class="page-badge">
+                <span>Our Portfolio</span>
+            </div>
+            <h1 class="page-title">
+                성공적인<br>
+                <span class="gradient-text">프로젝트 사례</span>
+            </h1>
+            <p class="page-subtitle">
+                다양한 산업 분야에서 성공적으로 완료한 프로젝트들을 확인하세요.
+            </p>
+        </div>
+    </header>
+
+    <section id="portfolio-filter">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">전체</button>
+            <button class="filter-btn" data-filter="cloud">클라우드</button>
+            <button class="filter-btn" data-filter="software">소프트웨어</button>
+            <button class="filter-btn" data-filter="ai">AI/데이터</button>
+            <button class="filter-btn" data-filter="security">보안</button>
+        </div>
+    </section>
+
+    <section id="portfolio-main">
+        <div class="portfolio-grid">
+            <div class="portfolio-card" data-category="cloud">
+                <div class="portfolio-image">&#9729;</div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">클라우드 마이그레이션</span>
+                    <h3>대형 금융사 클라우드 전환</h3>
+                    <p>온프레미스 시스템을 AWS 클라우드로 전면 이전하여 운영 비용 40% 절감</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Terraform</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card" data-category="software">
+                <div class="portfolio-image">&#128187;</div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">소프트웨어 개발</span>
+                    <h3>이커머스 플랫폼 구축</h3>
+                    <p>일일 100만 트래픽을 처리하는 대규모 이커머스 플랫폼 개발</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card" data-category="ai">
+                <div class="portfolio-image">&#128202;</div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">AI/데이터</span>
+                    <h3>AI 기반 고객 분석 시스템</h3>
+                    <p>머신러닝을 활용한 고객 행동 예측 시스템으로 마케팅 ROI 200% 향상</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Spark</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card" data-category="security">
+                <div class="portfolio-image">&#128274;</div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">보안</span>
+                    <h3>제조업 보안 체계 구축</h3>
+                    <p>종합 보안 솔루션 도입으로 사이버 공격 대응 능력 강화</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">SIEM</span>
+                        <span class="tech-tag">WAF</span>
+                        <span class="tech-tag">Zero Trust</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card" data-category="cloud">
+                <div class="portfolio-image">&#9729;</div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">클라우드</span>
+                    <h3>하이브리드 클라우드 구축</h3>
+                    <p>온프레미스와 클라우드 통합 환경 구축으로 유연성 확보</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">VMware</span>
+                        <span class="tech-tag">Ansible</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card" data-category="software">
+                <div class="portfolio-image">&#128241;</div>
+                <div class="portfolio-content">
+                    <span class="portfolio-category">소프트웨어</span>
+                    <h3>헬스케어 모바일 앱</h3>
+                    <p>환자 관리 시스템과 연동된 모바일 헬스케어 앱 개발</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">HL7 FHIR</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="case-study">
+        <div class="section-header">
+            <span class="section-tag">Case Study</span>
+            <h2 class="section-title">대표 성공 사례</h2>
+        </div>
+        <div class="case-study-card">
+            <div class="case-study-header">
+                <h3>국내 Top 5 금융사 클라우드 전환 프로젝트</h3>
+                <p>레거시 시스템을 클라우드 네이티브 아키텍처로 전면 재구축</p>
+            </div>
+            <div class="case-study-content">
+                <div class="case-study-grid">
+                    <div class="case-study-section">
+                        <h4>도전 과제</h4>
+                        <ul>
+                            <li>20년 이상 운영된 레거시 코어뱅킹 시스템</li>
+                            <li>24/7 무중단 운영 필수</li>
+                            <li>금융 규제 컴플라이언스 준수</li>
+                            <li>대규모 데이터 마이그레이션 (500TB+)</li>
+                        </ul>
+                    </div>
+                    <div class="case-study-section">
+                        <h4>솔루션</h4>
+                        <ul>
+                            <li>마이크로서비스 아키텍처 적용</li>
+                            <li>Blue-Green 배포 전략으로 무중단 전환</li>
+                            <li>AWS 금융 클라우드 활용</li>
+                            <li>실시간 데이터 동기화 파이프라인 구축</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="case-study-results">
+                    <h4 style="text-align: center; margin-bottom: 2rem; color: var(--primary-blue);">프로젝트 성과</h4>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-number">40%</div>
+                            <div class="result-label">운영 비용 절감</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-number">99.99%</div>
+                            <div class="result-label">시스템 가용성</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-number">3x</div>
+                            <div class="result-label">처리 속도 향상</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-number">0</div>
+                            <div class="result-label">다운타임</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clients">
+        <div class="section-header">
+            <span class="section-tag">Our Clients</span>
+            <h2 class="section-title">신뢰하는 고객사</h2>
+            <p class="section-desc">
+                다양한 산업의 선도 기업들이 블루웨이브를 선택했습니다
+            </p>
+        </div>
+        <div class="clients-grid">
+            <div class="client-item">
+                <div class="client-logo">&#127970;</div>
+                <span>금융사 A</span>
+            </div>
+            <div class="client-item">
+                <div class="client-logo">&#127981;</div>
+                <span>제조사 B</span>
+            </div>
+            <div class="client-item">
+                <div class="client-logo">&#128722;</div>
+                <span>리테일 C</span>
+            </div>
+            <div class="client-item">
+                <div class="client-logo">&#127973;</div>
+                <span>헬스케어 D</span>
+            </div>
+            <div class="client-item">
+                <div class="client-logo">&#128187;</div>
+                <span>IT 기업 E</span>
+            </div>
+            <div class="client-item">
+                <div class="client-logo">&#128666;</div>
+                <span>물류사 F</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="section-header">
+            <span class="section-tag">Testimonials</span>
+            <h2 class="section-title">고객 후기</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p class="testimonial-text">
+                        "블루웨이브 팀과 함께한 클라우드 마이그레이션은 우리 회사의 디지털 전환에 있어
+                        결정적인 전환점이 되었습니다. 전문성과 헌신적인 자세에 깊이 감사드립니다."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">&#128104;</div>
+                        <div class="author-info">
+                            <h5>김영호</h5>
+                            <p>금융사 A CTO</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p class="testimonial-text">
+                        "AI 기반 분석 시스템 도입 후 고객 이탈률이 30% 감소했습니다.
+                        데이터 기반 의사결정이 가능해져 마케팅 효율이 크게 향상되었습니다."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">&#128105;</div>
+                        <div class="author-info">
+                            <h5>이수진</h5>
+                            <p>리테일 C 마케팅 본부장</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta">
+        <div class="cta-container">
+            <h2>다음 성공 사례의 주인공이 되세요</h2>
+            <p>
+                블루웨이브 테크놀로지와 함께<br>
+                성공적인 디지털 전환을 시작하세요.
+            </p>
+            <a href="contact.html" class="btn-primary">
+                프로젝트 문의하기
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">BlueWave Tech</a>
+                <p>
+                    클라우드 엔터프라이즈 솔루션으로<br>
+                    비즈니스의 디지털 전환을 이끕니다.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="LinkedIn">in</a>
+                    <a href="#" class="social-link" title="GitHub">GH</a>
+                    <a href="#" class="social-link" title="Twitter">X</a>
+                    <a href="#" class="social-link" title="YouTube">YT</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">클라우드 마이그레이션</a></li>
+                    <li><a href="services.html">소프트웨어 개발</a></li>
+                    <li><a href="services.html">데이터 분석</a></li>
+                    <li><a href="services.html">보안 솔루션</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>회사</h4>
+                <ul>
+                    <li><a href="about.html">회사 소개</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="#">블로그</a></li>
+                    <li><a href="#">채용 정보</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">기술 문서</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 블루웨이브 테크놀로지. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function initParticles() {
+            const container = document.getElementById('canvas-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+            renderer.setSize(window.innerWidth, window.innerHeight * 0.6);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 2000;
+            const posArray = new Float32Array(particlesCount * 3);
+            const colorsArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i += 3) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+                posArray[i + 1] = (Math.random() - 0.5) * 10;
+                posArray[i + 2] = (Math.random() - 0.5) * 10;
+
+                const t = Math.random();
+                colorsArray[i] = 0 + t * 0.61;
+                colorsArray[i + 1] = 0.66 - t * 0.51;
+                colorsArray[i + 2] = 1 - t * 0.31;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            camera.position.z = 3;
+
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particlesMesh.rotation.x += 0.001;
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += mouseY * 0.005;
+                particlesMesh.rotation.y += mouseX * 0.005;
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight * 0.6);
+            });
+        }
+
+        function initFilter() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.dataset.filter;
+
+                    portfolioCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                            gsap.from(card, { opacity: 0, y: 30, duration: 0.5 });
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        function initAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) {
+                    document.querySelector('.navbar').classList.add('scrolled');
+                } else {
+                    document.querySelector('.navbar').classList.remove('scrolled');
+                }
+            });
+
+            gsap.from('.page-badge', { opacity: 0, y: 30, duration: 1, delay: 0.3 });
+            gsap.from('.page-title', { opacity: 0, y: 50, duration: 1, delay: 0.5 });
+            gsap.from('.page-subtitle', { opacity: 0, y: 30, duration: 1, delay: 0.7 });
+
+            gsap.utils.toArray('.section-header').forEach(header => {
+                gsap.from(header, {
+                    scrollTrigger: {
+                        trigger: header,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8
+                });
+            });
+
+            gsap.utils.toArray('.portfolio-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 60,
+                    duration: 0.6,
+                    delay: i * 0.1
+                });
+            });
+
+            gsap.from('.case-study-card', {
+                scrollTrigger: {
+                    trigger: '.case-study-card',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8
+            });
+
+            gsap.utils.toArray('.client-item').forEach((item, i) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.4,
+                    delay: i * 0.05
+                });
+            });
+
+            gsap.utils.toArray('.testimonial-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.6,
+                    delay: i * 0.15
+                });
+            });
+
+            gsap.from('.cta-container', {
+                scrollTrigger: {
+                    trigger: '.cta-container',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8
+            });
+        }
+
+        function initMobileMenu() {
+            const toggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    toggle.classList.remove('active');
+                });
+            });
+        }
+
+        function hideLoader() {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 800);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initParticles();
+            initFilter();
+            initAnimations();
+            initMobileMenu();
+            hideLoader();
+        });
+    </script>
+</body>
+</html>

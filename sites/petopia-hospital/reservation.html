@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약하기 - 펫토피아 동물병원</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF9A56;
+            --primary-orange-light: #FFB885;
+            --primary-teal: #4ECDC4;
+            --primary-teal-light: #7EDDD6;
+            --white: #FFFFFF;
+            --cream: #FFF9F5;
+            --gray-light: #F5F5F5;
+            --gray: #888888;
+            --gray-dark: #333333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 0 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--gray-dark);
+        }
+
+        .logo-text span {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-orange);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-orange);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+            transition: var(--transition);
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--gray-dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            padding: 80px 5%;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '📅';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        .page-header::after {
+            content: '🐾';
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 span {
+            color: var(--primary-orange);
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Reservation Section */
+        .reservation-section {
+            background: var(--white);
+        }
+
+        .reservation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Reservation Form */
+        .reservation-form {
+            background: var(--cream);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--gray-dark);
+        }
+
+        .form-group label .required {
+            color: #FF6B6B;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .pet-type-selector {
+            display: flex;
+            gap: 15px;
+        }
+
+        .pet-type-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .pet-type-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .pet-type-option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: var(--white);
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pet-type-option label:hover {
+            border-color: var(--primary-teal);
+        }
+
+        .pet-type-option input:checked + label {
+            border-color: var(--primary-teal);
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .pet-type-option .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .service-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: var(--white);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkbox-option:hover {
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .checkbox-option input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-teal);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 154, 86, 0.5);
+        }
+
+        /* Reservation Info Sidebar */
+        .reservation-info {
+            position: sticky;
+            top: 100px;
+        }
+
+        .info-card {
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--gray-dark);
+        }
+
+        .info-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card ul li .icon {
+            width: 25px;
+            height: 25px;
+            background: var(--primary-teal-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .emergency-card {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: var(--white);
+        }
+
+        .emergency-card h3 {
+            color: var(--white);
+        }
+
+        .emergency-card ul li {
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+        }
+
+        .emergency-card ul li .icon {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .emergency-phone {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Reservation Steps */
+        .steps-section {
+            background: var(--cream);
+        }
+
+        .steps-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-card::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -15px;
+            width: 30px;
+            height: 3px;
+            background: var(--primary-orange);
+        }
+
+        .step-card:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin: 0 auto 20px;
+        }
+
+        .step-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer ul a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-orange);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .reservation-container {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-info {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .step-card::after {
+                display: none;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .emergency-btn {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .reservation-form {
+                padding: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .service-checkboxes {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-info {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🐾</div>
+                <div class="logo-text">펫토피아 <span>동물병원</span></div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">병원소개</a></li>
+                <li><a href="services.html">진료안내</a></li>
+                
+                <li><a href="facilities.html">시설안내</a></li>
+                <li><a href="reservation.html" class="active">예약하기</a></li>
+                <li><a href="contact.html">오시는길</a></li>
+            </ul>
+            <a href="tel:02-1234-5678" class="emergency-btn">
+                🚨 24시 응급: 02-1234-5678
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>온라인 예약</h1>
+        <p>편리하게 진료 예약을 신청하세요</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a>
+            <span>></span>
+            <span>예약하기</span>
+        </div>
+    </section>
+
+    <!-- Reservation Steps -->
+    <section class="section steps-section">
+        <div class="section-header">
+            <h2>예약 <span>진행 절차</span></h2>
+            <p>간단한 4단계로 예약을 완료하세요</p>
+        </div>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>예약 신청</h4>
+                <p>온라인 폼을 작성하여<br>예약을 신청합니다</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>확인 연락</h4>
+                <p>병원에서 예약 확인<br>전화를 드립니다</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>예약 확정</h4>
+                <p>예약 일시가<br>최종 확정됩니다</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h4>병원 방문</h4>
+                <p>예약 시간에<br>내원해 주세요</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Form Section -->
+    <section class="section reservation-section">
+        <div class="reservation-container">
+            <div class="reservation-form">
+                <h2 class="form-title">📝 예약 신청서</h2>
+                <form id="reservationForm" onsubmit="handleSubmit(event)">
+                    <!-- Pet Type -->
+                    <div class="form-group">
+                        <label>반려동물 종류 <span class="required">*</span></label>
+                        <div class="pet-type-selector">
+                            <div class="pet-type-option">
+                                <input type="radio" name="petType" id="dog" value="dog" required>
+                                <label for="dog">
+                                    <span class="icon">🐕</span>
+                                    강아지
+                                </label>
+                            </div>
+                            <div class="pet-type-option">
+                                <input type="radio" name="petType" id="cat" value="cat">
+                                <label for="cat">
+                                    <span class="icon">🐈</span>
+                                    고양이
+                                </label>
+                            </div>
+                            <div class="pet-type-option">
+                                <input type="radio" name="petType" id="other" value="other">
+                                <label for="other">
+                                    <span class="icon">🐾</span>
+                                    기타
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pet Info -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petName">반려동물 이름 <span class="required">*</span></label>
+                            <input type="text" id="petName" name="petName" placeholder="예: 초코" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="petBreed">품종</label>
+                            <input type="text" id="petBreed" name="petBreed" placeholder="예: 말티즈">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petAge">나이</label>
+                            <input type="text" id="petAge" name="petAge" placeholder="예: 3살">
+                        </div>
+                        <div class="form-group">
+                            <label for="petWeight">몸무게 (kg)</label>
+                            <input type="text" id="petWeight" name="petWeight" placeholder="예: 4.5">
+                        </div>
+                    </div>
+
+                    <!-- Guardian Info -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guardianName">보호자 성함 <span class="required">*</span></label>
+                            <input type="text" id="guardianName" name="guardianName" placeholder="예: 홍길동" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">연락처 <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="예: 010-1234-5678" required>
+                        </div>
+                    </div>
+
+                    <!-- Date and Time -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">희망 날짜 <span class="required">*</span></label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">희망 시간 <span class="required">*</span></label>
+                            <select id="time" name="time" required>
+                                <option value="">시간 선택</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09:30">09:30</option>
+                                <option value="10:00">10:00</option>
+                                <option value="10:30">10:30</option>
+                                <option value="11:00">11:00</option>
+                                <option value="11:30">11:30</option>
+                                <option value="14:00">14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                                <option value="17:30">17:30</option>
+                                <option value="18:00">18:00</option>
+                                <option value="18:30">18:30</option>
+                                <option value="19:00">19:00</option>
+                                <option value="19:30">19:30</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Service Selection -->
+                    <div class="form-group">
+                        <label>진료 항목 (복수 선택 가능)</label>
+                        <div class="service-checkboxes">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" value="general">
+                                일반 진료
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" value="vaccination">
+                                예방 접종
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" value="checkup">
+                                건강 검진
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" value="dental">
+                                치과 진료
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" value="surgery">
+                                수술 상담
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="services" value="other">
+                                기타
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Selection -->
+                    <div class="form-group">
+                        <label for="doctor">담당 수의사 (선택)</label>
+                        <select id="doctor" name="doctor">
+                            <option value="">상관없음</option>
+                            <option value="kim">김민수 원장 (외과)</option>
+                            <option value="lee">이수진 부원장 (내과)</option>
+                            <option value="park">박준혁 수의사 (치과)</option>
+                            <option value="choi">최유진 수의사 (피부과)</option>
+                            <option value="jung">정현우 수의사 (정형외과)</option>
+                            <option value="han">한서영 수의사 (영상의학)</option>
+                            <option value="yoon">윤태호 수의사 (응급의학)</option>
+                        </select>
+                    </div>
+
+                    <!-- Symptoms -->
+                    <div class="form-group">
+                        <label for="symptoms">증상 및 요청사항</label>
+                        <textarea id="symptoms" name="symptoms" placeholder="반려동물의 증상이나 특이사항을 알려주세요"></textarea>
+                    </div>
+
+                    <!-- First Visit -->
+                    <div class="form-group">
+                        <label class="checkbox-option" style="background: transparent; padding: 0;">
+                            <input type="checkbox" name="firstVisit" value="yes">
+                            첫 방문입니다 (처음 내원하시는 분은 체크해 주세요)
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        예약 신청하기 📅
+                    </button>
+                </form>
+            </div>
+
+            <!-- Reservation Info Sidebar -->
+            <div class="reservation-info">
+                <div class="info-card">
+                    <h3>📋 예약 안내</h3>
+                    <ul>
+                        <li>
+                            <div class="icon">1</div>
+                            <span>예약은 최소 하루 전에 신청해 주세요</span>
+                        </li>
+                        <li>
+                            <div class="icon">2</div>
+                            <span>예약 확인 전화를 받으셔야 예약이 확정됩니다</span>
+                        </li>
+                        <li>
+                            <div class="icon">3</div>
+                            <span>예약 시간 10분 전까지 내원해 주세요</span>
+                        </li>
+                        <li>
+                            <div class="icon">4</div>
+                            <span>예약 변경/취소는 전화로 문의해 주세요</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>⏰ 진료 시간</h3>
+                    <ul>
+                        <li>
+                            <div class="icon">월</div>
+                            <span>평일: 09:00 - 20:00</span>
+                        </li>
+                        <li>
+                            <div class="icon">토</div>
+                            <span>토요일: 09:00 - 18:00</span>
+                        </li>
+                        <li>
+                            <div class="icon">일</div>
+                            <span>일요일: 10:00 - 17:00</span>
+                        </li>
+                        <li>
+                            <div class="icon">🍽</div>
+                            <span>점심시간: 13:00 - 14:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="info-card emergency-card">
+                    <h3>🚨 응급 진료</h3>
+                    <ul>
+                        <li>
+                            <div class="icon">!</div>
+                            <span>응급 상황은 예약 없이 즉시 내원 가능합니다</span>
+                        </li>
+                        <li>
+                            <div class="icon">!</div>
+                            <span>내원 전 전화 주시면 빠른 응급 조치가 가능합니다</span>
+                        </li>
+                    </ul>
+                    <div class="emergency-phone">📞 02-1234-5678</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-text">펫토피아 <span style="color: var(--primary-orange);">동물병원</span></div>
+                <p>소중한 가족의 건강을 24시간 책임지는<br>믿을 수 있는 동물병원입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">📺</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+            <div>
+                <h4>진료안내</h4>
+                <ul>
+                    <li><a href="services.html">일반진료</a></li>
+                    <li><a href="services.html">외과수술</a></li>
+                    <li><a href="services.html">치과진료</a></li>
+                    <li><a href="services.html">예방접종</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>병원안내</h4>
+                <ul>
+                    <li><a href="about.html">병원소개</a></li>
+                    
+                    <li><a href="facilities.html">시설안내</a></li>
+                    <li><a href="contact.html">오시는길</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>연락처</h4>
+                <ul>
+                    <li>📞 02-1234-5678</li>
+                    <li>📱 010-1234-5678</li>
+                    <li>📧 info@petopia.kr</li>
+                    <li>📍 서울시 강남구 테헤란로 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 펫토피아 동물병원. All rights reserved.</p>
+            <p>24시간 응급진료 운영 | 주차가능</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            }
+        });
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('date');
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateInput.min = tomorrow.toISOString().split('T')[0];
+        });
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Show confirmation
+            alert('예약 신청이 완료되었습니다!\n\n예약 확인을 위해 곧 연락드리겠습니다.\n감사합니다. 🐾');
+
+            // Reset form
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>

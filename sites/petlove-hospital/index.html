@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="펫러브 동물병원 - 24시간 응급진료 동물병원. 사랑과 정성으로 반려동물을 돌봅니다.">
+    <title>펫러브 동물병원 | 24시간 응급진료</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --pastel-blue: #A8D5E5;
+            --pastel-blue-dark: #7BC0D4;
+            --pastel-pink: #F8C8DC;
+            --pastel-pink-dark: #F0A0C0;
+            --pastel-mint: #B8E8D0;
+            --pastel-yellow: #FFF0C8;
+            --text-dark: #2D3748;
+            --text-gray: #5A6978;
+            --white: #FFFFFF;
+            --bg-light: #FAFCFE;
+            --shadow: 0 4px 20px rgba(168, 213, 229, 0.3);
+            --shadow-hover: 0 8px 30px rgba(168, 213, 229, 0.5);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background-color: var(--bg-light);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .logo-text span {
+            color: var(--pastel-blue-dark);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--pastel-pink), var(--pastel-blue));
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--pastel-blue-dark);
+        }
+
+        .emergency-btn {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(248, 200, 220, 0.4);
+        }
+
+        .emergency-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(248, 200, 220, 0.6);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(168, 213, 229, 0.3) 0%, rgba(248, 200, 220, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(248, 200, 220, 0.2) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(168, 213, 229, 0.2) 0%, transparent 70%);
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 .highlight {
+            background: linear-gradient(135deg, var(--pastel-pink-dark), var(--pastel-blue-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+
+        .badge i {
+            color: var(--pastel-pink-dark);
+        }
+
+        .badge.blue i {
+            color: var(--pastel-blue-dark);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(168, 213, 229, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(168, 213, 229, 0.7);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-pink) 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='rgba(255,255,255,0.1)' d='M100,10 C130,10 160,30 170,60 C180,90 170,120 150,140 C130,160 100,170 70,160 C40,150 20,120 15,90 C10,60 30,30 60,15 C80,5 90,10 100,10 Z'/%3E%3C/svg%3E") center/cover;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        .floating-card.card-1 {
+            top: 20px;
+            left: -30px;
+        }
+
+        .floating-card.card-2 {
+            bottom: 60px;
+            right: -20px;
+            animation-delay: -2s;
+        }
+
+        .floating-card .icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .floating-card .icon.pink {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
+        }
+
+        .floating-card .icon.blue {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
+        }
+
+        .floating-card .info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .floating-card .info p {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Quick Info Section */
+        .quick-info {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .quick-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .quick-info-card {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .quick-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .quick-info-card .icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+            color: white;
+        }
+
+        .quick-info-card:nth-child(1) .icon {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+        }
+
+        .quick-info-card:nth-child(2) .icon {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
+        }
+
+        .quick-info-card:nth-child(3) .icon {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
+        }
+
+        .quick-info-card:nth-child(4) .icon {
+            background: linear-gradient(135deg, var(--pastel-mint), #80D4B0);
+        }
+
+        .quick-info-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .quick-info-card p {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Services Preview Section */
+        .services-preview {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--bg-light) 0%, rgba(168, 213, 229, 0.1) 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(168, 213, 229, 0.3), rgba(248, 200, 220, 0.3));
+            color: var(--pastel-blue-dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 17px;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-preview-card {
+            background: white;
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pastel-pink), var(--pastel-blue));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .service-preview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-preview-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-preview-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .service-preview-card:nth-child(1) .service-preview-icon {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+        }
+
+        .service-preview-card:nth-child(2) .service-preview-icon {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
+        }
+
+        .service-preview-card:nth-child(3) .service-preview-icon {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-pink-dark));
+        }
+
+        .service-preview-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .service-preview-card p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .view-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-blue-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(168, 213, 229, 0.5);
+        }
+
+        .view-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(168, 213, 229, 0.7);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-pink) 100%);
+        }
+
+        .cta-content {
+            text-align: center;
+            color: white;
+        }
+
+        .cta-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .cta-btn.white {
+            background: white;
+            color: var(--text-dark);
+        }
+
+        .cta-btn.outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--pastel-pink);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 38px;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .hero-image {
+                height: 350px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .quick-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-preview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .emergency-btn {
+                display: none;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .quick-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-content h2 {
+                font-size: 28px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 30px;
+            }
+
+            .hero-icon {
+                font-size: 100px;
+            }
+
+            .badge {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-paw"></i>
+                </div>
+                <span class="logo-text">펫러브<span>동물병원</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">병원소개</a></li>
+                <li><a href="services.html">진료안내</a></li>
+                <li><a href="contact.html">예약문의</a></li>
+            </ul>
+            <a href="tel:02-1588-7788" class="emergency-btn">
+                <i class="fas fa-phone-alt"></i>
+                24시 응급진료
+            </a>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>
+                    사랑하는 반려동물의<br>
+                    <span class="highlight">건강한 행복</span>을 위해
+                </h1>
+                <p>
+                    24시간 응급진료 전문 동물병원, 펫러브 동물병원입니다.<br>
+                    최신 의료 장비와 전문 의료진이 여러분의 소중한 가족을 돌봅니다.
+                </p>
+                <div class="hero-badges">
+                    <div class="badge">
+                        <i class="fas fa-clock"></i>
+                        24시간 응급진료
+                    </div>
+                    <div class="badge blue">
+                        <i class="fas fa-hospital"></i>
+                        최신 의료시설
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-user-md"></i>
+                        전문 의료진
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-calendar-check"></i>
+                        예약하기
+                    </a>
+                    <a href="tel:02-1588-7788" class="btn-secondary">
+                        <i class="fas fa-phone-alt"></i>
+                        02-1588-7788
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=800&h=1000&fit=crop" alt="수의사가 강아지를 돌보는 모습">
+                </div>
+                <div class="floating-card card-1">
+                    <div class="icon pink">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="info">
+                        <h4>친절한 진료</h4>
+                        <p>반려동물과 보호자 배려</p>
+                    </div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="icon blue">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="info">
+                        <h4>정밀 검진</h4>
+                        <p>최첨단 의료장비</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Section -->
+    <section class="quick-info">
+        <div class="container">
+            <div class="quick-info-grid">
+                <div class="quick-info-card">
+                    <div class="icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24시간 운영</h3>
+                    <p>응급상황 발생시<br>언제든지 내원 가능</p>
+                </div>
+                <div class="quick-info-card">
+                    <div class="icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>전문 의료진</h3>
+                    <p>분야별 전문 수의사<br>3인 상주</p>
+                </div>
+                <div class="quick-info-card">
+                    <div class="icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>최신 시설</h3>
+                    <p>첨단 의료장비<br>완비</p>
+                </div>
+                <div class="quick-info-card">
+                    <div class="icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>정성 진료</h3>
+                    <p>사랑과 정성으로<br>진료합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="services-preview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">진료 안내</span>
+                <h2>전문 진료 서비스</h2>
+                <p>반려동물의 건강을 위한 체계적인 진료 시스템과 전문화된 의료 서비스를 제공합니다.</p>
+            </div>
+            <div class="services-preview-grid">
+                <div class="service-preview-card">
+                    <div class="service-preview-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3>24시간 응급진료</h3>
+                    <p>언제든지 발생할 수 있는 응급상황에 신속하게 대응합니다.</p>
+                </div>
+                <div class="service-preview-card">
+                    <div class="service-preview-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>내과 진료</h3>
+                    <p>소화기, 호흡기, 비뇨기 등 내과 질환에 대한 정밀 진단과 치료를 제공합니다.</p>
+                </div>
+                <div class="service-preview-card">
+                    <div class="service-preview-icon">
+                        <i class="fas fa-bone"></i>
+                    </div>
+                    <h3>외과 수술</h3>
+                    <p>일반 외과부터 정형외과까지 전문적인 수술 서비스를 제공합니다.</p>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="services.html" class="view-more-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    모든 진료 서비스 보기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>반려동물의 건강, 펫러브가 함께합니다</h2>
+                <p>온라인으로 간편하게 진료를 예약하세요. 24시간 응급진료도 가능합니다.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cta-btn white">
+                        <i class="fas fa-calendar-check"></i>
+                        온라인 예약하기
+                    </a>
+                    <a href="about.html" class="cta-btn outline">
+                        <i class="fas fa-info-circle"></i>
+                        병원 알아보기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <span class="logo-text">펫러브 동물병원</span>
+                    </a>
+                    <p>
+                        24시간 응급진료 전문 동물병원<br>
+                        사랑하는 반려동물의 건강한 행복을 위해<br>
+                        최선을 다하겠습니다.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-blog"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>진료 안내</h4>
+                    <ul>
+                        <li><a href="services.html">24시간 응급진료</a></li>
+                        <li><a href="services.html">내과 진료</a></li>
+                        <li><a href="services.html">외과 수술</a></li>
+                        <li><a href="services.html">영상 진단</a></li>
+                        <li><a href="services.html">예방 접종</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>병원 안내</h4>
+                    <ul>
+                        <li><a href="about.html">병원 소개</a></li>
+                        <li><a href="about.html">시설 안내</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>고객 센터</h4>
+                    <ul>
+                        <li><a href="tel:02-1588-7788">02-1588-7788</a></li>
+                        <li><a href="mailto:care@petlove.kr">care@petlove.kr</a></li>
+                        <li><a href="contact.html">진료 예약</a></li>
+                        <li><a href="#">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 펫러브 동물병원. All rights reserved. 서울시 송파구 올림픽로 300 | 대표: 박수의</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe elements
+        document.querySelectorAll('.quick-info-card, .service-preview-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

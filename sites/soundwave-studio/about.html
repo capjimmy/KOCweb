@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스튜디오 소개 | 사운드웨이브 스튜디오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0d0015;
+            --primary-purple: #1a0a2e;
+            --accent-purple: #6b21a8;
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --neon-blue: #06b6d4;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-neon: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-purple);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(13, 0, 21, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-neon);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8); }
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-neon);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--neon-purple);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 30px;
+            height: 3px;
+            background: var(--neon-purple);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 5% 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary-purple) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 30% 70%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--neon-purple);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .page-title span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--neon-purple);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Story Section */
+        .story {
+            background: var(--primary-purple);
+        }
+
+        .story-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+
+        .story-content h2 span {
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .story-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .story-image {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-purple) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            background: linear-gradient(180deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+        }
+
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-neon);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .timeline-content {
+            background: rgba(26, 10, 46, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            margin-right: 40px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 0;
+            margin-left: 40px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: -58px;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: auto;
+            left: -58px;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Facilities Section */
+        .facilities {
+            background: var(--primary-dark);
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .facility-card {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3);
+        }
+
+        .facility-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .facility-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .facility-content {
+            padding: 30px;
+        }
+
+        .facility-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .facility-content p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .facility-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .facility-features span {
+            padding: 6px 14px;
+            background: rgba(168, 85, 247, 0.15);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--neon-purple);
+        }
+
+        /* Team Section */
+        .team {
+            background: var(--primary-purple);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: rgba(26, 10, 46, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.2);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
+        }
+
+        .team-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            color: var(--neon-purple);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(180deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+            padding: 80px 5%;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px;
+            background: rgba(26, 10, 46, 0.4);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 20px;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-purple);
+            padding: 80px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-purple);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--neon-purple);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-purple);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .story-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .story-image {
+                height: 350px;
+            }
+
+            .facilities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--primary-purple);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .story-content h2 {
+                font-size: 2rem;
+            }
+
+            .timeline-container::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-content {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 0;
+            }
+
+            .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 10px;
+                right: auto;
+            }
+
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-music"></i>
+            </div>
+            <span class="logo-text">SOUNDWAVE</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html" class="active">소개</a></li>
+            <li><a href="services.html">서비스</a></li>
+            <li><a href="portfolio.html">포트폴리오</a></li>
+            <li><a href="contact.html">예약문의</a></li>
+        </ul>
+        <div class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-content">
+            <span class="page-badge">About Us</span>
+            <h1 class="page-title">스튜디오 <span>소개</span></h1>
+            <p class="page-description">
+                최고의 사운드를 향한 열정으로 15년간 달려온 사운드웨이브 스튜디오입니다
+            </p>
+        </div>
+    </header>
+
+    <!-- Story Section -->
+    <section class="story">
+        <div class="story-container">
+            <div class="story-content fade-in">
+                <h2>우리의 <span>이야기</span></h2>
+                <p>
+                    사운드웨이브 스튜디오는 2010년, 음악에 대한 순수한 열정을 가진 두 엔지니어의
+                    작은 꿈에서 시작되었습니다. 처음에는 10평 남짓한 작은 공간에서 시작했지만,
+                    음악을 사랑하는 마음과 완벽을 향한 집념으로 지금의 자리까지 오게 되었습니다.
+                </p>
+                <p>
+                    우리는 모든 아티스트의 음악에는 고유한 이야기가 담겨있다고 믿습니다.
+                    그래서 단순히 기술적인 녹음을 넘어, 그 이야기를 가장 아름답게 전달할 수 있는
+                    사운드를 만들기 위해 노력합니다.
+                </p>
+                <p>
+                    오늘날 사운드웨이브 스튜디오는 K-POP, OST, 광고 음악 등 다양한 분야에서
+                    500개가 넘는 프로젝트를 성공적으로 완수했으며, 국내 최정상급 아티스트들이
+                    신뢰하는 스튜디오로 자리매김했습니다.
+                </p>
+            </div>
+            <div class="story-image fade-in">
+                <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=800&q=80" alt="Sound engineer at mixing console">
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <div class="section-header fade-in">
+            <span class="section-badge">Our Journey</span>
+            <h2 class="section-title">사운드웨이브의 <span>발자취</span></h2>
+            <p class="section-subtitle">
+                작은 시작에서 프리미엄 스튜디오까지, 우리의 여정을 소개합니다
+            </p>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2010</div>
+                    <h3>스튜디오 설립</h3>
+                    <p>마포구 홍대에서 10평 규모의 작은 스튜디오로 시작. 인디 아티스트들과 함께 성장.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2013</div>
+                    <h3>첫 메이저 프로젝트</h3>
+                    <p>대형 기획사와 첫 앨범 작업. 이후 K-POP 시장에서 인지도 상승.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2016</div>
+                    <h3>상암동 이전</h3>
+                    <p>100평 규모의 새 스튜디오로 확장. SSL 콘솔 및 최신 장비 도입.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2019</div>
+                    <h3>Dolby Atmos 도입</h3>
+                    <p>국내 최초로 음악 전문 Dolby Atmos 믹싱룸 구축.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-content">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2024</div>
+                    <h3>500+ 프로젝트 달성</h3>
+                    <p>누적 500개 이상의 프로젝트 완료. 업계 최고의 스튜디오로 인정.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities">
+        <div class="section-header fade-in">
+            <span class="section-badge">Our Facilities</span>
+            <h2 class="section-title">최첨단 <span>스튜디오 시설</span></h2>
+            <p class="section-subtitle">
+                완벽한 사운드를 위한 프로페셔널 녹음 환경을 경험하세요
+            </p>
+        </div>
+        <div class="facilities-grid">
+            <div class="facility-card fade-in">
+                <div class="facility-image">
+                    <img src="https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=600&q=80" alt="Recording room with microphone">
+                </div>
+                <div class="facility-content">
+                    <h3>Recording Room A</h3>
+                    <p>80평 규모의 메인 녹음실로, 대규모 밴드 세션과 오케스트라 녹음이 가능합니다. 완벽한 방음과 음향 설계로 최상의 사운드를 제공합니다.</p>
+                    <div class="facility-features">
+                        <span>80평</span>
+                        <span>밴드 세션</span>
+                        <span>라이브 녹음</span>
+                    </div>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <div class="facility-image">
+                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=80" alt="Control room with mixing console">
+                </div>
+                <div class="facility-content">
+                    <h3>Control Room</h3>
+                    <p>SSL 콘솔과 최신 디지털 워크스테이션을 갖춘 컨트롤룸입니다. Dolby Atmos 믹싱 환경을 제공합니다.</p>
+                    <div class="facility-features">
+                        <span>SSL Console</span>
+                        <span>Pro Tools HDX</span>
+                        <span>Dolby Atmos</span>
+                    </div>
+                </div>
+            </div>
+            <div class="facility-card fade-in">
+                <div class="facility-image">
+                    <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&q=80" alt="Vocal booth with professional microphone">
+                </div>
+                <div class="facility-content">
+                    <h3>Vocal Booth</h3>
+                    <p>보컬 녹음에 최적화된 전용 부스입니다. Neumann, Sony 등 최고급 마이크 컬렉션을 보유하고 있습니다.</p>
+                    <div class="facility-features">
+                        <span>Neumann U87</span>
+                        <span>Sony C800G</span>
+                        <span>방음 부스</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="section-header fade-in">
+            <span class="section-badge">Our Team</span>
+            <h2 class="section-title">전문 <span>엔지니어 팀</span></h2>
+            <p class="section-subtitle">
+                경험과 열정으로 최고의 사운드를 만드는 전문가들입니다
+            </p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card fade-in">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>김사운드</h3>
+                <div class="team-role">대표 / 수석 엔지니어</div>
+                <p>20년 경력의 레코딩/믹싱 전문가. 다수의 골든디스크 수상작 참여.</p>
+            </div>
+            <div class="team-card fade-in">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>이믹스</h3>
+                <div class="team-role">믹싱 엔지니어</div>
+                <p>K-POP 전문 믹싱 엔지니어. 해외 차트 1위 곡 다수 작업.</p>
+            </div>
+            <div class="team-card fade-in">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>박마스터</h3>
+                <div class="team-role">마스터링 엔지니어</div>
+                <p>Dolby Atmos 인증 엔지니어. 글로벌 스트리밍 최적화 전문.</p>
+            </div>
+            <div class="team-card fade-in">
+                <div class="team-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>최레코드</h3>
+                <div class="team-role">레코딩 엔지니어</div>
+                <p>라이브 세션 및 보컬 녹음 전문. 섬세한 사운드 캡처.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card fade-in">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Artists Worked</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Awards & Nominations</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <span class="logo-text">SOUNDWAVE</span>
+                </a>
+                <p>
+                    사운드웨이브 스튜디오는 최첨단 장비와 전문 엔지니어가 함께하는
+                    프리미엄 음원 제작 전문 스튜디오입니다. 당신의 음악적 비전을 현실로 만들어 드립니다.
+                </p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-soundcloud"></i></a>
+                    <a href="#"><i class="fab fa-spotify"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">스튜디오 소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="contact.html">예약문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">레코딩</a></li>
+                    <li><a href="services.html">믹싱 & 마스터링</a></li>
+                    <li><a href="services.html">편곡 & 작곡</a></li>
+                    <li><a href="services.html">영상 제작</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="contact.html">오시는 길</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 사운드웨이브 스튜디오. All rights reserved.</p>
+            <p>대표: 김사운드 | 사업자등록번호: 123-45-67890</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

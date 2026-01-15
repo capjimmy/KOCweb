@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테크스타트 아카데미 | TechStart Academy - 미래를 코딩하다</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --primary-cyan: #06B6D4;
+            --primary-green: #10B981;
+            --neon-purple: #A855F7;
+            --neon-cyan: #22D3EE;
+            --neon-green: #34D399;
+            --dark-bg: #0F0F1A;
+            --dark-card: #1A1A2E;
+            --dark-border: #2D2D44;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --text-muted: #6B6B80;
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            --gradient-cyan: linear-gradient(135deg, #06B6D4 0%, #22D3EE 100%);
+            --gradient-green: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-mixed: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #10B981 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-mixed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-mixed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            background: var(--gradient-purple);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 2rem 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-badge::before {
+            content: '>';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title .gradient-text {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-purple);
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--dark-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-cyan);
+            color: var(--neon-cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .hero-code {
+            margin-top: 4rem;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-code::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .code-dots {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dots span:nth-child(1) { background: #FF5F56; }
+        .code-dots span:nth-child(2) { background: #FFBD2E; }
+        .code-dots span:nth-child(3) { background: #27CA40; }
+
+        .code-content {
+            margin-top: 30px;
+            line-height: 1.8;
+        }
+
+        .code-content .keyword { color: var(--neon-purple); }
+        .code-content .function { color: var(--neon-cyan); }
+        .code-content .string { color: var(--neon-green); }
+        .code-content .comment { color: var(--text-muted); }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 2rem;
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 1px;
+            background: var(--dark-border);
+        }
+
+        .stat-item:last-child::after {
+            display: none;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Courses Section */
+        .courses {
+            padding: 100px 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .courses-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--card-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .course-card:hover::before {
+            opacity: 1;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: transparent;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .course-card:nth-child(1) { --card-gradient: var(--gradient-purple); }
+        .course-card:nth-child(2) { --card-gradient: var(--gradient-cyan); }
+        .course-card:nth-child(3) { --card-gradient: var(--gradient-green); }
+        .course-card:nth-child(4) { --card-gradient: linear-gradient(135deg, #F59E0B, #FBBF24); }
+
+        .course-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-card:nth-child(1) .course-icon { background: rgba(139, 92, 246, 0.2); }
+        .course-card:nth-child(2) .course-icon { background: rgba(6, 182, 212, 0.2); }
+        .course-card:nth-child(3) .course-icon { background: rgba(16, 185, 129, 0.2); }
+        .course-card:nth-child(4) .course-icon { background: rgba(245, 158, 11, 0.2); }
+
+        .course-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .course-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Success Stories */
+        .success {
+            padding: 100px 2rem;
+            background: var(--dark-card);
+        }
+
+        .success-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .success-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .success-quote {
+            font-size: 3rem;
+            color: var(--neon-purple);
+            opacity: 0.3;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-family: Georgia, serif;
+        }
+
+        .success-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-top: 2rem;
+        }
+
+        .success-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .success-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-purple);
+        }
+
+        .success-name {
+            font-weight: 600;
+        }
+
+        .success-role {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .success-company {
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at center, rgba(139, 92, 246, 0.2) 0%, transparent 60%);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:nth-child(2)::after {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--dark-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-item::after {
+                display: none;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .typing-effect {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3s steps(40);
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">&lt;/&gt;</div>
+                <div class="logo-text">테크스타트 <span>아카데미</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="courses.html">교육과정</a></li>
+                <li><a href="curriculum.html">커리큘럼</a></li>
+                <li><a href="success.html">수료생 후기</a></li>
+                <li><a href="contact.html">상담신청</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">무료 상담</a>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-badge">2024년 신규 기수 모집중</div>
+            <h1 class="hero-title">
+                코드로 여는<br>
+                <span class="gradient-text">새로운 커리어의 시작</span>
+            </h1>
+            <p class="hero-subtitle">
+                테크스타트 아카데미와 함께 6개월 만에 현업 개발자로 성장하세요.
+                실무 중심 커리큘럼과 1:1 멘토링으로 IT 취업의 꿈을 현실로 만들어 드립니다.
+            </p>
+            <div class="hero-buttons">
+                <a href="courses.html" class="btn btn-primary">
+                    <span>과정 둘러보기</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">무료 상담 신청</a>
+            </div>
+            <div class="hero-code">
+                <div class="code-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="code-content">
+                    <span class="comment">// 당신의 새로운 시작</span><br>
+                    <span class="keyword">const</span> <span class="function">yourFuture</span> = {<br>
+                    &nbsp;&nbsp;career: <span class="string">"개발자"</span>,<br>
+                    &nbsp;&nbsp;salary: <span class="string">"연봉 5000만원+"</span>,<br>
+                    &nbsp;&nbsp;happiness: <span class="keyword">true</span><br>
+                    };
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" data-target="2847">0</div>
+                <div class="stat-label">누적 수료생</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="94" data-suffix="%">0%</div>
+                <div class="stat-label">취업률</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="4.9">0</div>
+                <div class="stat-label">수강생 만족도</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="150" data-suffix="+">0+</div>
+                <div class="stat-label">협력 기업</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="section-header fade-in">
+            <span class="section-tag">&lt;courses&gt;</span>
+            <h2 class="section-title">핵심 교육 과정</h2>
+            <p class="section-subtitle">
+                최신 기술 트렌드에 맞춘 체계적인 커리큘럼으로<br>
+                실무에서 바로 활용할 수 있는 스킬을 배웁니다
+            </p>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card fade-in">
+                <div class="course-icon">🌐</div>
+                <h3 class="course-title">풀스택 웹 개발</h3>
+                <p class="course-desc">
+                    React, Node.js, MongoDB를 활용한 현대적인 웹 애플리케이션 개발의 모든 것을 배웁니다.
+                </p>
+                <div class="course-meta">
+                    <span>24주 과정</span>
+                    <span>모집중</span>
+                </div>
+            </div>
+            <div class="course-card fade-in">
+                <div class="course-icon">📊</div>
+                <h3 class="course-title">데이터 사이언스</h3>
+                <p class="course-desc">
+                    Python, Pandas, SQL을 활용한 데이터 분석 및 시각화 전문가로 성장하세요.
+                </p>
+                <div class="course-meta">
+                    <span>20주 과정</span>
+                    <span>모집중</span>
+                </div>
+            </div>
+            <div class="course-card fade-in">
+                <div class="course-icon">🤖</div>
+                <h3 class="course-title">AI/머신러닝</h3>
+                <p class="course-desc">
+                    TensorFlow, PyTorch를 활용한 인공지능 모델 개발과 배포까지 마스터합니다.
+                </p>
+                <div class="course-meta">
+                    <span>28주 과정</span>
+                    <span>곧 오픈</span>
+                </div>
+            </div>
+            <div class="course-card fade-in">
+                <div class="course-icon">📱</div>
+                <h3 class="course-title">모바일 앱 개발</h3>
+                <p class="course-desc">
+                    React Native로 iOS와 Android를 동시에 개발하는 크로스플랫폼 앱 개발을 배웁니다.
+                </p>
+                <div class="course-meta">
+                    <span>20주 과정</span>
+                    <span>모집중</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="success">
+        <div class="section-header fade-in">
+            <span class="section-tag">&lt;success-stories&gt;</span>
+            <h2 class="section-title">수료생 성공 스토리</h2>
+            <p class="section-subtitle">
+                테크스타트 아카데미와 함께 꿈을 이룬 수료생들의 이야기
+            </p>
+        </div>
+        <div class="success-grid">
+            <div class="success-card fade-in">
+                <div class="success-quote">"</div>
+                <p class="success-text">
+                    비전공자로 시작해서 6개월 만에 네이버에 프론트엔드 개발자로 입사했습니다.
+                    체계적인 커리큘럼과 현업 멘토님들의 피드백이 정말 큰 도움이 되었어요.
+                </p>
+                <div class="success-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="김서연" class="success-avatar">
+                    <div>
+                        <div class="success-name">김서연</div>
+                        <div class="success-role">풀스택 웹 개발 3기</div>
+                        <div class="success-company">@NAVER</div>
+                    </div>
+                </div>
+            </div>
+            <div class="success-card fade-in">
+                <div class="success-quote">"</div>
+                <p class="success-text">
+                    경력 전환을 고민하던 중 테크스타트를 만났습니다.
+                    데이터 분석 과정을 수료하고 지금은 카카오에서 데이터 분석가로 일하고 있어요.
+                </p>
+                <div class="success-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="박준혁" class="success-avatar">
+                    <div>
+                        <div class="success-name">박준혁</div>
+                        <div class="success-role">데이터 사이언스 2기</div>
+                        <div class="success-company">@Kakao</div>
+                    </div>
+                </div>
+            </div>
+            <div class="success-card fade-in">
+                <div class="success-quote">"</div>
+                <p class="success-text">
+                    실무 프로젝트 중심의 수업이 취업에 결정적이었습니다.
+                    포트폴리오를 보여주며 자신있게 면접을 볼 수 있었어요.
+                </p>
+                <div class="success-author">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="이민지" class="success-avatar">
+                    <div>
+                        <div class="success-name">이민지</div>
+                        <div class="success-role">모바일 앱 개발 1기</div>
+                        <div class="success-company">@토스</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-bg"></div>
+        <div class="cta-content fade-in">
+            <h2 class="cta-title">지금 시작하세요</h2>
+            <p class="cta-subtitle">
+                무료 상담을 통해 나에게 맞는 과정을 찾아보세요.<br>
+                전문 상담사가 친절하게 안내해 드립니다.
+            </p>
+            <div class="hero-buttons">
+                <a href="contact.html" class="btn btn-primary">
+                    무료 상담 신청하기
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="tel:02-1234-5678" class="btn btn-secondary">📞 02-1234-5678</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">&lt;/&gt;</div>
+                        <div class="logo-text">테크스타트 <span>아카데미</span></div>
+                    </a>
+                    <p class="footer-desc">
+                        테크스타트 아카데미는 실무 중심의 IT 교육으로
+                        여러분의 성공적인 개발자 커리어를 응원합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="YouTube">▶</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Blog">📝</a>
+                        <a href="#" aria-label="GitHub">⌨</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">교육과정</h4>
+                    <ul class="footer-links">
+                        <li><a href="courses.html">풀스택 웹 개발</a></li>
+                        <li><a href="courses.html">데이터 사이언스</a></li>
+                        <li><a href="courses.html">AI/머신러닝</a></li>
+                        <li><a href="courses.html">모바일 앱 개발</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">아카데미</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">소개</a></li>
+                        <li><a href="success.html">수료생 후기</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">고객지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">환불 정책</a></li>
+                        <li><a href="#">제휴 문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 테크스타트 아카데미. All rights reserved.<br>
+                    서울특별시 강남구 테헤란로 123 테크빌딩 5층 | 사업자등록번호: 123-45-67890
+                </p>
+                <div class="footer-legal">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        }
+
+        // Animated Counter
+        function animateCounter(element) {
+            const target = parseFloat(element.dataset.target);
+            const suffix = element.dataset.suffix || '';
+            const duration = 2000;
+            const start = 0;
+            const startTime = performance.now();
+            const isDecimal = target % 1 !== 0;
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = start + (target - start) * easeOut;
+
+                if (isDecimal) {
+                    element.textContent = current.toFixed(1) + suffix;
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString() + suffix;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Animate counters
+                    if (entry.target.classList.contains('stat-number')) {
+                        animateCounter(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.fade-in, .stat-number').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.75rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.98)';
+            } else {
+                navbar.style.padding = '1rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

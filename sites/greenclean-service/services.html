@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="그린클린 서비스 - 가정/사무실 청소, 이사 청소, 방역 서비스">
+    <title>서비스 안내 | 그린클린 서비스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2E7D32;
+            --light-green: #4CAF50;
+            --pale-green: #E8F5E9;
+            --dark-green: #1B5E20;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--light-green);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid var(--primary-green);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-green);
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Common */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border: 2px solid var(--pale-green);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--light-green);
+            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--pale-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-features li::before {
+            content: "✓";
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        /* Process Section */
+        .process {
+            background-color: var(--pale-green);
+        }
+
+        .process-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-green);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .process-step h4 {
+            color: var(--dark-green);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Special Services */
+        .special-services {
+            background-color: var(--light-gray);
+        }
+
+        .special-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .special-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .special-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .special-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .special-card h4 {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .special-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-green);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--pale-green);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--pale-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--pale-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .page-header {
+                padding: 6rem 1rem 3rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">그린<span>클린</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html" class="active">서비스</a></li>
+                <li><a href="pricing.html">요금안내</a></li>
+                <li><a href="contact.html">예약/문의</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(135deg, rgba(232, 245, 233, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=1920&q=80') center/cover no-repeat;">
+        <h1>서비스 안내</h1>
+        <p>그린클린의 전문적인 친환경 청소 및 방역 서비스를 만나보세요</p>
+    </section>
+
+    <!-- Main Services -->
+    <section class="main-services">
+        <div class="section-title">
+            <h2>주요 서비스</h2>
+            <p>고객님의 다양한 청소 니즈에 맞춘 맞춤형 서비스</p>
+        </div>
+        <div class="services-grid">
+            <!-- Home Cleaning -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&h=250&fit=crop&q=80" alt="가정집 청소" style="width:100%; height:180px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem;">
+                <h3>가정집 청소</h3>
+                <p>아파트, 빌라, 단독주택 등 가정집 전문 청소 서비스입니다. 친환경 세제로 가족의 건강을 지킵니다.</p>
+                <ul class="service-features">
+                    <li>거실, 방, 주방 전체 청소</li>
+                    <li>욕실 및 화장실 청소</li>
+                    <li>창문 및 베란다 청소</li>
+                    <li>가전제품 외부 청소</li>
+                    <li>정리정돈 서비스</li>
+                </ul>
+            </div>
+
+            <!-- Office Cleaning -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&h=250&fit=crop&q=80" alt="사무실 청소" style="width:100%; height:180px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem;">
+                <h3>사무실 청소</h3>
+                <p>쾌적한 업무 환경을 위한 사무실 전문 청소 서비스입니다. 정기/비정기 모두 가능합니다.</p>
+                <ul class="service-features">
+                    <li>업무 공간 전체 청소</li>
+                    <li>회의실 및 휴게실 청소</li>
+                    <li>화장실 청소 및 소독</li>
+                    <li>카펫 및 바닥 관리</li>
+                    <li>쓰레기 수거 및 분리배출</li>
+                </ul>
+            </div>
+
+            <!-- Move-in/out Cleaning -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=250&fit=crop&q=80" alt="이사 청소" style="width:100%; height:180px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem;">
+                <h3>이사 청소</h3>
+                <p>입주 전/퇴거 시 필요한 전문 청소 서비스입니다. 새집처럼 깨끗하게 만들어 드립니다.</p>
+                <ul class="service-features">
+                    <li>입주 전 전체 청소</li>
+                    <li>퇴거 청소</li>
+                    <li>붙박이장 내부 청소</li>
+                    <li>찌든 때 제거</li>
+                    <li>하자 점검 지원</li>
+                </ul>
+            </div>
+
+            <!-- Disinfection Service -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1585421514738-01798e348b17?w=500&h=250&fit=crop&q=80" alt="방역 서비스" style="width:100%; height:180px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem;">
+                <h3>방역 서비스</h3>
+                <p>전문 장비와 인증된 약품으로 안전한 방역 서비스를 제공합니다.</p>
+                <ul class="service-features">
+                    <li>바이러스 방역</li>
+                    <li>세균 살균 서비스</li>
+                    <li>해충 방제</li>
+                    <li>공기질 개선</li>
+                    <li>정기 방역 프로그램</li>
+                </ul>
+            </div>
+
+            <!-- Deep Cleaning -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500&h=250&fit=crop&q=80" alt="특수 청소" style="width:100%; height:180px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem;">
+                <h3>특수 청소</h3>
+                <p>일반 청소로 해결되지 않는 특수 오염에 대한 전문 청소 서비스입니다.</p>
+                <ul class="service-features">
+                    <li>에어컨 분해 청소</li>
+                    <li>세탁기 분해 청소</li>
+                    <li>매트리스 청소</li>
+                    <li>소파 청소</li>
+                    <li>카펫 스팀 청소</li>
+                </ul>
+            </div>
+
+            <!-- Regular Cleaning -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500&h=250&fit=crop&q=80" alt="정기 청소" style="width:100%; height:180px; object-fit:cover; border-radius:15px; margin-bottom:1.5rem;">
+                <h3>정기 청소</h3>
+                <p>주 1회, 월 2회 등 정기적인 청소 서비스로 항상 깨끗한 공간을 유지합니다.</p>
+                <ul class="service-features">
+                    <li>맞춤형 청소 일정</li>
+                    <li>담당 매니저 배정</li>
+                    <li>정기 할인 혜택</li>
+                    <li>품질 관리 시스템</li>
+                    <li>유연한 일정 변경</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Process -->
+    <section class="process">
+        <div class="section-title">
+            <h2>서비스 진행 과정</h2>
+            <p>간편하고 체계적인 서비스 프로세스</p>
+        </div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>상담 신청</h4>
+                <p>전화, 온라인으로 간편하게 상담을 신청하세요</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>무료 방문 견적</h4>
+                <p>전문가가 방문하여 정확한 견적을 산출합니다</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>일정 확정</h4>
+                <p>고객님이 원하는 날짜와 시간에 맞춰 일정을 확정합니다</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>서비스 진행</h4>
+                <p>전문 인력이 꼼꼼하게 청소 서비스를 진행합니다</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <h4>결과 확인</h4>
+                <p>서비스 완료 후 고객님과 함께 결과를 확인합니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Services -->
+    <section class="special-services">
+        <div class="section-title">
+            <h2>특화 서비스</h2>
+            <p>그린클린만의 특별한 서비스</p>
+        </div>
+        <div class="special-grid">
+            <div class="special-card">
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=200&fit=crop&q=80" alt="친환경 세제" style="width:100%; height:120px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>100% 친환경 세제</h4>
+                <p>환경부 인증 친환경 세제만 사용하여 가족과 반려동물도 안심할 수 있습니다.</p>
+            </div>
+            <div class="special-card">
+                <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=200&fit=crop&q=80" alt="ATP 검사" style="width:100%; height:120px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>ATP 검사</h4>
+                <p>청소 전후 세균 수치를 측정하여 청결도를 객관적으로 확인해 드립니다.</p>
+            </div>
+            <div class="special-card">
+                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=200&fit=crop&q=80" alt="실시간 알림" style="width:100%; height:120px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>실시간 진행 알림</h4>
+                <p>서비스 시작부터 완료까지 카카오톡으로 실시간 알림을 보내드립니다.</p>
+            </div>
+            <div class="special-card">
+                <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&h=200&fit=crop&q=80" alt="재청소 보장" style="width:100%; height:120px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
+                <h4>재청소 보장</h4>
+                <p>서비스 후 48시간 이내 불만족 시 무료 재청소를 제공합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>지금 바로 상담받으세요</h2>
+            <p>친환경 청소 전문가가 고객님께 맞춤형 솔루션을 제안해 드립니다.</p>
+            <a href="contact.html" class="cta-button">무료 견적 신청</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>그린클린 서비스</h4>
+                <p>친환경 청소 및 방역 전문 업체</p>
+                <p>깨끗한 공간, 건강한 내일을 만듭니다.</p>
+            </div>
+            <div class="footer-section">
+                <h4>빠른 링크</h4>
+                <a href="about.html">회사소개</a>
+                <a href="services.html">서비스 안내</a>
+                <a href="pricing.html">요금 안내</a>
+                <a href="contact.html">예약/문의</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📞 1588-1234</p>
+                <p>📧 clean@greenclean.kr</p>
+                <p>📍 서울시 영등포구 여의대로 100</p>
+                <p>⏰ 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>대표: 박청결 | 사업자등록번호: 123-45-67890</p>
+            <p>&copy; 2024 그린클린 서비스. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

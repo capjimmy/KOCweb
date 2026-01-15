@@ -1,0 +1,221 @@
+/* Hankook Motors - Custom Styles */
+/* Dark, Masculine, Practical Design */
+
+:root {
+    --primary-color: #c41e3a;
+    --primary-dark: #a01830;
+    --secondary-color: #1a1a1a;
+    --accent-color: #d4af37;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+    --bg-dark: #0d0d0d;
+    --bg-light: #f5f5f5;
+}
+
+body {
+    background: #fff;
+    color: var(--text-dark);
+}
+
+/* Header */
+.header {
+    background: var(--secondary-color);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.header .logo {
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+.header .nav-menu a {
+    color: #ccc;
+}
+
+.header .nav-menu a:hover,
+.header .nav-menu a.active {
+    color: var(--primary-color);
+}
+
+.header .mobile-menu-btn span {
+    background: #fff;
+}
+
+/* Hero */
+.hero {
+    min-height: 100vh;
+}
+
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(26,26,26,0.8));
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* Page Header */
+.page-header {
+    background: linear-gradient(135deg, var(--secondary-color), #2a2a2a);
+    padding: 180px 0 100px;
+}
+
+/* Section */
+.section-title h2 {
+    color: var(--secondary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    background: #fff;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.card-content h3 {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+/* Service Cards */
+.service-card {
+    background: #fff;
+    border-left: 4px solid var(--primary-color);
+}
+
+.service-icon {
+    background: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.service-card h3 {
+    color: var(--secondary-color);
+}
+
+/* Board List */
+.board-list {
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+.board-item {
+    border-bottom: 1px solid #eee;
+}
+
+.board-item:hover {
+    background: #fafafa;
+}
+
+.board-item-title {
+    color: var(--secondary-color);
+}
+
+/* Info Items */
+.info-item {
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+.info-item .number {
+    color: var(--primary-color);
+}
+
+.info-item .label {
+    color: #aaa;
+}
+
+/* Timeline */
+.timeline::before {
+    background: var(--primary-color);
+}
+
+.timeline-item::before {
+    background: var(--primary-color);
+}
+
+.timeline-item .year {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+/* Contact */
+.contact-icon {
+    background: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    background: var(--bg-dark);
+}
+
+.footer-section h4 {
+    color: var(--primary-color);
+}
+
+/* CTA Section */
+.cta-section {
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+.cta-section h2 {
+    color: #fff;
+}
+
+/* Form */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+}
+
+/* Price */
+.price {
+    color: var(--primary-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .nav-menu {
+        background: var(--secondary-color);
+    }
+
+    .nav-menu a {
+        color: #fff !important;
+    }
+}

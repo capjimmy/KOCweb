@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - 아티산 퍼니처 | 고객 후기</title>
+    <meta name="description" content="아티산 퍼니처 고객 후기 및 시공 사례. 실제 고객들의 생생한 경험을 확인하세요.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+KR:wght@200;300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --color-cream: #F5F1EB;
+            --color-beige: #E8E0D5;
+            --color-wood-light: #D4C4B0;
+            --color-wood: #B8A088;
+            --color-wood-dark: #8B7355;
+            --color-charcoal: #2C2C2C;
+            --color-black: #1A1A1A;
+            --color-white: #FFFFFF;
+            --color-gold: #C9A962;
+            --font-serif: 'Cormorant Garamond', 'Noto Serif KR', serif;
+            --font-sans: 'Noto Sans KR', sans-serif;
+            --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-elegant: cubic-bezier(0.6, 0.01, 0.05, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 241, 235, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s var(--transition-smooth);
+        }
+
+        .nav.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--color-black);
+            text-decoration: none;
+            letter-spacing: 0.15em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            font-size: 0.85rem;
+            color: var(--color-charcoal);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-gold);
+            transition: width 0.4s var(--transition-smooth);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            width: 28px;
+            height: 1px;
+            background: var(--color-black);
+            transition: all 0.4s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-black);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transition: right 0.6s var(--transition-elegant);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1920');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .page-hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .page-hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 300;
+        }
+
+        /* Section */
+        .section {
+            padding: 6rem 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--color-gold);
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--color-charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 1px;
+            background: var(--color-gold);
+            margin: 0 auto;
+        }
+
+        /* Stats Banner */
+        .stats-banner {
+            background: var(--color-charcoal);
+            padding: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            color: var(--color-gold);
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item .label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.1em;
+        }
+
+        /* Reviews Grid */
+        .reviews-section {
+            background: var(--color-white);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: var(--color-cream);
+            padding: 2.5rem;
+            transition: all 0.4s var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 0.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-rating svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--color-gold);
+        }
+
+        .review-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--color-charcoal);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .review-content {
+            font-size: 0.95rem;
+            color: var(--color-wood-dark);
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-product {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--color-beige);
+            font-size: 0.8rem;
+            color: var(--color-wood-dark);
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-beige);
+        }
+
+        .review-author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--color-wood-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--color-white);
+        }
+
+        .review-author-info h4 {
+            font-size: 0.95rem;
+            color: var(--color-charcoal);
+            margin-bottom: 0.2rem;
+        }
+
+        .review-author-info p {
+            font-size: 0.8rem;
+            color: var(--color-wood);
+        }
+
+        .review-date {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: var(--color-wood);
+        }
+
+        /* Case Studies */
+        .case-section {
+            background: var(--color-beige);
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .case-card {
+            background: var(--color-white);
+            overflow: hidden;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .case-card:hover {
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .case-image {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition-elegant);
+        }
+
+        .case-card:hover .case-image img {
+            transform: scale(1.1);
+        }
+
+        .case-badge {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--color-gold);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .case-content {
+            padding: 2.5rem;
+        }
+
+        .case-content h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .case-meta {
+            font-size: 0.85rem;
+            color: var(--color-wood);
+            margin-bottom: 1rem;
+        }
+
+        .case-content p {
+            font-size: 0.95rem;
+            color: var(--color-wood-dark);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* Write Review Button */
+        .write-review-section {
+            background: var(--color-charcoal);
+            text-align: center;
+            padding: 5rem 4rem;
+        }
+
+        .write-review-section h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--color-cream);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .write-review-section p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        .btn-write {
+            display: inline-block;
+            padding: 1.2rem 3.5rem;
+            background: var(--color-gold);
+            color: var(--color-black);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-sans);
+            transition: all 0.4s;
+        }
+
+        .btn-write:hover {
+            background: var(--color-white);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-white);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--color-beige);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--color-charcoal);
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--color-charcoal);
+            color: var(--color-white);
+            border-color: var(--color-charcoal);
+        }
+
+        .modal-content h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content > p {
+            color: var(--color-wood-dark);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: var(--color-charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label span {
+            color: var(--color-gold);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--color-beige);
+            background: var(--color-cream);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--color-charcoal);
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            background: var(--color-white);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238B7355' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .rating-input input {
+            display: none;
+        }
+
+        .rating-input label {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--color-beige);
+            transition: color 0.2s;
+        }
+
+        .rating-input label:hover,
+        .rating-input label.active {
+            color: var(--color-gold);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--color-charcoal);
+            color: var(--color-white);
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--color-gold);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--color-charcoal);
+            color: var(--color-white);
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s var(--transition-elegant);
+            z-index: 9999;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--color-gold);
+        }
+
+        .toast.error {
+            border-left: 4px solid #e74c3c;
+        }
+
+        /* Lightbox for images */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--color-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background: var(--color-white);
+            color: var(--color-black);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-cream);
+            padding: 6rem 4rem 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: var(--color-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-contact p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .toast {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">ARTISAN FURNITURE</a>
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="products.html">PRODUCTS</a></li>
+            <li><a href="board.html" class="active">REVIEWS</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="products.html">PRODUCTS</a>
+        <a href="board.html">REVIEWS</a>
+        <a href="contact.html">CONTACT</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <p class="page-hero-subtitle">TESTIMONIALS</p>
+            <h1 class="page-hero-title">고객 후기</h1>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <section class="stats-banner">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="number">3,500+</div>
+                <div class="label">프로젝트 완료</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">98%</div>
+                <div class="label">고객 만족도</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">4.9</div>
+                <div class="label">평균 평점</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">12</div>
+                <div class="label">년의 경험</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="section reviews-section">
+        <div class="section-header">
+            <p class="section-subtitle">CUSTOMER REVIEWS</p>
+            <h2 class="section-title">고객님들의 이야기</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="reviews-grid" id="reviewsGrid">
+            <!-- Reviews will be loaded here -->
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="section case-section">
+        <div class="section-header">
+            <p class="section-subtitle">CASE STUDIES</p>
+            <h2 class="section-title">시공 사례</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="case-grid">
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=800" alt="강남 펜트하우스">
+                    <span class="case-badge">PENTHOUSE</span>
+                </div>
+                <div class="case-content">
+                    <h3>강남 펜트하우스 전체 가구</h3>
+                    <p class="case-meta">서울 강남구 / 2024.01</p>
+                    <p>200평 규모의 펜트하우스 전체 가구를 맞춤 제작했습니다. 거실, 침실, 서재 등 모든 공간에 월넛 원목 가구를 배치하여 통일감 있는 럭셔리한 공간을 완성했습니다.</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800" alt="분당 신혼집">
+                    <span class="case-badge">NEWLYWED</span>
+                </div>
+                <div class="case-content">
+                    <h3>분당 신혼집 리빙룸</h3>
+                    <p class="case-meta">경기 성남시 분당구 / 2023.11</p>
+                    <p>신혼부부를 위한 아늑한 거실 가구 세트를 제작했습니다. 소파, 커피 테이블, TV 장식장까지 오크 원목으로 통일하여 따뜻한 분위기를 연출했습니다.</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800" alt="일산 침실">
+                    <span class="case-badge">BEDROOM</span>
+                </div>
+                <div class="case-content">
+                    <h3>일산 마스터 베드룸</h3>
+                    <p class="case-meta">경기 고양시 일산동구 / 2023.09</p>
+                    <p>킹사이즈 침대 프레임, 화장대, 협탁, 서랍장까지 침실 전체 가구를 맞춤 제작했습니다. 호두나무 특유의 깊은 색감으로 고급스러운 침실을 완성했습니다.</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800" alt="판교 다이닝">
+                    <span class="case-badge">DINING</span>
+                </div>
+                <div class="case-content">
+                    <h3>판교 패밀리 다이닝룸</h3>
+                    <p class="case-meta">경기 성남시 분당구 / 2023.07</p>
+                    <p>6인 가족을 위한 대형 다이닝 테이블과 벤치, 의자 세트를 제작했습니다. 가족이 함께 모이는 공간에 어울리는 따뜻하고 넉넉한 디자인입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Write Review Section -->
+    <section class="write-review-section">
+        <h2>소중한 후기를 남겨주세요</h2>
+        <p>아티산 퍼니처와 함께한 경험을 공유해 주세요</p>
+        <button class="btn-write" id="openModal">후기 작성하기</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>ARTISAN FURNITURE</h3>
+                <p>장인의 손길로 완성되는 프리미엄 수제 원목 가구.<br>2012년부터 이어온 장인정신으로 최고급 맞춤 가구를 제작합니다.</p>
+            </div>
+            <div class="footer-nav">
+                <h4 class="footer-title">MENU</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="board.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-categories">
+                <h4 class="footer-title">CATEGORIES</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html">소파 & 체어</a></li>
+                    <li><a href="products.html">테이블</a></li>
+                    <li><a href="products.html">수납장</a></li>
+                    <li><a href="products.html">침실</a></li>
+                    <li><a href="products.html">맞춤 제작</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4 class="footer-title">CONTACT</h4>
+                <p>경기도 파주시 탄현면<br>헤이리마을길 59-85</p>
+                <p>031-949-7788</p>
+                <p>design@artisan-furniture.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Artisan Furniture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2>후기 작성</h2>
+            <p>구매하신 제품에 대한 솔직한 후기를 남겨주세요.</p>
+
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label>이름 <span>*</span></label>
+                    <input type="text" name="author" required placeholder="홍길동">
+                </div>
+
+                <div class="form-group">
+                    <label>지역</label>
+                    <input type="text" name="location" placeholder="강남구">
+                </div>
+
+                <div class="form-group">
+                    <label>구매 제품 <span>*</span></label>
+                    <select name="product" required>
+                        <option value="">선택해 주세요</option>
+                        <option value="아르테 3인 소파">아르테 3인 소파</option>
+                        <option value="클래식 윙체어">클래식 윙체어</option>
+                        <option value="미드센추리 라운지 체어">미드센추리 라운지 체어</option>
+                        <option value="월넛 다이닝 테이블 6인용">월넛 다이닝 테이블 6인용</option>
+                        <option value="오크 커피 테이블">오크 커피 테이블</option>
+                        <option value="원목 콘솔 테이블">원목 콘솔 테이블</option>
+                        <option value="북유럽풍 TV 장식장">북유럽풍 TV 장식장</option>
+                        <option value="빈티지 책장">빈티지 책장</option>
+                        <option value="원목 서랍장 5단">원목 서랍장 5단</option>
+                        <option value="킹사이즈 월넛 침대 프레임">킹사이즈 월넛 침대 프레임</option>
+                        <option value="내추럴 우드 화장대">내추럴 우드 화장대</option>
+                        <option value="맞춤 제작">맞춤 제작</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>평점 <span>*</span></label>
+                    <div class="rating-input" id="ratingInput">
+                        <input type="radio" name="rating" value="1" id="star1">
+                        <label for="star1">&#9733;</label>
+                        <input type="radio" name="rating" value="2" id="star2">
+                        <label for="star2">&#9733;</label>
+                        <input type="radio" name="rating" value="3" id="star3">
+                        <label for="star3">&#9733;</label>
+                        <input type="radio" name="rating" value="4" id="star4">
+                        <label for="star4">&#9733;</label>
+                        <input type="radio" name="rating" value="5" id="star5" checked>
+                        <label for="star5" class="active">&#9733;</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>제목 <span>*</span></label>
+                    <input type="text" name="title" required placeholder="후기 제목을 입력해 주세요">
+                </div>
+
+                <div class="form-group">
+                    <label>후기 내용 <span>*</span></label>
+                    <textarea name="content" required placeholder="제품 사용 후기를 자세히 작성해 주세요."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">후기 등록하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <div class="lightbox-content">
+            <img src="" alt="Case Study">
+        </div>
+    </div>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://rurnsbtzdglmjpftwzfi.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_OxjmpMoJbRAJouMG6aIwjw_FFFcfOjZ';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Seed data for reviews
+        const seedReviews = [
+            {
+                author: '김선영',
+                location: '강남구',
+                product: '월넛 다이닝 테이블 6인용',
+                rating: 5,
+                title: '거실이 완전히 달라졌어요',
+                content: '10년 넘게 사용하던 식탁을 바꾸면서 정말 많이 고민했는데, 아티산 퍼니처를 선택하길 너무 잘했어요. 월넛 원목의 깊은 색감이 거실 전체 분위기를 바꿔놓았습니다. 가족들 모두 만족해하고 있어요.',
+                created_at: '2024-01-15'
+            },
+            {
+                author: '이정호',
+                location: '분당',
+                product: '월넛 다이닝 테이블 6인용',
+                rating: 5,
+                title: '월넛 테이블 너무 만족합니다',
+                content: '처음 쇼룸 방문했을 때 느낌이 좋았어요. 상담도 친절하고, 제가 원하는 사이즈로 맞춤 제작해 주셨어요. 배송 설치까지 완벽했고, 나무결이 정말 예뻐서 매일 보는 재미가 있습니다.',
+                created_at: '2024-01-10'
+            },
+            {
+                author: '박미라',
+                location: '일산',
+                product: '맞춤 제작',
+                rating: 5,
+                title: '맞춤 제작 정말 꼼꼼하네요',
+                content: '아파트 구조가 특이해서 기성품으론 맞는 가구가 없었는데, 아티산에서 정확히 맞춰서 제작해 주셨어요. 장인분이 직접 집에 방문해서 채치까지 해주시고, 완성된 가구는 상상 이상입니다.',
+                created_at: '2024-01-05'
+            },
+            {
+                author: '최영수',
+                location: '용인',
+                product: '킹사이즈 월넛 침대 프레임',
+                rating: 5,
+                title: '침대 퀄리티가 남다릅니다',
+                content: '호텔에서 쓰는 것 같은 침대를 집에 들이고 싶어서 여기저기 찾아보다가 아티산을 알게 됐어요. 월넛 침대 프레임의 견고함과 디자인 모두 만족스럽습니다. 수면의 질이 달라진 것 같아요.',
+                created_at: '2023-12-28'
+            },
+            {
+                author: '정현진',
+                location: '판교',
+                product: '아르테 3인 소파',
+                rating: 5,
+                title: '소파가 거실의 주인공이 됐어요',
+                content: '아르테 소파 정말 예쁘고 편해요. 가죽 질감이 고급스럽고, 월넛 프레임과의 조화가 완벽합니다. 친구들이 집에 올 때마다 소파 어디서 샀냐고 물어봐요. 강추합니다!',
+                created_at: '2023-12-20'
+            },
+            {
+                author: '한지은',
+                location: '송파구',
+                product: '북유럽풍 TV 장식장',
+                rating: 5,
+                title: 'TV장이 이렇게 예쁠 수 있다니',
+                content: 'TV장을 바꾸니까 거실이 확 달라보여요. 수납공간도 넉넉하고 디자인도 깔끔해서 너무 마음에 들어요. 조립도 완벽하게 해주시고, AS도 잘 되는 것 같아 안심됩니다.',
+                created_at: '2023-12-15'
+            },
+            {
+                author: '오승민',
+                location: '수원',
+                product: '빈티지 책장',
+                rating: 5,
+                title: '서재가 완성됐습니다',
+                content: '책장을 찾다가 아티산 빈티지 책장을 발견했어요. 오크 원목 특유의 결이 너무 예쁘고, 책을 꽂아두니 진짜 서재 분위기가 나요. 튼튼해서 무거운 책도 걱정없이 올릴 수 있어요.',
+                created_at: '2023-12-10'
+            },
+            {
+                author: '신미영',
+                location: '과천',
+                product: '내추럴 우드 화장대',
+                rating: 5,
+                title: '매일 아침이 행복해졌어요',
+                content: '화장대가 이렇게 중요한 줄 몰랐어요. 아티산 화장대로 바꾸고 나서 매일 아침 화장하는 시간이 즐거워졌어요. 수납 공간도 많고 거울도 크고 완벽합니다.',
+                created_at: '2023-12-05'
+            },
+            {
+                author: '윤재석',
+                location: '인천',
+                product: '오크 커피 테이블',
+                rating: 5,
+                title: '심플한데 존재감 있는 테이블',
+                content: '미니멀한 디자인을 찾고 있었는데 딱 제 스타일이었어요. 오크 원목의 따뜻한 느낌이 좋고, 거실에 딱 맞는 사이즈입니다. 가격 대비 품질이 훌륭해요.',
+                created_at: '2023-11-28'
+            },
+            {
+                author: '강서연',
+                location: '청담동',
+                product: '클래식 윙체어',
+                rating: 5,
+                title: '윙체어 하나로 분위기 업그레이드',
+                content: '거실 코너에 윙체어 하나 들였는데 분위기가 확 살아났어요. 독서하거나 차 마시며 쉬기에 딱 좋은 편안함입니다. 패브릭 색상도 예쁘고 마감도 깔끔해요.',
+                created_at: '2023-11-20'
+            },
+            {
+                author: '임동현',
+                location: '세종시',
+                product: '원목 서랍장 5단',
+                rating: 5,
+                title: '서랍장이 이렇게 부드러울 수가',
+                content: '서랍 개폐감이 정말 부드러워요. 소음도 없고 옷 정리하기에 딱 좋아요. 월넛 색상이 침실과 잘 어울리고, 수납력도 기대 이상입니다. 추가로 더 사고 싶어요.',
+                created_at: '2023-11-15'
+            },
+            {
+                author: '배소희',
+                location: '해운대',
+                product: '원목 콘솔 테이블',
+                rating: 5,
+                title: '현관이 갤러리가 됐어요',
+                content: '현관에 콘솔 테이블 하나 뒀는데 분위기가 완전 달라졌어요. 위에 조명이랑 소품 올려두니까 진짜 갤러리 같아요. 멀리서 배송받았는데 포장도 완벽하고 하자 하나 없었습니다.',
+                created_at: '2023-11-10'
+            }
+        ];
+
+        // Render star rating
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 0; i < rating; i++) {
+                stars += `<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+            }
+            return stars;
+        }
+
+        // Render review card
+        function renderReviewCard(review) {
+            const initial = review.author.charAt(0);
+            const date = new Date(review.created_at).toLocaleDateString('ko-KR');
+
+            return `
+                <div class="review-card">
+                    <div class="review-rating">
+                        ${renderStars(review.rating)}
+                    </div>
+                    <h3 class="review-title">${review.title}</h3>
+                    <p class="review-content">${review.content}</p>
+                    <span class="review-product">${review.product}</span>
+                    <div class="review-author">
+                        <div class="review-author-avatar">${initial}</div>
+                        <div class="review-author-info">
+                            <h4>${review.author}</h4>
+                            <p>${review.location || ''}</p>
+                        </div>
+                        <span class="review-date">${date}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load reviews
+        async function loadReviews() {
+            const reviewsGrid = document.getElementById('reviewsGrid');
+
+            try {
+                const { data, error } = await supabase
+                    .from('artisan_reviews')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                // If no data from Supabase, use seed data
+                const reviews = data && data.length > 0 ? data : seedReviews;
+
+                reviewsGrid.innerHTML = reviews.map(review => renderReviewCard(review)).join('');
+
+                // Animate cards
+                gsap.utils.toArray('.review-card').forEach((card, index) => {
+                    gsap.from(card, {
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 85%'
+                        },
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.6,
+                        delay: (index % 3) * 0.1,
+                        ease: 'power3.out'
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+                // Use seed data as fallback
+                reviewsGrid.innerHTML = seedReviews.map(review => renderReviewCard(review)).join('');
+            }
+        }
+
+        // Mobile menu
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Modal
+        const modal = document.getElementById('reviewModal');
+        const openModalBtn = document.getElementById('openModal');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Rating input
+        const ratingLabels = document.querySelectorAll('.rating-input label');
+        const ratingInputs = document.querySelectorAll('.rating-input input');
+
+        ratingLabels.forEach((label, index) => {
+            label.addEventListener('click', () => {
+                ratingLabels.forEach((l, i) => {
+                    if (i <= index) {
+                        l.classList.add('active');
+                    } else {
+                        l.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Review Form Submission
+        const reviewForm = document.getElementById('reviewForm');
+
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = reviewForm.querySelector('.btn-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '등록 중...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(reviewForm);
+            const selectedRating = document.querySelector('.rating-input input:checked');
+
+            const data = {
+                author: formData.get('author'),
+                location: formData.get('location'),
+                product: formData.get('product'),
+                rating: selectedRating ? parseInt(selectedRating.value) : 5,
+                title: formData.get('title'),
+                content: formData.get('content'),
+                created_at: new Date().toISOString()
+            };
+
+            try {
+                const { error } = await supabase
+                    .from('artisan_reviews')
+                    .insert([data]);
+
+                if (error) throw error;
+
+                showToast('후기가 등록되었습니다. 감사합니다!', 'success');
+                reviewForm.reset();
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                loadReviews(); // Reload reviews
+
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('등록 중 오류가 발생했습니다. 다시 시도해 주세요.', 'error');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Lightbox for case study images
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+        document.querySelectorAll('.case-image img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page Hero Animation
+        gsap.from('.page-hero-content', {
+            opacity: 0,
+            y: 50,
+            duration: 1.2,
+            delay: 0.3,
+            ease: 'power3.out'
+        });
+
+        // Stats Animation
+        gsap.utils.toArray('.stat-item').forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: '.stats-banner',
+                    start: 'top 80%'
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.6,
+                delay: index * 0.1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Case cards animation
+        gsap.utils.toArray('.case-card').forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%'
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: index * 0.15,
+                ease: 'power3.out'
+            });
+        });
+
+        // Parallax on hero
+        gsap.to('.page-hero-bg', {
+            scrollTrigger: {
+                trigger: '.page-hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 100,
+            ease: 'none'
+        });
+
+        // Load reviews on page load
+        document.addEventListener('DOMContentLoaded', loadReviews);
+    </script>
+</body>
+</html>

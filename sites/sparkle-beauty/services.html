@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | 스파클 뷰티</title>
+    <meta name="description" content="스파클 뷰티의 프리미엄 뷰티 서비스 - 헤어, 네일, 메이크업, 스킨케어 전문">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c4a77d;
+            --primary-dark: #a68b5b;
+            --secondary: #f5e6d3;
+            --accent: #e8b4b8;
+            --dark: #2c2c2c;
+            --text: #4a4a4a;
+            --text-light: #7a7a7a;
+            --white: #ffffff;
+            --cream: #faf8f5;
+            --rose: #f8e8e8;
+            --gradient: linear-gradient(135deg, #c4a77d 0%, #e8b4b8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .navbar-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            letter-spacing: 2px;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-dark);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 0 80px;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--rose) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c4a77d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .page-title span {
+            color: var(--primary-dark);
+        }
+
+        .page-desc {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--primary-dark);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title span {
+            color: var(--primary-dark);
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(196, 167, 125, 0.2);
+        }
+
+        .service-image {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .service-content {
+            padding: 35px;
+        }
+
+        .service-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .service-desc {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .service-menu {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .service-menu li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(196, 167, 125, 0.3);
+        }
+
+        .service-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .menu-price {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(196, 167, 125, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(196, 167, 125, 0.4);
+        }
+
+        /* Price Guide */
+        .price-section {
+            background: var(--cream);
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .price-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary);
+        }
+
+        .price-card.featured::before {
+            content: 'BEST';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            color: var(--white);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .price-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .price-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .price-amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .price-unit {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .price-features {
+            list-style: none;
+            text-align: left;
+        }
+
+        .price-features li {
+            padding: 8px 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-features li::before {
+            content: '&#10003;';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .cta-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary-dark);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-contact-icon {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(196, 167, 125, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">Sparkle Beauty</a>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="services.html" class="nav-link active">Services</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Menu" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <span class="page-badge">Our Services</span>
+            <h1 class="page-title">프리미엄 <span>뷰티 서비스</span></h1>
+            <p class="page-desc">전문 스타일리스트가 선사하는 맞춤형 뷰티 케어</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-badge">Services</span>
+                <h2 class="section-title">스파클 뷰티의 <span>시그니처 서비스</span></h2>
+                <p class="section-desc">최고급 제품과 전문 기술로 완성되는 프리미엄 뷰티 케어</p>
+            </div>
+            <div class="services-grid">
+                <!-- Hair Styling -->
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=600&h=400&fit=crop" alt="Skincare Serum">
+                        <span class="service-category">Hair</span>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Hair Styling</h3>
+                        <p class="service-desc">트렌디한 헤어 스타일링부터 클래식한 스타일까지, 고객님의 개성에 맞는 완벽한 헤어를 완성합니다.</p>
+                        <ul class="service-menu">
+                            <li>
+                                <span class="menu-item">여성 커트</span>
+                                <span class="menu-price">50,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">남성 커트</span>
+                                <span class="menu-price">35,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">염색 (전체)</span>
+                                <span class="menu-price">100,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">펌 (디지털/셋팅)</span>
+                                <span class="menu-price">120,000원~</span>
+                            </li>
+                        </ul>
+                        <a href="contact.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+
+                <!-- Nail Art -->
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1617897903246-719242758050?w=600&h=400&fit=crop" alt="Natural Cosmetics">
+                        <span class="service-category">Nail</span>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Nail Art</h3>
+                        <p class="service-desc">섬세한 네일 아트와 케어로 손끝까지 아름답게. 최신 트렌드 디자인을 경험하세요.</p>
+                        <ul class="service-menu">
+                            <li>
+                                <span class="menu-item">젤네일 기본</span>
+                                <span class="menu-price">40,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">아트네일</span>
+                                <span class="menu-price">60,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">페디큐어</span>
+                                <span class="menu-price">50,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">핸드케어 스페셜</span>
+                                <span class="menu-price">35,000원~</span>
+                            </li>
+                        </ul>
+                        <a href="contact.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+
+                <!-- Makeup -->
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&h=400&fit=crop" alt="Makeup Products">
+                        <span class="service-category">Makeup</span>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Makeup</h3>
+                        <p class="service-desc">웨딩, 화보, 일상까지. 전문 메이크업 아티스트가 당신의 아름다움을 완성합니다.</p>
+                        <ul class="service-menu">
+                            <li>
+                                <span class="menu-item">데일리 메이크업</span>
+                                <span class="menu-price">80,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">웨딩 메이크업</span>
+                                <span class="menu-price">200,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">화보/촬영 메이크업</span>
+                                <span class="menu-price">150,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">레슨 (1회)</span>
+                                <span class="menu-price">100,000원~</span>
+                            </li>
+                        </ul>
+                        <a href="contact.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+
+                <!-- Skincare -->
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&h=400&fit=crop" alt="Woman Skincare Routine">
+                        <span class="service-category">Skincare</span>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Skincare</h3>
+                        <p class="service-desc">피부 타입별 맞춤 관리로 건강하고 빛나는 피부를 선물합니다.</p>
+                        <ul class="service-menu">
+                            <li>
+                                <span class="menu-item">기본 관리</span>
+                                <span class="menu-price">70,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">딥클렌징</span>
+                                <span class="menu-price">90,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">안티에이징 케어</span>
+                                <span class="menu-price">120,000원~</span>
+                            </li>
+                            <li>
+                                <span class="menu-item">브라이트닝 케어</span>
+                                <span class="menu-price">100,000원~</span>
+                            </li>
+                        </ul>
+                        <a href="contact.html" class="btn btn-primary">예약하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Guide -->
+    <section class="section price-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-badge">Package</span>
+                <h2 class="section-title">스페셜 <span>패키지</span></h2>
+                <p class="section-desc">더욱 특별한 경험을 위한 프리미엄 패키지</p>
+            </div>
+            <div class="price-grid">
+                <div class="price-card fade-in">
+                    <div class="price-icon">&#128133;</div>
+                    <h3 class="price-title">Basic Care</h3>
+                    <div class="price-amount">89,000</div>
+                    <p class="price-unit">원 / 1회</p>
+                    <ul class="price-features">
+                        <li>헤어 컨설팅</li>
+                        <li>기본 커트</li>
+                        <li>두피 케어</li>
+                        <li>스타일링</li>
+                    </ul>
+                </div>
+                <div class="price-card featured fade-in">
+                    <div class="price-icon">&#128142;</div>
+                    <h3 class="price-title">Premium Care</h3>
+                    <div class="price-amount">159,000</div>
+                    <p class="price-unit">원 / 1회</p>
+                    <ul class="price-features">
+                        <li>헤어 컨설팅</li>
+                        <li>커트 + 염색/펌</li>
+                        <li>프리미엄 두피 케어</li>
+                        <li>헤어 트리트먼트</li>
+                    </ul>
+                </div>
+                <div class="price-card fade-in">
+                    <div class="price-icon">&#127775;</div>
+                    <h3 class="price-title">Total Beauty</h3>
+                    <div class="price-amount">249,000</div>
+                    <p class="price-unit">원 / 1회</p>
+                    <ul class="price-features">
+                        <li>헤어 풀 서비스</li>
+                        <li>네일 기본</li>
+                        <li>스킨케어 기본</li>
+                        <li>메이크업 터치</li>
+                    </ul>
+                </div>
+                <div class="price-card fade-in">
+                    <div class="price-icon">&#128151;</div>
+                    <h3 class="price-title">Bridal Package</h3>
+                    <div class="price-amount">490,000</div>
+                    <p class="price-unit">원 / 1회</p>
+                    <ul class="price-features">
+                        <li>웨딩 헤어</li>
+                        <li>웨딩 메이크업</li>
+                        <li>네일 아트</li>
+                        <li>리허설 포함</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">지금 바로 예약하세요</h2>
+            <p class="cta-text">스파클 뷰티에서 특별한 변신을 경험해보세요</p>
+            <a href="contact.html" class="btn btn-white">온라인 예약</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-brand">Sparkle Beauty</div>
+                    <p class="footer-desc">
+                        당신의 아름다움을 빛나게 하는 프리미엄 뷰티 살롱.<br>
+                        전문가의 손길로 특별한 경험을 선사합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">&#128247;</a>
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="YouTube">&#9654;</a>
+                        <a href="#" aria-label="Blog">B</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About</a>
+                        <a href="services.html">Services</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Services</h4>
+                    <div class="footer-links">
+                        <a href="services.html">Hair Styling</a>
+                        <a href="services.html">Nail Art</a>
+                        <a href="services.html">Makeup</a>
+                        <a href="services.html">Skincare</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Contact</h4>
+                    <div class="footer-contact-item">
+                        <span class="footer-contact-icon">&#128205;</span>
+                        <span>서울시 강남구 압구정로 123</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-contact-icon">&#128222;</span>
+                        <span>02-1234-5678</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-contact-icon">&#9993;</span>
+                        <span>hello@sparklebeauty.kr</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-contact-icon">&#128336;</span>
+                        <span>10:00 - 21:00 (Mon-Sat)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sparkle Beauty. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">&#8593;</button>
+
+    <script>
+        // Mobile Navigation Toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/Hide Scroll to Top Button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Fade In Animation on Scroll
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+    </script>
+</body>
+</html>

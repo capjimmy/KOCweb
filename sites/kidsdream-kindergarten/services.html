@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육 프로그램 - 키즈드림 유치원</title>
+    <meta name="description" content="키즈드림 유치원 교육 프로그램 - 창의미술, 영어동화, 과학탐구, 음악놀이 등">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Jua&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #FF6B9D; --primary-dark: #E91E63; --secondary: #4FC3F7;
+            --accent-yellow: #FFD54F; --accent-green: #81C784; --accent-purple: #BA68C8;
+            --accent-orange: #FFB74D; --text-dark: #37474F; --text-light: #78909C;
+            --bg-light: #FAFAFA; --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08); --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 20px; --radius-sm: 12px;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; color: var(--text-dark); line-height: 1.7; background: var(--white); overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; height: auto; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Jua', sans-serif; font-size: 1.8rem; color: var(--primary); }
+        .logo-emoji { font-size: 2rem; }
+        .nav-menu { display: flex; list-style: none; gap: 10px; }
+        .nav-link { padding: 10px 20px; border-radius: 25px; font-weight: 500; color: var(--text-dark); }
+        .nav-link:hover, .nav-link.active { background: linear-gradient(135deg, var(--primary), var(--accent-purple)); color: white; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
+        .nav-toggle span { width: 25px; height: 3px; background: var(--primary); border-radius: 3px; transition: 0.3s; }
+        .page-header { background: linear-gradient(135deg, #FFF5F8 0%, #F0F9FF 50%, #FFF9E6 100%); padding: 150px 0 80px; text-align: center; position: relative; overflow: hidden; }
+        .page-header::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: linear-gradient(135deg, var(--primary), transparent); border-radius: 50%; opacity: 0.3; }
+        .page-header::after { content: ''; position: absolute; bottom: -50px; left: -50px; width: 200px; height: 200px; background: linear-gradient(135deg, var(--secondary), transparent); border-radius: 50%; opacity: 0.3; }
+        .page-header h1 { font-family: 'Jua', sans-serif; font-size: 3rem; margin-bottom: 15px; position: relative; z-index: 1; }
+        .page-header p { font-size: 1.2rem; color: var(--text-light); position: relative; z-index: 1; }
+        .highlight { background: linear-gradient(135deg, var(--primary), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section { padding: 100px 0; position: relative; }
+        .section-header { margin-bottom: 60px; }
+        .section-emoji { font-size: 3rem; display: block; margin-bottom: 15px; }
+        .section-title { font-family: 'Jua', sans-serif; font-size: 2.5rem; margin-bottom: 15px; }
+        .section-desc { font-size: 1.1rem; color: var(--text-light); }
+        .text-center { text-align: center; }
+        .program-tabs { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px; }
+        .program-tab { padding: 12px 30px; border: 2px solid var(--primary); background: white; border-radius: 30px; font-weight: 600; color: var(--primary); cursor: pointer; transition: all 0.3s ease; }
+        .program-tab:hover, .program-tab.active { background: linear-gradient(135deg, var(--primary), var(--accent-purple)); color: white; border-color: transparent; }
+        .programs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+        .program-card { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .program-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+        .program-image { position: relative; height: 250px; overflow: hidden; }
+        .program-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .program-card:hover .program-image img { transform: scale(1.1); }
+        .program-badge { position: absolute; top: 15px; right: 15px; padding: 8px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: white; }
+        .program-badge.popular { background: var(--primary); }
+        .program-badge.new { background: var(--accent-green); }
+        .program-content { padding: 30px; flex: 1; display: flex; flex-direction: column; }
+        .program-category { display: inline-block; padding: 5px 15px; background: var(--bg-light); border-radius: 15px; font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; width: fit-content; }
+        .program-content h3 { font-family: 'Jua', sans-serif; font-size: 1.5rem; margin-bottom: 15px; color: var(--text-dark); }
+        .program-content > p { font-size: 1rem; color: var(--text-light); line-height: 1.8; margin-bottom: 20px; }
+        .program-info { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .program-info span { font-size: 0.9rem; color: var(--text-light); }
+        .program-features { list-style: none; margin-top: auto; }
+        .program-features li { padding: 8px 0; font-size: 0.95rem; color: var(--text-dark); }
+        .schedule-section { background: var(--bg-light); }
+        .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .schedule-card { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; transition: all 0.3s ease; }
+        .schedule-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .schedule-time { font-family: 'Jua', sans-serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 10px; }
+        .schedule-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-dark); }
+        .schedule-card p { font-size: 0.9rem; color: var(--text-light); }
+        .cta-section { background: linear-gradient(135deg, var(--secondary), #29B6F6); color: white; text-align: center; }
+        .cta-icon { font-size: 4rem; margin-bottom: 20px; }
+        .cta-content h2 { font-family: 'Jua', sans-serif; font-size: 2.5rem; margin-bottom: 15px; }
+        .cta-content p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.95; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 30px; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-white { background: white; color: var(--secondary); }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(255,255,255,0.3); }
+        .footer { background: var(--text-dark); color: white; padding: 80px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; margin-bottom: 60px; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Jua', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 15px; }
+        .footer-desc { color: rgba(255,255,255,0.7); line-height: 1.8; }
+        .footer-links h4 { font-family: 'Jua', sans-serif; font-size: 1.2rem; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); }
+        .footer-links a:hover { color: white; }
+        .footer-contact h4 { font-family: 'Jua', sans-serif; font-size: 1.2rem; margin-bottom: 20px; }
+        .footer-contact p { color: rgba(255,255,255,0.7); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.5); margin-bottom: 5px; font-size: 0.9rem; }
+        .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--accent-purple)); color: white; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 999; box-shadow: 0 4px 20px rgba(255,107,157,0.4); }
+        .scroll-top.visible { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-5px); }
+        .fade-in { opacity: 0; transform: translateY(30px); animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 1024px) { .programs-grid { grid-template-columns: 1fr; } .schedule-grid { grid-template-columns: repeat(2, 1fr); } .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .nav-menu { position: fixed; top: 70px; left: 0; right: 0; background: white; flex-direction: column; padding: 20px; box-shadow: var(--shadow); transform: translateY(-150%); transition: transform 0.3s ease; } .nav-menu.active { transform: translateY(0); } .nav-toggle { display: flex; } .page-header h1 { font-size: 2.2rem; } .section-title { font-size: 2rem; } .schedule-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; gap: 40px; } }
+        @media (max-width: 480px) { .page-header h1 { font-size: 1.8rem; } .program-tabs { gap: 10px; } .program-tab { padding: 10px 20px; font-size: 0.9rem; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo"><span class="logo-emoji">&#127752;</span><span class="logo-text">키즈드림</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="about.html" class="nav-link">유치원 소개</a></li>
+                <li><a href="programs.html" class="nav-link active">교육 프로그램</a></li>
+                <li><a href="facilities.html" class="nav-link">시설 안내</a></li>
+                <li><a href="contact.html" class="nav-link">입학 상담</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="fade-in">교육 <span class="highlight">프로그램</span></h1>
+            <p class="fade-in">아이들의 잠재력을 깨우는 다양한 프로그램</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-bottom: 0;">
+        <div class="container">
+            <div class="program-tabs fade-in">
+                <button class="program-tab active" data-category="all">전체</button>
+                <button class="program-tab" data-category="art">예술</button>
+                <button class="program-tab" data-category="language">언어</button>
+                <button class="program-tab" data-category="science">과학</button>
+                <button class="program-tab" data-category="physical">신체</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="programs-grid">
+                <div class="program-card fade-in" data-category="art">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600" alt="창의미술">
+                        <span class="program-badge popular">인기</span>
+                    </div>
+                    <div class="program-content">
+                        <span class="program-category">&#127912; 예술</span>
+                        <h3>창의미술</h3>
+                        <p>다양한 재료와 기법을 활용하여 아이들의 창의력과 표현력을 키워줍니다.</p>
+                        <div class="program-info">
+                            <span>&#128197; 주 2회</span>
+                            <span>&#128336; 40분</span>
+                            <span>&#128100; 만 3-5세</span>
+                        </div>
+                        <ul class="program-features">
+                            <li>&#10003; 다양한 미술 재료 체험</li>
+                            <li>&#10003; 개인 작품집 제작</li>
+                            <li>&#10003; 정기 작품 전시회</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in" data-category="language">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1567057419565-4349c49d8a04?w=600" alt="영어동화">
+                        <span class="program-badge new">NEW</span>
+                    </div>
+                    <div class="program-content">
+                        <span class="program-category">&#128218; 언어</span>
+                        <h3>영어동화</h3>
+                        <p>재미있는 영어 동화책을 통해 자연스럽게 영어와 친해집니다.</p>
+                        <div class="program-info">
+                            <span>&#128197; 주 3회</span>
+                            <span>&#128336; 30분</span>
+                            <span>&#128100; 만 4-5세</span>
+                        </div>
+                        <ul class="program-features">
+                            <li>&#10003; 원어민 교사 수업</li>
+                            <li>&#10003; 파닉스 기초 학습</li>
+                            <li>&#10003; 영어 동요 및 율동</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in" data-category="science">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1535572290543-960a8046f5af?w=600" alt="과학탐구">
+                    </div>
+                    <div class="program-content">
+                        <span class="program-category">&#128300; 과학</span>
+                        <h3>과학탐구</h3>
+                        <p>직접 실험하고 관찰하며 과학적 사고력을 길러줍니다.</p>
+                        <div class="program-info">
+                            <span>&#128197; 주 1회</span>
+                            <span>&#128336; 40분</span>
+                            <span>&#128100; 만 4-5세</span>
+                        </div>
+                        <ul class="program-features">
+                            <li>&#10003; 안전한 과학 실험</li>
+                            <li>&#10003; 자연 관찰 활동</li>
+                            <li>&#10003; 과학 일기 작성</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in" data-category="art">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600" alt="음악놀이">
+                    </div>
+                    <div class="program-content">
+                        <span class="program-category">&#127926; 예술</span>
+                        <h3>음악놀이</h3>
+                        <p>다양한 악기와 노래로 음악적 감성과 리듬감을 키워줍니다.</p>
+                        <div class="program-info">
+                            <span>&#128197; 주 2회</span>
+                            <span>&#128336; 30분</span>
+                            <span>&#128100; 만 3-5세</span>
+                        </div>
+                        <ul class="program-features">
+                            <li>&#10003; 다양한 악기 체험</li>
+                            <li>&#10003; 음악 감상 교육</li>
+                            <li>&#10003; 정기 발표회</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in" data-category="physical">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600" alt="체육놀이">
+                    </div>
+                    <div class="program-content">
+                        <span class="program-category">&#9917; 신체</span>
+                        <h3>체육놀이</h3>
+                        <p>기초 체력과 운동 능력을 발달시키는 체육 프로그램입니다.</p>
+                        <div class="program-info">
+                            <span>&#128197; 주 3회</span>
+                            <span>&#128336; 40분</span>
+                            <span>&#128100; 만 3-5세</span>
+                        </div>
+                        <ul class="program-features">
+                            <li>&#10003; 기초 체력 운동</li>
+                            <li>&#10003; 대근육 발달 활동</li>
+                            <li>&#10003; 안전 교육 병행</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card fade-in" data-category="science">
+                    <div class="program-image">
+                        <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=600" alt="생태탐험">
+                        <span class="program-badge popular">인기</span>
+                    </div>
+                    <div class="program-content">
+                        <span class="program-category">&#127793; 자연</span>
+                        <h3>생태탐험</h3>
+                        <p>자연 속에서 동식물을 관찰하고 생태 감수성을 기릅니다.</p>
+                        <div class="program-info">
+                            <span>&#128197; 주 1회</span>
+                            <span>&#128336; 60분</span>
+                            <span>&#128100; 만 3-5세</span>
+                        </div>
+                        <ul class="program-features">
+                            <li>&#10003; 텃밭 가꾸기</li>
+                            <li>&#10003; 자연물 놀이</li>
+                            <li>&#10003; 생태 관찰 일지</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section schedule-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128197;</span>
+                <h2 class="section-title">하루 <span class="highlight">일과</span></h2>
+                <p class="section-desc">아이들의 즐거운 하루</p>
+            </div>
+            <div class="schedule-grid">
+                <div class="schedule-card fade-in"><div class="schedule-time">07:30</div><h4>&#127774; 등원 및 자유놀이</h4><p>친구들과 인사하고 자유롭게 놀아요</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">09:00</div><h4>&#127828; 오전 간식</h4><p>건강한 간식으로 에너지 충전!</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">09:30</div><h4>&#128218; 오전 교육활동</h4><p>창의미술, 과학탐구 등 다양한 활동</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">11:30</div><h4>&#127881; 실외놀이</h4><p>놀이터에서 신나게 뛰어놀아요</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">12:00</div><h4>&#127859; 점심식사</h4><p>영양 가득한 급식 시간</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">13:00</div><h4>&#128564; 낮잠 / 휴식</h4><p>편안한 휴식 시간</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">15:00</div><h4>&#127828; 오후 간식</h4><p>맛있는 오후 간식 시간</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">15:30</div><h4>&#127926; 오후 교육활동</h4><p>음악놀이, 영어동화 등 특별활동</p></div>
+                <div class="schedule-card fade-in"><div class="schedule-time">17:00</div><h4>&#128075; 하원 준비</h4><p>하루를 정리하고 귀가 준비</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <div class="cta-icon">&#9997;</div>
+                <h2>입학 상담을 원하시나요?</h2>
+                <p>키즈드림의 다양한 프로그램을 직접 체험해보세요</p>
+                <a href="contact.html" class="btn btn-white">입학 상담 신청</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo"><span class="logo-emoji">&#127752;</span><span class="logo-text">키즈드림</span></a>
+                    <p class="footer-desc">창의융합 교육 전문 프리미엄 유치원<br>아이들의 꿈이 자라는 곳</p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <ul><li><a href="about.html">유치원 소개</a></li><li><a href="programs.html">교육 프로그램</a></li><li><a href="facilities.html">시설 안내</a></li><li><a href="contact.html">입학 상담</a></li></ul>
+                </div>
+                <div class="footer-links">
+                    <h4>프로그램</h4>
+                    <ul><li><a href="programs.html">창의미술</a></li><li><a href="programs.html">영어동화</a></li><li><a href="programs.html">과학탐구</a></li><li><a href="programs.html">음악놀이</a></li></ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>연락처</h4>
+                    <p><span>&#128205;</span> 경기도 분당구 정자동 178-1</p>
+                    <p><span>&#128222;</span> 031-714-8900</p>
+                    <p><span>&#9200;</span> 평일 07:30 - 19:30</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 키즈드림 유치원. All Rights Reserved.</p>
+                <p>원장: 문희정 | 설립: 2010년</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="맨 위로"><span>&#8593;</span></button>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        navToggle.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+        document.querySelectorAll('.nav-link').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); }); });
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => { scrollTopBtn.classList.toggle('visible', window.scrollY > 300); });
+        scrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        const tabs = document.querySelectorAll('.program-tab');
+        const cards = document.querySelectorAll('.program-card');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const category = tab.dataset.category;
+                cards.forEach(card => { card.style.display = (category === 'all' || card.dataset.category === category) ? 'flex' : 'none'; });
+            });
+        });
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animationPlayState = 'running'; }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => { el.style.animationPlayState = 'paused'; observer.observe(el); });
+    </script>
+</body>
+</html>

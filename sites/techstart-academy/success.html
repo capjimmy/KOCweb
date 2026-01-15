@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수료생 성공사례 | 테크스타트 아카데미</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --primary-cyan: #06B6D4;
+            --primary-green: #10B981;
+            --primary-orange: #F59E0B;
+            --neon-purple: #A855F7;
+            --neon-cyan: #22D3EE;
+            --neon-green: #34D399;
+            --dark-bg: #0F0F1A;
+            --dark-card: #1A1A2E;
+            --dark-border: #2D2D44;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --text-muted: #6B6B80;
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+            --gradient-cyan: linear-gradient(135deg, #06B6D4 0%, #22D3EE 100%);
+            --gradient-green: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-orange: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+            --gradient-mixed: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 50%, #10B981 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-mixed);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-mixed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-purple);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 160px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 0 2rem 80px;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 1px;
+            background: var(--dark-border);
+        }
+
+        .stat-item:last-child::after {
+            display: none;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Success Stories Section */
+        .success-section {
+            padding: 80px 2rem;
+        }
+
+        .success-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Featured Stories */
+        .featured-stories {
+            margin-bottom: 5rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .featured-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .featured-card:nth-child(1)::before { background: var(--gradient-purple); }
+        .featured-card:nth-child(2)::before { background: var(--gradient-cyan); }
+        .featured-card:nth-child(3)::before { background: var(--gradient-green); }
+        .featured-card:nth-child(4)::before { background: var(--gradient-orange); }
+
+        .featured-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .featured-content {
+            padding: 2.5rem;
+        }
+
+        .story-quote {
+            font-size: 3rem;
+            color: var(--neon-purple);
+            opacity: 0.3;
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-family: Georgia, serif;
+        }
+
+        .story-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--neon-green);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .story-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--dark-border);
+        }
+
+        .story-info h4 {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .story-course {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .story-company {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--dark-bg);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+        }
+
+        .story-salary {
+            display: inline-block;
+            margin-left: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+        }
+
+        /* Company Logos */
+        .companies-section {
+            padding: 80px 2rem;
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .companies-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .company-item {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .company-item:hover {
+            border-color: var(--primary-purple);
+            transform: translateY(-5px);
+        }
+
+        .company-logo {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .company-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .company-count {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 0.25rem;
+        }
+
+        /* Employment Stats */
+        .employment-section {
+            padding: 100px 2rem;
+        }
+
+        .employment-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .employment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .employment-chart {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .chart-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .chart-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chart-label {
+            width: 120px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .chart-bar-container {
+            flex: 1;
+            height: 24px;
+            background: var(--dark-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chart-bar {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1.5s ease;
+        }
+
+        .chart-bar.purple { background: var(--gradient-purple); }
+        .chart-bar.cyan { background: var(--gradient-cyan); }
+        .chart-bar.green { background: var(--gradient-green); }
+        .chart-bar.orange { background: var(--gradient-orange); }
+
+        .chart-value {
+            width: 50px;
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .employment-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .info-card:nth-child(1) .info-icon { background: rgba(139, 92, 246, 0.2); }
+        .info-card:nth-child(2) .info-icon { background: rgba(6, 182, 212, 0.2); }
+        .info-card:nth-child(3) .info-icon { background: rgba(16, 185, 129, 0.2); }
+        .info-card:nth-child(4) .info-icon { background: rgba(245, 158, 11, 0.2); }
+
+        .info-content h4 {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .info-content .highlight {
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        /* More Stories */
+        .more-stories {
+            padding: 80px 2rem;
+            background: var(--dark-card);
+        }
+
+        .more-stories-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .story-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            border-color: var(--primary-purple);
+            transform: translateY(-5px);
+        }
+
+        .story-card-quote {
+            color: var(--neon-purple);
+            font-size: 2rem;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+            font-family: Georgia, serif;
+        }
+
+        .story-card-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .story-card-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .story-card-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .story-card-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .story-card-detail {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at center, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-purple);
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--dark-border);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-cyan);
+            color: var(--neon-cyan);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+        }
+
+        .footer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:nth-child(2)::after {
+                display: none;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .companies-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .employment-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--dark-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                padding: 2rem;
+            }
+
+            .stat-item::after {
+                display: none;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .companies-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">&lt;/&gt;</div>
+                <div class="logo-text">테크스타트 <span>아카데미</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="courses.html">교육과정</a></li>
+                <li><a href="curriculum.html">커리큘럼</a></li>
+                
+                <li><a href="success.html" class="active">수료생 후기</a></li>
+                <li><a href="contact.html">상담신청</a></li>
+            </ul>
+            <a href="contact.html" class="nav-cta">무료 상담</a>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg"></div>
+        <div class="page-header-content">
+            <span class="page-tag">&lt;success-stories&gt;</span>
+            <h1 class="page-title">수료생 성공사례</h1>
+            <p class="page-subtitle">
+                테크스타트 아카데미와 함께 꿈을 이룬 수료생들의 이야기.<br>
+                당신도 다음 성공 스토리의 주인공이 될 수 있습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stats-grid fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">2,847</div>
+                    <div class="stat-label">총 수료생</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">취업 성공률</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4,800만</div>
+                    <div class="stat-label">평균 초봉</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">협력 기업</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Stories -->
+    <section class="success-section">
+        <div class="success-container">
+            <div class="featured-stories">
+                <div class="section-header fade-in">
+                    <span class="section-tag">// featured_stories</span>
+                    <h2 class="section-title">대표 성공 스토리</h2>
+                    <p class="section-subtitle">비전공자에서 현업 개발자로, 그들의 이야기</p>
+                </div>
+                <div class="featured-grid">
+                    <div class="featured-card fade-in">
+                        <div class="featured-content">
+                            <div class="story-quote">"</div>
+                            <span class="story-badge">비전공자 -> 프론트엔드 개발자</span>
+                            <p class="story-text">
+                                경영학과 출신으로 개발과는 전혀 무관했습니다. 테크스타트 아카데미에서
+                                6개월간 풀스택 과정을 수료한 후, 네이버에 프론트엔드 개발자로 입사했습니다.
+                                실무 중심의 프로젝트와 현업 멘토님의 코드 리뷰가 취업에 결정적이었어요.
+                            </p>
+                            <div class="story-author">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="김서연" class="story-avatar">
+                                <div class="story-info">
+                                    <h4>김서연</h4>
+                                    <div class="story-course">풀스택 웹 개발 3기</div>
+                                    <span class="story-company">@NAVER</span>
+                                    <span class="story-salary">연봉 5,200만</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="featured-card fade-in">
+                        <div class="featured-content">
+                            <div class="story-quote">"</div>
+                            <span class="story-badge">경력 전환 -> 데이터 분석가</span>
+                            <p class="story-text">
+                                10년간 마케팅 업무를 하다가 데이터 분석에 관심이 생겼습니다.
+                                테크스타트의 데이터 사이언스 과정을 통해 Python과 SQL을 마스터하고,
+                                현재 카카오에서 데이터 분석가로 일하고 있습니다.
+                            </p>
+                            <div class="story-author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="박준혁" class="story-avatar">
+                                <div class="story-info">
+                                    <h4>박준혁</h4>
+                                    <div class="story-course">데이터 사이언스 2기</div>
+                                    <span class="story-company">@Kakao</span>
+                                    <span class="story-salary">연봉 5,800만</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="featured-card fade-in">
+                        <div class="featured-content">
+                            <div class="story-quote">"</div>
+                            <span class="story-badge">신입 -> 모바일 개발자</span>
+                            <p class="story-text">
+                                컴퓨터공학을 전공했지만 실무 경험이 부족해 취업이 막막했습니다.
+                                모바일 앱 개발 과정에서 실제 앱을 출시하는 경험을 쌓고,
+                                토스에 모바일 개발자로 입사할 수 있었습니다.
+                            </p>
+                            <div class="story-author">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="이민지" class="story-avatar">
+                                <div class="story-info">
+                                    <h4>이민지</h4>
+                                    <div class="story-course">모바일 앱 개발 1기</div>
+                                    <span class="story-company">@토스</span>
+                                    <span class="story-salary">연봉 5,500만</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="featured-card fade-in">
+                        <div class="featured-content">
+                            <div class="story-quote">"</div>
+                            <span class="story-badge">물리학 전공 -> AI 엔지니어</span>
+                            <p class="story-text">
+                                물리학 석사를 마치고 AI 분야로 전환하고 싶었습니다.
+                                수학적 기초가 있어서 AI/머신러닝 과정을 빠르게 따라갈 수 있었고,
+                                현재 네이버 AI Lab에서 연구 엔지니어로 일하고 있습니다.
+                            </p>
+                            <div class="story-author">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="최동현" class="story-avatar">
+                                <div class="story-info">
+                                    <h4>최동현</h4>
+                                    <div class="story-course">AI/머신러닝 1기</div>
+                                    <span class="story-company">@NAVER AI Lab</span>
+                                    <span class="story-salary">연봉 6,500만</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companies Section -->
+    <section class="companies-section">
+        <div class="companies-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">// hiring_companies</span>
+                <h2 class="section-title">수료생들이 일하는 곳</h2>
+                <p class="section-subtitle">150개 이상의 IT 기업에서 테크스타트 수료생이 활약하고 있습니다</p>
+            </div>
+            <div class="companies-grid">
+                <div class="company-item fade-in">
+                    <div class="company-logo">N</div>
+                    <div class="company-name">네이버</div>
+                    <div class="company-count">127명 입사</div>
+                </div>
+                <div class="company-item fade-in">
+                    <div class="company-logo">K</div>
+                    <div class="company-name">카카오</div>
+                    <div class="company-count">98명 입사</div>
+                </div>
+                <div class="company-item fade-in">
+                    <div class="company-logo">C</div>
+                    <div class="company-name">쿠팡</div>
+                    <div class="company-count">85명 입사</div>
+                </div>
+                <div class="company-item fade-in">
+                    <div class="company-logo">T</div>
+                    <div class="company-name">토스</div>
+                    <div class="company-count">62명 입사</div>
+                </div>
+                <div class="company-item fade-in">
+                    <div class="company-logo">B</div>
+                    <div class="company-name">배달의민족</div>
+                    <div class="company-count">54명 입사</div>
+                </div>
+                <div class="company-item fade-in">
+                    <div class="company-logo">L</div>
+                    <div class="company-name">라인</div>
+                    <div class="company-count">47명 입사</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Employment Stats -->
+    <section class="employment-section">
+        <div class="employment-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">// employment_stats</span>
+                <h2 class="section-title">취업 현황</h2>
+                <p class="section-subtitle">수료생들의 실제 취업 데이터</p>
+            </div>
+            <div class="employment-grid">
+                <div class="employment-chart fade-in">
+                    <h3 class="chart-title">과정별 취업률</h3>
+                    <div class="chart-bars">
+                        <div class="chart-bar-item">
+                            <span class="chart-label">풀스택 웹 개발</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar purple" style="width: 96%;"></div>
+                            </div>
+                            <span class="chart-value">96%</span>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-label">데이터 사이언스</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar cyan" style="width: 94%;"></div>
+                            </div>
+                            <span class="chart-value">94%</span>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-label">AI/머신러닝</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar green" style="width: 91%;"></div>
+                            </div>
+                            <span class="chart-value">91%</span>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-label">모바일 앱 개발</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar orange" style="width: 93%;"></div>
+                            </div>
+                            <span class="chart-value">93%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="employment-info">
+                    <div class="info-card fade-in">
+                        <div class="info-icon">💰</div>
+                        <div class="info-content">
+                            <h4>평균 초봉</h4>
+                            <p>수료생 평균 초봉 <span class="highlight">4,800만원</span></p>
+                        </div>
+                    </div>
+                    <div class="info-card fade-in">
+                        <div class="info-icon">⏱️</div>
+                        <div class="info-content">
+                            <h4>취업 소요 기간</h4>
+                            <p>수료 후 평균 <span class="highlight">1.5개월</span> 이내 취업</p>
+                        </div>
+                    </div>
+                    <div class="info-card fade-in">
+                        <div class="info-icon">🏢</div>
+                        <div class="info-content">
+                            <h4>대기업 취업률</h4>
+                            <p>취업자 중 <span class="highlight">68%</span>가 대기업/유니콘</p>
+                        </div>
+                    </div>
+                    <div class="info-card fade-in">
+                        <div class="info-icon">📈</div>
+                        <div class="info-content">
+                            <h4>1년 후 연봉 상승률</h4>
+                            <p>입사 1년 후 평균 <span class="highlight">23%</span> 연봉 인상</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Stories -->
+    <section class="more-stories">
+        <div class="more-stories-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">// more_reviews</span>
+                <h2 class="section-title">더 많은 수료생 후기</h2>
+                <p class="section-subtitle">실제 수료생들의 솔직한 이야기</p>
+            </div>
+            <div class="stories-grid">
+                <div class="story-card fade-in">
+                    <div class="story-card-quote">"</div>
+                    <p class="story-card-text">
+                        매일 아침 9시부터 저녁 6시까지 빡빡한 일정이었지만,
+                        그만큼 성장할 수 있었습니다. 포트폴리오 3개를 완성하고
+                        자신감 있게 면접을 볼 수 있었어요.
+                    </p>
+                    <div class="story-card-author">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop" alt="정유진" class="story-card-avatar">
+                        <div>
+                            <div class="story-card-name">정유진</div>
+                            <div class="story-card-detail">풀스택 5기 | 쿠팡 입사</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <div class="story-card-quote">"</div>
+                    <p class="story-card-text">
+                        혼자 공부할 때는 막막했는데, 체계적인 커리큘럼과
+                        동료들과의 협업 프로젝트가 큰 도움이 되었습니다.
+                        특히 코드 리뷰 문화가 좋았어요.
+                    </p>
+                    <div class="story-card-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop" alt="한승우" class="story-card-avatar">
+                        <div>
+                            <div class="story-card-name">한승우</div>
+                            <div class="story-card-detail">데이터 사이언스 4기 | 라인 입사</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <div class="story-card-quote">"</div>
+                    <p class="story-card-text">
+                        30대 후반에 개발자로 전환했습니다. 나이가 걱정되었지만
+                        멘토님들의 응원과 실력 중심의 채용 문화 덕분에
+                        좋은 회사에 입사할 수 있었어요.
+                    </p>
+                    <div class="story-card-author">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop" alt="김태영" class="story-card-avatar">
+                        <div>
+                            <div class="story-card-name">김태영</div>
+                            <div class="story-card-detail">풀스택 2기 | 당근마켓 입사</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <div class="story-card-quote">"</div>
+                    <p class="story-card-text">
+                        AI 과정은 수학이 어려울 줄 알았는데, 필요한 만큼만
+                        쉽게 설명해주셔서 이해하기 좋았습니다.
+                        실습 위주라 지루하지 않았어요.
+                    </p>
+                    <div class="story-card-author">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop" alt="오세희" class="story-card-avatar">
+                        <div>
+                            <div class="story-card-name">오세희</div>
+                            <div class="story-card-detail">AI/머신러닝 2기 | 삼성전자 입사</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <div class="story-card-quote">"</div>
+                    <p class="story-card-text">
+                        국비지원으로 비용 부담 없이 공부할 수 있었고,
+                        취업 연계 서비스까지 받아서 수료 후 바로
+                        취업에 성공했습니다.
+                    </p>
+                    <div class="story-card-author">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop" alt="송미나" class="story-card-avatar">
+                        <div>
+                            <div class="story-card-name">송미나</div>
+                            <div class="story-card-detail">모바일 앱 개발 2기 | 야놀자 입사</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card fade-in">
+                    <div class="story-card-quote">"</div>
+                    <p class="story-card-text">
+                        수료 후에도 동문 네트워크가 활발해서 정보 교류가
+                        많아요. 현업에서 모르는 게 있으면 바로 물어볼 수 있는
+                        든든한 커뮤니티가 있습니다.
+                    </p>
+                    <div class="story-card-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop" alt="이재현" class="story-card-avatar">
+                        <div>
+                            <div class="story-card-name">이재현</div>
+                            <div class="story-card-detail">풀스택 4기 | 뱅크샐러드 입사</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="cta-content fade-in">
+            <h2 class="cta-title">당신도 다음 성공 스토리의<br>주인공이 될 수 있습니다</h2>
+            <p class="cta-subtitle">
+                무료 상담을 통해 나에게 맞는 과정을 찾아보세요.
+            </p>
+            <div>
+                <a href="contact.html" class="btn btn-primary">무료 상담 신청</a>
+                <a href="courses.html" class="btn btn-secondary">과정 둘러보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">&lt;/&gt;</div>
+                        <div class="logo-text">테크스타트 <span>아카데미</span></div>
+                    </a>
+                    <p class="footer-desc">
+                        테크스타트 아카데미는 실무 중심의 IT 교육으로
+                        여러분의 성공적인 개발자 커리어를 응원합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="YouTube">YT</a>
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="Blog">B</a>
+                        <a href="#" aria-label="GitHub">GH</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">교육과정</h4>
+                    <ul class="footer-links">
+                        <li><a href="courses.html">풀스택 웹 개발</a></li>
+                        <li><a href="courses.html">데이터 사이언스</a></li>
+                        <li><a href="courses.html">AI/머신러닝</a></li>
+                        <li><a href="courses.html">모바일 앱 개발</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">아카데미</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">소개</a></li>
+                        
+                        <li><a href="success.html">수료생 후기</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">고객지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">상담 신청</a></li>
+                        <li><a href="#">자주 묻는 질문</a></li>
+                        <li><a href="#">환불 정책</a></li>
+                        <li><a href="#">제휴 문의</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    &copy; 2024 테크스타트 아카데미. All rights reserved.<br>
+                    서울특별시 강남구 테헤란로 123 테크빌딩 5층 | 사업자등록번호: 123-45-67890
+                </p>
+                <div class="footer-legal">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.75rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.98)';
+            } else {
+                navbar.style.padding = '1rem 2rem';
+                navbar.style.background = 'rgba(15, 15, 26, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

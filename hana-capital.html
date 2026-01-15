@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하나캐피탈파트너스 | Hana Capital Partners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-navy: #0a1628;
+            --navy: #132543;
+            --navy-light: #1e3a5f;
+            --gold: #c9a962;
+            --gold-light: #e5d4a1;
+            --gold-dark: #a08339;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray: #8a9bb0;
+            --text-dark: #1a1a2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark-navy);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-navy);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-navy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loading-bar {
+            position: absolute;
+            bottom: 40%;
+            width: 200px;
+            height: 2px;
+            background: rgba(201, 169, 98, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-bar::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 60px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-navy);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-contact {
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-contact:hover {
+            background: var(--gold);
+            color: var(--dark-navy);
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&h=1080&fit=crop') center/cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.92) 0%, rgba(19, 37, 67, 0.85) 100%);
+        }
+
+        /* Particle Canvas */
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(201, 169, 98, 0.15);
+            border: 1px solid rgba(201, 169, 98, 0.4);
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-title span {
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .btn-primary {
+            padding: 18px 45px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--dark-navy);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 169, 98, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 18px 45px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-top: 80px;
+            animation: fadeInUp 1s ease 1.1s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: bounce 2s ease infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.8rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
+
+        .scroll-indicator i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Common */
+        section {
+            padding: 120px 60px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(180deg, var(--dark-navy) 0%, var(--navy) 100%);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--gold);
+            z-index: -1;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            z-index: -1;
+        }
+
+        .about-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .about-content h3 span {
+            color: var(--gold);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .about-feature {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .about-feature i {
+            width: 50px;
+            height: 50px;
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .about-feature-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .about-feature-content p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&h=800&fit=crop') center/cover;
+            opacity: 0.1;
+        }
+
+        .philosophy-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .philosophy-card {
+            background: rgba(10, 22, 40, 0.6);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .philosophy-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .philosophy-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.2), rgba(201, 169, 98, 0.05));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .philosophy-icon i {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .philosophy-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .philosophy-card p {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Investment Areas */
+        .investment {
+            background: var(--dark-navy);
+        }
+
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .investment-card {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .investment-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .investment-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .investment-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 22, 40, 0.95) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px 30px;
+            transition: background 0.5s ease;
+        }
+
+        .investment-card:hover .investment-overlay {
+            background: linear-gradient(180deg, rgba(201, 169, 98, 0.1) 0%, rgba(10, 22, 40, 0.98) 100%);
+        }
+
+        .investment-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(201, 169, 98, 0.2);
+            border: 1px solid var(--gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .investment-card:hover .investment-icon {
+            background: var(--gold);
+        }
+
+        .investment-icon i {
+            font-size: 1.5rem;
+            color: var(--gold);
+            transition: color 0.5s ease;
+        }
+
+        .investment-card:hover .investment-icon i {
+            color: var(--dark-navy);
+        }
+
+        .investment-overlay h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .investment-overlay p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.7;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .investment-card:hover .investment-overlay p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .investment-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.1s;
+        }
+
+        .investment-card:hover .investment-stats {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .investment-stat {
+            text-align: center;
+        }
+
+        .investment-stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .investment-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--dark-navy) 100%);
+        }
+
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--gray);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark-navy);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-card {
+            background: rgba(19, 37, 67, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .portfolio-card:hover::before {
+            opacity: 1;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(201, 169, 98, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .portfolio-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: var(--white);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .portfolio-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(201, 169, 98, 0.15);
+            color: var(--gold);
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-info {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .portfolio-info-item span:first-child {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .portfolio-info-item span:last-child {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+            padding: 100px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1460472178825-e5240623afd5?w=1920&h=600&fit=crop') center/cover;
+            opacity: 0.1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--dark-navy);
+            line-height: 1;
+        }
+
+        .stat-suffix {
+            font-size: 2rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--navy);
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        /* Team Section */
+        .team {
+            background: var(--dark-navy);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .team-image {
+            position: relative;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: all 0.5s ease;
+        }
+
+        .team-card:hover .team-image img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .team-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(180deg, transparent, rgba(201, 169, 98, 0.9));
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            gap: 15px;
+            transition: height 0.5s ease;
+            overflow: hidden;
+        }
+
+        .team-card:hover .team-overlay {
+            height: 80px;
+        }
+
+        .team-overlay a {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-navy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .team-overlay a:hover {
+            background: var(--white);
+            color: var(--dark-navy);
+        }
+
+        .team-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .team-position {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .team-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* News Section */
+        .news {
+            background: var(--navy);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .news-featured {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-featured img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .news-featured:hover img {
+            transform: scale(1.05);
+        }
+
+        .news-featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 50px 40px;
+            background: linear-gradient(180deg, transparent, rgba(10, 22, 40, 0.98));
+        }
+
+        .news-category {
+            display: inline-block;
+            padding: 6px 15px;
+            background: var(--gold);
+            color: var(--dark-navy);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .news-featured-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .news-item {
+            display: flex;
+            gap: 25px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .news-item:hover {
+            transform: translateX(10px);
+        }
+
+        .news-item img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .news-item-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .news-item:hover h4 {
+            color: var(--gold);
+        }
+
+        .news-item-content p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .news-item .news-meta {
+            font-size: 0.8rem;
+        }
+
+        /* IR Section */
+        .ir {
+            background: var(--dark-navy);
+        }
+
+        .ir-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ir-card {
+            background: rgba(19, 37, 67, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .ir-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .ir-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.2), rgba(201, 169, 98, 0.05));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ir-icon i {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .ir-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .ir-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        .ir-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .ir-download:hover {
+            background: var(--gold);
+            color: var(--dark-navy);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(180deg, var(--navy) 0%, var(--dark-navy) 100%);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .contact-info h3 span {
+            color: var(--gold);
+        }
+
+        .contact-info > p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .contact-item-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .contact-item-icon i {
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+
+        .contact-item-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .contact-item-content p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            background: rgba(19, 37, 67, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px;
+        }
+
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--gray);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(10, 22, 40, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            color: var(--dark-navy);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 169, 98, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-navy);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 60px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 25px;
+        }
+
+        .footer-brand p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark-navy);
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1520px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-legal a {
+            font-size: 0.85rem;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--gold);
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            color: var(--dark-navy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.5);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .investment-grid,
+            .portfolio-grid,
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            section {
+                padding: 80px 30px;
+            }
+
+            .navbar {
+                padding: 15px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .about-grid,
+            .contact-wrapper,
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .investment-grid,
+            .portfolio-grid,
+            .team-grid,
+            .ir-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-logo">HCP</div>
+        <div class="loading-bar"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">H</div>
+            <div class="logo-text">HANA <span>CAPITAL</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">회사소개</a></li>
+            <li><a href="#investment">투자분야</a></li>
+            <li><a href="#portfolio">포트폴리오</a></li>
+            <li><a href="#team">팀소개</a></li>
+            <li><a href="#news">뉴스</a></li>
+            <li><a href="#ir">IR자료</a></li>
+        </ul>
+        <button class="nav-contact" onclick="location.href='#contact'">문의하기</button>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-badge">Since 2010 | Trusted Investment Partner</div>
+            <h1 class="hero-title">미래 가치를 발굴하는<br><span>전략적 투자 파트너</span></h1>
+            <p class="hero-subtitle">하나캐피탈파트너스는 혁신적인 기업과 함께 성장하며,<br>지속 가능한 가치 창출을 위한 전략적 투자를 실행합니다.</p>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn-primary">포트폴리오 보기</a>
+                <a href="#about" class="btn-secondary">더 알아보기</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number"><span class="counter" data-target="2.8">0</span>조</div>
+                    <div class="hero-stat-label">운용자산 (AUM)</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number"><span class="counter" data-target="127">0</span>+</div>
+                    <div class="hero-stat-label">투자 기업</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number"><span class="counter" data-target="28.5">0</span>%</div>
+                    <div class="hero-stat-label">연평균 수익률</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="about-image reveal-left">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=1000&fit=crop" alt="하나캐피탈파트너스 오피스">
+            </div>
+            <div class="about-content reveal-right">
+                <div class="section-badge">About Us</div>
+                <h3>15년의 신뢰,<br><span>미래를 향한 투자</span></h3>
+                <p>하나캐피탈파트너스는 2010년 설립 이래, 대한민국을 대표하는 벤처캐피탈로 성장해왔습니다. 우리는 단순한 자금 제공을 넘어, 투자 기업의 진정한 파트너로서 함께 성장합니다.</p>
+                <p>기술 혁신, 바이오헬스케어, 그린에너지 등 미래 산업을 선도하는 기업들과 함께하며, 지속 가능한 가치 창출을 위해 전문성과 네트워크를 제공합니다.</p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="about-feature-content">
+                            <h4>전문적 투자 역량</h4>
+                            <p>산업별 전문가 그룹</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-handshake"></i>
+                        <div class="about-feature-content">
+                            <h4>전략적 파트너십</h4>
+                            <p>글로벌 네트워크 연계</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="about-feature-content">
+                            <h4>리스크 관리</h4>
+                            <p>체계적 투자 심사</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-globe"></i>
+                        <div class="about-feature-content">
+                            <h4>글로벌 진출 지원</h4>
+                            <p>해외 시장 확장 서포트</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="philosophy-content">
+            <div class="section-header reveal">
+                <div class="section-badge">Investment Philosophy</div>
+                <h2 class="section-title">투자 <span>철학</span></h2>
+                <p class="section-desc">하나캐피탈파트너스는 세 가지 핵심 원칙을 바탕으로 투자를 진행합니다.</p>
+            </div>
+            <div class="philosophy-grid">
+                <div class="philosophy-card reveal">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>혁신 가치 발굴</h3>
+                    <p>시장을 변화시킬 수 있는 혁신적인 기술과 비즈니스 모델을 가진 기업을 발굴합니다. 단기적 수익보다 장기적 성장 잠재력을 중시합니다.</p>
+                </div>
+                <div class="philosophy-card reveal">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>동반 성장</h3>
+                    <p>투자 기업과 함께 성장하는 파트너십을 추구합니다. 자금 지원을 넘어 경영 자문, 네트워크 연결, 인재 영입 등 종합적인 지원을 제공합니다.</p>
+                </div>
+                <div class="philosophy-card reveal">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>책임 투자</h3>
+                    <p>ESG 원칙을 준수하며 사회적 가치 창출에 기여하는 기업에 투자합니다. 지속 가능한 성장을 통해 모든 이해관계자의 가치를 높입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Areas -->
+    <section class="investment" id="investment">
+        <div class="section-header reveal">
+            <div class="section-badge">Investment Focus</div>
+            <h2 class="section-title">투자 <span>분야</span></h2>
+            <p class="section-desc">미래를 선도하는 4대 핵심 산업에 집중 투자합니다.</p>
+        </div>
+        <div class="investment-grid">
+            <div class="investment-card reveal">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=800&fit=crop" alt="IT/소프트웨어">
+                <div class="investment-overlay">
+                    <div class="investment-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>IT / 소프트웨어</h3>
+                    <p>AI, 클라우드, SaaS, 핀테크 등 디지털 혁신을 이끄는 기술 기업에 투자합니다.</p>
+                    <div class="investment-stats">
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">48</div>
+                            <div class="investment-stat-label">투자 기업</div>
+                        </div>
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">8,200억</div>
+                            <div class="investment-stat-label">투자금액</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="investment-card reveal">
+                <img src="https://images.unsplash.com/photo-1579165466741-7f35e4755182?w=600&h=800&fit=crop" alt="바이오/헬스케어">
+                <div class="investment-overlay">
+                    <div class="investment-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3>바이오 / 헬스케어</h3>
+                    <p>신약 개발, 디지털 헬스케어, 의료기기 등 생명과학 혁신 기업에 투자합니다.</p>
+                    <div class="investment-stats">
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">32</div>
+                            <div class="investment-stat-label">투자 기업</div>
+                        </div>
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">6,500억</div>
+                            <div class="investment-stat-label">투자금액</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="investment-card reveal">
+                <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=800&fit=crop" alt="그린에너지">
+                <div class="investment-overlay">
+                    <div class="investment-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>그린 에너지</h3>
+                    <p>재생에너지, 배터리, 친환경 모빌리티 등 탄소중립 시대를 선도하는 기업에 투자합니다.</p>
+                    <div class="investment-stats">
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">28</div>
+                            <div class="investment-stat-label">투자 기업</div>
+                        </div>
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">5,800억</div>
+                            <div class="investment-stat-label">투자금액</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="investment-card reveal">
+                <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=800&fit=crop" alt="스타트업">
+                <div class="investment-overlay">
+                    <div class="investment-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>스타트업 / 벤처</h3>
+                    <p>혁신적인 아이디어와 성장 잠재력을 가진 초기 스타트업에 시드부터 시리즈 투자까지 진행합니다.</p>
+                    <div class="investment-stats">
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">19</div>
+                            <div class="investment-stat-label">투자 기업</div>
+                        </div>
+                        <div class="investment-stat">
+                            <div class="investment-stat-value">3,500억</div>
+                            <div class="investment-stat-label">투자금액</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="section-header reveal">
+            <div class="section-badge">Portfolio</div>
+            <h2 class="section-title">투자 <span>포트폴리오</span></h2>
+            <p class="section-desc">하나캐피탈파트너스와 함께 성장하는 혁신 기업들</p>
+        </div>
+        <div class="portfolio-filter reveal">
+            <button class="filter-btn active">전체</button>
+            <button class="filter-btn">IT/소프트웨어</button>
+            <button class="filter-btn">바이오</button>
+            <button class="filter-btn">그린에너지</button>
+            <button class="filter-btn">스타트업</button>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">NX</div>
+                <span class="portfolio-category">AI / SaaS</span>
+                <h3>넥스트인텔리전스</h3>
+                <p>AI 기반 기업용 데이터 분석 플랫폼</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series C</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>350억</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">BG</div>
+                <span class="portfolio-category">바이오</span>
+                <h3>바이오젠텍</h3>
+                <p>차세대 항암제 신약 개발</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series B</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>280억</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">SE</div>
+                <span class="portfolio-category">그린에너지</span>
+                <h3>솔라엣지코리아</h3>
+                <p>차세대 태양광 모듈 기술</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series B</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>200억</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">FT</div>
+                <span class="portfolio-category">핀테크</span>
+                <h3>핀테크랩</h3>
+                <p>블록체인 기반 결제 솔루션</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series A</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>120억</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">DH</div>
+                <span class="portfolio-category">디지털헬스</span>
+                <h3>디지털헬스케어</h3>
+                <p>AI 진단 보조 시스템</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series B</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>180억</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">EB</div>
+                <span class="portfolio-category">모빌리티</span>
+                <h3>이브이배터리</h3>
+                <p>전기차용 고용량 배터리</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series C</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>420억</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">CL</div>
+                <span class="portfolio-category">클라우드</span>
+                <h3>클라우드네이티브</h3>
+                <p>멀티클라우드 관리 플랫폼</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series A</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>85억</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card reveal">
+                <div class="portfolio-logo">RB</div>
+                <span class="portfolio-category">로보틱스</span>
+                <h3>로보틱스랩</h3>
+                <p>산업용 협동 로봇 개발</p>
+                <div class="portfolio-info">
+                    <div class="portfolio-info-item">
+                        <span>투자단계</span>
+                        <span>Series B</span>
+                    </div>
+                    <div class="portfolio-info-item">
+                        <span>투자금액</span>
+                        <span>250억</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item reveal">
+                <div class="stat-number"><span class="counter" data-target="2.8">0</span><span class="stat-suffix">조</span></div>
+                <div class="stat-label">운용자산 (AUM)</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number"><span class="counter" data-target="127">0</span><span class="stat-suffix">+</span></div>
+                <div class="stat-label">투자 기업</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number"><span class="counter" data-target="28.5">0</span><span class="stat-suffix">%</span></div>
+                <div class="stat-label">연평균 수익률 (IRR)</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number"><span class="counter" data-target="23">0</span></div>
+                <div class="stat-label">IPO 성공</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number"><span class="counter" data-target="15">0</span><span class="stat-suffix">년</span></div>
+                <div class="stat-label">투자 경력</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="section-header reveal">
+            <div class="section-badge">Leadership</div>
+            <h2 class="section-title">경영 <span>리더십</span></h2>
+            <p class="section-desc">풍부한 경험과 전문성을 갖춘 투자 전문가 그룹</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card reveal">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop" alt="김현우 대표">
+                    <div class="team-overlay">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                    </div>
+                </div>
+                <h3>김현우</h3>
+                <div class="team-position">대표이사 / CEO</div>
+                <div class="team-desc">前 골드만삭스 IB / 서울대 경영학</div>
+            </div>
+            <div class="team-card reveal">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop" alt="박서연 부사장">
+                    <div class="team-overlay">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                    </div>
+                </div>
+                <h3>박서연</h3>
+                <div class="team-position">부사장 / CIO</div>
+                <div class="team-desc">前 삼성벤처투자 / MIT MBA</div>
+            </div>
+            <div class="team-card reveal">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop" alt="이준혁 전무">
+                    <div class="team-overlay">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                    </div>
+                </div>
+                <h3>이준혁</h3>
+                <div class="team-position">전무 / 바이오 부문장</div>
+                <div class="team-desc">前 한미약품 사업개발 / 카이스트 박사</div>
+            </div>
+            <div class="team-card reveal">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=500&fit=crop" alt="최민지 상무">
+                    <div class="team-overlay">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                    </div>
+                </div>
+                <h3>최민지</h3>
+                <div class="team-position">상무 / IT 부문장</div>
+                <div class="team-desc">前 네이버 전략기획 / 스탠포드 MBA</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news" id="news">
+        <div class="section-header reveal">
+            <div class="section-badge">News & Insights</div>
+            <h2 class="section-title">뉴스 & <span>인사이트</span></h2>
+            <p class="section-desc">하나캐피탈파트너스의 최신 소식과 투자 인사이트</p>
+        </div>
+        <div class="news-grid">
+            <div class="news-featured reveal-left">
+                <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=800&h=600&fit=crop" alt="뉴스 이미지">
+                <div class="news-featured-content">
+                    <span class="news-category">투자 소식</span>
+                    <h3>넥스트인텔리전스, 시리즈C 350억 투자 유치 성공</h3>
+                    <div class="news-meta">
+                        <span><i class="far fa-calendar"></i> 2025.01.08</span>
+                        <span><i class="far fa-eye"></i> 2,847</span>
+                    </div>
+                </div>
+            </div>
+            <div class="news-list reveal-right">
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=150&fit=crop" alt="뉴스">
+                    <div class="news-item-content">
+                        <h4>2024년 4분기 투자 실적 발표, 전년 대비 35% 성장</h4>
+                        <p>하나캐피탈파트너스가 2024년 4분기 신규 투자 실적을 발표했습니다.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 2025.01.05</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=200&h=150&fit=crop" alt="뉴스">
+                    <div class="news-item-content">
+                        <h4>[인사이트] 2025년 벤처투자 트렌드 전망</h4>
+                        <p>AI, 기후테크, 디지털헬스케어 분야의 투자 전망을 분석합니다.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 2024.12.28</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=200&h=150&fit=crop" alt="뉴스">
+                    <div class="news-item-content">
+                        <h4>포트폴리오社 바이오젠텍, 코스닥 상장 예비심사 통과</h4>
+                        <p>2025년 상반기 IPO를 목표로 상장 절차를 진행 중입니다.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 2024.12.20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&h=150&fit=crop" alt="뉴스">
+                    <div class="news-item-content">
+                        <h4>ESG 경영 보고서 발간, 책임투자 원칙 강화</h4>
+                        <p>지속가능한 투자를 위한 ESG 원칙과 실행 방안을 공개합니다.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-calendar"></i> 2024.12.15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IR Section -->
+    <section class="ir" id="ir">
+        <div class="section-header reveal">
+            <div class="section-badge">IR Materials</div>
+            <h2 class="section-title">IR <span>자료실</span></h2>
+            <p class="section-desc">투자자를 위한 공식 자료를 다운로드하세요</p>
+        </div>
+        <div class="ir-grid">
+            <div class="ir-card reveal">
+                <div class="ir-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <h3>회사 소개서</h3>
+                <p>하나캐피탈파트너스의 비전, 투자 철학, 주요 성과를 담은 공식 회사 소개서입니다.</p>
+                <a href="#" class="ir-download">
+                    <i class="fas fa-download"></i>
+                    다운로드 (PDF, 8.5MB)
+                </a>
+            </div>
+            <div class="ir-card reveal">
+                <div class="ir-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>연간 보고서 2024</h3>
+                <p>2024년 투자 실적, 포트폴리오 성과, 재무 현황을 담은 연간 보고서입니다.</p>
+                <a href="#" class="ir-download">
+                    <i class="fas fa-download"></i>
+                    다운로드 (PDF, 12.3MB)
+                </a>
+            </div>
+            <div class="ir-card reveal">
+                <div class="ir-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3>ESG 보고서</h3>
+                <p>책임투자 원칙과 ESG 경영 활동을 담은 지속가능경영 보고서입니다.</p>
+                <a href="#" class="ir-download">
+                    <i class="fas fa-download"></i>
+                    다운로드 (PDF, 6.2MB)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-wrapper">
+            <div class="contact-info reveal-left">
+                <div class="section-badge">Contact Us</div>
+                <h3>투자 문의 및<br><span>파트너십 제안</span></h3>
+                <p>혁신적인 아이디어와 성장 가능성을 가진 기업의 투자 문의를 환영합니다. 전문 투자심사역이 검토 후 연락드리겠습니다.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-item-content">
+                            <h4>본사</h4>
+                            <p>서울특별시 영등포구 여의대로 108<br>파크원타워 35층</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-item-content">
+                            <h4>대표전화</h4>
+                            <p>02-6200-1004</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-item-content">
+                            <h4>이메일</h4>
+                            <p>ir@hanacapital.co.kr<br>invest@hanacapital.co.kr</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-item-content">
+                            <h4>업무시간</h4>
+                            <p>평일 09:00 - 18:00<br>(주말/공휴일 휴무)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form reveal-right">
+                <h3>문의하기</h3>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>회사명 *</label>
+                            <input type="text" placeholder="회사명을 입력하세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label>담당자명 *</label>
+                            <input type="text" placeholder="담당자명을 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>이메일 *</label>
+                            <input type="email" placeholder="이메일을 입력하세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label>연락처 *</label>
+                            <input type="tel" placeholder="연락처를 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>문의 유형</label>
+                        <select>
+                            <option value="">문의 유형을 선택하세요</option>
+                            <option value="investment">투자 유치 문의</option>
+                            <option value="partnership">파트너십 제안</option>
+                            <option value="ir">IR 자료 요청</option>
+                            <option value="media">언론/홍보 문의</option>
+                            <option value="other">기타 문의</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>문의 내용</label>
+                        <textarea placeholder="문의 내용을 자세히 입력해주세요"></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">문의하기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="logo">
+                    <div class="logo-icon">H</div>
+                    <div class="logo-text">HANA <span>CAPITAL</span></div>
+                </div>
+                <p>하나캐피탈파트너스는 혁신 기업의 성장을 지원하는 벤처캐피탈입니다. 15년의 투자 경험을 바탕으로 미래 산업을 선도하는 기업들과 함께 성장합니다.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fas fa-blog"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>회사</h4>
+                <ul>
+                    <li><a href="#about">회사소개</a></li>
+                    <li><a href="#team">경영진</a></li>
+                    <li><a href="#">채용정보</a></li>
+                    <li><a href="#news">뉴스룸</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>투자</h4>
+                <ul>
+                    <li><a href="#investment">투자분야</a></li>
+                    <li><a href="#portfolio">포트폴리오</a></li>
+                    <li><a href="#">투자 프로세스</a></li>
+                    <li><a href="#contact">투자 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>자료</h4>
+                <ul>
+                    <li><a href="#ir">IR 자료실</a></li>
+                    <li><a href="#">연간 보고서</a></li>
+                    <li><a href="#">ESG 보고서</a></li>
+                    <li><a href="#">공시 정보</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Hana Capital Partners. All Rights Reserved. | 사업자등록번호: 107-86-54321 | 대표: 김현우</p>
+            <div class="footer-legal">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+                <a href="#">이메일무단수집거부</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <div class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loading-screen').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Back to Top Button
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to Top Click
+        document.querySelector('.back-to-top').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal();
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const start = 0;
+                const startTime = performance.now();
+
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const current = start + (target - start) * easeOutQuart;
+
+                    if (target % 1 !== 0) {
+                        counter.textContent = current.toFixed(1);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+
+                // Check if counter is in viewport
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            requestAnimationFrame(updateCounter);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(counter);
+            });
+        }
+
+        animateCounters();
+
+        // Particle Animation
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(201, 169, 98, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(201, 169, 98, ${0.1 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Portfolio Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-bg');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

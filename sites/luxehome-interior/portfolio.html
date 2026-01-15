@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포트폴리오 | 럭스홈 인테리어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --cream: #FAF7F2;
+            --cream-dark: #F0EBE1;
+            --dark-wood: #2C1810;
+            --brown: #5C3D2E;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-wood);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--dark-wood);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--cream);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(44, 24, 16, 0.6), rgba(44, 24, 16, 0.7)),
+                        url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 6rem 5%;
+            background: var(--white);
+        }
+
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--cream-dark);
+            color: var(--text-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        .portfolio-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(44, 24, 16, 0.95) 0%, rgba(44, 24, 16, 0.5) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay span {
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .portfolio-overlay .view-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover .view-icon {
+            opacity: 1;
+        }
+
+        .view-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--white);
+        }
+
+        /* Featured Project */
+        .featured-project {
+            padding: 6rem 5%;
+            background: var(--cream);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header span {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--dark-wood);
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .featured-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .featured-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .featured-gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-gallery img:first-child {
+            grid-column: span 2;
+            height: 300px;
+        }
+
+        .featured-gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        .featured-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dark-wood);
+            margin-bottom: 1rem;
+        }
+
+        .featured-info p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .featured-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--cream-dark);
+        }
+
+        .detail-item h5 {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-item p {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin: 0;
+        }
+
+        /* Stats */
+        .stats-section {
+            padding: 5rem 5%;
+            background: var(--dark-wood);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            background: var(--white);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-image {
+            height: 600px;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-info {
+            padding: 3rem 3rem 3rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .modal-info span {
+            color: var(--gold);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .modal-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dark-wood);
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .modal-info p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--cream-dark);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 5%;
+            background: linear-gradient(rgba(44, 24, 16, 0.85), rgba(44, 24, 16, 0.85)),
+                        url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920') center/cover fixed;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gold);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .btn:hover {
+            background: transparent;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-wood);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-content {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-image {
+                height: 300px;
+            }
+
+            .modal-info {
+                padding: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-item h3 {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .modal-content {
+                margin-top: 60px;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Luxe<span>Home</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">서비스</a></li>
+                <li><a href="portfolio.html" class="active">포트폴리오</a></li>
+                <li><a href="process.html">진행과정</a></li>
+                <li><a href="blog.html">블로그</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-close" onclick="toggleMobileMenu()">&times;</span>
+        <a href="index.html">홈</a>
+        <a href="about.html">회사소개</a>
+        <a href="services.html">서비스</a>
+        <a href="portfolio.html">포트폴리오</a>
+        <a href="process.html">진행과정</a>
+        <a href="blog.html">블로그</a>
+        <a href="contact.html">문의하기</a>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div>
+            <h1>포트폴리오</h1>
+            <p>럭스홈이 완성한 특별한 공간들</p>
+        </div>
+    </header>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section">
+        <div class="portfolio-filter fade-in">
+            <button class="filter-btn active" data-filter="all">전체</button>
+            <button class="filter-btn" data-filter="residential">주거 공간</button>
+            <button class="filter-btn" data-filter="commercial">상업 공간</button>
+            <button class="filter-btn" data-filter="office">오피스</button>
+            <button class="filter-btn" data-filter="hospitality">호텔/리조트</button>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in" data-category="residential" onclick="openModal(0)">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800" alt="한남동 펜트하우스">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>RESIDENTIAL</span>
+                    <h3>한남동 펜트하우스</h3>
+                    <p>330m² | 모던 럭셔리</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="commercial" onclick="openModal(1)">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800" alt="강남 프리미엄 오피스">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>OFFICE</span>
+                    <h3>강남 프리미엄 오피스</h3>
+                    <p>500m² | 컨템포러리</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="hospitality" onclick="openModal(2)">
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800" alt="청담 부티크 호텔">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>HOSPITALITY</span>
+                    <h3>청담 부티크 호텔</h3>
+                    <p>2,000m² | 럭셔리 모던</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="residential" onclick="openModal(3)">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="판교 모던 하우스">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>RESIDENTIAL</span>
+                    <h3>판교 모던 하우스</h3>
+                    <p>280m² | 미니멀리즘</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="commercial" onclick="openModal(4)">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800" alt="성수동 시그니처 카페">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>COMMERCIAL</span>
+                    <h3>성수동 시그니처 카페</h3>
+                    <p>150m² | 인더스트리얼</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="residential" onclick="openModal(5)">
+                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800" alt="반포 리버뷰 아파트">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>RESIDENTIAL</span>
+                    <h3>반포 리버뷰 아파트</h3>
+                    <p>200m² | 클래식 모던</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="office" onclick="openModal(6)">
+                <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800" alt="테헤란로 IT 오피스">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>OFFICE</span>
+                    <h3>테헤란로 IT 오피스</h3>
+                    <p>800m² | 하이테크</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="hospitality" onclick="openModal(7)">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800" alt="제주 풀빌라 리조트">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>HOSPITALITY</span>
+                    <h3>제주 풀빌라 리조트</h3>
+                    <p>3,500m² | 리조트 스타일</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item fade-in" data-category="commercial" onclick="openModal(8)">
+                <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=800" alt="청담 파인다이닝">
+                <div class="portfolio-overlay">
+                    <div class="view-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M11 8v6M8 11h6"/>
+                        </svg>
+                    </div>
+                    <span>COMMERCIAL</span>
+                    <h3>청담 파인다이닝</h3>
+                    <p>250m² | 엘레강스</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item fade-in">
+                <h3>5,000+</h3>
+                <p>완성된 프로젝트</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>98%</h3>
+                <p>고객 만족도</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>20+</h3>
+                <p>Years of Excellence</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>50+</h3>
+                <p>전문 디자이너</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Project -->
+    <section class="featured-project">
+        <div class="section-header fade-in">
+            <span>FEATURED PROJECT</span>
+            <h2>이달의 추천 프로젝트</h2>
+        </div>
+        <div class="featured-content">
+            <div class="featured-gallery fade-in">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200" alt="한남동 펜트하우스 메인">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600" alt="한남동 펜트하우스 거실">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600" alt="한남동 펜트하우스 침실">
+            </div>
+            <div class="featured-info fade-in">
+                <span style="color: var(--gold); letter-spacing: 3px; font-size: 0.85rem;">AWARD WINNING</span>
+                <h3>한남동 펜트하우스</h3>
+                <p>서울 도심 한복판에 위치한 이 펜트하우스는 현대적인 럭셔리와 한국적 미학이 조화를 이루는
+                공간입니다. 탁 트인 한강 뷰와 함께 자연 소재를 활용한 따뜻한 분위기가 특징입니다.</p>
+                <p>2023 대한민국 인테리어 대상 주거 부문 최우수상을 수상한 이 프로젝트는
+                럭스홈의 디자인 철학을 잘 보여주는 대표작입니다.</p>
+                <div class="featured-details">
+                    <div class="detail-item">
+                        <h5>위치</h5>
+                        <p>서울 용산구 한남동</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>면적</h5>
+                        <p>330m² (100평)</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>스타일</h5>
+                        <p>모던 럭셔리</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>기간</h5>
+                        <p>4개월</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>당신만의 특별한 공간을 만들어 드립니다</h2>
+        <p>럭스홈의 전문 디자이너와 함께 시작하세요</p>
+        <a href="contact.html" class="btn">무료 상담 신청</a>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="projectModal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-content">
+            <div class="modal-image">
+                <img id="modalImage" src="" alt="프로젝트 이미지">
+            </div>
+            <div class="modal-info">
+                <span id="modalCategory">RESIDENTIAL</span>
+                <h2 id="modalTitle">프로젝트명</h2>
+                <p id="modalDescription">프로젝트 설명</p>
+                <div class="modal-details">
+                    <div class="detail-item">
+                        <h5>위치</h5>
+                        <p id="modalLocation">서울</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>면적</h5>
+                        <p id="modalArea">000m²</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>스타일</h5>
+                        <p id="modalStyle">모던</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>완공</h5>
+                        <p id="modalYear">2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Luxe<span>Home</span></a>
+                <p>20년 전통의 프리미엄 인테리어 전문 기업 럭스홈입니다.</p>
+                <div class="social-links">
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="services.html">서비스</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="process.html">진행과정</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="blog.html">블로그</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>연락처</h4>
+                <ul>
+                    <li>서울시 강남구 테헤란로 123</li>
+                    <li>럭스홈 빌딩 5층</li>
+                    <li>02-1234-5678</li>
+                    <li>info@luxehome.kr</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LuxeHome Interior. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 10);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+
+        // Project data
+        const projects = [
+            {
+                image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200',
+                category: 'RESIDENTIAL',
+                title: '한남동 펜트하우스',
+                description: '서울 도심 한복판에 위치한 이 펜트하우스는 현대적인 럭셔리와 한국적 미학이 조화를 이루는 공간입니다. 탁 트인 한강 뷰와 자연 소재의 따뜻함이 특징입니다.',
+                location: '서울 용산구 한남동',
+                area: '330m²',
+                style: '모던 럭셔리',
+                year: '2024'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200',
+                category: 'OFFICE',
+                title: '강남 프리미엄 오피스',
+                description: '글로벌 금융사의 한국 지사로, 효율적인 업무 동선과 직원 복지를 고려한 모던한 오피스 공간입니다.',
+                location: '서울 강남구 역삼동',
+                area: '500m²',
+                style: '컨템포러리',
+                year: '2024'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1200',
+                category: 'HOSPITALITY',
+                title: '청담 부티크 호텔',
+                description: '청담동의 프리미엄 부티크 호텔로, 세련된 도시적 감성과 편안한 휴식이 공존하는 공간입니다.',
+                location: '서울 강남구 청담동',
+                area: '2,000m²',
+                style: '럭셔리 모던',
+                year: '2023'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200',
+                category: 'RESIDENTIAL',
+                title: '판교 모던 하우스',
+                description: '판교의 신도시에 위치한 단독주택으로, 미니멀한 디자인과 자연친화적 요소가 조화를 이룹니다.',
+                location: '경기 성남시 판교동',
+                area: '280m²',
+                style: '미니멀리즘',
+                year: '2024'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200',
+                category: 'COMMERCIAL',
+                title: '성수동 시그니처 카페',
+                description: '성수동의 트렌디한 분위기를 반영한 인더스트리얼 스타일의 카페입니다. 빈티지와 모던의 조화가 특징입니다.',
+                location: '서울 성동구 성수동',
+                area: '150m²',
+                style: '인더스트리얼',
+                year: '2024'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200',
+                category: 'RESIDENTIAL',
+                title: '반포 리버뷰 아파트',
+                description: '한강이 내려다보이는 반포의 고급 아파트로, 클래식한 우아함과 현대적 편의성을 갖춘 공간입니다.',
+                location: '서울 서초구 반포동',
+                area: '200m²',
+                style: '클래식 모던',
+                year: '2023'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200',
+                category: 'OFFICE',
+                title: '테헤란로 IT 오피스',
+                description: '테크 스타트업을 위한 유연하고 창의적인 오피스 공간입니다. 협업과 집중을 모두 지원하는 설계가 특징입니다.',
+                location: '서울 강남구 역삼동',
+                area: '800m²',
+                style: '하이테크',
+                year: '2024'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200',
+                category: 'HOSPITALITY',
+                title: '제주 풀빌라 리조트',
+                description: '제주의 자연을 품은 프라이빗 풀빌라 리조트입니다. 자연과 하나되는 휴식을 제공합니다.',
+                location: '제주시 애월읍',
+                area: '3,500m²',
+                style: '리조트 스타일',
+                year: '2023'
+            },
+            {
+                image: 'https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1200',
+                category: 'COMMERCIAL',
+                title: '청담 파인다이닝',
+                description: '청담동의 프렌치 파인다이닝 레스토랑으로, 고급스러운 분위기와 세련된 디테일이 돋보입니다.',
+                location: '서울 강남구 청담동',
+                area: '250m²',
+                style: '엘레강스',
+                year: '2024'
+            }
+        ];
+
+        function openModal(index) {
+            const project = projects[index];
+            document.getElementById('modalImage').src = project.image;
+            document.getElementById('modalCategory').textContent = project.category;
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalDescription').textContent = project.description;
+            document.getElementById('modalLocation').textContent = project.location;
+            document.getElementById('modalArea').textContent = project.area;
+            document.getElementById('modalStyle').textContent = project.style;
+            document.getElementById('modalYear').textContent = project.year;
+            document.getElementById('projectModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on outside click
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진료과목 | 아이보리 치과</title>
+    <meta name="description" content="아이보리 치과 진료과목 - 임플란트, 심미치료, 치아교정, 치아미백, 일반진료, 소아치과 등 다양한 전문 진료를 제공합니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-mint: #5CBFB3;
+            --primary-mint-light: #A8DDD6;
+            --primary-mint-dark: #3A9A8E;
+            --gold: #C9A962;
+            --gold-light: #E5D4A1;
+            --ivory: #FFFFF0;
+            --ivory-dark: #F5F5DC;
+            --white: #FFFFFF;
+            --off-white: #F9FAFB;
+            --gray-50: #F8F9FA;
+            --gray-100: #F1F3F5;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-400: #CED4DA;
+            --gray-500: #ADB5BD;
+            --gray-600: #868E96;
+            --gray-700: #495057;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-800);
+            background-color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--white);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--primary-mint);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 10px 18px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-mint);
+            background: var(--gray-50);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark)) !important;
+            color: var(--white) !important;
+            margin-left: 8px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark)) !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--gray-700);
+            transition: var(--transition);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 160px 24px 80px;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--white) 50%, var(--primary-mint-light) 100%);
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+        }
+
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--gray-500);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-mint);
+        }
+
+        .breadcrumb span {
+            color: var(--gray-400);
+        }
+
+        .breadcrumb .current {
+            color: var(--primary-mint);
+            font-weight: 500;
+        }
+
+        /* Section Common */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-mint-light), var(--primary-mint));
+            color: var(--white);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services-section {
+            background: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-100);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-mint-light) 0%, var(--primary-mint) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-image svg {
+            display: none;
+        }
+
+        .service-card:nth-child(1) .service-image {
+            background: url('https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .service-card:nth-child(2) .service-image {
+            background: url('https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .service-card:nth-child(3) .service-image {
+            background: url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .service-card:nth-child(4) .service-image {
+            background: url('https://images.unsplash.com/photo-1445527815219-ecbfec67492e?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .service-card:nth-child(5) .service-image {
+            background: url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .service-card:nth-child(6) .service-image {
+            background: url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=500&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .service-content {
+            padding: 32px;
+        }
+
+        .service-content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 12px;
+        }
+
+        .service-content p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .service-feature {
+            background: var(--gray-50);
+            color: var(--gray-600);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Featured Service */
+        .featured-service {
+            background: var(--gray-50);
+        }
+
+        .featured-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .featured-image {
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&h=1000&fit=crop') center/cover no-repeat;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+        }
+
+        .featured-image svg {
+            display: none;
+        }
+
+        .featured-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .featured-content h2 span {
+            color: var(--primary-mint);
+        }
+
+        .featured-content > p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            line-height: 1.9;
+            margin-bottom: 32px;
+        }
+
+        .featured-list {
+            list-style: none;
+        }
+
+        .featured-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .featured-list li:last-child {
+            border-bottom: none;
+        }
+
+        .featured-list svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-mint);
+            flex-shrink: 0;
+        }
+
+        .featured-list span {
+            font-size: 1rem;
+            color: var(--gray-700);
+        }
+
+        /* Process Section */
+        .process-section {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+            color: var(--white);
+        }
+
+        .process-section .section-tag {
+            background: rgba(92, 191, 179, 0.2);
+            color: var(--primary-mint);
+        }
+
+        .process-section .section-title {
+            color: var(--white);
+        }
+
+        .process-section .section-desc {
+            color: var(--gray-400);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .process-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-card::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -16px;
+            width: 32px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .process-card:last-child::after {
+            display: none;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--primary-mint-dark), var(--primary-mint));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .process-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .process-card p {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-mint) 0%, var(--primary-mint-dark) 100%);
+            text-align: center;
+            color: var(--white);
+            padding: 80px 24px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-primary {
+            background: var(--white);
+            color: var(--primary-mint-dark);
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 16px 36px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .cta-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 60px 24px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-name {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-mint);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-mint);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-container {
+                gap: 48px;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-card::after {
+                display: none;
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                height: 70px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-container {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                height: 350px;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5 6 8c0 4 6 10 6 10s6-6 6-10c0-3-2.5-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">아이보리 치과</span>
+                    <span class="logo-sub">IVORY DENTAL CLINIC</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">홈</a>
+                <a href="about.html">치과소개</a>
+                <a href="services.html" class="active">진료과목</a>
+                <a href="contact.html" class="nav-cta">예약문의</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <a href="index.html">홈</a>
+            <a href="about.html">치과소개</a>
+            <a href="services.html">진료과목</a>
+            <a href="contact.html">예약문의</a>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="breadcrumb">
+            <a href="index.html">홈</a>
+            <span>/</span>
+            <span class="current">진료과목</span>
+        </div>
+        <h1>전문 진료 과목</h1>
+        <p>체계적인 진료 시스템과 최신 장비로 다양한 치과 치료를 제공합니다</p>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-section">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Services</span>
+                <h2 class="section-title">진료 분야</h2>
+                <p class="section-desc">환자분의 상태에 맞는 최적의 치료를 제공합니다</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h3>임플란트</h3>
+                        <p>상실된 치아를 대체하는 가장 자연스럽고 효과적인 치료법입니다. 정밀 진단과 3D 가이드 시술로 안전하고 정확하게 진행합니다.</p>
+                        <div class="service-features">
+                            <span class="service-feature">3D 가이드 수술</span>
+                            <span class="service-feature">무절개 시술</span>
+                            <span class="service-feature">당일 임플란트</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h3>심미치료</h3>
+                        <p>라미네이트, 올세라믹 등 최신 심미 재료를 사용하여 자연스럽고 아름다운 치아를 만들어 드립니다.</p>
+                        <div class="service-features">
+                            <span class="service-feature">라미네이트</span>
+                            <span class="service-feature">올세라믹</span>
+                            <span class="service-feature">레진 치료</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h3>치아교정</h3>
+                        <p>투명교정, 설측교정 등 다양한 교정 방법으로 환자분께 최적화된 맞춤형 교정 치료를 제공합니다.</p>
+                        <div class="service-features">
+                            <span class="service-feature">투명교정</span>
+                            <span class="service-feature">설측교정</span>
+                            <span class="service-feature">부분교정</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h3>치아미백</h3>
+                        <p>전문 미백 시스템으로 치아의 본래 밝기를 회복하고, 더욱 환한 미소를 되찾아 드립니다.</p>
+                        <div class="service-features">
+                            <span class="service-feature">전문가 미백</span>
+                            <span class="service-feature">홈 미백</span>
+                            <span class="service-feature">복합 미백</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h3>일반진료</h3>
+                        <p>충치치료, 신경치료, 사랑니 발치 등 일반적인 치과 진료를 꼼꼼하고 정확하게 진행합니다.</p>
+                        <div class="service-features">
+                            <span class="service-feature">충치치료</span>
+                            <span class="service-feature">신경치료</span>
+                            <span class="service-feature">발치</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-image">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                    </div>
+                    <div class="service-content">
+                        <h3>소아치과</h3>
+                        <p>아이들의 눈높이에 맞춘 편안한 진료 환경에서 성장기 구강 건강을 체계적으로 관리합니다.</p>
+                        <div class="service-features">
+                            <span class="service-feature">예방치료</span>
+                            <span class="service-feature">실란트</span>
+                            <span class="service-feature">불소도포</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Service -->
+    <section class="featured-service">
+        <div class="section-container">
+            <div class="featured-container">
+                <div class="featured-image fade-in">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <div class="featured-content fade-in">
+                    <span class="section-tag">Implant</span>
+                    <h2><span>임플란트</span> 전문 진료<br>안전하고 정확하게</h2>
+                    <p>
+                        아이보리 치과는 15년 이상의 임플란트 시술 경험을 바탕으로
+                        환자분께 최상의 결과를 제공합니다. 3D CT를 통한 정밀 진단과
+                        디지털 가이드 수술로 안전하고 정확한 시술을 약속드립니다.
+                    </p>
+                    <ul class="featured-list">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <span>3D CT 정밀 진단으로 최적의 식립 위치 결정</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <span>디지털 가이드 수술로 안전한 시술</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <span>무절개/최소 절개 시술로 빠른 회복</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            <span>세계적으로 검증된 프리미엄 임플란트 사용</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Process</span>
+                <h2 class="section-title">진료 과정</h2>
+                <p class="section-desc">체계적인 진료 과정으로 최상의 결과를 제공합니다</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-card fade-in">
+                    <div class="process-number">01</div>
+                    <h3>상담 및 검진</h3>
+                    <p>환자분의 구강 상태를 꼼꼼히 검진하고 충분한 상담을 통해 치료 계획을 수립합니다</p>
+                </div>
+                <div class="process-card fade-in">
+                    <div class="process-number">02</div>
+                    <h3>정밀 진단</h3>
+                    <p>3D CT, 디지털 스캐너 등 첨단 장비로 정밀한 진단을 진행합니다</p>
+                </div>
+                <div class="process-card fade-in">
+                    <div class="process-number">03</div>
+                    <h3>맞춤 치료</h3>
+                    <p>환자분께 최적화된 치료 계획에 따라 정확하고 안전하게 치료를 진행합니다</p>
+                </div>
+                <div class="process-card fade-in">
+                    <div class="process-number">04</div>
+                    <h3>사후 관리</h3>
+                    <p>치료 후에도 정기적인 검진과 관리로 건강한 치아를 유지할 수 있도록 돕습니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container fade-in">
+            <h2>전문 상담이 필요하신가요?</h2>
+            <p>환자분의 상태에 맞는 최적의 치료 방법을 안내해 드립니다</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-btn-primary">온라인 예약하기</a>
+                <a href="tel:02-2222-3333" class="cta-btn-secondary">전화 상담: 02-2222-3333</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5 6 8c0 4 6 10 6 10s6-6 6-10c0-3-2.5-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-name">아이보리 치과</span>
+                            <span class="logo-sub">IVORY DENTAL CLINIC</span>
+                        </div>
+                    </a>
+                    <p>심미/임플란트 전문 치과<br>환자 중심의 편안하고 안전한 진료로<br>건강한 미소를 선물합니다.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>진료안내</h4>
+                    <ul>
+                        <li><a href="services.html">진료과목</a></li>
+                        <li><a href="about.html">시설안내</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>진료시간</h4>
+                    <ul>
+                        <li><a href="contact.html">평일 09:30-18:30</a></li>
+                        <li><a href="contact.html">토요일 09:30-14:00</a></li>
+                        <li><a href="contact.html">점심 13:00-14:00</a></li>
+                        <li><a href="contact.html">일요일/공휴일 휴진</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>문의</h4>
+                    <ul>
+                        <li><a href="tel:02-2222-3333">02-2222-3333</a></li>
+                        <li><a href="mailto:smile@ivory-dental.kr">smile@ivory-dental.kr</a></li>
+                        <li><a href="contact.html">온라인 예약</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2024 아이보리 치과. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Blog">
+                        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.18 1.897-.962 6.502-1.36 8.627-.168.9-.5 1.2-.82 1.23-.697.064-1.226-.46-1.9-.903-1.056-.692-1.653-1.123-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.178a.57.57 0 01.165.378c.01.1.023.293.013.452z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+</body>
+</html>

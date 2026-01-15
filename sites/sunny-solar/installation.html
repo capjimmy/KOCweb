@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설치안내 | 써니솔라 에너지</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #2d5016;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #2d5016;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 50%, #7cb342 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Installation Process */
+        .process {
+            padding: 5rem 2rem;
+            background: #f9f9f9;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .step-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff9500, #ffcc00);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin: 1rem 0;
+        }
+
+        .step-card h3 {
+            color: #2d5016;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Service Types */
+        .service-types {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: linear-gradient(180deg, #f0f7e6 0%, #fff 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        }
+
+        .service-header {
+            background: linear-gradient(135deg, #ff9500, #7cb342);
+            padding: 2rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .service-header .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .service-body {
+            padding: 2rem;
+        }
+
+        .service-body ul {
+            list-style: none;
+        }
+
+        .service-body li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #555;
+        }
+
+        .service-body li:last-child {
+            border-bottom: none;
+        }
+
+        .service-body li::before {
+            content: '\\2713';
+            color: #7cb342;
+            font-weight: bold;
+        }
+
+        .service-cta {
+            text-align: center;
+            padding: 0 2rem 2rem;
+        }
+
+        .service-cta a {
+            display: inline-block;
+            background: linear-gradient(135deg, #2d5016, #4a7c23);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-cta a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(45,80,22,0.3);
+        }
+
+        /* Warranty & Support */
+        .warranty {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+            color: #fff;
+        }
+
+        .warranty .section-title h2 {
+            color: #fff;
+        }
+
+        .warranty .section-title p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .warranty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .warranty-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .warranty-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .warranty-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #ffcc00;
+        }
+
+        .warranty-card p {
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, #fff 0%, #f0f7e6 100%);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            color: #2d5016;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f9f9f9;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: #ff9500;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 300px;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 5rem 2rem;
+            background: #f9f9f9;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.02);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(135deg, #ff9500, #7cb342);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .portfolio-image.residential {
+            background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .portfolio-image.industrial {
+            background: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .portfolio-image.agricultural {
+            background: url('https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=600&h=400&fit=crop') center/cover no-repeat;
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+        }
+
+        .portfolio-info h3 {
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .portfolio-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: #fff7e6;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #ff9500;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a2e0a;
+            color: #fff;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #ffcc00;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: #ffcc00;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .process, .service-types, .warranty, .faq, .portfolio {
+                padding: 3rem 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .step-card, .warranty-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">써니<span>솔라</span></a>
+            <ul id="navMenu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="products.html">제품안내</a></li>
+                <li><a href="installation.html" class="active">설치안내</a></li>
+                <li><a href="contact.html">견적문의</a></li>
+            </ul>
+            <button class="mobile-menu" onclick="toggleMenu()">&#9776;</button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>설치 안내</h1>
+        <p>상담부터 A/S까지, 써니솔라의 체계적인 시공 프로세스를 안내합니다</p>
+    </section>
+
+    <!-- Installation Process -->
+    <section class="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>설치 프로세스</h2>
+                <p>6단계의 체계적인 시공 과정으로 완벽한 설치를 보장합니다</p>
+            </div>
+            <div class="process-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">&#128222;</div>
+                    <h3>상담 신청</h3>
+                    <p>전화, 홈페이지, 방문 상담 등 편한 방법으로 무료 상담을 신청하세요.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">&#128269;</div>
+                    <h3>현장 방문</h3>
+                    <p>전문 기술진이 직접 방문하여 설치 환경, 지붕 상태, 일조량 등을 분석합니다.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">&#128196;</div>
+                    <h3>맞춤 설계</h3>
+                    <p>현장 분석 결과를 바탕으로 최적의 시스템 용량과 배치를 설계합니다.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">&#128221;</div>
+                    <h3>계약 및 인허가</h3>
+                    <p>투명한 견적과 계약 후, 필요한 모든 인허가 절차를 대행합니다.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-icon">&#128295;</div>
+                    <h3>시공</h3>
+                    <p>숙련된 기술진이 안전 수칙을 준수하며 정확하게 시공합니다.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-icon">&#9989;</div>
+                    <h3>준공 및 A/S</h3>
+                    <p>한전 계통 연계 후 발전을 시작하고, 평생 A/S를 지원합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Types -->
+    <section class="service-types">
+        <div class="container">
+            <div class="section-title">
+                <h2>설치 유형별 안내</h2>
+                <p>고객님의 상황에 맞는 최적의 솔루션을 제공합니다</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="icon">&#127969;</div>
+                        <h3>주거용 태양광</h3>
+                    </div>
+                    <div class="service-body">
+                        <ul>
+                            <li>단독주택, 전원주택 지붕 설치</li>
+                            <li>월 전기요금 최대 80% 절감</li>
+                            <li>정부/지자체 보조금 지원</li>
+                            <li>3~10kW 용량 권장</li>
+                            <li>설치 기간 2~3일</li>
+                            <li>25년 장기 품질 보증</li>
+                        </ul>
+                    </div>
+                    <div class="service-cta">
+                        <a href="contact.html">견적 문의하기</a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="icon">&#127981;</div>
+                        <h3>산업용 태양광</h3>
+                    </div>
+                    <div class="service-body">
+                        <ul>
+                            <li>공장, 창고, 상가 건물 설치</li>
+                            <li>전력 판매 수익 창출 (REC)</li>
+                            <li>세금 감면 혜택</li>
+                            <li>50~500kW 대용량 시스템</li>
+                            <li>투자 대비 10~15% 수익률</li>
+                            <li>ESS 연계 가능</li>
+                        </ul>
+                    </div>
+                    <div class="service-cta">
+                        <a href="contact.html">견적 문의하기</a>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="icon">&#127806;</div>
+                        <h3>농업용 태양광</h3>
+                    </div>
+                    <div class="service-body">
+                        <ul>
+                            <li>영농형: 농사와 발전 동시 운영</li>
+                            <li>축사, 농막, 비닐하우스 설치</li>
+                            <li>농지 전용 없이 설치 가능</li>
+                            <li>추가 농가 소득 창출</li>
+                            <li>12~18% 높은 수익률</li>
+                            <li>농업인 우대 금리</li>
+                        </ul>
+                    </div>
+                    <div class="service-cta">
+                        <a href="contact.html">견적 문의하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Warranty & Support -->
+    <section class="warranty">
+        <div class="container">
+            <div class="section-title">
+                <h2>A/S 및 보증 안내</h2>
+                <p>설치 후에도 안심하실 수 있도록 완벽하게 지원합니다</p>
+            </div>
+            <div class="warranty-grid">
+                <div class="warranty-card">
+                    <div class="icon">&#128736;</div>
+                    <h3>시공 보증 5년</h3>
+                    <p>시공 결함으로 인한 문제 발생 시 무상으로 수리해 드립니다.</p>
+                </div>
+                <div class="warranty-card">
+                    <div class="icon">&#9728;</div>
+                    <h3>모듈 보증 25년</h3>
+                    <p>25년간 출력 성능을 보증하며, 성능 저하 시 교체해 드립니다.</p>
+                </div>
+                <div class="warranty-card">
+                    <div class="icon">&#9889;</div>
+                    <h3>인버터 보증 10년</h3>
+                    <p>제조사 기본 5년 + 연장 보증 5년으로 총 10년간 보증합니다.</p>
+                </div>
+                <div class="warranty-card">
+                    <div class="icon">&#128241;</div>
+                    <h3>24시간 모니터링</h3>
+                    <p>원격 모니터링으로 이상 발생 시 선제적으로 조치합니다.</p>
+                </div>
+                <div class="warranty-card">
+                    <div class="icon">&#128222;</div>
+                    <h3>신속 A/S 출동</h3>
+                    <p>고장 접수 후 48시간 이내 현장 방문을 보장합니다.</p>
+                </div>
+                <div class="warranty-card">
+                    <div class="icon">&#128197;</div>
+                    <h3>정기 점검 서비스</h3>
+                    <p>연 1회 무료 정기 점검으로 최적의 발전 효율을 유지합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>자주 묻는 질문</h2>
+                <p>궁금하신 점을 확인해 보세요</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">설치 비용은 얼마나 드나요?</div>
+                    <div class="faq-answer">설치 비용은 용량, 지붕 형태, 설치 난이도에 따라 달라집니다. 일반적으로 3kW 가정용 기준 정부 보조금 적용 후 약 300~400만원 정도입니다. 정확한 비용은 무료 현장 방문 후 안내드립니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">정부 보조금은 어떻게 받나요?</div>
+                    <div class="faq-answer">써니솔라에서 보조금 신청부터 수령까지 모든 과정을 대행해 드립니다. 보조금은 설치 용량, 지역, 주택 유형에 따라 다르며, 최대 kW당 80만원까지 지원됩니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">아파트에도 설치할 수 있나요?</div>
+                    <div class="faq-answer">아파트의 경우 베란다형 미니 태양광(300~600W)을 설치할 수 있습니다. 관리사무소 및 입주민 동의가 필요하며, 일부 지자체에서는 베란다 태양광 보조금도 지원합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">수명은 얼마나 되나요?</div>
+                    <div class="faq-answer">태양광 모듈의 수명은 25~30년입니다. 25년 후에도 초기 출력의 80% 이상을 유지합니다. 인버터는 10~15년 사용 후 교체를 권장합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">흐린 날이나 비 오는 날도 발전되나요?</div>
+                    <div class="faq-answer">네, 직사광선이 아닌 산란광으로도 발전됩니다. 다만 맑은 날 대비 20~30% 정도의 발전량을 보입니다. 연간 평균 발전량을 기준으로 경제성을 계산합니다.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">설치 후 유지 관리는 어떻게 하나요?</div>
+                    <div class="faq-answer">태양광 시스템은 별도의 일상적인 관리가 필요 없습니다. 연 1~2회 패널 청소와 저희 정기 점검 서비스만으로 충분합니다. 원격 모니터링으로 이상 발생 시 즉시 알려드립니다.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section class="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>시공 사례</h2>
+                <p>써니솔라 에너지가 완료한 프로젝트들입니다</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image residential"></div>
+                    <div class="portfolio-info">
+                        <h3>용인시 단독주택 태양광</h3>
+                        <p>주거용 10kW 시스템 설치로 월 평균 전기요금 90% 절감 달성</p>
+                        <div class="portfolio-stats">
+                            <span class="stat">10kW</span>
+                            <span class="stat">월 150만원 절감</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image industrial"></div>
+                    <div class="portfolio-info">
+                        <h3>화성시 물류센터</h3>
+                        <p>대형 창고 지붕 활용 500kW 산업용 태양광 발전소 구축</p>
+                        <div class="portfolio-stats">
+                            <span class="stat">500kW</span>
+                            <span class="stat">연 수익 8천만원</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image agricultural"></div>
+                    <div class="portfolio-info">
+                        <h3>이천시 스마트팜</h3>
+                        <p>영농형 태양광으로 농작물 재배와 발전을 동시에 운영</p>
+                        <div class="portfolio-stats">
+                            <span class="stat">100kW</span>
+                            <span class="stat">영농병행</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>써니솔라 에너지</h4>
+                <p>지속 가능한 미래를 위한 친환경 태양광 발전 시스템 전문 기업</p>
+                <p style="margin-top: 1rem;">사업자등록번호: 123-45-67890</p>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품안내</a>
+                <a href="installation.html">설치안내</a>
+                <a href="contact.html">견적문의</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>전화: 1544-7777</p>
+                <p>이메일: solar@sunny-solar.kr</p>
+                <p>주소: 경기도 용인시 기흥구 동백중앙로 123</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 써니솔라 에너지. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const nav = document.querySelector('nav');
+            const menu = document.getElementById('navMenu');
+            if (!nav.contains(e.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

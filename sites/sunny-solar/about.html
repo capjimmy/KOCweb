@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사소개 | 써니솔라 에너지</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #2d5016;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #2d5016;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #ff9500 0%, #ffcc00 50%, #7cb342 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about-intro {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=600&fit=crop') center/cover no-repeat;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            color: #2d5016;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .about-text .highlight {
+            background: linear-gradient(135deg, #fff7e6, #f0f7e6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #ff9500;
+            margin-top: 1.5rem;
+        }
+
+        /* Vision & Mission */
+        .vision-mission {
+            padding: 5rem 2rem;
+            background: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .vision-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .vision-card .icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .vision-card h3 {
+            font-size: 1.5rem;
+            color: #2d5016;
+            margin-bottom: 1rem;
+        }
+
+        .vision-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* History Timeline */
+        .history {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, #fff 0%, #f0f7e6 100%);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #ff9500, #7cb342);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9500, #ffcc00);
+            color: #fff;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: #f9f9f9;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff9500, #7cb342);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h4 {
+            color: #2d5016;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-card .position {
+            color: #ff9500;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Certifications */
+        .certifications {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+            color: #fff;
+        }
+
+        .certifications .section-title h2 {
+            color: #fff;
+        }
+
+        .certifications .section-title p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .cert-item {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .cert-item .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-item p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a2e0a;
+            color: #fff;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #ffcc00;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: #ffcc00;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #ff9500 0%, #ffcc00 100%);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                height: 250px;
+                font-size: 5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px;
+                text-align: left;
+            }
+
+            .vision-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .about-intro, .vision-mission, .history, .team, .certifications {
+                padding: 3rem 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">써니<span>솔라</span></a>
+            <ul id="navMenu">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">회사소개</a></li>
+                <li><a href="products.html">제품안내</a></li>
+                <li><a href="installation.html">설치안내</a></li>
+                <li><a href="contact.html">견적문의</a></li>
+            </ul>
+            <button class="mobile-menu" onclick="toggleMenu()">&#9776;</button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>회사 소개</h1>
+        <p>지속 가능한 미래를 만들어가는 써니솔라 에너지입니다</p>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image"></div>
+                <div class="about-text">
+                    <h2>태양의 에너지로 밝은 미래를</h2>
+                    <p>써니솔라 에너지는 2009년 설립 이래, 친환경 태양광 발전 시스템의 설계, 시공, 유지보수까지 원스톱 서비스를 제공하는 태양광 전문 기업입니다.</p>
+                    <p>우리는 단순히 태양광 패널을 설치하는 것이 아니라, 고객에게 에너지 독립과 환경 보호라는 가치를 전달합니다. 최고의 품질과 기술력으로 고객 만족을 최우선으로 생각합니다.</p>
+                    <div class="highlight">
+                        <strong>"깨끗한 에너지로 더 나은 세상을 만듭니다"</strong>
+                        <p style="margin-top: 0.5rem; margin-bottom: 0;">- 써니솔라 에너지 경영 철학</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission -->
+    <section class="vision-mission">
+        <div class="container">
+            <div class="section-title">
+                <h2>비전 & 미션</h2>
+                <p>써니솔라 에너지가 추구하는 가치입니다</p>
+            </div>
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <div class="icon">&#127758;</div>
+                    <h3>비전</h3>
+                    <p>2030년까지 대한민국 태양광 에너지 보급률 30% 달성에 기여하여, 탄소중립 사회 실현의 선도 기업이 됩니다.</p>
+                </div>
+                <div class="vision-card">
+                    <div class="icon">&#127793;</div>
+                    <h3>미션</h3>
+                    <p>모든 가정과 기업이 쉽고 경제적으로 태양광 에너지를 활용할 수 있도록, 최고 품질의 제품과 서비스를 합리적인 가격에 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History -->
+    <section class="history">
+        <div class="container">
+            <div class="section-title">
+                <h2>연혁</h2>
+                <p>써니솔라 에너지의 성장 스토리</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <h4>누적 설치용량 50MW 돌파</h4>
+                        <p>산업용 태양광 대형 프로젝트 다수 수주</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2021</span>
+                        <h4>ESS 연계 시스템 사업 시작</h4>
+                        <p>에너지 저장 시스템 통합 솔루션 제공</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2018</span>
+                        <h4>시공 실적 1,000건 달성</h4>
+                        <p>고객 만족도 98% 달성</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2015</span>
+                        <h4>농업용 태양광 사업 진출</h4>
+                        <p>영농형 태양광 특허 기술 보유</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2012</span>
+                        <h4>산업용 태양광 사업 확대</h4>
+                        <p>대기업 협력사 등록</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2009</span>
+                        <h4>써니솔라 에너지 설립</h4>
+                        <p>주거용 태양광 설치 사업 시작</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>경영진 소개</h2>
+                <p>써니솔라를 이끄는 전문가들</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop" alt="최태양 대표이사">
+                    </div>
+                    <h4>최태양</h4>
+                    <p class="position">대표이사</p>
+                    <p>태양광 업계 20년 경력의 전문가. 고객 중심 경영 철학으로 회사를 이끌고 있습니다.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop" alt="김에너지 기술이사">
+                    </div>
+                    <h4>김에너지</h4>
+                    <p class="position">기술이사</p>
+                    <p>전력공학 박사. 최신 태양광 기술 연구 및 시스템 최적화를 담당합니다.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="박그린 시공본부장">
+                    </div>
+                    <h4>박그린</h4>
+                    <p class="position">시공본부장</p>
+                    <p>시공 현장 15년 경력. 안전하고 정확한 시공 품질을 책임집니다.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop" alt="이햇살 고객서비스팀장">
+                    </div>
+                    <h4>이햇살</h4>
+                    <p class="position">고객서비스팀장</p>
+                    <p>고객 상담 전문가. 친절하고 신속한 고객 응대를 약속합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="certifications">
+        <div class="container">
+            <div class="section-title">
+                <h2>인증 및 자격</h2>
+                <p>신뢰할 수 있는 공인된 전문 기업</p>
+            </div>
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <div class="icon">&#127942;</div>
+                    <h4>ISO 9001</h4>
+                    <p>품질경영시스템 인증</p>
+                </div>
+                <div class="cert-item">
+                    <div class="icon">&#127807;</div>
+                    <h4>ISO 14001</h4>
+                    <p>환경경영시스템 인증</p>
+                </div>
+                <div class="cert-item">
+                    <div class="icon">&#128736;</div>
+                    <h4>전기공사업 면허</h4>
+                    <p>시공 전문 자격 보유</p>
+                </div>
+                <div class="cert-item">
+                    <div class="icon">&#9989;</div>
+                    <h4>신재생에너지 전문기업</h4>
+                    <p>한국에너지공단 등록</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>써니솔라 에너지</h4>
+                <p>지속 가능한 미래를 위한 친환경 태양광 발전 시스템 전문 기업</p>
+                <p style="margin-top: 1rem;">사업자등록번호: 123-45-67890</p>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품안내</a>
+                <a href="installation.html">설치안내</a>
+                <a href="contact.html">견적문의</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>전화: 1544-7777</p>
+                <p>이메일: solar@sunny-solar.kr</p>
+                <p>주소: 경기도 용인시 기흥구 동백중앙로 123</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 써니솔라 에너지. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const nav = document.querySelector('nav');
+            const menu = document.getElementById('navMenu');
+            if (!nav.contains(e.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

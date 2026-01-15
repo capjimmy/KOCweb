@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 | 카페 모어댄</title>
+    <meta name="description" content="카페 모어댄 갤러리 - 카페의 아름다운 공간과 맛있는 메뉴들을 사진으로 만나보세요.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brown-dark: #5D4037;
+            --brown-medium: #795548;
+            --brown-light: #8D6E63;
+            --beige-dark: #D7CCC8;
+            --beige-light: #EFEBE9;
+            --cream: #FFF8F0;
+            --text-dark: #3E2723;
+            --text-light: #5D4037;
+            --accent: #A1887F;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(93, 64, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown-dark);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brown-dark);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--brown-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--brown-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-section {
+            padding: 2rem;
+            background-color: var(--cream);
+            position: sticky;
+            top: 60px;
+            z-index: 100;
+            border-bottom: 1px solid var(--beige-dark);
+        }
+
+        .filter-tabs {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            border: 2px solid var(--beige-dark);
+            border-radius: 50px;
+            color: var(--brown-medium);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background-color: var(--brown-dark);
+            border-color: var(--brown-dark);
+            color: white;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 4rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(93, 64, 55, 0.2);
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            min-height: 250px;
+            overflow: hidden;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item.tall .gallery-image {
+            min-height: 520px;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(62, 39, 35, 0.8) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-info h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            padding: 5rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .featured-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--brown-medium);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .featured-main {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.15);
+        }
+
+        .featured-main .gallery-image {
+            min-height: 500px;
+        }
+
+        .featured-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .featured-small {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.1);
+            flex: 1;
+        }
+
+        .featured-small .gallery-image {
+            min-height: 240px;
+        }
+
+        /* Instagram Section */
+        .instagram-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-medium) 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .instagram-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .instagram-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .instagram-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .instagram-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .instagram-handle {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: white;
+            color: var(--brown-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .instagram-handle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-image {
+            width: 100%;
+            max-height: 80vh;
+            border-radius: 15px;
+            overflow: hidden;
+            min-width: 500px;
+            min-height: 400px;
+        }
+
+        .lightbox-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-height: 80vh;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .lightbox-info {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .lightbox-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-info p {
+            opacity: 0.8;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 1rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            opacity: 1;
+        }
+
+        .lightbox-prev {
+            left: -80px;
+        }
+
+        .lightbox-next {
+            right: -80px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brown-dark);
+            color: var(--beige-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--beige-dark);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--beige-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.wide {
+                grid-column: span 1;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-side {
+                flex-direction: row;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--cream);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(93, 64, 55, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .filter-section {
+                top: 56px;
+            }
+
+            .filter-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .filter-tab {
+                white-space: nowrap;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item.tall,
+            .gallery-item.wide {
+                grid-row: span 1;
+                grid-column: span 1;
+            }
+
+            .gallery-item.tall .gallery-image {
+                min-height: 250px;
+            }
+
+            .featured-side {
+                flex-direction: column;
+            }
+
+            .lightbox-image {
+                min-width: 300px;
+                min-height: 250px;
+                font-size: 5rem;
+            }
+
+            .lightbox-nav {
+                display: none;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .gallery-image {
+                min-height: 200px;
+            }
+
+            .featured-main .gallery-image {
+                min-height: 300px;
+            }
+
+            .featured-small .gallery-image {
+                min-height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">카페 모어댄</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="gallery.html" class="active">갤러리</a></li>
+                <li><a href="contact.html">연락처</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>갤러리</h1>
+        <p>카페 모어댄의 아름다운 순간들을 사진으로 만나보세요.</p>
+    </section>
+
+    <!-- Filter Tabs -->
+    <section class="filter-section">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">전체</button>
+            <button class="filter-tab" data-filter="interior">인테리어</button>
+            <button class="filter-tab" data-filter="coffee">커피</button>
+            <button class="filter-tab" data-filter="dessert">디저트</button>
+            <button class="filter-tab" data-filter="people">일상</button>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <div class="gallery-grid">
+                <div class="gallery-item tall" data-category="interior" data-title="따뜻한 조명" data-desc="아늑한 분위기의 카페 내부" data-img="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=1200&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=1200&fit=crop" alt="따뜻한 조명"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>따뜻한 조명</h3>
+                            <p>인테리어</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="coffee" data-title="에티오피아 예가체프" data-desc="꽃향기가 가득한 싱글 오리진" data-img="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&h=600&fit=crop" alt="에티오피아 예가체프"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>에티오피아 예가체프</h3>
+                            <p>커피</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dessert" data-title="바스크 치즈케이크" data-desc="겉바속촉 시그니처 디저트" data-img="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&h=600&fit=crop" alt="바스크 치즈케이크"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>바스크 치즈케이크</h3>
+                            <p>디저트</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="interior" data-title="창가 자리" data-desc="햇살이 드는 창가 좌석" data-img="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800&h=600&fit=crop" alt="창가 자리"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>창가 자리</h3>
+                            <p>인테리어</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item wide" data-category="people" data-title="커피 클래스" data-desc="함께하는 커피 배움의 시간" data-img="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1200&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1200&h=600&fit=crop" alt="커피 클래스"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>커피 클래스</h3>
+                            <p>일상</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="coffee" data-title="라떼 아트" data-desc="정성을 담은 하트 라떼" data-img="https://images.unsplash.com/photo-1534778101976-62847782c213?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1534778101976-62847782c213?w=800&h=600&fit=crop" alt="라떼 아트"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>라떼 아트</h3>
+                            <p>커피</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dessert" data-title="크로아상" data-desc="프랑스 버터로 만든 바삭함" data-img="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=600&fit=crop" alt="크로아상"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>크로아상</h3>
+                            <p>디저트</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item tall" data-category="interior" data-title="바 카운터" data-desc="커피가 만들어지는 공간" data-img="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=800&h=1200&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=800&h=1200&fit=crop" alt="바 카운터"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>바 카운터</h3>
+                            <p>인테리어</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="coffee" data-title="콜드브루" data-desc="24시간 저온 추출 커피" data-img="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&h=600&fit=crop" alt="콜드브루"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>콜드브루</h3>
+                            <p>커피</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="people" data-title="바리스타" data-desc="정성을 다하는 바리스타" data-img="https://images.unsplash.com/photo-1521302080334-4bebac2763a6?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1521302080334-4bebac2763a6?w=800&h=600&fit=crop" alt="바리스타"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>바리스타</h3>
+                            <p>일상</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dessert" data-title="티라미수" data-desc="마스카포네 크림의 부드러움" data-img="https://images.unsplash.com/photo-1571877227200-a0d98c038572?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1571877227200-a0d98c038572?w=800&h=600&fit=crop" alt="티라미수"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>티라미수</h3>
+                            <p>디저트</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item wide" data-category="interior" data-title="테라스" data-desc="연남동 골목이 보이는 테라스" data-img="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1200&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1200&h=600&fit=crop" alt="테라스"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>테라스</h3>
+                            <p>인테리어</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="coffee" data-title="드립 커피" data-desc="핸드드립으로 내린 커피" data-img="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop" alt="드립 커피"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>드립 커피</h3>
+                            <p>커피</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="people" data-title="여유로운 오후" data-desc="책과 함께하는 시간" data-img="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop" alt="여유로운 오후"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>여유로운 오후</h3>
+                            <p>일상</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dessert" data-title="브런치 플레이트" data-desc="든든한 아침 식사" data-img="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&h=600&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&h=600&fit=crop" alt="브런치 플레이트"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>브런치 플레이트</h3>
+                            <p>디저트</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured-section">
+        <div class="featured-container">
+            <h2 class="section-title">이달의 베스트</h2>
+            <p class="section-subtitle">가장 많은 사랑을 받은 순간들</p>
+            <div class="featured-grid">
+                <div class="featured-main gallery-item" data-category="coffee" data-title="모닝 커피" data-desc="아침 햇살과 함께하는 커피 한 잔" data-img="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=1200&h=800&fit=crop">
+                    <div class="gallery-image"><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=1200&h=800&fit=crop" alt="모닝 커피"></div>
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h3>모닝 커피</h3>
+                            <p>이달의 베스트 포토</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-side">
+                    <div class="featured-small gallery-item" data-category="interior" data-title="식물 인테리어" data-desc="자연과 함께하는 공간" data-img="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=500&fit=crop">
+                        <div class="gallery-image"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&h=500&fit=crop" alt="식물 인테리어"></div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>식물 인테리어</h3>
+                                <p>인테리어</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured-small gallery-item" data-category="dessert" data-title="시즌 케이크" data-desc="겨울 한정 딸기 케이크">
+                        <div class="gallery-image">&#127827;</div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>시즌 케이크</h3>
+                                <p>디저트</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Section -->
+    <section class="instagram-section">
+        <div class="instagram-container">
+            <div class="instagram-icon">&#128247;</div>
+            <h2>인스타그램에서 만나요</h2>
+            <p>
+                카페 모어댄의 일상과 새로운 소식을<br>
+                인스타그램에서 가장 먼저 확인하세요.
+            </p>
+            <a href="#" class="instagram-handle">@cafe_morethan</a>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" id="lightboxClose">&times;</span>
+            <span class="lightbox-nav lightbox-prev" id="lightboxPrev">&#10094;</span>
+            <span class="lightbox-nav lightbox-next" id="lightboxNext">&#10095;</span>
+            <div class="lightbox-image" id="lightboxImage">&#9749;</div>
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle">이미지 제목</h3>
+                <p id="lightboxDesc">이미지 설명</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>카페 모어댄</h3>
+                <p>More Than Coffee, More Than Space.<br>커피 그 이상의 가치를 전하는 공간, 카페 모어댄입니다.</p>
+            </div>
+            <div class="footer-column">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">소개</a></li>
+                    <li><a href="menu.html">메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>연락처</h4>
+                <ul>
+                    <li><a href="tel:02-555-1234">02-555-1234</a></li>
+                    <li><a href="mailto:hello@cafe-morethan.kr">hello@cafe-morethan.kr</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>영업시간</h4>
+                <ul>
+                    <li>월-금: 09:00 - 22:00</li>
+                    <li>토: 10:00 - 22:00</li>
+                    <li>일/공휴일: 10:00 - 21:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 카페 모어댄. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Filter Tabs
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDesc = document.getElementById('lightboxDesc');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        let currentIndex = 0;
+        const visibleItems = () => Array.from(galleryItems).filter(item => item.style.display !== 'none');
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const items = visibleItems();
+                currentIndex = items.indexOf(item);
+                openLightbox(item);
+            });
+        });
+
+        function openLightbox(item) {
+            const icon = item.querySelector('.gallery-image').innerHTML;
+            lightboxImage.innerHTML = icon;
+            lightboxTitle.textContent = item.dataset.title || '';
+            lightboxDesc.textContent = item.dataset.desc || '';
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(direction) {
+            const items = visibleItems();
+            currentIndex = (currentIndex + direction + items.length) % items.length;
+            openLightbox(items[currentIndex]);
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+        lightboxNext.addEventListener('click', () => navigateLightbox(1));
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        galleryItems.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

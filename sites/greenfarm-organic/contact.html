@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 - 그린팜 오가닉</title>
+    <meta name="description" content="그린팜 오가닉에 문의하세요. 상품, 배송, 제휴 등 모든 문의를 환영합니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared/css/common.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌿</span> 그린팜 오가닉
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html">홈</a>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">상품소개</a>
+                <a href="contact.html" class="active">문의하기</a>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="메뉴">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="page-header" style="background: linear-gradient(135deg, #2d5a27, #4a7c43);">
+        <h1>문의하기</h1>
+        <p>궁금한 점이 있으시면 언제든지 문의해주세요</p>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-text">
+                        <h4>주소</h4>
+                        <p>경기도 양평군 양평읍 중앙로 125</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">
+                        <h4>전화</h4>
+                        <p>031-775-3456</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-text">
+                        <h4>이메일</h4>
+                        <p>info@greenfarm.kr</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🕐</div>
+                    <div class="contact-text">
+                        <h4>영업시간</h4>
+                        <p>평일 09:00-18:00 / 토 09:00-13:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper" style="max-width: 800px; margin: 0 auto;">
+                <div class="section-title">
+                    <h2>문의 양식</h2>
+                    <p>아래 양식을 작성해주시면 빠른 시일 내에 답변 드리겠습니다</p>
+                </div>
+
+                <form id="contactForm" class="contact-form" onsubmit="handleContactForm(event, 'greenfarm-organic')">
+                    <div class="form-group">
+                        <label for="name">이름 <span style="color: #e74c3c;">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="이름을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일 <span style="color: #e74c3c;">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="이메일을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처</label>
+                        <input type="tel" id="phone" name="phone" placeholder="연락처를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">문의 유형 <span style="color: #e74c3c;">*</span></label>
+                        <select id="subject" name="subject" required>
+                            <option value="">선택하세요</option>
+                            <option value="상품문의">상품 문의</option>
+                            <option value="배송문의">배송 문의</option>
+                            <option value="교환/환불">교환/환불</option>
+                            <option value="대량구매">대량 구매</option>
+                            <option value="제휴문의">제휴 문의</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용 <span style="color: #e74c3c;">*</span></label>
+                        <textarea id="message" name="message" required placeholder="문의 내용을 자세히 입력해주세요"></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn btn-primary" style="min-width: 200px;">문의하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: #f8faf5;">
+        <div class="container">
+            <div class="section-title">
+                <h2>자주 묻는 질문</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4>Q. 배송은 얼마나 걸리나요?</h4>
+                    <p>A. 오전 11시 이전 주문 시 당일 발송되며, 대부분 지역 익일 도착합니다. 도서산간 지역은 2-3일 소요될 수 있습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q. 무료 배송 조건이 있나요?</h4>
+                    <p>A. 3만원 이상 구매 시 전국 무료 배송입니다. 3만원 미만 시 배송비 3,000원이 부과됩니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q. 교환/환불이 가능한가요?</h4>
+                    <p>A. 신선식품 특성상 단순 변심 교환/환불은 어렵습니다. 단, 상품 하자 시 100% 교환 또는 환불해드립니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Q. 정기 배송 서비스가 있나요?</h4>
+                    <p>A. 네, 주 1회/2회 정기 배송 서비스를 운영하고 있습니다. 정기 배송 시 10% 할인 혜택이 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>오시는 길</h2>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.5!2d127.4872!3d37.4912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDI5JzI4LjMiTiAxMjfCsDI5JzEzLjkiRQ!5e0!3m2!1sko!2skr!4v1699999999999!5m2!1sko!2skr" width="100%" height="400" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div style="margin-top: 30px; text-align: center;">
+                <p><strong>자가용 이용 시:</strong> 서울양양고속도로 양평IC에서 10분 거리</p>
+                <p><strong>대중교통 이용 시:</strong> 경의중앙선 양평역 하차 후 버스 30분</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>그린팜 오가닉</h4>
+                    <p>자연 그대로의 건강함을<br>여러분의 식탁으로 전합니다.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <p><a href="index.html">홈</a></p>
+                    <p><a href="about.html">회사소개</a></p>
+                    <p><a href="products.html">상품소개</a></p>
+                    <p><a href="contact.html">문의하기</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <p>경기도 양평군 양평읍 중앙로 125</p>
+                    <p>전화: 031-775-3456</p>
+                    <p>이메일: info@greenfarm.kr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 그린팜 오가닉. All Rights Reserved. | 대표: 이정민 | 사업자등록번호: 123-45-67890</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../../shared/js/common.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

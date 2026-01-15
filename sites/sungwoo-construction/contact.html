@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="성우건설 문의하기 - 견적문의, 상담신청, 오시는 길 안내. 30년 전문가가 친절하게 상담해 드립니다.">
+    <meta name="keywords" content="성우건설, 문의하기, 견적문의, 연락처, 오시는길">
+    <title>문의하기 | 성우건설</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a1628;
+            --primary-blue: #1a3a5c;
+            --secondary-blue: #2d5a87;
+            --accent-orange: #e67e22;
+            --accent-orange-light: #f39c12;
+            --accent-orange-dark: #d35400;
+            --text-light: #ffffff;
+            --text-gray: #b0bec5;
+            --text-dark: #2c3e50;
+            --bg-light: #f8f9fa;
+            --bg-gray: #ecf0f1;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.25);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 22, 40, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-phone {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .nav-phone span {
+            color: var(--accent-orange);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--text-light);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 50%, var(--secondary-blue) 100%);
+            padding: 180px 40px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 span {
+            color: var(--accent-orange);
+        }
+
+        .page-hero p {
+            font-size: 18px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+
+        .breadcrumb span {
+            color: var(--accent-orange);
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 120px 40px;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.1), rgba(230, 126, 34, 0.05));
+            color: var(--accent-orange);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(230, 126, 34, 0.2);
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--accent-orange);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            background: var(--bg-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.3);
+        }
+
+        .contact-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .contact-card a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            background: white;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .form-info h3 {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .form-info h3 span {
+            color: var(--accent-orange);
+        }
+
+        .form-info > p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .form-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .form-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.15), rgba(230, 126, 34, 0.05));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .form-feature h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .form-feature p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .contact-form {
+            background: var(--bg-light);
+            padding: 50px;
+            border-radius: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required {
+            color: var(--accent-orange);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Noto Sans KR', sans-serif;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent-orange);
+            margin-top: 2px;
+        }
+
+        .form-checkbox label {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .form-checkbox label a {
+            color: var(--accent-orange);
+            text-decoration: underline;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(230, 126, 34, 0.4);
+        }
+
+        /* Location Section */
+        .location-section {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid2)"/></svg>');
+        }
+
+        .location-section .section-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .location-section .section-tag {
+            background: rgba(230, 126, 34, 0.2);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .location-section .section-title {
+            color: white;
+        }
+
+        .location-section .section-subtitle {
+            color: var(--text-gray);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-placeholder {
+            text-align: center;
+            color: var(--text-gray);
+        }
+
+        .map-placeholder .icon {
+            font-size: 80px;
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+
+        .map-placeholder p {
+            font-size: 16px;
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .location-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .location-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .location-card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .location-card-content h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .location-card-content p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--bg-light);
+        }
+
+        .faq-grid {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--accent-orange);
+        }
+
+        .faq-question .icon {
+            font-size: 24px;
+            color: var(--accent-orange);
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question .icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-content {
+            padding: 0 30px 25px;
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 80px 40px 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-certifications {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cert-badge {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-column ul a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-legal a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(230, 126, 34, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.98);
+            z-index: 999;
+            padding: 100px 40px 40px;
+            transform: translateX(100%);
+            transition: var(--transition);
+        }
+
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav-links a {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 15px 25px;
+            }
+
+            .nav-links,
+            .nav-contact {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .page-hero {
+                padding: 150px 25px 80px;
+            }
+
+            .page-hero h1 {
+                font-size: 36px;
+            }
+
+            section {
+                padding: 80px 25px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .form-grid,
+            .location-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .form-info h3 {
+                font-size: 28px;
+            }
+
+            .contact-form {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-certifications {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">SW</div>
+                <div class="logo-text">성우<span>건설</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">사업분야</a></li>
+                <li><a href="projects.html">시공실적</a></li>
+                <li><a href="contact.html" class="active">문의하기</a></li>
+            </ul>
+            <div class="nav-contact">
+                <div class="nav-phone"><span>TEL</span> 02-1111-2222</div>
+                <a href="contact.html" class="nav-cta">견적문의</a>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" onclick="toggleMobileNav()">홈</a></li>
+            <li><a href="about.html" onclick="toggleMobileNav()">회사소개</a></li>
+            <li><a href="services.html" onclick="toggleMobileNav()">사업분야</a></li>
+            <li><a href="projects.html" onclick="toggleMobileNav()">시공실적</a></li>
+            <li><a href="contact.html" onclick="toggleMobileNav()">문의하기</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>문의<span>하기</span></h1>
+            <p>궁금하신 사항이나 견적 상담을 원하시면 연락주세요.<br>30년 경험의 전문가가 친절하게 상담해 드립니다.</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a>
+                <span>/</span>
+                <span>문의하기</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info -->
+    <section class="contact-info">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Contact Us</span>
+                <h2 class="section-title">연락처 <span>안내</span></h2>
+                <p class="section-subtitle">
+                    언제든지 편하게 연락주시면 신속하게 답변드리겠습니다
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">&#128222;</div>
+                    <h4>전화 상담</h4>
+                    <p><a href="tel:02-1111-2222">02-1111-2222</a></p>
+                    <p>평일 09:00 - 18:00</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">&#128231;</div>
+                    <h4>이메일</h4>
+                    <p><a href="mailto:info@sungwoo.co.kr">info@sungwoo.co.kr</a></p>
+                    <p>24시간 접수 가능</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">&#128187;</div>
+                    <h4>팩스</h4>
+                    <p>02-1111-3333</p>
+                    <p>도면/서류 접수</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">&#128205;</div>
+                    <h4>본사 위치</h4>
+                    <p>서울시 강남구 테헤란로 123</p>
+                    <p>성우건설 빌딩 8층</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="section-container">
+            <div class="form-grid">
+                <div class="form-info">
+                    <h3>프로젝트 <span>상담</span> 신청</h3>
+                    <p>
+                        아래 양식을 작성해 주시면 담당자가 확인 후
+                        빠른 시일 내에 연락드리겠습니다.
+                        상세한 요청사항을 적어주시면 더욱 정확한 상담이 가능합니다.
+                    </p>
+                    <div class="form-features">
+                        <div class="form-feature">
+                            <div class="form-feature-icon">&#9989;</div>
+                            <div>
+                                <h4>무료 견적 상담</h4>
+                                <p>전문가가 현장 방문 후 정확한 견적을 제공합니다</p>
+                            </div>
+                        </div>
+                        <div class="form-feature">
+                            <div class="form-feature-icon">&#128337;</div>
+                            <div>
+                                <h4>신속한 답변</h4>
+                                <p>접수 후 24시간 이내 담당자가 연락드립니다</p>
+                            </div>
+                        </div>
+                        <div class="form-feature">
+                            <div class="form-feature-icon">&#128274;</div>
+                            <div>
+                                <h4>정보 보안</h4>
+                                <p>고객 정보는 안전하게 보호됩니다</p>
+                            </div>
+                        </div>
+                        <div class="form-feature">
+                            <div class="form-feature-icon">&#128176;</div>
+                            <div>
+                                <h4>합리적인 비용</h4>
+                                <p>투명한 견적으로 신뢰를 드립니다</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>이름 <span class="required">*</span></label>
+                            <input type="text" name="name" placeholder="이름을 입력하세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label>연락처 <span class="required">*</span></label>
+                            <input type="tel" name="phone" placeholder="010-0000-0000" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>이메일</label>
+                            <input type="email" name="email" placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>회사명</label>
+                            <input type="text" name="company" placeholder="회사명을 입력하세요">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>문의 유형 <span class="required">*</span></label>
+                        <select name="type" required>
+                            <option value="">문의 유형을 선택하세요</option>
+                            <option value="estimate">견적 문의</option>
+                            <option value="consultation">시공 상담</option>
+                            <option value="warranty">하자보수 신청</option>
+                            <option value="partnership">협력업체 등록</option>
+                            <option value="other">기타 문의</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>프로젝트 유형</label>
+                        <select name="project_type">
+                            <option value="">프로젝트 유형을 선택하세요</option>
+                            <option value="residential">주거시설 (아파트/주택)</option>
+                            <option value="commercial">상업시설 (오피스/상가)</option>
+                            <option value="public">공공시설</option>
+                            <option value="civil">토목공사</option>
+                            <option value="remodeling">리모델링</option>
+                            <option value="plant">플랜트 설비</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>문의 내용 <span class="required">*</span></label>
+                        <textarea name="message" placeholder="문의하실 내용을 자세히 적어주세요. 프로젝트 규모, 위치, 예상 일정 등을 함께 알려주시면 더 정확한 상담이 가능합니다." required></textarea>
+                    </div>
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="privacy" name="privacy" required>
+                        <label for="privacy">
+                            <a href="#">개인정보 수집 및 이용</a>에 동의합니다. (필수)
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit">상담 신청하기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location-section" id="location">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Location</span>
+                <h2 class="section-title">오시는 <span>길</span></h2>
+                <p class="section-subtitle">
+                    성우건설 본사로 방문을 환영합니다
+                </p>
+            </div>
+            <div class="location-grid">
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div class="icon">&#128205;</div>
+                        <p>지도가 표시되는 영역입니다.<br>실제 구현 시 Google Maps 또는 Kakao Map을 연동합니다.</p>
+                    </div>
+                </div>
+                <div class="location-info">
+                    <div class="location-card">
+                        <div class="location-card-icon">&#127970;</div>
+                        <div class="location-card-content">
+                            <h4>본사 주소</h4>
+                            <p>서울특별시 강남구 테헤란로 123<br>성우건설 빌딩 8층 (우: 06134)</p>
+                        </div>
+                    </div>
+                    <div class="location-card">
+                        <div class="location-card-icon">&#128652;</div>
+                        <div class="location-card-content">
+                            <h4>대중교통 안내</h4>
+                            <p>지하철 2호선 강남역 3번 출구에서 도보 5분<br>버스 정류장: 강남역 사거리 하차</p>
+                        </div>
+                    </div>
+                    <div class="location-card">
+                        <div class="location-card-icon">&#128663;</div>
+                        <div class="location-card-content">
+                            <h4>주차 안내</h4>
+                            <p>건물 지하 주차장 이용 가능 (2시간 무료)<br>방문 시 안내데스크에서 주차권 수령</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">자주 묻는 <span>질문</span></h2>
+                <p class="section-subtitle">
+                    고객님들이 자주 문의하시는 내용을 모았습니다
+                </p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>견적은 어떻게 받을 수 있나요?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            온라인 문의 양식 작성, 전화 상담(02-1111-2222), 이메일(info@sungwoo.co.kr)을 통해 견적 문의가 가능합니다.
+                            문의 접수 후 담당자가 현장 방문을 통해 정확한 견적을 산출해 드립니다. 현장 방문 견적은 무료입니다.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>공사 기간은 얼마나 걸리나요?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            공사 기간은 프로젝트 규모와 유형에 따라 다릅니다. 소규모 리모델링은 1-2주,
+                            중규모 건축은 6개월-1년, 대형 프로젝트는 2-3년 이상 소요될 수 있습니다.
+                            정확한 공사 기간은 현장 조사 후 안내드립니다.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>하자보수는 어떻게 진행되나요?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            준공 후 법정 하자보수 기간 동안 무상으로 하자보수 서비스를 제공합니다.
+                            하자 발생 시 전화 또는 온라인으로 신청하시면 48시간 내 담당자가 방문하여 조치합니다.
+                            긴급 하자의 경우 24시간 내 처리를 원칙으로 합니다.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>계약금과 공사대금 지급은 어떻게 되나요?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            일반적으로 계약금 20%, 중도금 60%(공정률에 따라 분할), 잔금 20%(준공 시)로 진행됩니다.
+                            프로젝트 규모와 특성에 따라 협의 가능하며, 모든 비용은 계약서에 명시되어 투명하게 관리됩니다.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>시공 중 설계 변경이 가능한가요?</span>
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            네, 가능합니다. 다만, 공정 진행 상황에 따라 추가 비용이나 공기 연장이 발생할 수 있습니다.
+                            설계 변경을 원하시면 담당자와 상담 후 변경 계획서와 추가 견적을 제공받으실 수 있습니다.
+                            구조적인 변경은 허가 절차가 필요할 수 있습니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">SW</div>
+                        <div class="logo-text">성우<span>건설</span></div>
+                    </a>
+                    <p>
+                        30년 전통의 종합건설 전문기업 성우건설은<br>
+                        신뢰와 품질을 바탕으로 고객의 꿈을 현실로 만들어 드립니다.
+                    </p>
+                    <div class="footer-certifications">
+                        <div class="cert-badge">ISO<br>9001</div>
+                        <div class="cert-badge">ISO<br>14001</div>
+                        <div class="cert-badge">KOSHA<br>18001</div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>사업분야</h4>
+                    <ul>
+                        <li><a href="services.html">건축 시공</a></li>
+                        <li><a href="services.html">토목 공사</a></li>
+                        <li><a href="services.html">리모델링</a></li>
+                        <li><a href="services.html">플랜트 설비</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>회사정보</h4>
+                    <ul>
+                        <li><a href="about.html">회사소개</a></li>
+                        <li><a href="projects.html">시공실적</a></li>
+                        <li><a href="about.html#certifications">인증 및 특허</a></li>
+                        <li><a href="about.html#careers">채용정보</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">견적문의</a></li>
+                        <li><a href="contact.html">하자보수 신청</a></li>
+                        <li><a href="contact.html#faq">FAQ</a></li>
+                        <li><a href="contact.html#location">오시는 길</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 성우건설. All Rights Reserved. | 대표: 박건설</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">이메일무단수집거부</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#" class="scroll-top" id="scrollTop" onclick="scrollToTop(event)">&#8593;</a>
+
+    <script>
+        // Scroll to top button visibility
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top function
+        function scrollToTop(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+
+            // Here you would typically send the data to a server
+            console.log('Form submitted:', data);
+
+            // Show success message
+            alert('상담 신청이 완료되었습니다.\n담당자가 24시간 내에 연락드리겠습니다.');
+
+            // Reset form
+            contactForm.reset();
+        });
+
+        // Animate elements on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.contact-card, .location-card, .faq-item');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        document.querySelectorAll('.contact-card, .location-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

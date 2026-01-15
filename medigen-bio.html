@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)메디젠바이오 | MediGen Bio - 생명을 혁신하는 바이오 기술</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-mint: #00D4AA;
+            --primary-blue: #0066CC;
+            --dark-blue: #003366;
+            --light-mint: #E8FBF6;
+            --accent-cyan: #00B4D8;
+            --white: #FFFFFF;
+            --gray-100: #F8FAFC;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-600: #475569;
+            --gray-800: #1E293B;
+            --gray-900: #0F172A;
+            --gradient-primary: linear-gradient(135deg, #00D4AA 0%, #0066CC 100%);
+            --gradient-dark: linear-gradient(135deg, #003366 0%, #001a33 100%);
+            --gradient-hero: linear-gradient(135deg, rgba(0,102,204,0.9) 0%, rgba(0,212,170,0.8) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--gray-800);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* DNA Animation Background */
+        .dna-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.03;
+        }
+
+        .dna-strand {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: var(--primary-blue);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 60px;
+            transition: all 0.4s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+            padding: 15px 60px;
+        }
+
+        .header-inner {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--white);
+            transition: color 0.3s;
+        }
+
+        .header.scrolled .logo-text {
+            color: var(--dark-blue);
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header.scrolled .logo-sub {
+            color: var(--gray-600);
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .header.scrolled .nav a {
+            color: var(--gray-800);
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-mint);
+            transition: width 0.3s;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-outline {
+            padding: 10px 25px;
+            border: 2px solid var(--white);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .header.scrolled .btn-outline {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-blue);
+        }
+
+        .lang-switch {
+            color: var(--white);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .header.scrolled .lang-switch {
+            color: var(--gray-600);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1920&h=1080&fit=crop') center/cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-hero);
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 60px;
+            color: var(--white);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-badge i {
+            color: var(--primary-mint);
+        }
+
+        .hero-title {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #00D4AA 0%, #90F5E8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 22px;
+            font-weight: 300;
+            max-width: 700px;
+            margin-bottom: 50px;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: var(--gradient-primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 40px rgba(0,212,170,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0,212,170,0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 80px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            gap: 60px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-mint);
+        }
+
+        .hero-stat-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 5px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 120px 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--light-mint);
+            color: var(--primary-blue);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--gray-100);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+        }
+
+        .about-image-overlay {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: var(--gradient-primary);
+            padding: 40px;
+            border-radius: 20px;
+            color: var(--white);
+            box-shadow: 0 20px 50px rgba(0,212,170,0.3);
+        }
+
+        .about-image-overlay .number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+        }
+
+        .about-image-overlay .label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .about-content h3 {
+            font-size: 18px;
+            color: var(--primary-mint);
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-content h2 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .about-content p {
+            font-size: 17px;
+            color: var(--gray-600);
+            margin-bottom: 30px;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .mv-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .mv-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .mv-card i {
+            font-size: 36px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .mv-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 15px;
+        }
+
+        .mv-card p {
+            font-size: 15px;
+            color: var(--gray-600);
+            margin: 0;
+        }
+
+        /* CEO Message */
+        .ceo-section {
+            background: var(--gradient-dark);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ceo-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0,212,170,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .ceo-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .ceo-image {
+            position: relative;
+        }
+
+        .ceo-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            filter: grayscale(20%);
+        }
+
+        .ceo-image::after {
+            content: '';
+            position: absolute;
+            inset: 20px -20px -20px 20px;
+            border: 3px solid var(--primary-mint);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .ceo-content h3 {
+            font-size: 14px;
+            color: var(--primary-mint);
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .ceo-content h2 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .ceo-quote {
+            font-size: 20px;
+            font-style: italic;
+            opacity: 0.9;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            padding-left: 30px;
+            border-left: 4px solid var(--primary-mint);
+        }
+
+        .ceo-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .ceo-info .name {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .ceo-info .title {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Pipeline Section */
+        .pipeline {
+            background: var(--white);
+        }
+
+        .pipeline-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pipeline-header-row {
+            display: grid;
+            grid-template-columns: 200px 120px repeat(5, 1fr);
+            gap: 10px;
+            background: var(--gradient-dark);
+            padding: 25px 30px;
+            border-radius: 15px 15px 0 0;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .pipeline-row {
+            display: grid;
+            grid-template-columns: 200px 120px repeat(5, 1fr);
+            gap: 10px;
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--gray-200);
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .pipeline-row:hover {
+            background: var(--light-mint);
+        }
+
+        .pipeline-drug {
+            font-weight: 700;
+            color: var(--gray-900);
+            font-size: 16px;
+        }
+
+        .pipeline-indication {
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        .pipeline-target {
+            font-size: 13px;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .pipeline-stage {
+            position: relative;
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pipeline-stage.active {
+            background: var(--gradient-primary);
+        }
+
+        .pipeline-stage::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-mint);
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            box-shadow: 0 2px 10px rgba(0,212,170,0.5);
+            display: none;
+        }
+
+        .pipeline-stage.current::before {
+            display: block;
+        }
+
+        .pipeline-legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            padding: 30px;
+            background: var(--gray-100);
+            border-radius: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .legend-color.completed {
+            background: var(--gradient-primary);
+        }
+
+        .legend-color.ongoing {
+            background: var(--primary-blue);
+        }
+
+        .legend-color.planned {
+            background: var(--gray-300);
+        }
+
+        /* Technology Platform */
+        .technology {
+            background: linear-gradient(180deg, var(--gray-100) 0%, var(--white) 100%);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .tech-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .tech-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .tech-card:hover .tech-card-image img {
+            transform: scale(1.1);
+        }
+
+        .tech-card-content {
+            padding: 40px;
+        }
+
+        .tech-card-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -75px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,212,170,0.3);
+        }
+
+        .tech-card-icon i {
+            font-size: 28px;
+            color: var(--white);
+        }
+
+        .tech-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin: 25px 0 15px;
+        }
+
+        .tech-card p {
+            font-size: 15px;
+            color: var(--gray-600);
+            margin-bottom: 25px;
+        }
+
+        .tech-features {
+            list-style: none;
+        }
+
+        .tech-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: var(--gray-600);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .tech-features li:last-child {
+            border: none;
+        }
+
+        .tech-features li i {
+            color: var(--primary-mint);
+        }
+
+        /* Products Section */
+        .products {
+            background: var(--white);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            border-color: var(--primary-mint);
+            box-shadow: 0 20px 50px rgba(0,212,170,0.15);
+            transform: translateY(-5px);
+        }
+
+        .product-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-mint);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .product-icon i {
+            font-size: 32px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 10px;
+        }
+
+        .product-card .category {
+            font-size: 12px;
+            color: var(--primary-blue);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-mint);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Research Center */
+        .research {
+            background: var(--gray-900);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?w=1920&h=1080&fit=crop') center/cover;
+            opacity: 0.1;
+        }
+
+        .research-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .research-info h3 {
+            font-size: 14px;
+            color: var(--primary-mint);
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .research-info h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .research-info p {
+            font-size: 17px;
+            opacity: 0.85;
+            margin-bottom: 40px;
+        }
+
+        .research-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .research-stat {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .research-stat .value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary-mint);
+            margin-bottom: 10px;
+        }
+
+        .research-stat .label {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .research-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .research-images img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .research-images img:first-child {
+            height: 420px;
+            grid-row: span 2;
+        }
+
+        /* IR Section */
+        .ir-section {
+            background: var(--gray-100);
+        }
+
+        .ir-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .ir-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .ir-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .ir-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .ir-card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ir-card-icon i {
+            font-size: 20px;
+            color: var(--white);
+        }
+
+        .ir-card-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .ir-list {
+            list-style: none;
+        }
+
+        .ir-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ir-list li:last-child {
+            border: none;
+        }
+
+        .ir-list a {
+            color: var(--gray-800);
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .ir-list a:hover {
+            color: var(--primary-blue);
+        }
+
+        .ir-list .date {
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        .ir-highlight {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+
+        .ir-highlight .ir-card-header {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .ir-highlight .ir-card-header h3 {
+            color: var(--white);
+        }
+
+        .ir-highlight .ir-card-icon {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .ir-highlight .ir-list li {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .ir-highlight .ir-list a,
+        .ir-highlight .ir-list .date {
+            color: var(--white);
+        }
+
+        .stock-info {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .stock-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+        }
+
+        .stock-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .stock-change.up {
+            color: #22C55E;
+        }
+
+        /* News Section */
+        .news {
+            background: var(--white);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .news-featured {
+            grid-row: span 2;
+        }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .news-card-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .news-featured .news-card-image {
+            height: 400px;
+        }
+
+        .news-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .news-card:hover .news-card-image img {
+            transform: scale(1.05);
+        }
+
+        .news-card-content {
+            padding: 30px;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: var(--light-mint);
+            color: var(--primary-blue);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .news-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .news-featured .news-card h3 {
+            font-size: 26px;
+        }
+
+        .news-card p {
+            font-size: 15px;
+            color: var(--gray-600);
+            margin-bottom: 20px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--gray-600);
+        }
+
+        /* Careers Section */
+        .careers {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #001a33 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .careers::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(0,212,170,0.15) 0%, transparent 60%);
+            border-radius: 50%;
+        }
+
+        .careers-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .careers-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .careers-header h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .careers-header p {
+            font-size: 18px;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .careers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .career-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        .career-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        .career-badge {
+            display: inline-block;
+            background: var(--primary-mint);
+            color: var(--dark-blue);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .career-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .career-card p {
+            font-size: 15px;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .career-info {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .career-info span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .careers-cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--gray-100);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            font-size: 14px;
+            color: var(--primary-mint);
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .contact-info h2 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 30px;
+        }
+
+        .contact-info > p {
+            font-size: 17px;
+            color: var(--gray-600);
+            margin-bottom: 50px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            gap: 20px;
+            padding: 25px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .contact-details .icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-details .icon i {
+            font-size: 20px;
+            color: var(--white);
+        }
+
+        .contact-details .info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 5px;
+        }
+
+        .contact-details .info p {
+            font-size: 15px;
+            color: var(--gray-600);
+        }
+
+        .contact-map {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .map-placeholder {
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=400&fit=crop') center/cover;
+            position: relative;
+        }
+
+        .map-placeholder::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,102,204,0.3) 0%, rgba(0,212,170,0.3) 100%);
+        }
+
+        .contact-form-container {
+            padding: 40px;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-mint);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,212,170,0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 80px 60px 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-brand .logo-text {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            font-size: 15px;
+            opacity: 0.7;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-mint);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-mint);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-legal a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 56px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .pipeline-header-row,
+            .pipeline-row {
+                grid-template-columns: 150px 100px repeat(5, 1fr);
+                font-size: 12px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .section {
+                padding: 80px 30px;
+            }
+
+            .about-grid,
+            .ceo-grid,
+            .research-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid,
+            .careers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ir-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-featured {
+                grid-row: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-desc {
+                font-size: 18px;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .tech-grid,
+            .careers-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline-header-row,
+            .pipeline-row {
+                overflow-x: auto;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- DNA Background Animation -->
+    <div class="dna-bg">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="dna-pattern" x="0" y="0" width="100" height="200" patternUnits="userSpaceOnUse">
+                    <circle cx="20" cy="20" r="3" fill="#0066CC" opacity="0.3"/>
+                    <circle cx="80" cy="20" r="3" fill="#00D4AA" opacity="0.3"/>
+                    <line x1="20" y1="20" x2="80" y2="20" stroke="#0066CC" stroke-width="1" opacity="0.2"/>
+                    <circle cx="80" cy="60" r="3" fill="#0066CC" opacity="0.3"/>
+                    <circle cx="20" cy="60" r="3" fill="#00D4AA" opacity="0.3"/>
+                    <line x1="80" y1="60" x2="20" y2="60" stroke="#00D4AA" stroke-width="1" opacity="0.2"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#dna-pattern)"/>
+        </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                <div>
+                    <div class="logo-text">MediGen Bio</div>
+                    <div class="logo-sub">Innovating Life Sciences</div>
+                </div>
+            </a>
+            <nav class="nav">
+                <a href="#about">회사소개</a>
+                <a href="#pipeline">R&D 파이프라인</a>
+                <a href="#technology">기술 플랫폼</a>
+                <a href="#products">제품</a>
+                <a href="#research">연구소</a>
+                <a href="#ir">IR/공시</a>
+                <a href="#news">뉴스룸</a>
+                <a href="#careers">채용</a>
+            </nav>
+            <div class="header-cta">
+                <span class="lang-switch">KOR | ENG</span>
+                <a href="#contact" class="btn-outline">문의하기</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-particles">
+            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+            <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 3.5s;"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-dna"></i>
+                Leading Biopharmaceutical Innovation
+            </div>
+            <h1 class="hero-title">
+                생명을 혁신하는<br>
+                <span>바이오 기술의 미래</span>
+            </h1>
+            <p class="hero-desc">
+                메디젠바이오는 첨단 바이오의약품과 혁신적인 신약 개발을 통해
+                인류의 건강한 미래를 만들어 갑니다. 글로벌 수준의 R&D 역량으로
+                난치성 질환 치료의 새로운 가능성을 열어갑니다.
+            </p>
+            <div class="hero-buttons">
+                <a href="#pipeline" class="btn-primary">
+                    R&D 파이프라인 보기 <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#about" class="btn-secondary">
+                    <i class="fas fa-play-circle"></i> 기업소개 영상
+                </a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-value">127+</div>
+                <div class="hero-stat-label">등록 특허</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value">8</div>
+                <div class="hero-stat-label">신약 파이프라인</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value">Phase 3</div>
+                <div class="hero-stat-label">임상 진행 단계</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value">$2.1B</div>
+                <div class="hero-stat-label">기업 가치</div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&h=600&fit=crop" alt="메디젠바이오 연구소">
+                <div class="about-image-overlay">
+                    <div class="number">10+</div>
+                    <div class="label">Years of Innovation</div>
+                </div>
+            </div>
+            <div class="about-content">
+                <h3>About MediGen Bio</h3>
+                <h2>혁신적인 바이오 기술로<br>건강한 미래를 설계합니다</h2>
+                <p>
+                    (주)메디젠바이오는 2014년 설립 이래, 항체의약품, 세포유전자치료제,
+                    그리고 차세대 진단 플랫폼 개발에 집중해왔습니다. 판교 R&D 센터를 거점으로
+                    200여 명의 석박사급 연구원이 미충족 의료수요 해결을 위한 혁신 신약 개발에
+                    매진하고 있습니다.
+                </p>
+                <p>
+                    글로벌 제약사와의 전략적 파트너십을 통해 기술이전 계약 총 $1.2B을 달성했으며,
+                    현재 8개의 파이프라인이 전임상부터 임상 3상까지 다양한 단계에서 개발 중입니다.
+                </p>
+                <div class="mission-vision">
+                    <div class="mv-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h4>Mission</h4>
+                        <p>혁신적인 바이오 기술을 통해 난치성 질환을 극복하고 인류의 건강한 삶에 기여합니다.</p>
+                    </div>
+                    <div class="mv-card">
+                        <i class="fas fa-eye"></i>
+                        <h4>Vision</h4>
+                        <p>2030년까지 글로벌 Top 30 바이오 기업으로 도약하여 First-in-Class 신약을 출시합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CEO Message -->
+    <section class="section ceo-section">
+        <div class="ceo-grid">
+            <div class="ceo-image">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop" alt="CEO">
+            </div>
+            <div class="ceo-content">
+                <h3>CEO Message</h3>
+                <h2>환자의 삶을 변화시키는<br>혁신에 도전합니다</h2>
+                <p class="ceo-quote">
+                    "메디젠바이오는 '과학으로 생명을 구한다'는 사명감 아래,
+                    기존 치료법이 없는 환자들에게 새로운 희망을 제시하고자 합니다.
+                    우리의 혁신적인 기술 플랫폼과 열정적인 연구진이 함께
+                    불가능을 가능으로 만들어 가겠습니다."
+                </p>
+                <div class="ceo-info">
+                    <div>
+                        <div class="name">김 성 훈</div>
+                        <div class="title">대표이사 / Ph.D. 분자생물학</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pipeline Section -->
+    <section class="section pipeline" id="pipeline">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-flask"></i> R&D Pipeline
+            </div>
+            <h2 class="section-title">신약 개발 <span>파이프라인</span></h2>
+            <p class="section-desc">
+                메디젠바이오는 항암제, 자가면역질환, 희귀질환 영역에서
+                First-in-Class 및 Best-in-Class 신약 후보물질을 개발하고 있습니다.
+            </p>
+        </div>
+        <div class="pipeline-container">
+            <div class="pipeline-header-row">
+                <div>후보물질</div>
+                <div>적응증</div>
+                <div>Discovery</div>
+                <div>전임상</div>
+                <div>Phase 1</div>
+                <div>Phase 2</div>
+                <div>Phase 3</div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-2847</div>
+                    <div class="pipeline-target">PD-L1/VEGF 이중항체</div>
+                </div>
+                <div class="pipeline-indication">비소세포폐암</div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active current"></div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-1520</div>
+                    <div class="pipeline-target">CD47 항체</div>
+                </div>
+                <div class="pipeline-indication">급성골수성백혈병</div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active current"></div>
+                <div class="pipeline-stage"></div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-3310</div>
+                    <div class="pipeline-target">TIGIT/LAG-3</div>
+                </div>
+                <div class="pipeline-indication">고형암</div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active current"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-CAR-T</div>
+                    <div class="pipeline-target">CD19 CAR-T</div>
+                </div>
+                <div class="pipeline-indication">B세포림프종</div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active current"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-4420</div>
+                    <div class="pipeline-target">IL-17A/F 항체</div>
+                </div>
+                <div class="pipeline-indication">건선성 관절염</div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active current"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-5580</div>
+                    <div class="pipeline-target">AAV 유전자치료제</div>
+                </div>
+                <div class="pipeline-indication">척수성근위축증</div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active current"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-6120</div>
+                    <div class="pipeline-target">siRNA 치료제</div>
+                </div>
+                <div class="pipeline-indication">유전성 아밀로이드증</div>
+                <div class="pipeline-stage active"></div>
+                <div class="pipeline-stage active current"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+            </div>
+
+            <div class="pipeline-row">
+                <div>
+                    <div class="pipeline-drug">MGN-7250</div>
+                    <div class="pipeline-target">STING 작용제</div>
+                </div>
+                <div class="pipeline-indication">췌장암</div>
+                <div class="pipeline-stage active current"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+                <div class="pipeline-stage"></div>
+            </div>
+
+            <div class="pipeline-legend">
+                <div class="legend-item">
+                    <div class="legend-color completed"></div>
+                    <span>완료</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color ongoing"></div>
+                    <span>진행중</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color planned"></div>
+                    <span>예정</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Platform -->
+    <section class="section technology" id="technology">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-microchip"></i> Technology Platform
+            </div>
+            <h2 class="section-title">핵심 <span>기술 플랫폼</span></h2>
+            <p class="section-desc">
+                독자적인 기술 플랫폼을 기반으로 혁신적인 바이오의약품을 개발합니다.
+            </p>
+        </div>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-card-image">
+                    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=600&h=400&fit=crop" alt="이중항체 플랫폼">
+                </div>
+                <div class="tech-card-content">
+                    <div class="tech-card-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>MG-BiAb Platform</h3>
+                    <p>독자 개발한 이중특이성 항체 플랫폼으로 두 가지 타겟을 동시에 공략하여 치료 효과를 극대화합니다.</p>
+                    <ul class="tech-features">
+                        <li><i class="fas fa-check"></i> 높은 안정성 및 생산 수율</li>
+                        <li><i class="fas fa-check"></i> 다양한 타겟 조합 가능</li>
+                        <li><i class="fas fa-check"></i> 특허 23건 등록</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-card-image">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&h=400&fit=crop" alt="세포치료 플랫폼">
+                </div>
+                <div class="tech-card-content">
+                    <div class="tech-card-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3>MG-Cell Platform</h3>
+                    <p>차세대 CAR-T 및 NK 세포 치료제 개발 플랫폼으로 고형암 치료의 새로운 가능성을 제시합니다.</p>
+                    <ul class="tech-features">
+                        <li><i class="fas fa-check"></i> 자가/동종 세포치료제 개발</li>
+                        <li><i class="fas fa-check"></i> 종양미세환경 극복 기술</li>
+                        <li><i class="fas fa-check"></i> GMP 시설 보유</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-card-image">
+                    <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=600&h=400&fit=crop" alt="유전자치료 플랫폼">
+                </div>
+                <div class="tech-card-content">
+                    <div class="tech-card-icon">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <h3>MG-Gene Platform</h3>
+                    <p>AAV 벡터 및 RNA 치료제 개발 플랫폼으로 유전질환의 근본적 치료를 목표로 합니다.</p>
+                    <ul class="tech-features">
+                        <li><i class="fas fa-check"></i> 조직 특이적 AAV 캡시드</li>
+                        <li><i class="fas fa-check"></i> LNP 전달 시스템</li>
+                        <li><i class="fas fa-check"></i> 특허 18건 등록</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section products" id="products">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-pills"></i> Products
+            </div>
+            <h2 class="section-title">제품 <span>포트폴리오</span></h2>
+            <p class="section-desc">
+                상용화된 진단키트 및 바이오시밀러 제품으로 환자들에게 가치를 전달합니다.
+            </p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <span class="product-badge">베스트셀러</span>
+                <div class="product-icon">
+                    <i class="fas fa-vial"></i>
+                </div>
+                <div class="category">진단키트</div>
+                <h3>MG-COVID Dx</h3>
+                <p>신속 PCR 진단키트로 30분 내 정확한 결과 도출. WHO 긴급사용 승인.</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <div class="category">진단키트</div>
+                <h3>MG-Onco Panel</h3>
+                <p>차세대염기서열분석 기반 500종 암 유전자 동반진단 패널.</p>
+            </div>
+
+            <div class="product-card">
+                <span class="product-badge">신제품</span>
+                <div class="product-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="category">진단키트</div>
+                <h3>MG-Cardio Plus</h3>
+                <p>심혈관질환 조기 진단을 위한 멀티마커 체외진단 시스템.</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-capsules"></i>
+                </div>
+                <div class="category">바이오시밀러</div>
+                <h3>MG-Mab 120</h3>
+                <p>트라스투주맙 바이오시밀러. 유방암 치료제로 2023년 국내 출시.</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-prescription-bottle"></i>
+                </div>
+                <div class="category">바이오시밀러</div>
+                <h3>MG-Rit 40</h3>
+                <p>리툭시맙 바이오시밀러. 비호지킨림프종 치료제.</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <div class="category">연구용 시약</div>
+                <h3>MG-Research Kit</h3>
+                <p>연구기관용 세포배양 및 분석 시약 키트 시리즈.</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-viruses"></i>
+                </div>
+                <div class="category">진단키트</div>
+                <h3>MG-Resp Panel</h3>
+                <p>호흡기 바이러스 24종 동시 검출 멀티플렉스 진단키트.</p>
+            </div>
+
+            <div class="product-card">
+                <span class="product-badge">개발중</span>
+                <div class="product-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="category">동반진단</div>
+                <h3>MG-Neuro Dx</h3>
+                <p>알츠하이머 조기진단을 위한 혈액 기반 바이오마커 검사.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Center -->
+    <section class="section research" id="research">
+        <div class="research-content">
+            <div class="research-grid">
+                <div class="research-info">
+                    <h3>Research Center</h3>
+                    <h2>판교 R&D 센터</h2>
+                    <p>
+                        최첨단 연구 시설을 갖춘 판교 R&D 센터는 총 연면적 15,000㎡ 규모로,
+                        항체공학연구소, 세포치료연구소, 분석연구소, GMP 생산시설을 보유하고 있습니다.
+                        200여 명의 석박사급 연구원들이 차세대 바이오의약품 개발에 매진하고 있습니다.
+                    </p>
+                    <div class="research-stats">
+                        <div class="research-stat">
+                            <div class="value">15,000㎡</div>
+                            <div class="label">연구시설 규모</div>
+                        </div>
+                        <div class="research-stat">
+                            <div class="value">200+</div>
+                            <div class="label">석박사급 연구원</div>
+                        </div>
+                        <div class="research-stat">
+                            <div class="value">₩85B</div>
+                            <div class="label">연간 R&D 투자</div>
+                        </div>
+                        <div class="research-stat">
+                            <div class="value">4개</div>
+                            <div class="label">전문 연구소</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="research-images">
+                    <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=420&fit=crop" alt="연구시설">
+                    <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=400&h=200&fit=crop" alt="실험실">
+                    <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=400&h=200&fit=crop" alt="연구원">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IR Section -->
+    <section class="section ir-section" id="ir">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-chart-line"></i> Investor Relations
+            </div>
+            <h2 class="section-title">IR / <span>공시정보</span></h2>
+            <p class="section-desc">
+                투자자 여러분께 투명하고 정확한 정보를 제공합니다.
+            </p>
+        </div>
+        <div class="ir-grid">
+            <div class="ir-card ir-highlight">
+                <div class="ir-card-header">
+                    <div class="ir-card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>주가 정보</h3>
+                </div>
+                <div class="stock-info">
+                    <div class="stock-price">₩78,500</div>
+                    <div class="stock-change up">
+                        <i class="fas fa-caret-up"></i> +2,300 (+3.02%)
+                    </div>
+                    <p style="margin-top: 15px; font-size: 13px; opacity: 0.7;">KOSDAQ: 320150 | 2025.01.09 15:30 기준</p>
+                </div>
+            </div>
+
+            <div class="ir-card">
+                <div class="ir-card-header">
+                    <div class="ir-card-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>공시자료</h3>
+                </div>
+                <ul class="ir-list">
+                    <li>
+                        <a href="#">2024년 4분기 실적 발표</a>
+                        <span class="date">2025.01.08</span>
+                    </li>
+                    <li>
+                        <a href="#">MGN-2847 임상 3상 중간결과</a>
+                        <span class="date">2024.12.15</span>
+                    </li>
+                    <li>
+                        <a href="#">글로벌 제약사 기술이전 계약</a>
+                        <span class="date">2024.11.22</span>
+                    </li>
+                    <li>
+                        <a href="#">2024년 3분기 경영실적 공시</a>
+                        <span class="date">2024.10.28</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ir-card">
+                <div class="ir-card-header">
+                    <div class="ir-card-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>IR 자료실</h3>
+                </div>
+                <ul class="ir-list">
+                    <li>
+                        <a href="#">2024 사업보고서</a>
+                        <span class="date">PDF</span>
+                    </li>
+                    <li>
+                        <a href="#">2024 지속가능경영보고서</a>
+                        <span class="date">PDF</span>
+                    </li>
+                    <li>
+                        <a href="#">IR 프레젠테이션 (국문)</a>
+                        <span class="date">PDF</span>
+                    </li>
+                    <li>
+                        <a href="#">IR Presentation (ENG)</a>
+                        <span class="date">PDF</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="section news" id="news">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-newspaper"></i> Newsroom
+            </div>
+            <h2 class="section-title">뉴스 & <span>공지사항</span></h2>
+            <p class="section-desc">
+                메디젠바이오의 최신 소식을 전해드립니다.
+            </p>
+        </div>
+        <div class="news-grid">
+            <div class="news-card news-featured">
+                <div class="news-card-image">
+                    <img src="https://images.unsplash.com/photo-1631049035182-249067d7618e?w=800&h=400&fit=crop" alt="뉴스">
+                </div>
+                <div class="news-card-content">
+                    <span class="news-category">보도자료</span>
+                    <h3>메디젠바이오, MGN-2847 글로벌 임상 3상에서 주요 평가 목표 달성</h3>
+                    <p>
+                        비소세포폐암 환자 대상 임상 3상에서 기존 치료제 대비 무진행 생존기간 45% 개선을
+                        달성하며 글로벌 시장 진출에 청신호가 켜졌습니다.
+                    </p>
+                    <div class="news-meta">
+                        <span>2025.01.08</span>
+                        <a href="#" style="color: var(--primary-blue);">자세히 보기 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-card-image">
+                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&h=250&fit=crop" alt="뉴스">
+                </div>
+                <div class="news-card-content">
+                    <span class="news-category">수상/인증</span>
+                    <h3>2024 대한민국 바이오 대상 기술혁신상 수상</h3>
+                    <p>이중항체 플랫폼 기술력을 인정받아 산업통상자원부 장관상을 수상했습니다.</p>
+                    <div class="news-meta">
+                        <span>2024.12.20</span>
+                        <a href="#" style="color: var(--primary-blue);">자세히 보기 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-card-image">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=250&fit=crop" alt="뉴스">
+                </div>
+                <div class="news-card-content">
+                    <span class="news-category">파트너십</span>
+                    <h3>미국 ABC Pharma와 $500M 기술이전 계약 체결</h3>
+                    <p>MGN-1520의 북미 시장 독점 라이선스 계약을 통해 글로벌 사업화를 가속합니다.</p>
+                    <div class="news-meta">
+                        <span>2024.11.22</span>
+                        <a href="#" style="color: var(--primary-blue);">자세히 보기 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section class="section careers" id="careers">
+        <div class="careers-content">
+            <div class="careers-header">
+                <div class="section-badge" style="background: rgba(255,255,255,0.1); color: var(--white);">
+                    <i class="fas fa-users"></i> Careers
+                </div>
+                <h2>함께 성장할 인재를 찾습니다</h2>
+                <p>
+                    메디젠바이오와 함께 바이오 혁신의 주역이 되어주세요.
+                    최고의 복지와 성장 기회가 여러분을 기다립니다.
+                </p>
+            </div>
+            <div class="careers-grid">
+                <div class="career-card">
+                    <span class="career-badge">신규채용</span>
+                    <h3>항체공학 연구원</h3>
+                    <p>이중특이성 항체 개발 및 최적화 연구를 수행할 연구원을 모집합니다.</p>
+                    <div class="career-info">
+                        <span><i class="fas fa-briefcase"></i> 정규직</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 판교</span>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <span class="career-badge">긴급채용</span>
+                    <h3>임상개발 PM</h3>
+                    <p>글로벌 임상시험 기획 및 관리를 담당할 프로젝트 매니저를 찾습니다.</p>
+                    <div class="career-info">
+                        <span><i class="fas fa-briefcase"></i> 정규직</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 판교</span>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <span class="career-badge">신규채용</span>
+                    <h3>세포치료 전문연구원</h3>
+                    <p>CAR-T 및 NK세포 치료제 개발 경험이 있는 전문가를 모집합니다.</p>
+                    <div class="career-info">
+                        <span><i class="fas fa-briefcase"></i> 정규직</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 판교</span>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <h3>QA/QC 담당자</h3>
+                    <p>GMP 시설 품질관리 및 품질보증 업무를 수행할 인재를 찾습니다.</p>
+                    <div class="career-info">
+                        <span><i class="fas fa-briefcase"></i> 정규직</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 판교</span>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <h3>데이터 사이언티스트</h3>
+                    <p>AI/ML 기반 신약개발 데이터 분석 전문가를 모집합니다.</p>
+                    <div class="career-info">
+                        <span><i class="fas fa-briefcase"></i> 정규직</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 판교</span>
+                    </div>
+                </div>
+
+                <div class="career-card">
+                    <h3>IR/홍보 담당자</h3>
+                    <p>투자자 커뮤니케이션 및 기업 홍보 업무를 담당할 인재를 찾습니다.</p>
+                    <div class="career-info">
+                        <span><i class="fas fa-briefcase"></i> 정규직</span>
+                        <span><i class="fas fa-map-marker-alt"></i> 판교</span>
+                    </div>
+                </div>
+            </div>
+            <div class="careers-cta">
+                <a href="#" class="btn-primary" style="background: var(--white); color: var(--primary-blue);">
+                    전체 채용공고 보기 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <h2>언제든지 문의해 주세요</h2>
+                <p>
+                    사업제휴, 기술협력, 투자문의 등 무엇이든
+                    메디젠바이오와 함께할 수 있습니다.
+                </p>
+                <ul class="contact-details">
+                    <li>
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info">
+                            <h4>본사 / R&D센터</h4>
+                            <p>경기도 성남시 분당구 판교로 256, 메디젠타워 8-12층 (우: 13487)</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon"><i class="fas fa-phone"></i></div>
+                        <div class="info">
+                            <h4>대표전화</h4>
+                            <p>031-728-8500</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info">
+                            <h4>이메일</h4>
+                            <p>contact@medigenbio.co.kr</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon"><i class="fas fa-fax"></i></div>
+                        <div class="info">
+                            <h4>팩스</h4>
+                            <p>031-728-8599</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="contact-map">
+                <div class="map-placeholder"></div>
+                <div class="contact-form-container">
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" placeholder="성함">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="회사명">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="email" placeholder="이메일">
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" placeholder="연락처">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="문의내용을 입력해 주세요"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">문의하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-text">MediGen Bio</div>
+                    <p>
+                        (주)메디젠바이오는 혁신적인 바이오의약품 개발을 통해
+                        난치성 질환 치료의 새로운 가능성을 열어가는
+                        글로벌 바이오 기업입니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>회사소개</h4>
+                    <ul>
+                        <li><a href="#">기업개요</a></li>
+                        <li><a href="#">경영진</a></li>
+                        <li><a href="#">연혁</a></li>
+                        <li><a href="#">CI/BI</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>R&D</h4>
+                    <ul>
+                        <li><a href="#">파이프라인</a></li>
+                        <li><a href="#">기술 플랫폼</a></li>
+                        <li><a href="#">연구소 소개</a></li>
+                        <li><a href="#">논문/발표</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>IR정보</h4>
+                    <ul>
+                        <li><a href="#">재무정보</a></li>
+                        <li><a href="#">공시자료</a></li>
+                        <li><a href="#">IR자료실</a></li>
+                        <li><a href="#">주가정보</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="#">문의하기</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">오시는 길</a></li>
+                        <li><a href="#">채용안내</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>
+                    <p>(주)메디젠바이오 | 대표이사: 김성훈 | 사업자등록번호: 123-45-67890</p>
+                    <p style="margin-top: 5px;">경기도 성남시 분당구 판교로 256, 메디젠타워 | TEL: 031-728-8500 | FAX: 031-728-8599</p>
+                    <p style="margin-top: 5px;">Copyright 2025 MediGen Bio Co., Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">이메일무단수집거부</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.tech-card, .product-card, .news-card, .career-card, .ir-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+
+            function updateCounter() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target;
+                }
+            }
+
+            updateCounter();
+        }
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('문의가 접수되었습니다. 빠른 시일 내에 답변 드리겠습니다.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 | 카페 모어댄</title>
+    <meta name="description" content="카페 모어댄 메뉴 - 스페셜티 커피, 시그니처 음료, 디저트 등 다양한 메뉴를 만나보세요.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brown-dark: #5D4037;
+            --brown-medium: #795548;
+            --brown-light: #8D6E63;
+            --beige-dark: #D7CCC8;
+            --beige-light: #EFEBE9;
+            --cream: #FFF8F0;
+            --text-dark: #3E2723;
+            --text-light: #5D4037;
+            --accent: #A1887F;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(93, 64, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown-dark);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brown-dark);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--brown-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--brown-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Menu Categories */
+        .menu-categories {
+            padding: 2rem;
+            background-color: var(--cream);
+            position: sticky;
+            top: 60px;
+            z-index: 100;
+            border-bottom: 1px solid var(--beige-dark);
+        }
+
+        .category-tabs {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            border: 2px solid var(--beige-dark);
+            border-radius: 50px;
+            color: var(--brown-medium);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background-color: var(--brown-dark);
+            border-color: var(--brown-dark);
+            color: white;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 4rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .category-title .icon {
+            font-size: 1.5rem;
+        }
+
+        .category-description {
+            color: var(--brown-medium);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(93, 64, 55, 0.15);
+        }
+
+        .menu-item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .menu-item-content {
+            flex: 1;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item h4 {
+            color: var(--brown-dark);
+            font-size: 1.1rem;
+        }
+
+        .menu-item .price {
+            color: var(--brown-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .menu-item .description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .menu-item .tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background-color: var(--beige-light);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--brown-medium);
+        }
+
+        .tag.popular {
+            background-color: var(--brown-dark);
+            color: white;
+        }
+
+        .tag.new {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        /* Notice Section */
+        .menu-notice {
+            padding: 3rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .notice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .notice-container h3 {
+            font-size: 1.3rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .notice-container p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .notice-list {
+            list-style: none;
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .notice-list li {
+            color: var(--brown-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brown-dark);
+            color: var(--beige-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--beige-dark);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--beige-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--cream);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(93, 64, 55, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .category-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .category-tab {
+                white-space: nowrap;
+            }
+
+            .menu-categories {
+                top: 56px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .menu-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .menu-item-image {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto;
+            }
+
+            .menu-item-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.25rem;
+            }
+
+            .menu-item .tags {
+                justify-content: center;
+            }
+
+            .notice-list {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">카페 모어댄</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="menu.html" class="active">메뉴</a></li>
+                <li><a href="gallery.html">갤러리</a></li>
+                <li><a href="contact.html">연락처</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>메뉴</h1>
+        <p>스페셜티 원두로 정성껏 내린 커피와 직접 만든 디저트를 만나보세요.</p>
+    </section>
+
+    <!-- Category Tabs -->
+    <section class="menu-categories">
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="coffee">커피</button>
+            <button class="category-tab" data-category="non-coffee">논커피</button>
+            <button class="category-tab" data-category="tea">티</button>
+            <button class="category-tab" data-category="dessert">디저트</button>
+            <button class="category-tab" data-category="brunch">브런치</button>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <div class="menu-container">
+            <!-- Coffee -->
+            <div class="menu-category" id="coffee">
+                <h2 class="category-title"><span class="icon">&#9749;</span> 커피</h2>
+                <p class="category-description">매일 신선하게 로스팅한 스페셜티 원두로 내린 커피</p>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>에티오피아 예가체프</h4>
+                                <span class="price">6,500원</span>
+                            </div>
+                            <p class="description">꽃향기와 과일향이 조화로운 싱글 오리진 커피</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                                <span class="tag">싱글오리진</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>모어댄 시그니처 블렌드</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">고소하고 달콤한 풍미의 자체 개발 블렌드</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                                <span class="tag">시그니처</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>콜롬비아 수프레모</h4>
+                                <span class="price">6,000원</span>
+                            </div>
+                            <p class="description">부드럽고 균형 잡힌 맛의 클래식 커피</p>
+                            <div class="tags">
+                                <span class="tag">싱글오리진</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>아메리카노</h4>
+                                <span class="price">4,500원</span>
+                            </div>
+                            <p class="description">깔끔하고 깊은 맛의 기본 아메리카노</p>
+                            <div class="tags">
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>카페 라떼</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">부드러운 우유와 에스프레소의 조화</p>
+                            <div class="tags">
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>바닐라 라떼</h4>
+                                <span class="price">6,000원</span>
+                            </div>
+                            <p class="description">마다가스카르 바닐라빈을 사용한 달콤한 라떼</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>카라멜 마끼아또</h4>
+                                <span class="price">6,000원</span>
+                            </div>
+                            <p class="description">달콤한 카라멜 시럽과 에스프레소의 조화</p>
+                            <div class="tags">
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>카푸치노</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">풍성한 우유 거품과 에스프레소의 클래식</p>
+                            <div class="tags">
+                                <span class="tag">HOT</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>콜드브루</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">24시간 저온 추출한 부드러운 커피</p>
+                            <div class="tags">
+                                <span class="tag new">NEW</span>
+                                <span class="tag">ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#9749;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>에스프레소</h4>
+                                <span class="price">3,500원</span>
+                            </div>
+                            <p class="description">진한 풍미의 에스프레소 샷</p>
+                            <div class="tags">
+                                <span class="tag">HOT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Non-Coffee -->
+            <div class="menu-category" id="non-coffee">
+                <h2 class="category-title"><span class="icon">&#127864;</span> 논커피</h2>
+                <p class="category-description">커피가 부담스러울 때 즐기는 부드러운 음료</p>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#129371;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>초콜릿</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">벨기에산 다크 초콜릿으로 만든 진한 핫초코</p>
+                            <div class="tags">
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127862;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>그린티 라떼</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">보성 녹차를 사용한 고소한 그린티 라떼</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127864;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>고구마 라떼</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">달콤한 꿀고구마로 만든 따뜻한 음료</p>
+                            <div class="tags">
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127815;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>레몬에이드</h4>
+                                <span class="price">5,000원</span>
+                            </div>
+                            <p class="description">신선한 레몬으로 만든 상큼한 에이드</p>
+                            <div class="tags">
+                                <span class="tag">ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127827;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>딸기 스무디</h4>
+                                <span class="price">6,500원</span>
+                            </div>
+                            <p class="description">신선한 딸기와 요거트의 상큼한 조합</p>
+                            <div class="tags">
+                                <span class="tag new">NEW</span>
+                                <span class="tag">ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#129380;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>자몽 에이드</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">새콤달콤한 자몽과 탄산의 청량감</p>
+                            <div class="tags">
+                                <span class="tag">ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tea -->
+            <div class="menu-category" id="tea">
+                <h2 class="category-title"><span class="icon">&#127861;</span> 티</h2>
+                <p class="category-description">향긋하고 건강한 프리미엄 티 컬렉션</p>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127861;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>얼그레이</h4>
+                                <span class="price">5,000원</span>
+                            </div>
+                            <p class="description">베르가못 향이 은은한 클래식 홍차</p>
+                            <div class="tags">
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127861;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>캐모마일</h4>
+                                <span class="price">5,000원</span>
+                            </div>
+                            <p class="description">편안한 휴식을 위한 허브티</p>
+                            <div class="tags">
+                                <span class="tag">HOT</span>
+                                <span class="tag">카페인 프리</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127861;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>페퍼민트</h4>
+                                <span class="price">5,000원</span>
+                            </div>
+                            <p class="description">상쾌한 민트향의 허브티</p>
+                            <div class="tags">
+                                <span class="tag">HOT/ICE</span>
+                                <span class="tag">카페인 프리</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127861;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>루이보스</h4>
+                                <span class="price">5,000원</span>
+                            </div>
+                            <p class="description">남아프리카산 루이보스의 깊은 풍미</p>
+                            <div class="tags">
+                                <span class="tag">HOT</span>
+                                <span class="tag">카페인 프리</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127861;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>유자차</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">고흥 유자로 만든 달콤새콤한 전통차</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                                <span class="tag">HOT/ICE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127861;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>생강차</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">추운 날 몸을 따뜻하게 해주는 생강차</p>
+                            <div class="tags">
+                                <span class="tag">HOT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dessert -->
+            <div class="menu-category" id="dessert">
+                <h2 class="category-title"><span class="icon">&#127856;</span> 디저트</h2>
+                <p class="category-description">커피와 함께 즐기는 직접 만든 디저트</p>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127838;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>버터 크로아상</h4>
+                                <span class="price">4,500원</span>
+                            </div>
+                            <p class="description">프랑스 버터로 겹겹이 구운 바삭한 크로아상</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127856;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>바스크 치즈케이크</h4>
+                                <span class="price">7,500원</span>
+                            </div>
+                            <p class="description">겉바속촉 스페인식 치즈케이크</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127856;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>티라미수</h4>
+                                <span class="price">7,000원</span>
+                            </div>
+                            <p class="description">마스카포네 크림과 에스프레소의 만남</p>
+                            <div class="tags">
+                                <span class="tag">시그니처</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127846;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>아포가토</h4>
+                                <span class="price">6,500원</span>
+                            </div>
+                            <p class="description">바닐라 아이스크림에 뜨거운 에스프레소</p>
+                            <div class="tags">
+                                <span class="tag">시그니처</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127839;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>초코 브라우니</h4>
+                                <span class="price">5,500원</span>
+                            </div>
+                            <p class="description">진한 다크 초콜릿으로 만든 촉촉한 브라우니</p>
+                            <div class="tags">
+                                <span class="tag">HOT</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127968;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>마들렌</h4>
+                                <span class="price">3,500원</span>
+                            </div>
+                            <p class="description">버터향 가득한 프랑스식 조개과자</p>
+                            <div class="tags">
+                                <span class="tag new">NEW</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brunch -->
+            <div class="menu-category" id="brunch">
+                <h2 class="category-title"><span class="icon">&#127859;</span> 브런치</h2>
+                <p class="category-description">든든하게 즐기는 모어댄의 브런치 메뉴</p>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127859;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>크로아상 세트</h4>
+                                <span class="price">9,500원</span>
+                            </div>
+                            <p class="description">버터 크로아상 + 스크램블 에그 + 샐러드 + 아메리카노</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                                <span class="tag">세트</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#129386;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>아보카도 토스트</h4>
+                                <span class="price">11,000원</span>
+                            </div>
+                            <p class="description">신선한 아보카도와 포치드 에그가 올라간 토스트</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#129370;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>리코타 샐러드</h4>
+                                <span class="price">10,500원</span>
+                            </div>
+                            <p class="description">수제 리코타 치즈와 신선한 채소</p>
+                            <div class="tags">
+                                <span class="tag">건강식</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127828;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>BLT 샌드위치</h4>
+                                <span class="price">9,000원</span>
+                            </div>
+                            <p class="description">베이컨, 신선한 채소, 수제 소스의 클래식</p>
+                            <div class="tags">
+                                <span class="tag">클래식</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127858;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>그래놀라 요거트볼</h4>
+                                <span class="price">8,500원</span>
+                            </div>
+                            <p class="description">수제 그래놀라, 그릭 요거트, 계절 과일</p>
+                            <div class="tags">
+                                <span class="tag new">NEW</span>
+                                <span class="tag">건강식</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-image">&#127859;</div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <h4>모어댄 플레이트</h4>
+                                <span class="price">15,000원</span>
+                            </div>
+                            <p class="description">크로아상, 스크램블 에그, 베이컨, 소시지, 샐러드, 과일</p>
+                            <div class="tags">
+                                <span class="tag popular">인기</span>
+                                <span class="tag">시그니처</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notice -->
+    <section class="menu-notice">
+        <div class="notice-container">
+            <h3>안내사항</h3>
+            <p>모든 음료는 테이크아웃 시 500원 할인됩니다.<br>알레르기 정보가 필요하신 분은 직원에게 문의해 주세요.</p>
+            <ul class="notice-list">
+                <li>모든 가격은 VAT 포함</li>
+                <li>계절에 따라 메뉴가 변경될 수 있습니다</li>
+                <li>사이즈 업 +500원</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>카페 모어댄</h3>
+                <p>More Than Coffee, More Than Space.<br>커피 그 이상의 가치를 전하는 공간, 카페 모어댄입니다.</p>
+            </div>
+            <div class="footer-column">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">소개</a></li>
+                    <li><a href="menu.html">메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>연락처</h4>
+                <ul>
+                    <li><a href="tel:02-555-1234">02-555-1234</a></li>
+                    <li><a href="mailto:hello@cafe-morethan.kr">hello@cafe-morethan.kr</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>영업시간</h4>
+                <ul>
+                    <li>월-금: 09:00 - 22:00</li>
+                    <li>토: 10:00 - 22:00</li>
+                    <li>일/공휴일: 10:00 - 21:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 카페 모어댄. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Category tab functionality
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const menuCategories = document.querySelectorAll('.menu-category');
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                // Scroll to category
+                const categoryId = tab.dataset.category;
+                const category = document.getElementById(categoryId);
+                if (category) {
+                    const offset = 180; // Account for fixed header and tabs
+                    const top = category.offsetTop - offset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.menu-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Update active tab on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            menuCategories.forEach(category => {
+                const sectionTop = category.offsetTop - 200;
+                if (window.scrollY >= sectionTop) {
+                    current = category.getAttribute('id');
+                }
+            });
+
+            categoryTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.category === current) {
+                    tab.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

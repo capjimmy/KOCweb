@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담문의 - 새하나 어학원</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --mint: #10b981;
+            --mint-light: #34d399;
+            --gradient-start: #2563eb;
+            --gradient-end: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f0f9ff;
+            --white: #ffffff;
+            --shadow: 0 10px 40px rgba(37, 99, 235, 0.15);
+            --shadow-hover: 0 20px 60px rgba(37, 99, 235, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 5%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo span {
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--mint));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-blue);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 160px 5% 80px;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e0f2fe 50%, #d1fae5 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: var(--mint);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-blue), var(--mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Section Common */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--white);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, var(--bg-light), #e0f2fe);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .info-card h3 i {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--mint));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .info-item i {
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+
+        .info-item div {
+            flex: 1;
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-item span {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Business Hours */
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .hour-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .hour-item strong {
+            display: block;
+            color: var(--primary-blue);
+            margin-bottom: 0.3rem;
+        }
+
+        .hour-item span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form-wrapper h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form-wrapper > p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group label .required {
+            color: #ef4444;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-blue);
+        }
+
+        .checkbox-item label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        /* Privacy Agreement */
+        .privacy-agreement {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-agreement h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .privacy-agreement p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        /* Submit Button */
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--mint));
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-submit {
+            width: 100%;
+            justify-content: center;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: linear-gradient(135deg, var(--bg-light), #e0f2fe);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+        }
+
+        .map-placeholder {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .map-placeholder i {
+            font-size: 4rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .map-placeholder p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .direction-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .direction-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .direction-item i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .direction-item:nth-child(1) i {
+            color: #3b82f6;
+        }
+
+        .direction-item:nth-child(2) i {
+            color: #22c55e;
+        }
+
+        .direction-item:nth-child(3) i {
+            color: #f59e0b;
+        }
+
+        .direction-item h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .direction-item p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Quick Contact Section */
+        .quick-contact {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue), var(--mint));
+            color: white;
+            text-align: center;
+        }
+
+        .quick-contact h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .quick-contact > p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .quick-contact-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .quick-contact-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .quick-contact-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .quick-contact-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .quick-contact-item h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .quick-contact-item p {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .quick-contact-item a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .quick-contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--mint-light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--mint);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .directions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 1rem;
+                border-bottom: 1px solid #eee;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .directions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-form-wrapper {
+                padding: 1.5rem;
+            }
+
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">새하나<span>어학원</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">학원소개</a></li>
+            <li><a href="courses.html">강좌안내</a></li>
+            <li><a href="teachers.html">강사진</a></li>
+            <li><a href="contact.html" class="active">상담문의</a></li>
+        </ul>
+        <div class="mobile-menu" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1><span class="gradient-text">상담문의</span> & 등록</h1>
+        <p>무료 레벨테스트와 맞춤 상담으로 여러분에게 딱 맞는 수업을 안내해 드립니다</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="info-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> 오시는 길</h3>
+                    <div class="info-item">
+                        <i class="fas fa-building"></i>
+                        <div>
+                            <strong>새하나 어학원</strong>
+                            <span>서울시 강남구 테헤란로 234, 5층<br>(강남역 3번 출구 도보 3분)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fas fa-phone-alt"></i> 연락처</h3>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>대표전화</strong>
+                            <span>02-555-6666</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <strong>상담전화 (카카오톡)</strong>
+                            <span>010-1234-5678</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>이메일</strong>
+                            <span>info@saehana.co.kr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fas fa-clock"></i> 운영시간</h3>
+                    <div class="hours-grid">
+                        <div class="hour-item">
+                            <strong>평일</strong>
+                            <span>09:00 - 22:00</span>
+                        </div>
+                        <div class="hour-item">
+                            <strong>토요일</strong>
+                            <span>09:00 - 18:00</span>
+                        </div>
+                        <div class="hour-item">
+                            <strong>일요일</strong>
+                            <span>10:00 - 16:00</span>
+                        </div>
+                        <div class="hour-item">
+                            <strong>공휴일</strong>
+                            <span>휴원</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h2>상담 신청하기</h2>
+                <p>아래 양식을 작성해 주시면 담당자가 빠르게 연락 드리겠습니다.</p>
+
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">이름 <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="홍길동" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">연락처 <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">연령대 <span class="required">*</span></label>
+                            <select id="age" name="age" required>
+                                <option value="">선택해주세요</option>
+                                <option value="elementary">초등학생</option>
+                                <option value="middle">중학생</option>
+                                <option value="high">고등학생</option>
+                                <option value="college">대학생</option>
+                                <option value="adult">성인 (취업준비생)</option>
+                                <option value="worker">성인 (직장인)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>관심 언어 <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lang-en" name="language" value="english">
+                                <label for="lang-en">영어</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lang-cn" name="language" value="chinese">
+                                <label for="lang-cn">중국어</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="lang-jp" name="language" value="japanese">
+                                <label for="lang-jp">일본어</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purpose">학습 목적 <span class="required">*</span></label>
+                        <select id="purpose" name="purpose" required>
+                            <option value="">선택해주세요</option>
+                            <option value="conversation">일상 회화</option>
+                            <option value="business">비즈니스/업무</option>
+                            <option value="test">공인 시험 대비 (TOEIC/HSK/JLPT)</option>
+                            <option value="travel">여행/취미</option>
+                            <option value="study">유학 준비</option>
+                            <option value="job">취업 준비</option>
+                            <option value="other">기타</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferred-time">희망 상담 시간</label>
+                        <select id="preferred-time" name="preferred-time">
+                            <option value="">선택해주세요</option>
+                            <option value="morning">오전 (09:00 - 12:00)</option>
+                            <option value="afternoon">오후 (12:00 - 18:00)</option>
+                            <option value="evening">저녁 (18:00 - 21:00)</option>
+                            <option value="anytime">시간 무관</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">문의 내용</label>
+                        <textarea id="message" name="message" placeholder="궁금하신 점이나 요청사항을 자유롭게 작성해 주세요."></textarea>
+                    </div>
+
+                    <div class="privacy-agreement">
+                        <h4><i class="fas fa-shield-alt"></i> 개인정보 수집 및 이용 동의</h4>
+                        <p>새하나 어학원은 상담 서비스 제공을 위해 필요한 최소한의 개인정보를 수집하며, 수집된 정보는 상담 목적 외에 다른 용도로 사용되지 않습니다.</p>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <label for="privacy">개인정보 수집 및 이용에 동의합니다. <span class="required">*</span></label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        상담 신청하기
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="section-header">
+            <h2><span class="gradient-text">찾아오시는</span> 길</h2>
+            <p>강남역에서 도보 3분 거리에 위치한 새하나 어학원입니다</p>
+        </div>
+        <div class="map-container">
+            <div class="map-wrapper">
+                <div class="map-frame">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>서울시 강남구 테헤란로 234, 5층</p>
+                    </div>
+                </div>
+                <div class="directions-grid">
+                    <div class="direction-item">
+                        <i class="fas fa-subway"></i>
+                        <h4>지하철</h4>
+                        <p>2호선 강남역 3번 출구<br>도보 3분</p>
+                    </div>
+                    <div class="direction-item">
+                        <i class="fas fa-bus"></i>
+                        <h4>버스</h4>
+                        <p>강남역 정류장 하차<br>140, 144, 402, 420번</p>
+                    </div>
+                    <div class="direction-item">
+                        <i class="fas fa-car"></i>
+                        <h4>자가용</h4>
+                        <p>건물 내 주차장 이용<br>2시간 무료 주차</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Contact Section -->
+    <section class="quick-contact">
+        <h2>빠른 상담이 필요하시다면?</h2>
+        <p>전화 또는 카카오톡으로 바로 상담 받으세요</p>
+        <div class="quick-contact-grid">
+            <div class="quick-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <h4>대표전화</h4>
+                <p><a href="tel:02-555-6666">02-555-6666</a></p>
+            </div>
+            <div class="quick-contact-item">
+                <i class="fab fa-whatsapp"></i>
+                <h4>카카오톡 상담</h4>
+                <p>@새하나어학원</p>
+            </div>
+            <div class="quick-contact-item">
+                <i class="fas fa-envelope"></i>
+                <h4>이메일</h4>
+                <p><a href="mailto:info@saehana.co.kr">info@saehana.co.kr</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">새하나<span>어학원</span></a>
+                    <p>영어, 중국어, 일본어 전문 어학원<br>15년 교육 노하우로 여러분의 언어 학습을 책임집니다.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fas fa-blog"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="about.html">학원소개</a></li>
+                        <li><a href="courses.html">강좌안내</a></li>
+                        <li><a href="teachers.html">강사진</a></li>
+                        <li><a href="contact.html">상담문의</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>프로그램</h4>
+                    <ul>
+                        <li><a href="courses.html">영어 프로그램</a></li>
+                        <li><a href="courses.html">중국어 프로그램</a></li>
+                        <li><a href="courses.html">일본어 프로그램</a></li>
+                        <li><a href="courses.html">기업 출강</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links footer-contact">
+                    <h4>연락처</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 서울시 강남구 테헤란로 234</p>
+                    <p><i class="fas fa-phone-alt"></i> 02-555-6666</p>
+                    <p><i class="fas fa-envelope"></i> info@saehana.co.kr</p>
+                    <p><i class="fas fa-clock"></i> 평일 09:00-22:00</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>대표: 김언어 | 사업자등록번호: 123-45-67890 | &copy; 2024 새하나 어학원. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">찾아오시는 길</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Check if at least one language is selected
+            const languages = document.querySelectorAll('input[name="language"]:checked');
+            if (languages.length === 0) {
+                alert('관심 언어를 하나 이상 선택해주세요.');
+                return;
+            }
+
+            // Form data collection
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            });
+
+            // Simulate form submission
+            alert('상담 신청이 완료되었습니다!\n담당자가 빠른 시일 내에 연락드리겠습니다.');
+            this.reset();
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '');
+            if (value.length > 3 && value.length <= 7) {
+                value = value.slice(0, 3) + '-' + value.slice(3);
+            } else if (value.length > 7) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+            }
+            e.target.value = value;
+        });
+
+        // Form input animations
+        document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+    </script>
+</body>
+</html>

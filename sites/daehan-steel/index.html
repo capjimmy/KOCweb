@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대한철강 - 특수강 전문 제조기업</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a365d;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #e53e3e;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #2b6cb0;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid #e53e3e;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.03)" width="50" height="50"/><rect fill="rgba(255,255,255,0.03)" x="50" y="50" width="50" height="50"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #e53e3e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+        }
+
+        .hero-btn.outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .hero-btn.outline:hover {
+            background: white;
+            color: #1a365d;
+        }
+
+        /* Section Common */
+        section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #1a365d;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #e53e3e;
+            margin: 15px auto 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features {
+            background: #f7fafc;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1a365d, #2b6cb0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            color: #1a365d;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* About Preview */
+        .about-preview {
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            background: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebb6122?w=800&h=600&fit=crop') center/cover no-repeat;
+            height: 400px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: #1a365d;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #4a5568;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .about-text .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #1a365d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .about-text .btn:hover {
+            background: #2b6cb0;
+        }
+
+        /* Products Preview */
+        .products-preview {
+            background: #f7fafc;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1a365d, #2b6cb0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 15px;
+        }
+
+        .product-card p {
+            color: #718096;
+            font-size: 0.95rem;
+        }
+
+        .center-btn {
+            text-align: center;
+        }
+
+        .center-btn a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #1a365d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .center-btn a:hover {
+            background: #2b6cb0;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .hero-btn {
+            background: #e53e3e;
+        }
+
+        .cta .hero-btn:hover {
+            background: #c53030;
+        }
+
+        /* Footer */
+        footer {
+            background: #0d1b2a;
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+        }
+
+        .footer-section p {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul a {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2d3748;
+        }
+
+        .footer-bottom p {
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #1a365d;
+            transition: 0.3s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 250px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">대한철강<span>.</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="products.html">제품안내</a></li>
+                <li><a href="facilities.html">시설안내</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>대한철강</h1>
+            <p>30년 전통의 특수강 전문 제조기업<br>최고의 품질과 기술력으로 산업의 미래를 선도합니다</p>
+            <div class="hero-buttons">
+                <a href="contact.html" class="hero-btn">견적 문의</a>
+                <a href="about.html" class="hero-btn outline">회사 소개</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">왜 대한철강인가</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#9733;</div>
+                    <h3>30년 노하우</h3>
+                    <p>축적된 기술력과 경험으로 최상의 품질을 보장합니다</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9881;</div>
+                    <h3>최신 설비</h3>
+                    <p>첨단 생산설비를 통한 정밀한 철강 제품 생산</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#10003;</div>
+                    <h3>품질 인증</h3>
+                    <p>ISO 9001 인증 획득으로 품질을 보증합니다</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9203;</div>
+                    <h3>신속 납품</h3>
+                    <p>체계적인 생산관리로 빠른 납기를 실현합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="about-preview">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image"></div>
+                <div class="about-text">
+                    <h3>신뢰와 품질의 대한철강</h3>
+                    <p>대한철강은 1994년 설립 이래 특수강 전문 제조기업으로서 대한민국 산업발전에 기여해 왔습니다.</p>
+                    <p>최첨단 설비와 숙련된 기술진을 바탕으로 고품질의 철강 제품을 생산하며, 고객 만족을 최우선 가치로 삼아 지속적인 기술 혁신을 추구합니다.</p>
+                    <a href="about.html" class="btn">자세히 보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Preview -->
+    <section class="products-preview">
+        <div class="container">
+            <h2 class="section-title">주요 제품</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">&#9670;</div>
+                    <h3>특수강</h3>
+                    <p>고강도, 내열성, 내식성이 우수한 특수강을 제조합니다</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">&#9673;</div>
+                    <h3>철강 가공</h3>
+                    <p>고객 맞춤형 철강 가공 서비스를 제공합니다</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">&#9672;</div>
+                    <h3>기술 컨설팅</h3>
+                    <p>철강 소재 선정부터 적용까지 전문 컨설팅</p>
+                </div>
+            </div>
+            <div class="center-btn">
+                <a href="products.html">전체 제품 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>철강 솔루션이 필요하신가요?</h2>
+            <p>대한철강의 전문 상담팀이 최적의 솔루션을 제안해 드립니다. 지금 바로 문의하세요.</p>
+            <a href="contact.html" class="hero-btn">무료 상담 신청</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>대한철강</h4>
+                <p>특수강 전문 제조기업으로서 30년간 축적된 기술력과 노하우로 최고 품질의 철강 제품을 생산합니다.</p>
+                <p style="margin-top: 15px;">
+                    <strong>주소:</strong> 경기도 안산시 단원구 산단로 123<br>
+                    <strong>전화:</strong> 031-555-1234<br>
+                    <strong>이메일:</strong> info@daehan-steel.co.kr
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">회사소개</a></li>
+                    <li><a href="products.html">제품안내</a></li>
+                    <li><a href="facilities.html">시설안내</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>제품</h4>
+                <ul>
+                    <li><a href="products.html">특수강</a></li>
+                    <li><a href="products.html">철강 가공</a></li>
+                    <li><a href="products.html">기술 컨설팅</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>고객지원</h4>
+                <ul>
+                    <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="contact.html">견적요청</a></li>
+                    <li><a href="contact.html">오시는 길</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 대한철강. All Rights Reserved. | 대표: 이철수 | 사업자등록번호: 123-45-67890</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

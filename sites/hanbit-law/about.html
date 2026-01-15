@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한빛 법률사무소 소개 - 기업법무 및 부동산 전문 법률서비스. 정직과 전문성으로 신뢰를 쌓아온 법률 파트너.">
+    <title>법률사무소 소개 | 한빛 법률사무소</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary-color: #1a365d;
+            --primary-dark: #0d1b2a;
+            --primary-light: #2c5282;
+            --secondary-color: #c9a227;
+            --secondary-dark: #a68520;
+            --accent-gold: #d4af37;
+            --text-dark: #1a202c;
+            --text-light: #718096;
+            --bg-light: #f7fafc;
+            --bg-cream: #fdfcf8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: #fff;
+        }
+
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; height: auto; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+
+        .row.align-center { align-items: center; }
+
+        [class*="col-"] { padding: 0 15px; }
+        .col-3 { width: 25%; }
+        .col-4 { width: 33.333%; }
+        .col-6 { width: 50%; }
+        .col-12 { width: 100%; }
+
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 1.5rem; }
+        .mt-5 { margin-top: 3rem; }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-gold));
+            color: var(--primary-dark);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26, 54, 93, 0.3);
+        }
+
+        .btn-lg { padding: 18px 40px; font-size: 1.1rem; }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            background: rgba(26, 54, 93, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-gold));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: #fff;
+        }
+
+        /* ===== Page Header ===== */
+        .page-header {
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95) 0%, rgba(13, 27, 42, 0.95) 100%),
+                        url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&q=80') center/cover no-repeat;
+            padding: 180px 0 100px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .breadcrumb {
+            margin-top: 20px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .breadcrumb a {
+            color: var(--secondary-color);
+        }
+
+        .breadcrumb span {
+            margin: 0 10px;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Section Styles ===== */
+        .section-label {
+            display: inline-block;
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== About Section ===== */
+        .about-section {
+            padding: 100px 0;
+        }
+
+        .about-image-wrapper { position: relative; }
+
+        .about-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(26, 54, 93, 0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-gold));
+            color: var(--primary-dark);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .about-badge .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .about-badge .text {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .about-content {
+            padding-left: 50px;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        /* ===== Vision Section ===== */
+        .vision-section {
+            padding: 100px 0;
+            background: var(--bg-cream);
+        }
+
+        .vision-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 50px 40px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(26, 54, 93, 0.15);
+        }
+
+        .vision-card .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--secondary-color);
+        }
+
+        .vision-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .vision-card p {
+            color: var(--text-light);
+            line-height: 1.9;
+            text-align: center;
+        }
+
+        .vision-card .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* ===== History Section ===== */
+        .history-section {
+            padding: 100px 0;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 30px;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            min-width: 80px;
+        }
+
+        .timeline-content {
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* ===== Values Section ===== */
+        .values-section {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .value-card .icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== Stats Section ===== */
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: #fff;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .stat-box::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-box:last-child::after { display: none; }
+
+        .stat-box .number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-box .label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95) 0%, rgba(13, 27, 42, 0.95) 100%),
+                        url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=1920&q=80') center/cover no-repeat fixed;
+            text-align: center;
+            color: #fff;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .brand-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-gold));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .footer-brand .brand-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .footer-section p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .footer-section a {
+            display: block;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--secondary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* ===== Scroll to Top ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(26, 54, 93, 0.3);
+        }
+
+        /* ===== Animations ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 992px) {
+            .col-md-6 { width: 50%; }
+            .col-md-12 { width: 100%; }
+
+            .about-content {
+                padding-left: 0;
+                padding-top: 80px;
+            }
+
+            .about-badge {
+                bottom: -20px;
+                right: 20px;
+            }
+
+            .stat-box::after { display: none; }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .col-sm-12 { width: 100%; }
+
+            .navbar-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 54, 93, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .navbar-nav.active { display: flex; }
+            .menu-toggle { display: flex; }
+
+            .page-header h1 { font-size: 2rem; }
+            .section-header h2 { font-size: 2rem; }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="brand-icon">HB</div>
+                <span>한빛 법률사무소</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">홈</a></li>
+                <li><a href="about.html" class="nav-link active">법률사무소 소개</a></li>
+                <li><a href="services.html" class="nav-link">업무분야</a></li>
+                <li><a href="contact.html" class="nav-link">상담문의</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>법률사무소 소개</h1>
+            <p>정직과 전문성으로 신뢰를 쌓아온 한빛 법률사무소</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a>
+                <span>/</span>
+                <span>법률사무소 소개</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-center">
+                <div class="col-6 col-md-12">
+                    <div class="about-image-wrapper fade-in-left">
+                        <div class="about-image">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="한빛 법률사무소 사무실">
+                        </div>
+                        <div class="about-badge">
+                            <span class="number">2010</span>
+                            <span class="text">설립</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12">
+                    <div class="about-content fade-in-right">
+                        <span class="section-label">About Hanbit</span>
+                        <h2>한빛 법률사무소를<br>소개합니다</h2>
+                        <p>
+                            2010년 설립된 한빛 법률사무소는 기업법무와 부동산 분야에서
+                            독보적인 전문성을 바탕으로 의뢰인의 권리를 지켜왔습니다.
+                        </p>
+                        <p>
+                            "한빛"이라는 이름처럼, 복잡하고 어두운 법률 문제에 빛을 비추어
+                            의뢰인에게 명확한 해결책을 제시하는 것이 저희의 사명입니다.
+                        </p>
+                        <p>
+                            5명의 전문 변호사와 15명의 법률 전문 스태프가 한 팀이 되어
+                            의뢰인 한 분 한 분께 최상의 법률 서비스를 제공합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Vision & Mission</span>
+                <h2>비전과 미션</h2>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-12 fade-in stagger-1">
+                    <div class="vision-card">
+                        <div class="icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                            </svg>
+                        </div>
+                        <h3>비전 (Vision)</h3>
+                        <span class="highlight">"의뢰인의 권리를 최우선으로, 정의로운 해결을 위해 끊임없이 노력하는 법률 파트너"</span>
+                        <p>
+                            복잡한 법률 문제 앞에서 의뢰인이 두려움 없이 권리를 주장할 수 있도록,
+                            전문성과 성실함으로 든든한 법률 조력자가 되겠습니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12 fade-in stagger-2">
+                    <div class="vision-card">
+                        <div class="icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <h3>미션 (Mission)</h3>
+                        <span class="highlight">"정직, 전문성, 결과"</span>
+                        <p>
+                            1. 정직한 상담으로 현실적인 해결책 제시<br>
+                            2. 분야별 전문성으로 최상의 법률 서비스 제공<br>
+                            3. 결과로 증명하는 성공적인 법률 대리
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Our Values</span>
+                <h2>핵심 가치</h2>
+            </div>
+            <div class="row">
+                <div class="col-3 col-md-6 col-sm-12 fade-in stagger-1">
+                    <div class="value-card">
+                        <div class="icon">01</div>
+                        <h3>정직</h3>
+                        <p>솔직하고 투명한 상담으로 의뢰인에게 현실적인 조언을 드립니다</p>
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12 fade-in stagger-2">
+                    <div class="value-card">
+                        <div class="icon">02</div>
+                        <h3>전문성</h3>
+                        <p>각 분야 최고의 전문가들이 깊이 있는 법률 서비스를 제공합니다</p>
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12 fade-in stagger-3">
+                    <div class="value-card">
+                        <div class="icon">03</div>
+                        <h3>신뢰</h3>
+                        <p>15년간 쌓아온 신뢰를 바탕으로 든든한 법률 파트너가 되겠습니다</p>
+                    </div>
+                </div>
+                <div class="col-3 col-md-6 col-sm-12 fade-in stagger-4">
+                    <div class="value-card">
+                        <div class="icon">04</div>
+                        <h3>결과</h3>
+                        <p>의뢰인에게 최상의 결과를 제공하기 위해 최선을 다합니다</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">History</span>
+                <h2>연혁</h2>
+            </div>
+            <div class="timeline fade-in">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">기업법무 전문 부서 확대, 누적 상담 3,000건 돌파</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">부동산 분쟁 전문 센터 개설</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-content">설립 10주년, 법무법인 확장 이전</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2018</div>
+                    <div class="timeline-content">스타트업 법률 자문 서비스 런칭</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-content">누적 승소 1,000건 달성</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2010</div>
+                    <div class="timeline-content">한빛 법률사무소 설립 (대표 변호사 최한빛)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-3 col-md-6">
+                    <div class="stat-box fade-in stagger-1">
+                        <div class="number" data-target="5">0</div>
+                        <div class="label">전문 변호사</div>
+                    </div>
+                </div>
+                <div class="col-3 col-md-6">
+                    <div class="stat-box fade-in stagger-2">
+                        <div class="number" data-target="15">0</div>
+                        <div class="label">전문 스태프</div>
+                    </div>
+                </div>
+                <div class="col-3 col-md-6">
+                    <div class="stat-box fade-in stagger-3">
+                        <div class="number" data-target="3500">0</div>
+                        <div class="label">성공 사례</div>
+                    </div>
+                </div>
+                <div class="col-3 col-md-6">
+                    <div class="stat-box fade-in stagger-4">
+                        <div class="number" data-target="15">0</div>
+                        <div class="label">년의 업력</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="fade-in">
+                <h2>법률 문제, 혼자 고민하지 마세요</h2>
+                <p>한빛 법률사무소의 전문 변호사와 상담하세요. 첫 상담은 무료입니다.</p>
+                <a href="contact.html" class="btn btn-gold btn-lg">무료 상담 신청</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <div class="brand-icon">HB</div>
+                        <span class="brand-text">한빛 법률사무소</span>
+                    </div>
+                    <p>복잡한 법률 문제, 한빛이 밝혀드립니다.<br>15년 전통의 신뢰받는 법률 파트너.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <a href="about.html">법률사무소 소개</a>
+                    <a href="services.html">업무분야</a>
+                    <a href="contact.html">상담문의</a>
+                </div>
+                <div class="footer-section">
+                    <h4>업무시간</h4>
+                    <p>평일: 09:00 - 18:00</p>
+                    <p>토요일: 10:00 - 14:00</p>
+                    <p>일요일/공휴일: 휴무</p>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <p>서울특별시 서초구 법원로 11, 6층</p>
+                    <p>Tel: 02-534-1004</p>
+                    <p>Email: contact@hanbit-law.co.kr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2025 한빛 법률사무소. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" aria-label="맨 위로">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navbarNav = document.querySelector('.navbar-nav');
+        menuToggle.addEventListener('click', () => {
+            navbarNav.classList.toggle('active');
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        const counters = document.querySelectorAll('.stat-box .number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.target);
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (target > 100 ? '+' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 30);
+        }
+    </script>
+</body>
+</html>

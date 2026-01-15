@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 - 고메 키친</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terracotta: #C4653A;
+            --terracotta-light: #E07B4C;
+            --cream: #FDF6EC;
+            --cream-dark: #F5E6D3;
+            --olive: #5C6B4D;
+            --olive-light: #7A8B68;
+            --brown: #4A3728;
+            --brown-light: #6B5344;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--brown);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(253, 246, 236, 0.98);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(74, 55, 40, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--olive);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--terracotta);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--terracotta);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--brown);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(196, 101, 58, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--brown);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--brown-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .breadcrumb span {
+            color: var(--brown-light);
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--brown);
+            margin-bottom: 1rem;
+        }
+
+        .section-header .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--terracotta);
+            margin: 0 auto 1.5rem;
+        }
+
+        .section-header p {
+            color: var(--brown-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Gallery Filter */
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--cream-dark);
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--brown);
+            transition: all 0.3s;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--terracotta);
+            color: var(--terracotta);
+        }
+
+        .filter-btn.active {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+            color: white;
+        }
+
+        /* Masonry Gallery */
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(74, 55, 40, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(74, 55, 40, 0.2);
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(74, 55, 40, 0.9) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .gallery-overlay .category-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--terracotta);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Student Works Section */
+        .student-section {
+            background: var(--cream-dark);
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .student-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(74, 55, 40, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .student-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .student-card-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .student-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .student-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--olive);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .student-card-content {
+            padding: 1.5rem;
+        }
+
+        .student-card-content h3 {
+            font-size: 1.3rem;
+            color: var(--brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .student-card-content .class-name {
+            color: var(--terracotta);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .student-card-content p {
+            color: var(--brown-light);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--cream-dark);
+        }
+
+        .student-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--terracotta);
+        }
+
+        .student-details {
+            flex: 1;
+        }
+
+        .student-details h4 {
+            font-size: 1rem;
+            color: var(--brown);
+            margin-bottom: 0.2rem;
+        }
+
+        .student-details small {
+            color: var(--brown-light);
+            font-size: 0.85rem;
+        }
+
+        /* Video Gallery */
+        .video-section {
+            background: var(--brown);
+            color: white;
+        }
+
+        .video-section .section-header h2 {
+            color: white;
+        }
+
+        .video-section .section-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: var(--terracotta-light);
+        }
+
+        .play-button svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+            margin-left: 5px;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+
+        .video-card-content {
+            padding: 1.5rem;
+        }
+
+        .video-card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-card-content p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Instagram Feed */
+        .instagram-section {
+            text-align: center;
+        }
+
+        .instagram-banner {
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-light) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .instagram-banner h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .instagram-banner p {
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .instagram-handle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--terracotta);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .instagram-handle:hover {
+            transform: translateY(-3px);
+        }
+
+        .instagram-handle svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--terracotta);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .lightbox-info {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .lightbox-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--terracotta);
+        }
+
+        .lightbox-prev {
+            left: -70px;
+        }
+
+        .lightbox-next {
+            right: -70px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--brown);
+            color: var(--cream);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--terracotta-light);
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s, color 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--terracotta-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--terracotta);
+        }
+
+        .social-links svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--cream);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.tall,
+            .gallery-item.wide {
+                grid-row: span 1;
+                grid-column: span 1;
+            }
+
+            .gallery-filter {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">고메 <span>키친</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="classes.html">클래스</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="gallery.html" class="active">갤러리</a></li>
+                <li><a href="contact.html">문의</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>갤러리</h1>
+        <p>고메 키친에서 탄생한 아름다운 요리들과 수강생들의 작품을 만나보세요</p>
+        <div class="breadcrumb">
+            <a href="index.html">홈</a> <span> / 갤러리</span>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="section">
+        <div class="section-header">
+            <h2>요리 갤러리</h2>
+            <div class="divider"></div>
+            <p>클래스에서 만들어지는 다양한 요리들의 순간을 담았습니다</p>
+        </div>
+
+        <div class="gallery-filter">
+            <button class="filter-btn active" data-filter="all">전체</button>
+            <button class="filter-btn" data-filter="korean">한식</button>
+            <button class="filter-btn" data-filter="western">양식</button>
+            <button class="filter-btn" data-filter="baking">베이킹</button>
+            <button class="filter-btn" data-filter="class">클래스 현장</button>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item tall" data-category="korean" onclick="openLightbox(0)">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="불고기">
+                <div class="gallery-overlay">
+                    <span class="category-tag">한식</span>
+                    <h3>전통 불고기</h3>
+                    <p>한식 마스터 클래스</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="western" onclick="openLightbox(1)">
+                <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&q=80" alt="파스타">
+                <div class="gallery-overlay">
+                    <span class="category-tag">양식</span>
+                    <h3>수제 파스타</h3>
+                    <p>이탈리안 클래스</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="baking" onclick="openLightbox(2)">
+                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&q=80" alt="크루아상">
+                <div class="gallery-overlay">
+                    <span class="category-tag">베이킹</span>
+                    <h3>버터 크루아상</h3>
+                    <p>프렌치 베이킹</p>
+                </div>
+            </div>
+
+            <div class="gallery-item wide" data-category="class" onclick="openLightbox(3)">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80" alt="클래스 현장">
+                <div class="gallery-overlay">
+                    <span class="category-tag">클래스</span>
+                    <h3>쿠킹 클래스 현장</h3>
+                    <p>함께하는 요리의 즐거움</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="korean" onclick="openLightbox(4)">
+                <img src="https://images.unsplash.com/photo-1583224964978-2257b960c3d3?w=400&q=80" alt="김치">
+                <div class="gallery-overlay">
+                    <span class="category-tag">한식</span>
+                    <h3>전통 김치</h3>
+                    <p>김치 마스터 클래스</p>
+                </div>
+            </div>
+
+            <div class="gallery-item tall" data-category="baking" onclick="openLightbox(5)">
+                <img src="https://images.unsplash.com/photo-1558303419-df1d7c8bd27e?w=600&q=80" alt="케이크">
+                <div class="gallery-overlay">
+                    <span class="category-tag">베이킹</span>
+                    <h3>플라워 케이크</h3>
+                    <p>케이크 데코레이션</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="western" onclick="openLightbox(6)">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" alt="스테이크">
+                <div class="gallery-overlay">
+                    <span class="category-tag">양식</span>
+                    <h3>립아이 스테이크</h3>
+                    <p>스테이크 마스터</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="class" onclick="openLightbox(7)">
+                <img src="https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?w=400&q=80" alt="클래스">
+                <div class="gallery-overlay">
+                    <span class="category-tag">클래스</span>
+                    <h3>베이킹 실습</h3>
+                    <p>손으로 만드는 행복</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="korean" onclick="openLightbox(8)">
+                <img src="https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=400&q=80" alt="비빔밥">
+                <div class="gallery-overlay">
+                    <span class="category-tag">한식</span>
+                    <h3>전주 비빔밥</h3>
+                    <p>한식 기초 클래스</p>
+                </div>
+            </div>
+
+            <div class="gallery-item wide" data-category="baking" onclick="openLightbox(9)">
+                <img src="https://images.unsplash.com/photo-1486427944544-d2c6128c5872?w=800&q=80" alt="마카롱">
+                <div class="gallery-overlay">
+                    <span class="category-tag">베이킹</span>
+                    <h3>프렌치 마카롱</h3>
+                    <p>디저트 스페셜</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="western" onclick="openLightbox(10)">
+                <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&q=80" alt="오믈렛">
+                <div class="gallery-overlay">
+                    <span class="category-tag">양식</span>
+                    <h3>프렌치 오믈렛</h3>
+                    <p>브런치 클래스</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="class" onclick="openLightbox(11)">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80" alt="스튜디오">
+                <div class="gallery-overlay">
+                    <span class="category-tag">클래스</span>
+                    <h3>스튜디오 전경</h3>
+                    <p>고메 키친 공간</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Works -->
+    <section class="section student-section">
+        <div class="section-header">
+            <h2>수강생 작품</h2>
+            <div class="divider"></div>
+            <p>고메 키친 수강생들이 직접 만든 자랑스러운 작품들입니다</p>
+        </div>
+
+        <div class="student-grid">
+            <div class="student-card">
+                <div class="student-card-image">
+                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80" alt="수강생 작품">
+                    <span class="student-badge">이달의 작품</span>
+                </div>
+                <div class="student-card-content">
+                    <h3>레이어 케이크</h3>
+                    <p class="class-name">케이크 데코레이션 클래스</p>
+                    <p>"처음 만들어본 케이크인데 정말 예쁘게 완성되어서 너무 뿌듯해요. 셰프님의 세심한 지도 덕분입니다!"</p>
+                    <div class="student-info">
+                        <div class="student-avatar">김</div>
+                        <div class="student-details">
+                            <h4>김**님</h4>
+                            <small>2024.01.15 수강</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-card-image">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" alt="수강생 작품">
+                </div>
+                <div class="student-card-content">
+                    <h3>수제 피자</h3>
+                    <p class="class-name">이탈리안 클래스</p>
+                    <p>"반죽부터 토핑까지 직접 만드니까 훨씬 맛있어요. 집에서도 만들어서 가족들에게 대접했습니다."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">이</div>
+                        <div class="student-details">
+                            <h4>이**님</h4>
+                            <small>2024.01.10 수강</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-card-image">
+                    <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=600&q=80" alt="수강생 작품">
+                </div>
+                <div class="student-card-content">
+                    <h3>과일 타르트</h3>
+                    <p class="class-name">프렌치 베이킹 클래스</p>
+                    <p>"타르트 반죽의 바삭함이 포인트라고 하셨는데, 정말 완벽하게 성공했어요!"</p>
+                    <div class="student-info">
+                        <div class="student-avatar">박</div>
+                        <div class="student-details">
+                            <h4>박**님</h4>
+                            <small>2024.01.08 수강</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-card-image">
+                    <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=600&q=80" alt="수강생 작품">
+                </div>
+                <div class="student-card-content">
+                    <h3>김치찌개</h3>
+                    <p class="class-name">한식 마스터 클래스</p>
+                    <p>"엄마 손맛이라고 칭찬받았어요. 기본부터 제대로 배우니 자신감이 생겼습니다."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">최</div>
+                        <div class="student-details">
+                            <h4>최**님</h4>
+                            <small>2024.01.05 수강</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-card-image">
+                    <img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=600&q=80" alt="수강생 작품">
+                </div>
+                <div class="student-card-content">
+                    <h3>마카롱 세트</h3>
+                    <p class="class-name">프렌치 베이킹 클래스</p>
+                    <p>"마카롱이 이렇게 어려운 줄 몰랐는데, 셰프님 덕분에 피에도 예쁘게 나왔어요!"</p>
+                    <div class="student-info">
+                        <div class="student-avatar">정</div>
+                        <div class="student-details">
+                            <h4>정**님</h4>
+                            <small>2024.01.03 수강</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-card-image">
+                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80" alt="수강생 작품">
+                </div>
+                <div class="student-card-content">
+                    <h3>홈메이드 샐러드</h3>
+                    <p class="class-name">건강 요리 클래스</p>
+                    <p>"드레싱 만드는 법을 배우고 나니 매일 건강하게 먹을 수 있게 되었어요."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">한</div>
+                        <div class="student-details">
+                            <h4>한**님</h4>
+                            <small>2023.12.28 수강</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Gallery -->
+    <section class="section video-section">
+        <div class="section-header">
+            <h2>클래스 영상</h2>
+            <div class="divider"></div>
+            <p>고메 키친의 생생한 클래스 현장을 영상으로 만나보세요</p>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="클래스 영상">
+                    <div class="play-button">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <span class="video-duration">3:24</span>
+                </div>
+                <div class="video-card-content">
+                    <h3>파스타 클래스 하이라이트</h3>
+                    <p>수제 파스타 만들기의 전 과정을 담은 영상</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?w=600&q=80" alt="클래스 영상">
+                    <div class="play-button">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <span class="video-duration">5:12</span>
+                </div>
+                <div class="video-card-content">
+                    <h3>베이킹 클래스 투어</h3>
+                    <p>프렌치 베이킹의 섬세한 기술을 배우는 시간</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80" alt="클래스 영상">
+                    <div class="play-button">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <span class="video-duration">4:38</span>
+                </div>
+                <div class="video-card-content">
+                    <h3>셰프 인터뷰</h3>
+                    <p>김민준 총괄 셰프가 전하는 요리 철학</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram -->
+    <section class="section instagram-section">
+        <div class="instagram-banner">
+            <h3>인스타그램에서 더 많은 사진을 만나보세요</h3>
+            <p>매일 업데이트되는 클래스 현장과 수강생 작품들! #고메키친 해시태그로 여러분의 작품도 공유해주세요.</p>
+            <a href="#" class="instagram-handle">
+                <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                @gourmet_kitchen_seoul
+            </a>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <button class="lightbox-nav lightbox-prev" onclick="prevImage()">&#10094;</button>
+            <img id="lightbox-img" src="" alt="">
+            <button class="lightbox-nav lightbox-next" onclick="nextImage()">&#10095;</button>
+            <div class="lightbox-info">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-desc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>고메 키친</h4>
+                <p>프리미엄 쿠킹 클래스 스튜디오</p>
+                <p>요리의 예술을 경험하세요</p>
+                <div class="social-links">
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+                    <a href="#"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <ul class="footer-links">
+                    <li><a href="classes.html">클래스 안내</a></li>
+                    <li><a href="menu.html">수업 메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>고객 지원</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">예약 문의</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>서울시 강남구 압구정로 123</p>
+                <p>고메키친 빌딩 3층</p>
+                <p>전화: 02-1234-5678</p>
+                <p>이메일: hello@gourmekitchen.kr</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 고메 키친. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Gallery Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const category = btn.dataset.filter;
+
+                galleryItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lightbox
+        const galleryData = [
+            { img: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=1200&q=80', title: '전통 불고기', desc: '한식 마스터 클래스' },
+            { img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=1200&q=80', title: '수제 파스타', desc: '이탈리안 클래스' },
+            { img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1200&q=80', title: '버터 크루아상', desc: '프렌치 베이킹' },
+            { img: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&q=80', title: '쿠킹 클래스 현장', desc: '함께하는 요리의 즐거움' },
+            { img: 'https://images.unsplash.com/photo-1583224964978-2257b960c3d3?w=1200&q=80', title: '전통 김치', desc: '김치 마스터 클래스' },
+            { img: 'https://images.unsplash.com/photo-1558303419-df1d7c8bd27e?w=1200&q=80', title: '플라워 케이크', desc: '케이크 데코레이션' },
+            { img: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=1200&q=80', title: '립아이 스테이크', desc: '스테이크 마스터' },
+            { img: 'https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?w=1200&q=80', title: '베이킹 실습', desc: '손으로 만드는 행복' },
+            { img: 'https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=1200&q=80', title: '전주 비빔밥', desc: '한식 기초 클래스' },
+            { img: 'https://images.unsplash.com/photo-1486427944544-d2c6128c5872?w=1200&q=80', title: '프렌치 마카롱', desc: '디저트 스페셜' },
+            { img: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=1200&q=80', title: '프렌치 오믈렛', desc: '브런치 클래스' },
+            { img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80', title: '스튜디오 전경', desc: '고메 키친 공간' }
+        ];
+
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            document.getElementById('lightbox-img').src = galleryData[currentIndex].img;
+            document.getElementById('lightbox-title').textContent = galleryData[currentIndex].title;
+            document.getElementById('lightbox-desc').textContent = galleryData[currentIndex].desc;
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % galleryData.length;
+            updateLightbox();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
+            updateLightbox();
+        }
+
+        // Close lightbox on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('lightbox')) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>

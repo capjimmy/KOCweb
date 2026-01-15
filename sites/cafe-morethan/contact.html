@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연락처 | 카페 모어댄</title>
+    <meta name="description" content="카페 모어댄 연락처 및 오시는 길 - 서울 마포구 연남동에 위치한 스페셜티 커피 전문 카페입니다.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brown-dark: #5D4037;
+            --brown-medium: #795548;
+            --brown-light: #8D6E63;
+            --beige-dark: #D7CCC8;
+            --beige-light: #EFEBE9;
+            --cream: #FFF8F0;
+            --text-dark: #3E2723;
+            --text-light: #5D4037;
+            --accent: #A1887F;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(93, 64, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown-dark);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brown-dark);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--brown-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--brown-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        /* Contact Info */
+        .contact-info h2 {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            color: var(--brown-dark);
+        }
+
+        .info-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .info-card a {
+            color: var(--brown-medium);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-card a:hover {
+            color: var(--brown-dark);
+        }
+
+        /* Hours Table */
+        .hours-table {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .hours-table tr {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--beige-dark);
+        }
+
+        .hours-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .hours-table td:first-child {
+            color: var(--brown-dark);
+            font-weight: 500;
+        }
+
+        .hours-table td:last-child {
+            color: var(--text-light);
+        }
+
+        /* Contact Form */
+        .contact-form h2 {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 2rem;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--brown-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--beige-dark);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            background-color: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--brown-medium);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background-color: var(--brown-dark);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: var(--brown-medium);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.3);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 0 2rem 5rem;
+            background-color: var(--cream);
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-title {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .map-wrapper {
+            background: linear-gradient(135deg, var(--beige-dark) 0%, var(--brown-light) 100%);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.15);
+        }
+
+        .map-placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .map-placeholder-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .map-address {
+            margin-top: 1.5rem;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Directions */
+        .directions {
+            padding: 3rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .directions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .directions-title {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .direction-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.08);
+        }
+
+        .direction-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .direction-card h3 {
+            font-size: 1.1rem;
+            color: var(--brown-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .direction-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 5rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.08);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--brown-dark);
+        }
+
+        .faq-question:hover {
+            background-color: var(--beige-light);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brown-dark);
+            color: var(--beige-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--beige-dark);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--beige-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .directions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--cream);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(93, 64, 55, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .directions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .map-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">카페 모어댄</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="gallery.html">갤러리</a></li>
+                <li><a href="contact.html" class="active">연락처</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>연락처</h1>
+        <p>카페 모어댄에 문의사항이 있으시면 언제든지 연락해 주세요.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2>찾아오시는 길</h2>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-icon">&#128205;</div>
+                        <h3>주소</h3>
+                    </div>
+                    <p>서울특별시 마포구 연남로 123<br>연남동 카페거리 모어댄빌딩 1층</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-icon">&#128222;</div>
+                        <h3>전화</h3>
+                    </div>
+                    <p><a href="tel:02-555-1234">02-555-1234</a></p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-icon">&#128231;</div>
+                        <h3>이메일</h3>
+                    </div>
+                    <p><a href="mailto:hello@cafe-morethan.kr">hello@cafe-morethan.kr</a></p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-icon">&#128337;</div>
+                        <h3>영업시간</h3>
+                    </div>
+                    <table class="hours-table">
+                        <tr>
+                            <td>월요일 - 금요일</td>
+                            <td>09:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>토요일</td>
+                            <td>10:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>일요일 / 공휴일</td>
+                            <td>10:00 - 21:00</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>문의하기</h2>
+                <div class="form-container">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">이름 *</label>
+                                <input type="text" id="name" name="name" required placeholder="이름을 입력하세요">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">연락처 *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="010-0000-0000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">문의 유형</label>
+                            <select id="subject" name="subject">
+                                <option value="">선택해 주세요</option>
+                                <option value="general">일반 문의</option>
+                                <option value="reservation">단체 예약</option>
+                                <option value="catering">케이터링</option>
+                                <option value="partnership">제휴 문의</option>
+                                <option value="feedback">피드백</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">문의 내용 *</label>
+                            <textarea id="message" name="message" required placeholder="문의 내용을 자세히 적어주세요."></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">문의 보내기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="map-container">
+            <h2 class="map-title">오시는 길</h2>
+            <div class="map-wrapper">
+                <div class="map-placeholder-icon">&#128506;</div>
+                <p class="map-placeholder-text">카페 모어댄 위치</p>
+                <div class="map-address">
+                    <strong>서울특별시 마포구 연남로 123</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Directions -->
+    <section class="directions">
+        <div class="directions-container">
+            <h2 class="directions-title">교통 안내</h2>
+            <div class="directions-grid">
+                <div class="direction-card">
+                    <div class="direction-icon">&#128647;</div>
+                    <h3>지하철</h3>
+                    <p>경의중앙선/공항철도 홍대입구역 3번 출구<br>도보 10분</p>
+                </div>
+                <div class="direction-card">
+                    <div class="direction-icon">&#128652;</div>
+                    <h3>버스</h3>
+                    <p>연남동 정류장 하차<br>7711, 7737, 6712, 270번</p>
+                </div>
+                <div class="direction-card">
+                    <div class="direction-icon">&#128663;</div>
+                    <h3>자가용</h3>
+                    <p>건물 내 주차 불가<br>인근 공영주차장 이용<br>(연남동 공영주차장 도보 3분)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="faq-container">
+            <h2 class="faq-title">자주 묻는 질문</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>단체 예약이 가능한가요?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>네, 10인 이상 단체 예약이 가능합니다. 최소 3일 전에 전화 또는 이메일로 예약해 주세요. 단체 메뉴와 할인에 대해 상담해 드립니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>반려동물 동반이 가능한가요?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>소형 반려동물(5kg 이하)은 캐리어 또는 펫 가방에 넣어 동반 입장이 가능합니다. 테라스 좌석에서는 제한 없이 함께하실 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>음료 및 음식 포장이 가능한가요?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>모든 음료와 디저트는 포장 가능합니다. 포장 시 500원 할인 혜택이 있으며, 친환경 포장재를 사용합니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Wi-Fi와 콘센트가 있나요?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>무료 Wi-Fi를 제공하며, 대부분의 좌석에 콘센트가 설치되어 있습니다. 노트북 사용도 자유롭게 하실 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>케이터링 서비스가 있나요?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>기업 행사, 세미나, 웨딩 등 다양한 케이터링 서비스를 제공합니다. 자세한 내용은 이메일로 문의해 주세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>카페 모어댄</h3>
+                <p>More Than Coffee, More Than Space.<br>커피 그 이상의 가치를 전하는 공간, 카페 모어댄입니다.</p>
+            </div>
+            <div class="footer-column">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">소개</a></li>
+                    <li><a href="menu.html">메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>연락처</h4>
+                <ul>
+                    <li><a href="tel:02-555-1234">02-555-1234</a></li>
+                    <li><a href="mailto:hello@cafe-morethan.kr">hello@cafe-morethan.kr</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>영업시간</h4>
+                <ul>
+                    <li>월-금: 09:00 - 22:00</li>
+                    <li>토: 10:00 - 22:00</li>
+                    <li>일/공휴일: 10:00 - 21:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 카페 모어댄. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const toggle = question.querySelector('.faq-toggle');
+
+                // Close other open answers
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    if (a !== answer) {
+                        a.classList.remove('open');
+                    }
+                });
+                document.querySelectorAll('.faq-toggle').forEach(t => {
+                    if (t !== toggle) {
+                        t.textContent = '+';
+                    }
+                });
+
+                // Toggle current answer
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('문의가 접수되었습니다. 빠른 시일 내에 답변 드리겠습니다.');
+            e.target.reset();
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.info-card, .direction-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

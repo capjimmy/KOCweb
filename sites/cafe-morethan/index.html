@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카페 모어댄 | 스페셜티 커피 전문</title>
+    <meta name="description" content="카페 모어댄 - 서울 연남동에 위치한 스페셜티 커피 전문 카페입니다. 커피 그 이상의 가치를 전합니다.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brown-dark: #5D4037;
+            --brown-medium: #795548;
+            --brown-light: #8D6E63;
+            --beige-dark: #D7CCC8;
+            --beige-light: #EFEBE9;
+            --cream: #FFF8F0;
+            --text-dark: #3E2723;
+            --text-light: #5D4037;
+            --accent: #A1887F;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(93, 64, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown-dark);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brown-dark);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--brown-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%235D4037" opacity="0.03"/></svg>') repeat;
+            background-size: 50px 50px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--brown-medium);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            line-height: 1.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--brown-dark);
+            color: var(--cream);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--brown-medium);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.3);
+        }
+
+        .cta-button.secondary {
+            background-color: transparent;
+            border: 2px solid var(--brown-dark);
+            color: var(--brown-dark);
+        }
+
+        .cta-button.secondary:hover {
+            background-color: var(--brown-dark);
+            color: var(--cream);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--brown-medium);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(93, 64, 55, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Highlight Section */
+        .highlight {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-medium) 100%);
+            color: var(--cream);
+        }
+
+        .highlight-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .highlight-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .highlight-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .highlight-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Menu Preview */
+        .menu-preview {
+            padding: 5rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .menu-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item h4 {
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .menu-item .price {
+            color: var(--brown-medium);
+            font-weight: 600;
+        }
+
+        .view-all {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brown-dark);
+            color: var(--beige-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--beige-dark);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--beige-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .highlight-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--cream);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(93, 64, 55, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-content h2 {
+                font-size: 2rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .highlight-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">카페 모어댄</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="gallery.html">갤러리</a></li>
+                <li><a href="contact.html">연락처</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>카페 모어댄</h1>
+            <p class="tagline">More Than Coffee, More Than Space</p>
+            <p>
+                커피 한 잔에 담긴 정성, 그 이상의 가치를 전합니다.<br>
+                연남동 골목 깊숙이 자리한 스페셜티 커피 전문 카페에서<br>
+                따뜻하고 아늑한 시간을 경험해 보세요.
+            </p>
+            <div class="cta-buttons">
+                <a href="menu.html" class="cta-button">메뉴 보기</a>
+                <a href="about.html" class="cta-button secondary">카페 소개</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">모어댄이 특별한 이유</h2>
+        <p class="section-subtitle">커피 그 이상의 경험을 선사합니다</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#9749;</div>
+                <h3>스페셜티 원두</h3>
+                <p>세계 각지에서 엄선한 최상급 스페셜티 원두만을 사용합니다. 신선한 로스팅으로 깊은 풍미를 느껴보세요.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#127968;</div>
+                <h3>감성적인 공간</h3>
+                <p>따뜻한 조명과 아늑한 인테리어가 어우러진 공간에서 편안한 휴식을 취해보세요.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128150;</div>
+                <h3>진심 담은 서비스</h3>
+                <p>한 잔의 커피에도 정성을 다합니다. 고객 한 분 한 분께 특별한 경험을 선사합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlight Section -->
+    <section class="highlight">
+        <div class="highlight-container">
+            <div class="highlight-content">
+                <h2>커피 한 잔에 담긴<br>모어댄의 철학</h2>
+                <p>
+                    2018년 연남동에 첫 문을 연 카페 모어댄은 '커피 그 이상'이라는 의미를 담고 있습니다.
+                    우리는 단순히 커피를 판매하는 것이 아니라, 고객들에게 특별한 순간과 따뜻한 추억을 선사하고자 합니다.
+                </p>
+                <a href="about.html" class="cta-button">더 알아보기</a>
+            </div>
+            <div class="highlight-stats">
+                <div class="stat-item">
+                    <span class="stat-number">6+</span>
+                    <span class="stat-label">년의 역사</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">메뉴 종류</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">만족한 고객</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">스페셜티 원두</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Preview -->
+    <section class="menu-preview">
+        <h2 class="section-title">인기 메뉴</h2>
+        <p class="section-subtitle">가장 사랑받는 시그니처 메뉴를 소개합니다</p>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="menu-item-icon">&#9749;</div>
+                <h4>에티오피아 예가체프</h4>
+                <span class="price">6,500원</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-icon">&#9749;</div>
+                <h4>모어댄 시그니처</h4>
+                <span class="price">5,500원</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-icon">&#127856;</div>
+                <h4>바닐라 라떼</h4>
+                <span class="price">6,000원</span>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-icon">&#127838;</div>
+                <h4>크로아상 세트</h4>
+                <span class="price">9,500원</span>
+            </div>
+        </div>
+        <div class="view-all">
+            <a href="menu.html" class="cta-button">전체 메뉴 보기</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>카페 모어댄</h3>
+                <p>More Than Coffee, More Than Space.<br>커피 그 이상의 가치를 전하는 공간, 카페 모어댄입니다.</p>
+            </div>
+            <div class="footer-column">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">소개</a></li>
+                    <li><a href="menu.html">메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>연락처</h4>
+                <ul>
+                    <li><a href="tel:02-555-1234">02-555-1234</a></li>
+                    <li><a href="mailto:hello@cafe-morethan.kr">hello@cafe-morethan.kr</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>영업시간</h4>
+                <ul>
+                    <li>월-금: 09:00 - 22:00</li>
+                    <li>토: 10:00 - 22:00</li>
+                    <li>일/공휴일: 10:00 - 21:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 카페 모어댄. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .menu-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

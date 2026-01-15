@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약문의 | 아이보리 치과</title>
+    <meta name="description" content="아이보리 치과 예약문의 - 온라인 예약, 전화 상담, 오시는 길 안내. 편안하고 안전한 진료를 경험하세요.">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-mint: #5CBFB3;
+            --primary-mint-light: #A8DDD6;
+            --primary-mint-dark: #3A9A8E;
+            --gold: #C9A962;
+            --gold-light: #E5D4A1;
+            --ivory: #FFFFF0;
+            --ivory-dark: #F5F5DC;
+            --white: #FFFFFF;
+            --off-white: #F9FAFB;
+            --gray-50: #F8F9FA;
+            --gray-100: #F1F3F5;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-400: #CED4DA;
+            --gray-500: #ADB5BD;
+            --gray-600: #868E96;
+            --gray-700: #495057;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-800);
+            background-color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--white);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--primary-mint);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 10px 18px;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-mint);
+            background: var(--gray-50);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark)) !important;
+            color: var(--white) !important;
+            margin-left: 8px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark)) !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--gray-700);
+            transition: var(--transition);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 160px 24px 80px;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--white) 50%, var(--primary-mint-light) 100%);
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+        }
+
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--gray-500);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-mint);
+        }
+
+        .breadcrumb span {
+            color: var(--gray-400);
+        }
+
+        .breadcrumb .current {
+            color: var(--primary-mint);
+            font-weight: 500;
+        }
+
+        /* Section Common */
+        section {
+            padding: 100px 24px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-mint-light), var(--primary-mint));
+            color: var(--white);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            background: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: var(--gray-50);
+            padding: 36px 28px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--gray-100);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            background: var(--white);
+        }
+
+        .contact-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-mint-light), var(--primary-mint));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: var(--white);
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 12px;
+        }
+
+        .contact-card p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .contact-card a {
+            color: var(--primary-mint);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Reservation Form Section */
+        .reservation-section {
+            background: var(--gray-50);
+        }
+
+        .reservation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .form-container {
+            background: var(--white);
+            padding: 48px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-container h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .form-container > p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required {
+            color: var(--primary-mint);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-mint);
+            box-shadow: 0 0 0 4px rgba(92, 191, 179, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary-mint), var(--primary-mint-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(92, 191, 179, 0.45);
+        }
+
+        .submit-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .info-container h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 32px;
+        }
+
+        .hours-table {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hours-table h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hours-table h4 svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-mint);
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row .day {
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .hours-row .time {
+            color: var(--gray-600);
+        }
+
+        .hours-row .closed {
+            color: var(--gray-400);
+        }
+
+        .notice-box {
+            background: linear-gradient(135deg, var(--primary-mint-light), var(--primary-mint));
+            color: var(--white);
+            padding: 24px;
+            border-radius: 16px;
+        }
+
+        .notice-box h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-box h4 svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .notice-box ul {
+            list-style: none;
+        }
+
+        .notice-box li {
+            font-size: 0.9rem;
+            padding: 4px 0;
+            opacity: 0.95;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: var(--white);
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .map-wrapper {
+            height: 450px;
+            background: var(--gray-100);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-placeholder {
+            text-align: center;
+            color: var(--gray-500);
+        }
+
+        .map-placeholder svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--gray-400);
+            margin-bottom: 16px;
+        }
+
+        .map-placeholder p {
+            font-size: 0.95rem;
+        }
+
+        .location-info h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 24px;
+        }
+
+        .location-detail {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .location-detail:last-child {
+            border-bottom: none;
+        }
+
+        .location-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .location-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-mint);
+        }
+
+        .location-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+        }
+
+        .location-text p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 60px 24px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .logo-name {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-mint);
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-mint);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--white);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reservation-container {
+                gap: 40px;
+            }
+
+            .map-container {
+                grid-template-columns: 1fr;
+            }
+
+            .map-wrapper {
+                height: 350px;
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                height: 70px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .page-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 32px 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5 6 8c0 4 6 10 6 10s6-6 6-10c0-3-2.5-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">아이보리 치과</span>
+                    <span class="logo-sub">IVORY DENTAL CLINIC</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">홈</a>
+                <a href="about.html">치과소개</a>
+                <a href="services.html">진료과목</a>
+                <a href="contact.html" class="nav-cta active">예약문의</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <a href="index.html">홈</a>
+            <a href="about.html">치과소개</a>
+            <a href="services.html">진료과목</a>
+            <a href="contact.html">예약문의</a>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="breadcrumb">
+            <a href="index.html">홈</a>
+            <span>/</span>
+            <span class="current">예약문의</span>
+        </div>
+        <h1>예약 및 문의</h1>
+        <p>온라인으로 편리하게 예약하시거나 전화로 문의해 주세요</p>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-info">
+        <div class="section-container">
+            <div class="contact-grid">
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <h3>전화 예약</h3>
+                    <p><a href="tel:02-2222-3333">02-2222-3333</a></p>
+                    <p>평일 09:30 - 18:30</p>
+                </div>
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <h3>이메일 문의</h3>
+                    <p><a href="mailto:smile@ivory-dental.kr">smile@ivory-dental.kr</a></p>
+                    <p>24시간 접수 가능</p>
+                </div>
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <h3>오시는 길</h3>
+                    <p>서울시 강남구 압구정로 123</p>
+                    <p>아이보리빌딩 3층</p>
+                </div>
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    </div>
+                    <h3>진료시간</h3>
+                    <p>평일 09:30 - 18:30</p>
+                    <p>토요일 09:30 - 14:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Form Section -->
+    <section class="reservation-section">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Reservation</span>
+                <h2 class="section-title">온라인 예약</h2>
+                <p class="section-desc">아래 양식을 작성해 주시면 빠른 시간 내에 연락드리겠습니다</p>
+            </div>
+            <div class="reservation-container">
+                <div class="form-container fade-in">
+                    <h3>예약 신청</h3>
+                    <p>필수 항목을 입력해 주세요</p>
+                    <form id="reservationForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">이름 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="홍길동" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">연락처 <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">희망 날짜 <span class="required">*</span></label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">희망 시간 <span class="required">*</span></label>
+                                <select id="time" name="time" required>
+                                    <option value="">시간 선택</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">진료 분야</label>
+                            <select id="service" name="service">
+                                <option value="">진료 분야 선택</option>
+                                <option value="implant">임플란트</option>
+                                <option value="cosmetic">심미치료</option>
+                                <option value="orthodontic">치아교정</option>
+                                <option value="whitening">치아미백</option>
+                                <option value="general">일반진료</option>
+                                <option value="pediatric">소아치과</option>
+                                <option value="consultation">상담</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">문의 내용</label>
+                            <textarea id="message" name="message" placeholder="증상이나 문의사항을 간략히 적어주세요"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                            예약 신청하기
+                        </button>
+                    </form>
+                </div>
+                <div class="info-container fade-in">
+                    <h3>진료 안내</h3>
+                    <div class="hours-table">
+                        <h4>
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            진료시간
+                        </h4>
+                        <div class="hours-row">
+                            <span class="day">평일</span>
+                            <span class="time">09:30 - 18:30</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="day">토요일</span>
+                            <span class="time">09:30 - 14:00</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="day">점심시간</span>
+                            <span class="time">13:00 - 14:00</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="day">일요일/공휴일</span>
+                            <span class="closed">휴진</span>
+                        </div>
+                    </div>
+                    <div class="notice-box">
+                        <h4>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                            예약 안내
+                        </h4>
+                        <ul>
+                            <li>- 예약 확정은 전화로 안내드립니다</li>
+                            <li>- 예약 변경은 최소 하루 전에 연락 부탁드립니다</li>
+                            <li>- 첫 방문시 10분 전에 내원해 주세요</li>
+                            <li>- 신분증과 의료보험증을 지참해 주세요</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Location</span>
+                <h2 class="section-title">오시는 길</h2>
+                <p class="section-desc">편리한 교통편으로 쉽게 방문하실 수 있습니다</p>
+            </div>
+            <div class="map-container">
+                <div class="map-wrapper fade-in">
+                    <div class="map-placeholder">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <p>지도 영역<br>(실제 구현시 카카오/네이버 지도 삽입)</p>
+                    </div>
+                </div>
+                <div class="location-info fade-in">
+                    <h3>찾아오시는 방법</h3>
+                    <div class="location-detail">
+                        <div class="location-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </div>
+                        <div class="location-text">
+                            <h4>주소</h4>
+                            <p>서울특별시 강남구 압구정로 123<br>아이보리빌딩 3층</p>
+                        </div>
+                    </div>
+                    <div class="location-detail">
+                        <div class="location-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-6H6V6h5v5zm5.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6h-5V6h5v5z"/></svg>
+                        </div>
+                        <div class="location-text">
+                            <h4>지하철</h4>
+                            <p>3호선 압구정역 3번 출구<br>도보 5분 거리</p>
+                        </div>
+                    </div>
+                    <div class="location-detail">
+                        <div class="location-icon">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                        </div>
+                        <div class="location-text">
+                            <h4>주차</h4>
+                            <p>건물 내 지하주차장 이용 가능<br>2시간 무료 주차</p>
+                        </div>
+                    </div>
+                    <div class="location-detail">
+                        <div class="location-icon">
+                            <svg viewBox="0 0 24 24"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/></svg>
+                        </div>
+                        <div class="location-text">
+                            <h4>버스</h4>
+                            <p>압구정역 정류장 하차<br>140, 144, 145, 240번</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 5 6 8c0 4 6 10 6 10s6-6 6-10c0-3-2.5-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-name">아이보리 치과</span>
+                            <span class="logo-sub">IVORY DENTAL CLINIC</span>
+                        </div>
+                    </a>
+                    <p>심미/임플란트 전문 치과<br>환자 중심의 편안하고 안전한 진료로<br>건강한 미소를 선물합니다.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>진료안내</h4>
+                    <ul>
+                        <li><a href="services.html">진료과목</a></li>
+                        <li><a href="about.html">시설안내</a></li>
+                        <li><a href="contact.html">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>진료시간</h4>
+                    <ul>
+                        <li><a href="contact.html">평일 09:30-18:30</a></li>
+                        <li><a href="contact.html">토요일 09:30-14:00</a></li>
+                        <li><a href="contact.html">점심 13:00-14:00</a></li>
+                        <li><a href="contact.html">일요일/공휴일 휴진</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>문의</h4>
+                    <ul>
+                        <li><a href="tel:02-2222-3333">02-2222-3333</a></li>
+                        <li><a href="mailto:smile@ivory-dental.kr">smile@ivory-dental.kr</a></li>
+                        <li><a href="contact.html">온라인 예약</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2024 아이보리 치과. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Blog">
+                        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.18 1.897-.962 6.502-1.36 8.627-.168.9-.5 1.2-.82 1.23-.697.064-1.226-.46-1.9-.903-1.056-.692-1.653-1.123-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.178a.57.57 0 01.165.378c.01.1.023.293.013.452z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+
+        // Form submission handler
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('예약 신청이 접수되었습니다. 확인 후 연락드리겠습니다.');
+            this.reset();
+        });
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    </script>
+</body>
+</html>

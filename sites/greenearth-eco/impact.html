@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환경영향 | 그린어스 에코 - GreenEarth Eco</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --leaf-green: #4A7C23;
+            --sage-green: #8FB573;
+            --sand: #E8DCC4;
+            --cream: #FAF7F2;
+            --sky-blue: #87CEEB;
+            --ocean-blue: #5BA4C9;
+            --earth-brown: #8B7355;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(45, 80, 22, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--leaf-green), var(--forest-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon::before {
+            content: "🌿";
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--forest-green);
+        }
+
+        .logo-text span {
+            color: var(--leaf-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--leaf-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--leaf-green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--forest-green);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 5% 80px;
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.85), rgba(74, 124, 35, 0.75)),
+                        url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920') center/cover;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23FAF7F2' d='M0,50 C360,100 720,0 1080,50 C1260,75 1380,50 1440,50 L1440,100 L0,100 Z'/%3E%3C/svg%3E") no-repeat bottom/cover;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.3rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .leaf-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .leaf-divider span {
+            font-size: 1.5rem;
+        }
+
+        .leaf-divider::before,
+        .leaf-divider::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--sage-green), transparent);
+        }
+
+        /* Impact Overview */
+        .impact-overview {
+            background: var(--white);
+        }
+
+        .impact-intro {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .impact-intro p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        .main-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--cream);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sage-green), var(--leaf-green));
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--sage-green), var(--leaf-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .stat-number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Carbon Footprint Section */
+        .carbon-section {
+            background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
+            color: var(--white);
+        }
+
+        .carbon-section .section-title h2 {
+            color: var(--white);
+        }
+
+        .carbon-section .section-title p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .carbon-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .carbon-chart {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chart-bar {
+            margin-bottom: 25px;
+        }
+
+        .chart-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .chart-bar-track {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .chart-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sage-green), #A8E6CF);
+            border-radius: 6px;
+            transition: width 1.5s ease;
+        }
+
+        .carbon-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .carbon-info p {
+            font-size: 1.05rem;
+            opacity: 0.95;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+
+        .carbon-list {
+            list-style: none;
+        }
+
+        .carbon-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .carbon-list li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: var(--sage-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--forest-green);
+        }
+
+        /* Environmental Progress */
+        .progress-section {
+            background: var(--cream);
+        }
+
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .progress-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.08);
+        }
+
+        .progress-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .progress-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--sage-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .progress-header h3 {
+            font-size: 1.2rem;
+            color: var(--forest-green);
+        }
+
+        .progress-bar-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-bar-bg {
+            height: 20px;
+            background: var(--cream);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--leaf-green), var(--sage-green));
+            border-radius: 10px;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--white);
+            border-radius: 50%;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .progress-stats .current {
+            color: var(--leaf-green);
+            font-weight: 600;
+        }
+
+        /* Tree Planting Section */
+        .tree-section {
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tree-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .tree-image {
+            position: relative;
+        }
+
+        .tree-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.2);
+        }
+
+        .tree-counter {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--leaf-green);
+            color: var(--white);
+            padding: 25px 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(74, 124, 35, 0.3);
+        }
+
+        .tree-counter .number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .tree-counter .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .tree-info h3 {
+            font-size: 1.8rem;
+            color: var(--forest-green);
+            margin-bottom: 20px;
+        }
+
+        .tree-info p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .tree-locations {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .location-item {
+            background: var(--cream);
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-item span:first-child {
+            font-size: 1.3rem;
+        }
+
+        /* Yearly Report */
+        .report-section {
+            background: var(--cream);
+        }
+
+        .report-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .report-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .report-year {
+            background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .report-content {
+            padding: 25px;
+        }
+
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--cream);
+        }
+
+        .report-item:last-child {
+            border-bottom: none;
+        }
+
+        .report-item .label {
+            color: var(--text-light);
+        }
+
+        .report-item .value {
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+
+        /* Pledge Section */
+        .pledge-section {
+            background: linear-gradient(135deg, rgba(91, 164, 201, 0.9), rgba(135, 206, 235, 0.9)),
+                        url('https://images.unsplash.com/photo-1518173946687-a4c036bc3c45?w=1920') center/cover;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .pledge-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pledge-content h2 {
+            font-size: 2.3rem;
+            margin-bottom: 20px;
+        }
+
+        .pledge-content p {
+            font-size: 1.15rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .pledge-goals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .pledge-goal {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .pledge-goal .year {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .pledge-goal .target {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--leaf-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--forest-green);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--forest-green);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--sage-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--sage-green);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--leaf-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .carbon-content,
+            .tree-content {
+                grid-template-columns: 1fr;
+            }
+
+            .tree-counter {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 20px;
+            }
+
+            .tree-locations {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">GreenEarth <span>Eco</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="products.html">제품</a></li>
+            <li><a href="shop.html">쇼핑</a></li>
+            <li><a href="impact.html" class="active">환경영향</a></li>
+            <li><a href="blog.html">블로그</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>환경 영향 보고서</h1>
+        <p>그린어스 에코와 함께 만들어가는 지속 가능한 변화</p>
+    </header>
+
+    <!-- Impact Overview -->
+    <section class="impact-overview">
+        <div class="impact-intro">
+            <p>2018년 창립 이래, 그린어스 에코는 환경에 미치는 긍정적인 영향을 측정하고 투명하게 공개하고 있습니다. 모든 수치는 제3자 기관의 검증을 거쳤으며, 매년 업데이트됩니다.</p>
+        </div>
+        <div class="main-stats">
+            <div class="stat-card">
+                <div class="stat-icon">🌊</div>
+                <span class="stat-number" data-target="1250000">0</span>
+                <span class="stat-label">절감된 플라스틱 (kg)</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌳</div>
+                <span class="stat-number" data-target="85000">0</span>
+                <span class="stat-label">심은 나무 (그루)</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💨</div>
+                <span class="stat-number" data-target="320000">0</span>
+                <span class="stat-label">탄소 절감량 (톤)</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💧</div>
+                <span class="stat-number" data-target="2800000">0</span>
+                <span class="stat-label">절약된 물 (리터)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carbon Footprint Section -->
+    <section class="carbon-section">
+        <div class="section-title">
+            <h2>탄소 발자국 감소</h2>
+            <div class="leaf-divider"><span>🌍</span></div>
+            <p>기존 제품 대비 탄소 배출량 비교</p>
+        </div>
+        <div class="carbon-content">
+            <div class="carbon-chart">
+                <h3 class="chart-title">제품별 탄소 절감률</h3>
+                <div class="chart-bar">
+                    <div class="chart-bar-label">
+                        <span>대나무 칫솔</span>
+                        <span>-85%</span>
+                    </div>
+                    <div class="chart-bar-track">
+                        <div class="chart-bar-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="chart-bar">
+                    <div class="chart-bar-label">
+                        <span>스테인리스 물병</span>
+                        <span>-92%</span>
+                    </div>
+                    <div class="chart-bar-track">
+                        <div class="chart-bar-fill" style="width: 92%;"></div>
+                    </div>
+                </div>
+                <div class="chart-bar">
+                    <div class="chart-bar-label">
+                        <span>천연 비누</span>
+                        <span>-78%</span>
+                    </div>
+                    <div class="chart-bar-track">
+                        <div class="chart-bar-fill" style="width: 78%;"></div>
+                    </div>
+                </div>
+                <div class="chart-bar">
+                    <div class="chart-bar-label">
+                        <span>실리콘 식품백</span>
+                        <span>-95%</span>
+                    </div>
+                    <div class="chart-bar-track">
+                        <div class="chart-bar-fill" style="width: 95%;"></div>
+                    </div>
+                </div>
+                <div class="chart-bar">
+                    <div class="chart-bar-label">
+                        <span>고체 샴푸바</span>
+                        <span>-80%</span>
+                    </div>
+                    <div class="chart-bar-track">
+                        <div class="chart-bar-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="carbon-info">
+                <h3>탄소 중립을 향한 여정</h3>
+                <p>그린어스 에코는 제품 생산, 포장, 배송의 모든 과정에서 탄소 배출을 최소화하기 위해 노력합니다. 우리의 목표는 2025년까지 완전한 탄소 중립을 달성하는 것입니다.</p>
+                <ul class="carbon-list">
+                    <li>재생에너지 100% 사용 사무실</li>
+                    <li>전기차 배송 시스템 도입</li>
+                    <li>탄소 상쇄 프로그램 참여</li>
+                    <li>로컬 공급망 우선 구축</li>
+                    <li>제품 수명주기 전체 관리</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environmental Progress -->
+    <section class="progress-section">
+        <div class="section-title">
+            <h2>2024년 환경 목표 달성 현황</h2>
+            <div class="leaf-divider"><span>📊</span></div>
+        </div>
+        <div class="progress-grid">
+            <div class="progress-card">
+                <div class="progress-header">
+                    <div class="progress-icon">🌊</div>
+                    <h3>해양 플라스틱 수거</h3>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 78%;"></div>
+                    </div>
+                </div>
+                <div class="progress-stats">
+                    <span class="current">78,000 kg</span>
+                    <span>목표: 100,000 kg</span>
+                </div>
+            </div>
+            <div class="progress-card">
+                <div class="progress-header">
+                    <div class="progress-icon">♻️</div>
+                    <h3>포장재 재활용률</h3>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="progress-stats">
+                    <span class="current">100%</span>
+                    <span>목표 달성!</span>
+                </div>
+            </div>
+            <div class="progress-card">
+                <div class="progress-header">
+                    <div class="progress-icon">⚡</div>
+                    <h3>재생에너지 사용</h3>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="progress-stats">
+                    <span class="current">85%</span>
+                    <span>목표: 100%</span>
+                </div>
+            </div>
+            <div class="progress-card">
+                <div class="progress-header">
+                    <div class="progress-icon">🚚</div>
+                    <h3>친환경 배송 전환</h3>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+                <div class="progress-stats">
+                    <span class="current">65%</span>
+                    <span>목표: 100%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tree Planting Section -->
+    <section class="tree-section">
+        <div class="tree-content">
+            <div class="tree-image">
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600" alt="나무 심기 프로젝트">
+                <div class="tree-counter">
+                    <span class="number">85,000+</span>
+                    <span class="label">심은 나무</span>
+                </div>
+            </div>
+            <div class="tree-info">
+                <h3>🌳 나무 심기 프로젝트</h3>
+                <p>그린어스 에코는 제품 판매 1건당 나무 1그루를 심습니다. 우리가 심은 나무들은 매년 약 2,550톤의 이산화탄소를 흡수하고 있습니다.</p>
+                <p>국내외 다양한 지역에서 현지 NGO 파트너들과 함께 지속 가능한 숲 조성 프로젝트를 진행하고 있습니다.</p>
+                <div class="tree-locations">
+                    <div class="location-item">
+                        <span>🇰🇷</span>
+                        <span>강원도 산림 복원</span>
+                    </div>
+                    <div class="location-item">
+                        <span>🇮🇩</span>
+                        <span>인도네시아 맹그로브</span>
+                    </div>
+                    <div class="location-item">
+                        <span>🇰🇪</span>
+                        <span>케냐 사막화 방지</span>
+                    </div>
+                    <div class="location-item">
+                        <span>🇧🇷</span>
+                        <span>아마존 열대우림</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yearly Report -->
+    <section class="report-section">
+        <div class="section-title">
+            <h2>연도별 환경 성과</h2>
+            <div class="leaf-divider"><span>📈</span></div>
+        </div>
+        <div class="report-cards">
+            <div class="report-card">
+                <div class="report-year">2022</div>
+                <div class="report-content">
+                    <div class="report-item">
+                        <span class="label">플라스틱 절감</span>
+                        <span class="value">580,000 kg</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">심은 나무</span>
+                        <span class="value">35,000 그루</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">탄소 절감</span>
+                        <span class="value">120,000 톤</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">에코 히어로</span>
+                        <span class="value">80,000명</span>
+                    </div>
+                </div>
+            </div>
+            <div class="report-card">
+                <div class="report-year">2023</div>
+                <div class="report-content">
+                    <div class="report-item">
+                        <span class="label">플라스틱 절감</span>
+                        <span class="value">890,000 kg</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">심은 나무</span>
+                        <span class="value">58,000 그루</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">탄소 절감</span>
+                        <span class="value">210,000 톤</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">에코 히어로</span>
+                        <span class="value">115,000명</span>
+                    </div>
+                </div>
+            </div>
+            <div class="report-card">
+                <div class="report-year">2024</div>
+                <div class="report-content">
+                    <div class="report-item">
+                        <span class="label">플라스틱 절감</span>
+                        <span class="value">1,250,000 kg</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">심은 나무</span>
+                        <span class="value">85,000 그루</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">탄소 절감</span>
+                        <span class="value">320,000 톤</span>
+                    </div>
+                    <div class="report-item">
+                        <span class="label">에코 히어로</span>
+                        <span class="value">150,000명</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pledge Section -->
+    <section class="pledge-section">
+        <div class="pledge-content">
+            <h2>2030 환경 목표</h2>
+            <p>그린어스 에코는 더 나은 미래를 위해 야심찬 환경 목표를 세웠습니다. 우리와 함께 이 목표를 달성해주세요.</p>
+            <div class="pledge-goals">
+                <div class="pledge-goal">
+                    <span class="year">2025</span>
+                    <span class="target">탄소 중립 달성</span>
+                </div>
+                <div class="pledge-goal">
+                    <span class="year">2027</span>
+                    <span class="target">플라스틱 제로 공급망</span>
+                </div>
+                <div class="pledge-goal">
+                    <span class="year">2030</span>
+                    <span class="target">500만 그루 나무 심기</span>
+                </div>
+            </div>
+            <a href="products.html" class="btn btn-primary">함께하기</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <span>🌿 GreenEarth Eco</span>
+                </div>
+                <p>그린어스 에코는 지속 가능한 미래를 위해 친환경 제품을 제공하는 기업입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품</a>
+                <a href="impact.html">환경영향</a>
+                <a href="blog.html">블로그</a>
+            </div>
+            <div class="footer-section">
+                <h4>고객지원</h4>
+                <a href="contact.html">문의하기</a>
+                <a href="shop.html">쇼핑</a>
+                <a href="#">배송 안내</a>
+                <a href="#">교환/반품</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📍 서울특별시 강남구 테헤란로 123</p>
+                <p>📞 02-1234-5678</p>
+                <p>✉️ hello@greenearth-eco.kr</p>
+                <p>🕐 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 그린어스 에코 (GreenEarth Eco). All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Animate numbers on scroll
+        const animateNumbers = () => {
+            const stats = document.querySelectorAll('.stat-number[data-target]');
+            stats.forEach(stat => {
+                const target = parseInt(stat.dataset.target);
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current).toLocaleString();
+                }, 16);
+            });
+        };
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('impact-overview')) {
+                        animateNumbers();
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

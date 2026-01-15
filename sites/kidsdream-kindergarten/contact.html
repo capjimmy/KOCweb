@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>입학 상담 - 키즈드림 유치원</title>
+    <meta name="description" content="키즈드림 유치원 입학 상담 - 입학 문의, 방문 예약, 상담 신청">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Jua&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #FF6B9D; --primary-dark: #E91E63; --secondary: #4FC3F7;
+            --accent-yellow: #FFD54F; --accent-green: #81C784; --accent-purple: #BA68C8;
+            --accent-orange: #FFB74D; --text-dark: #37474F; --text-light: #78909C;
+            --bg-light: #FAFAFA; --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08); --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 20px; --radius-sm: 12px;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; color: var(--text-dark); line-height: 1.7; background: var(--white); overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        img { max-width: 100%; height: auto; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Jua', sans-serif; font-size: 1.8rem; color: var(--primary); }
+        .logo-emoji { font-size: 2rem; }
+        .nav-menu { display: flex; list-style: none; gap: 10px; }
+        .nav-link { padding: 10px 20px; border-radius: 25px; font-weight: 500; color: var(--text-dark); }
+        .nav-link:hover, .nav-link.active { background: linear-gradient(135deg, var(--primary), var(--accent-purple)); color: white; }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
+        .nav-toggle span { width: 25px; height: 3px; background: var(--primary); border-radius: 3px; transition: 0.3s; }
+        .page-header { background: linear-gradient(135deg, #FFF5F8 0%, #F0F9FF 50%, #FFF9E6 100%); padding: 150px 0 80px; text-align: center; position: relative; overflow: hidden; }
+        .page-header::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: linear-gradient(135deg, var(--primary), transparent); border-radius: 50%; opacity: 0.3; }
+        .page-header::after { content: ''; position: absolute; bottom: -50px; left: -50px; width: 200px; height: 200px; background: linear-gradient(135deg, var(--secondary), transparent); border-radius: 50%; opacity: 0.3; }
+        .page-header h1 { font-family: 'Jua', sans-serif; font-size: 3rem; margin-bottom: 15px; position: relative; z-index: 1; }
+        .page-header p { font-size: 1.2rem; color: var(--text-light); position: relative; z-index: 1; }
+        .highlight { background: linear-gradient(135deg, var(--primary), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section { padding: 100px 0; position: relative; }
+        .section-header { margin-bottom: 60px; }
+        .section-emoji { font-size: 3rem; display: block; margin-bottom: 15px; }
+        .section-title { font-family: 'Jua', sans-serif; font-size: 2.5rem; margin-bottom: 15px; }
+        .section-desc { font-size: 1.1rem; color: var(--text-light); }
+        .text-center { text-align: center; }
+
+        /* Contact Section */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .contact-form-wrapper { background: white; padding: 50px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        .contact-form-wrapper h3 { font-family: 'Jua', sans-serif; font-size: 1.8rem; margin-bottom: 30px; color: var(--text-dark); }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-dark); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px 20px; border: 2px solid #eee; border-radius: var(--radius-sm); font-size: 1rem; font-family: inherit; transition: all 0.3s ease; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { min-height: 150px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 30px; border-radius: 30px; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 20px rgba(255,107,157,0.4); width: 100%; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(255,107,157,0.5); }
+
+        /* Contact Info */
+        .contact-info { display: flex; flex-direction: column; gap: 30px; }
+        .info-card { background: white; padding: 35px; border-radius: var(--radius); box-shadow: var(--shadow); transition: all 0.3s ease; }
+        .info-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .info-card-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 20px; }
+        .info-card h4 { font-family: 'Jua', sans-serif; font-size: 1.3rem; margin-bottom: 10px; color: var(--text-dark); }
+        .info-card p { color: var(--text-light); line-height: 1.8; }
+        .info-card a { color: var(--primary); font-weight: 600; }
+        .info-card a:hover { color: var(--primary-dark); }
+
+        /* Map Section */
+        .map-section { background: var(--bg-light); }
+        .map-container { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 400px; }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+        .map-info { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .map-info-item { background: white; padding: 25px; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow); }
+        .map-info-item span { font-size: 2rem; display: block; margin-bottom: 10px; }
+        .map-info-item h4 { font-family: 'Jua', sans-serif; font-size: 1.1rem; margin-bottom: 5px; color: var(--text-dark); }
+        .map-info-item p { font-size: 0.95rem; color: var(--text-light); }
+
+        /* FAQ Section */
+        .faq-section { background: var(--white); }
+        .faq-grid { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: white; border-radius: var(--radius); margin-bottom: 15px; box-shadow: var(--shadow); overflow: hidden; }
+        .faq-question { padding: 25px 30px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; }
+        .faq-question:hover { background: var(--bg-light); }
+        .faq-question span { font-size: 1.5rem; transition: transform 0.3s ease; }
+        .faq-answer { padding: 0 30px; max-height: 0; overflow: hidden; transition: all 0.3s ease; }
+        .faq-answer p { padding-bottom: 25px; color: var(--text-light); line-height: 1.8; }
+        .faq-item.active .faq-answer { max-height: 300px; }
+        .faq-item.active .faq-question span { transform: rotate(45deg); }
+
+        /* CTA Section */
+        .cta-section { background: linear-gradient(135deg, var(--primary), var(--accent-purple)); color: white; text-align: center; }
+        .cta-icon { font-size: 4rem; margin-bottom: 20px; }
+        .cta-content h2 { font-family: 'Jua', sans-serif; font-size: 2.5rem; margin-bottom: 15px; }
+        .cta-content p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.95; }
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn-white { background: white; color: var(--primary); }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(255,255,255,0.3); }
+        .btn-outline-white { background: transparent; color: white; border: 2px solid white; }
+        .btn-outline-white:hover { background: white; color: var(--primary); }
+
+        /* Footer */
+        .footer { background: var(--text-dark); color: white; padding: 80px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; margin-bottom: 60px; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; font-family: 'Jua', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 15px; }
+        .footer-desc { color: rgba(255,255,255,0.7); line-height: 1.8; }
+        .footer-links h4 { font-family: 'Jua', sans-serif; font-size: 1.2rem; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255,255,255,0.7); }
+        .footer-links a:hover { color: white; }
+        .footer-contact h4 { font-family: 'Jua', sans-serif; font-size: 1.2rem; margin-bottom: 20px; }
+        .footer-contact p { color: rgba(255,255,255,0.7); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.5); margin-bottom: 5px; font-size: 0.9rem; }
+
+        /* Scroll to Top */
+        .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--accent-purple)); color: white; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 999; box-shadow: 0 4px 20px rgba(255,107,157,0.4); }
+        .scroll-top.visible { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-5px); }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive */
+        @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } .map-info { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .nav-menu { position: fixed; top: 70px; left: 0; right: 0; background: white; flex-direction: column; padding: 20px; box-shadow: var(--shadow); transform: translateY(-150%); transition: transform 0.3s ease; } .nav-menu.active { transform: translateY(0); } .nav-toggle { display: flex; } .page-header h1 { font-size: 2.2rem; } .section-title { font-size: 2rem; } .form-row { grid-template-columns: 1fr; } .contact-form-wrapper { padding: 30px; } .footer-grid { grid-template-columns: 1fr; gap: 40px; } .cta-buttons { flex-direction: column; } }
+        @media (max-width: 480px) { .page-header h1 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo"><span class="logo-emoji">&#127752;</span><span class="logo-text">키즈드림</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="about.html" class="nav-link">유치원 소개</a></li>
+                <li><a href="programs.html" class="nav-link">교육 프로그램</a></li>
+                <li><a href="facilities.html" class="nav-link">시설 안내</a></li>
+                <li><a href="contact.html" class="nav-link active">입학 상담</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="fade-in">입학 <span class="highlight">상담</span></h1>
+            <p class="fade-in">키즈드림 유치원 입학에 관한 모든 것을 안내해 드립니다</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-form-wrapper fade-in">
+                    <h3>&#9997; 상담 신청</h3>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="parentName">학부모 성함 *</label>
+                                <input type="text" id="parentName" name="parentName" required placeholder="학부모 성함을 입력해주세요">
+                            </div>
+                            <div class="form-group">
+                                <label for="childName">자녀 이름 *</label>
+                                <input type="text" id="childName" name="childName" required placeholder="자녀 이름을 입력해주세요">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">연락처 *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="010-0000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="childAge">자녀 나이 *</label>
+                                <select id="childAge" name="childAge" required>
+                                    <option value="">선택해주세요</option>
+                                    <option value="3">만 3세</option>
+                                    <option value="4">만 4세</option>
+                                    <option value="5">만 5세</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="consultType">상담 유형 *</label>
+                            <select id="consultType" name="consultType" required>
+                                <option value="">선택해주세요</option>
+                                <option value="visit">방문 상담</option>
+                                <option value="phone">전화 상담</option>
+                                <option value="online">온라인 상담</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">문의 내용</label>
+                            <textarea id="message" name="message" placeholder="궁금하신 점이나 상담 희망 내용을 자유롭게 작성해주세요"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">&#128140; 상담 신청하기</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <div class="info-card fade-in">
+                        <div class="info-card-icon" style="background: #FFE5E5;">&#128222;</div>
+                        <h4>전화 문의</h4>
+                        <p>
+                            <a href="tel:031-714-8900">031-714-8900</a><br>
+                            평일 07:30 - 19:30<br>
+                            토요일, 공휴일 휴무
+                        </p>
+                    </div>
+                    <div class="info-card fade-in">
+                        <div class="info-card-icon" style="background: #E5F3FF;">&#128205;</div>
+                        <h4>오시는 길</h4>
+                        <p>
+                            경기도 성남시 분당구<br>
+                            정자동 178-1<br>
+                            정자역 3번 출구 도보 5분
+                        </p>
+                    </div>
+                    <div class="info-card fade-in">
+                        <div class="info-card-icon" style="background: #E5FFE9;">&#128231;</div>
+                        <h4>이메일 문의</h4>
+                        <p>
+                            <a href="mailto:kidsdream@kindergarten.kr">kidsdream@kindergarten.kr</a><br>
+                            24시간 접수 가능<br>
+                            영업일 기준 1일 이내 답변
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section map-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128205;</span>
+                <h2 class="section-title">오시는 <span class="highlight">길</span></h2>
+                <p class="section-desc">키즈드림 유치원을 방문해주세요</p>
+            </div>
+            <div class="map-container fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.5!2d127.1!3d37.36!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDIxJzM2LjAiTiAxMjfCsDA2JzAwLjAiRQ!5e0!3m2!1sko!2skr!4v1" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="map-info">
+                <div class="map-info-item fade-in">
+                    <span>&#128651;</span>
+                    <h4>지하철</h4>
+                    <p>신분당선 정자역 3번 출구<br>도보 5분</p>
+                </div>
+                <div class="map-info-item fade-in">
+                    <span>&#128652;</span>
+                    <h4>버스</h4>
+                    <p>정자동주민센터 정류장 하차<br>380, 390, 9003번</p>
+                </div>
+                <div class="map-info-item fade-in">
+                    <span>&#128663;</span>
+                    <h4>자가용</h4>
+                    <p>건물 내 주차장 이용 가능<br>2시간 무료 주차</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section faq-section">
+        <div class="container">
+            <div class="section-header text-center fade-in">
+                <span class="section-emoji">&#128172;</span>
+                <h2 class="section-title">자주 묻는 <span class="highlight">질문</span></h2>
+                <p class="section-desc">입학에 관한 궁금증을 해결해드립니다</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        입학 가능한 나이는 어떻게 되나요?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>키즈드림 유치원은 만 3세부터 만 5세까지의 아이들이 입학할 수 있습니다. 입학 연도 기준으로 3월 1일 현재 만 3세 이상인 아이가 입학 대상입니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        입학 절차는 어떻게 되나요?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>상담 신청 -> 방문 상담 및 시설 견학 -> 입학 서류 제출 -> 입학금 납부 -> 입학 확정 순서로 진행됩니다. 정원 마감 시 대기자 등록이 가능합니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        등하원 시간은 어떻게 되나요?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>등원 시간은 오전 7:30 ~ 9:00이며, 하원 시간은 오후 5:00 ~ 7:30입니다. 맞벌이 가정을 위해 연장 보육도 운영하고 있습니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        급식은 어떻게 제공되나요?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>전문 영양사가 설계한 균형 잡힌 식단으로 점심과 오전/오후 간식을 제공합니다. 알레르기가 있는 아이는 별도로 대체식을 제공해드립니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        통학 버스가 있나요?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>네, 안전 인증을 받은 통학 버스를 운영하고 있습니다. 노선별 운행 시간과 정류장은 입학 상담 시 안내해드립니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <div class="cta-icon">&#127752;</div>
+                <h2>아이의 꿈을 함께 키워요!</h2>
+                <p>키즈드림 유치원에서 아이의 행복한 미래를 준비하세요</p>
+                <div class="cta-buttons">
+                    <a href="tel:031-714-8900" class="btn btn-white">
+                        <span>&#128222;</span> 031-714-8900
+                    </a>
+                    <a href="programs.html" class="btn btn-outline-white">프로그램 보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo"><span class="logo-emoji">&#127752;</span><span class="logo-text">키즈드림</span></a>
+                    <p class="footer-desc">창의융합 교육 전문 프리미엄 유치원<br>아이들의 꿈이 자라는 곳</p>
+                </div>
+                <div class="footer-links">
+                    <h4>바로가기</h4>
+                    <ul><li><a href="about.html">유치원 소개</a></li><li><a href="programs.html">교육 프로그램</a></li><li><a href="facilities.html">시설 안내</a></li><li><a href="contact.html">입학 상담</a></li></ul>
+                </div>
+                <div class="footer-links">
+                    <h4>프로그램</h4>
+                    <ul><li><a href="programs.html">창의미술</a></li><li><a href="programs.html">영어동화</a></li><li><a href="programs.html">과학탐구</a></li><li><a href="programs.html">음악놀이</a></li></ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>연락처</h4>
+                    <p><span>&#128205;</span> 경기도 분당구 정자동 178-1</p>
+                    <p><span>&#128222;</span> 031-714-8900</p>
+                    <p><span>&#9200;</span> 평일 07:30 - 19:30</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 키즈드림 유치원. All Rights Reserved.</p>
+                <p>원장: 문희정 | 설립: 2010년</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="맨 위로"><span>&#8593;</span></button>
+
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        navToggle.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+        document.querySelectorAll('.nav-link').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); }); });
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', () => { scrollTopBtn.classList.toggle('visible', window.scrollY > 300); });
+        scrollTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+                if (!isActive) { item.classList.add('active'); }
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+            this.reset();
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.style.animationPlayState = 'running'; }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => { el.style.animationPlayState = 'paused'; observer.observe(el); });
+    </script>
+</body>
+</html>

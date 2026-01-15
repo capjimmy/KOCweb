@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카페 소개 | 카페 모어댄</title>
+    <meta name="description" content="카페 모어댄 소개 - 2018년부터 연남동에서 스페셜티 커피와 함께 특별한 순간을 선사하고 있습니다.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brown-dark: #5D4037;
+            --brown-medium: #795548;
+            --brown-light: #8D6E63;
+            --beige-dark: #D7CCC8;
+            --beige-light: #EFEBE9;
+            --cream: #FFF8F0;
+            --text-dark: #3E2723;
+            --text-light: #5D4037;
+            --accent: #A1887F;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(93, 64, 55, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown-dark);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brown-dark);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--brown-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--beige-light) 0%, var(--beige-dark) 100%);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--brown-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Story Section */
+        .story {
+            padding: 5rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .story-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .story-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .story-block:nth-child(even) {
+            direction: rtl;
+        }
+
+        .story-block:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .story-image {
+            border-radius: 20px;
+            height: 350px;
+            box-shadow: 0 20px 50px rgba(93, 64, 55, 0.15);
+            overflow: hidden;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-content h2 {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .story-content p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.9;
+            margin-bottom: 1rem;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--brown-dark) 0%, var(--brown-medium) 100%);
+            color: var(--cream);
+        }
+
+        .philosophy-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .philosophy h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .philosophy-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .philosophy-values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .value-item p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 5rem 2rem;
+            background-color: var(--beige-light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--brown-medium);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .team-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--beige-dark) 0%, var(--brown-light) 100%);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .team-member h3 {
+            font-size: 1.2rem;
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .role {
+            color: var(--brown-medium);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-member p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            padding: 5rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            width: 100px;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            text-align: right;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.08);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--brown-dark);
+            border-radius: 50%;
+            border: 4px solid var(--cream);
+        }
+
+        .timeline-content h3 {
+            color: var(--brown-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 2rem;
+            background-color: var(--beige-light);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            color: var(--brown-dark);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--brown-medium);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--brown-dark);
+            color: var(--cream);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--brown-medium);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brown-dark);
+            color: var(--beige-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--beige-dark);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--beige-light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .philosophy-values {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--cream);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(93, 64, 55, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .story-block {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .story-block:nth-child(even) {
+                direction: ltr;
+            }
+
+            .story-image {
+                height: 250px;
+            }
+
+            .philosophy-values {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .timeline-year {
+                text-align: left;
+            }
+
+            .timeline-content::before {
+                display: none;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .philosophy h2 {
+                font-size: 2rem;
+            }
+
+            .philosophy-quote {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">카페 모어댄</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html" class="active">소개</a></li>
+                <li><a href="menu.html">메뉴</a></li>
+                <li><a href="gallery.html">갤러리</a></li>
+                <li><a href="contact.html">연락처</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>카페 모어댄 이야기</h1>
+        <p>커피 그 이상의 가치를 전하는 공간, 모어댄의 이야기를 들려드립니다.</p>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story">
+        <div class="story-container">
+            <div class="story-block">
+                <div class="story-image"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop" alt="카페 오픈 스토리"></div>
+                <div class="story-content">
+                    <h2>시작, 그리고 열정</h2>
+                    <p>2018년 봄, 연남동의 작은 골목에서 카페 모어댄의 이야기가 시작되었습니다.</p>
+                    <p>좋은 커피 한 잔이 누군가의 하루를 바꿀 수 있다는 믿음으로, 우리는 매일 아침 가장 신선한 원두를 로스팅하고 정성을 다해 커피를 추출합니다.</p>
+                </div>
+            </div>
+            <div class="story-block">
+                <div class="story-image"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop" alt="스페셜티 커피 원두"></div>
+                <div class="story-content">
+                    <h2>스페셜티 커피에 대한 철학</h2>
+                    <p>우리는 '스페셜티'라는 단어의 진정한 의미를 믿습니다. 단순히 고급 원두를 사용하는 것이 아니라, 농장에서 컵까지의 모든 과정에 정성을 담는 것입니다.</p>
+                    <p>에티오피아, 콜롬비아, 과테말라 등 세계 각지의 농장과 직접 거래하며, 지속 가능한 커피 문화를 만들어갑니다.</p>
+                </div>
+            </div>
+            <div class="story-block">
+                <div class="story-image"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&h=600&fit=crop" alt="카페 분위기"></div>
+                <div class="story-content">
+                    <h2>More Than Coffee</h2>
+                    <p>'모어댄(More Than)'이라는 이름에는 커피 그 이상의 가치를 전하고 싶은 마음이 담겨있습니다.</p>
+                    <p>우리는 커피를 매개로 사람들이 연결되고, 특별한 순간이 만들어지는 공간을 꿈꿉니다. 여기서의 시간이 일상의 작은 쉼표가 되길 바랍니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="philosophy-container">
+            <h2>우리의 철학</h2>
+            <p class="philosophy-quote">
+                "커피는 단순한 음료가 아닙니다.<br>
+                그것은 농부의 땀, 로스터의 열정,<br>
+                그리고 바리스타의 정성이 담긴 예술입니다."
+            </p>
+            <div class="philosophy-values">
+                <div class="value-item">
+                    <div class="value-icon">&#127807;</div>
+                    <h3>지속가능성</h3>
+                    <p>환경을 생각하는 친환경 패키징과 공정무역 원두 사용으로 지구와 함께합니다.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">&#10024;</div>
+                    <h3>품질</h3>
+                    <p>매일 소량씩 로스팅하여 가장 신선한 상태의 커피만을 제공합니다.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">&#128101;</div>
+                    <h3>커뮤니티</h3>
+                    <p>지역사회와 함께 성장하며, 커피 문화를 나누는 다양한 활동을 진행합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <h2 class="section-title">모어댄 팀</h2>
+        <p class="section-subtitle">커피를 사랑하는 사람들이 모였습니다</p>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">&#128104;</div>
+                <h3>박커피</h3>
+                <p class="role">대표 / 헤드 로스터</p>
+                <p>10년간 커피 업계에서 쌓은 경험을 바탕으로 모어댄만의 블렌드를 개발하고 있습니다.</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">&#128105;</div>
+                <h3>김라떼</h3>
+                <p class="role">헤드 바리스타</p>
+                <p>SCA 인증 바리스타로서, 완벽한 한 잔을 위해 끊임없이 연구합니다.</p>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">&#128103;</div>
+                <h3>이브루</h3>
+                <p class="role">매니저</p>
+                <p>고객 한 분 한 분께 따뜻한 서비스를 제공하기 위해 노력합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <h2 class="section-title">모어댄의 발자취</h2>
+        <p class="section-subtitle">함께 걸어온 시간들</p>
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-year">2018</div>
+                <div class="timeline-content">
+                    <h3>카페 모어댄 오픈</h3>
+                    <p>연남동에 첫 번째 매장을 오픈하고 스페셜티 커피의 여정을 시작했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2019</div>
+                <div class="timeline-content">
+                    <h3>자체 로스팅 시작</h3>
+                    <p>더 신선한 커피를 위해 직접 로스팅을 시작, 모어댄 시그니처 블렌드를 개발했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2020</div>
+                <div class="timeline-content">
+                    <h3>커피 클래스 시작</h3>
+                    <p>고객들과 함께하는 커피 클래스를 시작, 커피 문화를 나누기 시작했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2022</div>
+                <div class="timeline-content">
+                    <h3>공정무역 파트너십</h3>
+                    <p>에티오피아, 콜롬비아 농장과 직접 파트너십을 맺고 지속가능한 커피를 추구합니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <div class="timeline-content">
+                    <h3>6주년을 맞이하며</h3>
+                    <p>많은 분들의 사랑 덕분에 6주년을 맞이했습니다. 앞으로도 변함없는 맛과 서비스로 보답하겠습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>모어댄에서 만나요</h2>
+        <p>따뜻한 커피 한 잔과 함께 특별한 시간을 보내세요.</p>
+        <a href="contact.html" class="cta-button">오시는 길</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>카페 모어댄</h3>
+                <p>More Than Coffee, More Than Space.<br>커피 그 이상의 가치를 전하는 공간, 카페 모어댄입니다.</p>
+            </div>
+            <div class="footer-column">
+                <h4>바로가기</h4>
+                <ul>
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="about.html">소개</a></li>
+                    <li><a href="menu.html">메뉴</a></li>
+                    <li><a href="gallery.html">갤러리</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>연락처</h4>
+                <ul>
+                    <li><a href="tel:02-555-1234">02-555-1234</a></li>
+                    <li><a href="mailto:hello@cafe-morethan.kr">hello@cafe-morethan.kr</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>영업시간</h4>
+                <ul>
+                    <li>월-금: 09:00 - 22:00</li>
+                    <li>토: 10:00 - 22:00</li>
+                    <li>일/공휴일: 10:00 - 21:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 카페 모어댄. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.story-block, .value-item, .team-member, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

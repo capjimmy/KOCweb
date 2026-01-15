@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온라인 쇼핑 | 그린어스 에코 - GreenEarth Eco</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #2D5016;
+            --leaf-green: #4A7C23;
+            --sage-green: #8FB573;
+            --sand: #E8DCC4;
+            --cream: #FAF7F2;
+            --sky-blue: #87CEEB;
+            --ocean-blue: #5BA4C9;
+            --earth-brown: #8B7355;
+            --white: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Quicksand', 'Noto Sans KR', sans-serif;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(45, 80, 22, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--leaf-green), var(--forest-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon::before {
+            content: "🌿";
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--forest-green);
+        }
+
+        .logo-text span {
+            color: var(--leaf-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--leaf-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--leaf-green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--forest-green);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 5% 80px;
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.85), rgba(74, 124, 35, 0.75)),
+                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920') center/cover;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23FAF7F2' d='M0,50 C360,100 720,0 1080,50 C1260,75 1380,50 1440,50 L1440,100 L0,100 Z'/%3E%3C/svg%3E") no-repeat bottom/cover;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.3rem;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+        }
+
+        .leaf-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .leaf-divider span {
+            font-size: 1.5rem;
+        }
+
+        .leaf-divider::before,
+        .leaf-divider::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--sage-green), transparent);
+        }
+
+        /* Shop Header */
+        .shop-header {
+            background: var(--white);
+            padding: 30px 5%;
+            position: sticky;
+            top: 75px;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .shop-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--cream);
+            border-radius: 30px;
+            padding: 10px 20px;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            padding: 5px 10px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: var(--leaf-green);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cart-btn:hover {
+            background: var(--forest-green);
+        }
+
+        .cart-count {
+            background: var(--white);
+            color: var(--leaf-green);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* Shop Layout */
+        .shop-section {
+            background: var(--cream);
+        }
+
+        .shop-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+        }
+
+        /* Sidebar */
+        .shop-sidebar {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 180px;
+        }
+
+        .filter-group {
+            margin-bottom: 30px;
+        }
+
+        .filter-group h4 {
+            color: var(--forest-green);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--cream);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .filter-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--leaf-green);
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .price-input {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid var(--sage-green);
+            border-radius: 8px;
+            font-family: 'Noto Sans KR', sans-serif;
+            text-align: center;
+        }
+
+        .filter-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--leaf-green);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .filter-btn:hover {
+            background: var(--forest-green);
+        }
+
+        /* Products Grid */
+        .products-container {
+            flex: 1;
+        }
+
+        .sort-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .results-count {
+            color: var(--text-light);
+        }
+
+        .sort-select {
+            padding: 10px 20px;
+            border: 2px solid var(--sage-green);
+            border-radius: 25px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: var(--white);
+            cursor: pointer;
+            outline: none;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
+        }
+
+        .product-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badges {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge-bestseller {
+            background: var(--leaf-green);
+            color: var(--white);
+        }
+
+        .badge-new {
+            background: var(--ocean-blue);
+            color: var(--white);
+        }
+
+        .badge-sale {
+            background: #E74C3C;
+            color: var(--white);
+        }
+
+        .badge-eco {
+            background: var(--sage-green);
+            color: var(--forest-green);
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+            background: var(--leaf-green);
+        }
+
+        .quick-view {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            padding: 10px 25px;
+            background: var(--white);
+            color: var(--forest-green);
+            border: none;
+            border-radius: 20px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover .quick-view {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h3 {
+            font-size: 1.15rem;
+            color: var(--forest-green);
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--leaf-green);
+        }
+
+        .product-price .original {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .add-cart-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--forest-green);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-cart-btn:hover {
+            background: var(--leaf-green);
+        }
+
+        .eco-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .eco-tag {
+            padding: 4px 10px;
+            background: var(--cream);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: var(--forest-green);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--sage-green);
+            background: var(--white);
+            border-radius: 50%;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--leaf-green);
+            border-color: var(--leaf-green);
+            color: var(--white);
+        }
+
+        .page-btn.arrow {
+            font-size: 1.2rem;
+        }
+
+        /* Benefits Bar */
+        .benefits-section {
+            background: linear-gradient(135deg, var(--forest-green), var(--leaf-green));
+            color: var(--white);
+            padding: 40px 5%;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .benefit-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .benefit-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--forest-green);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--sage-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--sage-green);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--leaf-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .shop-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .shop-sidebar {
+                position: static;
+                display: none;
+            }
+
+            .shop-sidebar.active {
+                display: block;
+            }
+
+            .filter-toggle {
+                display: block;
+                padding: 12px 25px;
+                background: var(--white);
+                border: 2px solid var(--sage-green);
+                border-radius: 25px;
+                font-family: 'Noto Sans KR', sans-serif;
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .shop-header {
+                top: 70px;
+            }
+
+            .shop-header-content {
+                flex-direction: column;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .product-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">GreenEarth <span>Eco</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="about.html">회사소개</a></li>
+            <li><a href="products.html">제품</a></li>
+            <li><a href="shop.html" class="active">쇼핑</a></li>
+            <li><a href="impact.html">환경영향</a></li>
+            <li><a href="blog.html">블로그</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>온라인 쇼핑</h1>
+        <p>지구를 생각하는 친환경 제품을 만나보세요</p>
+    </header>
+
+    <!-- Shop Header -->
+    <div class="shop-header">
+        <div class="shop-header-content">
+            <div class="search-box">
+                <input type="text" placeholder="제품 검색...">
+                <button>🔍</button>
+            </div>
+            <div class="cart-info">
+                <button class="cart-btn">
+                    🛒 장바구니
+                    <span class="cart-count">3</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Section -->
+    <section class="shop-section">
+        <div class="shop-layout">
+            <!-- Sidebar -->
+            <aside class="shop-sidebar">
+                <div class="filter-group">
+                    <h4>카테고리</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-all" checked>
+                            <label for="cat-all">전체 제품</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-home">
+                            <label for="cat-home">홈 & 리빙</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-personal">
+                            <label for="cat-personal">퍼스널 케어</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-kitchen">
+                            <label for="cat-kitchen">주방용품</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-outdoor">
+                            <label for="cat-outdoor">아웃도어</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h4>가격대</h4>
+                    <div class="price-range">
+                        <input type="text" class="price-input" placeholder="최소">
+                        <span>~</span>
+                        <input type="text" class="price-input" placeholder="최대">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h4>인증</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="cert-vegan">
+                            <label for="cert-vegan">비건 인증</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cert-organic">
+                            <label for="cert-organic">유기농 인증</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cert-cruelty">
+                            <label for="cert-cruelty">Cruelty-Free</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cert-zerowaste">
+                            <label for="cert-zerowaste">제로웨이스트</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h4>특별 상품</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="special-new">
+                            <label for="special-new">신상품</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="special-best">
+                            <label for="special-best">베스트셀러</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="special-sale">
+                            <label for="special-sale">할인 상품</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="filter-btn">필터 적용</button>
+            </aside>
+
+            <!-- Products -->
+            <div class="products-container">
+                <div class="sort-bar">
+                    <span class="results-count">총 24개 제품</span>
+                    <select class="sort-select">
+                        <option>인기순</option>
+                        <option>최신순</option>
+                        <option>가격 낮은순</option>
+                        <option>가격 높은순</option>
+                        <option>평점순</option>
+                    </select>
+                </div>
+
+                <div class="products-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=500" alt="대나무 칫솔">
+                            <div class="product-badges">
+                                <span class="badge badge-bestseller">베스트셀러</span>
+                            </div>
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>대나무 칫솔 패밀리 세트 (4개입)</h3>
+                            <p>100% 생분해 대나무 손잡이, BPA-free 식물성 칫솔모</p>
+                            <div class="product-meta">
+                                <span class="product-price">₩12,900</span>
+                                <span class="product-rating">⭐ 4.9 (328)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">🎋 대나무</span>
+                                <span class="eco-tag">🌱 생분해</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500" alt="스테인리스 물병">
+                            <div class="product-badges">
+                                <span class="badge badge-bestseller">베스트셀러</span>
+                            </div>
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>스테인리스 스틸 물병 750ml</h3>
+                            <p>24시간 보온보냉, 이중 진공 단열, BPA-free</p>
+                            <div class="product-meta">
+                                <span class="product-price">₩28,000</span>
+                                <span class="product-rating">⭐ 4.8 (256)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">♻️ 스테인리스</span>
+                                <span class="eco-tag">🔄 재사용</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500" alt="천연 비누">
+                            <div class="product-badges">
+                                <span class="badge badge-new">NEW</span>
+                                <span class="badge badge-eco">VEGAN</span>
+                            </div>
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>유기농 천연 비누 세트 (3개입)</h3>
+                            <p>팜오일 프리, 콜드프로세스 제조, 다양한 향 선택</p>
+                            <div class="product-meta">
+                                <span class="product-price">₩18,500</span>
+                                <span class="product-rating">⭐ 4.7 (189)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">🐰 비건</span>
+                                <span class="eco-tag">🌿 유기농</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=500" alt="실리콘 식품백">
+                            <div class="product-badges">
+                                <span class="badge badge-new">NEW</span>
+                            </div>
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>재사용 실리콘 식품백 세트 (6개입)</h3>
+                            <p>냉동/전자레인지 사용 OK, 식품등급 실리콘</p>
+                            <div class="product-meta">
+                                <span class="product-price">₩24,000</span>
+                                <span class="product-rating">⭐ 4.9 (412)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">🔄 재사용</span>
+                                <span class="eco-tag">❄️ 냉동가능</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500" alt="밀납 랩">
+                            <div class="product-badges">
+                                <span class="badge badge-sale">20% OFF</span>
+                            </div>
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>비즈왁스 밀랍 랩 세트 (3장)</h3>
+                            <p>랩 대신 사용하는 천연 밀랍 랩, 1년 이상 재사용 가능</p>
+                            <div class="product-meta">
+                                <span class="product-price">
+                                    <span class="original">₩22,000</span>₩17,600
+                                </span>
+                                <span class="product-rating">⭐ 4.6 (178)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">🐝 천연밀랍</span>
+                                <span class="eco-tag">🔄 재사용</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1570194065650-d99fb4b8ccb0?w=500" alt="고체 샴푸">
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>허브 고체 샴푸바</h3>
+                            <p>플라스틱 프리, 액체 샴푸 2~3병 분량, 여행용 케이스 포함</p>
+                            <div class="product-meta">
+                                <span class="product-price">₩15,000</span>
+                                <span class="product-rating">⭐ 4.5 (145)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">📦 제로웨이스트</span>
+                                <span class="eco-tag">🌿 천연원료</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 7 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?w=500" alt="천연 룸스프레이">
+                            <div class="product-badges">
+                                <span class="badge badge-bestseller">베스트셀러</span>
+                            </div>
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>유칼립투스 천연 룸스프레이</h3>
+                            <p>화학 성분 없이 천연 에센셜 오일로 만든 공기 청정 스프레이</p>
+                            <div class="product-meta">
+                                <span class="product-price">₩18,900</span>
+                                <span class="product-rating">⭐ 4.8 (267)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">🌿 천연원료</span>
+                                <span class="eco-tag">🐰 비건</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 8 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=500" alt="대나무 수저 세트">
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>휴대용 대나무 수저 세트</h3>
+                            <p>젓가락, 숟가락, 포크, 나이프 + 면 파우치</p>
+                            <div class="product-meta">
+                                <span class="product-price">₩15,500</span>
+                                <span class="product-rating">⭐ 4.7 (203)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">🎋 대나무</span>
+                                <span class="eco-tag">✈️ 휴대용</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 9 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=500" alt="천연 수세미">
+                            <div class="product-badges">
+                                <span class="badge badge-sale">15% OFF</span>
+                            </div>
+                            <button class="wishlist-btn">🤍</button>
+                            <button class="quick-view">빠른 보기</button>
+                        </div>
+                        <div class="product-info">
+                            <h3>천연 루파 수세미 세트 (3개입)</h3>
+                            <p>100% 천연 루파 섬유, 생분해 가능, 3-4개월 사용</p>
+                            <div class="product-meta">
+                                <span class="product-price">
+                                    <span class="original">₩11,600</span>₩9,900
+                                </span>
+                                <span class="product-rating">⭐ 4.4 (98)</span>
+                            </div>
+                            <button class="add-cart-btn">🛒 장바구니 담기</button>
+                            <div class="eco-tags">
+                                <span class="eco-tag">🌱 생분해</span>
+                                <span class="eco-tag">🌿 천연원료</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn arrow">&lt;</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn arrow">&gt;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">🚚</div>
+                <h4>무료 배송</h4>
+                <p>50,000원 이상 구매시</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📦</div>
+                <h4>친환경 포장</h4>
+                <p>플라스틱 제로 포장</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔄</div>
+                <h4>간편 교환/반품</h4>
+                <p>30일 이내 무료</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🌳</div>
+                <h4>나무 심기</h4>
+                <p>구매 1건당 나무 1그루</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💳</div>
+                <h4>안전한 결제</h4>
+                <p>SSL 암호화 보안</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <span>🌿 GreenEarth Eco</span>
+                </div>
+                <p>그린어스 에코는 지속 가능한 미래를 위해 친환경 제품을 제공하는 기업입니다.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>바로가기</h4>
+                <a href="about.html">회사소개</a>
+                <a href="products.html">제품</a>
+                <a href="shop.html">쇼핑</a>
+                <a href="impact.html">환경영향</a>
+                <a href="blog.html">블로그</a>
+            </div>
+            <div class="footer-section">
+                <h4>고객지원</h4>
+                <a href="contact.html">문의하기</a>
+                <a href="#">배송 안내</a>
+                <a href="#">교환/반품</a>
+                <a href="#">자주 묻는 질문</a>
+            </div>
+            <div class="footer-section">
+                <h4>연락처</h4>
+                <p>📍 서울특별시 강남구 테헤란로 123</p>
+                <p>📞 02-1234-5678</p>
+                <p>✉️ hello@greenearth-eco.kr</p>
+                <p>🕐 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 그린어스 에코 (GreenEarth Eco). All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Wishlist toggle
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+            });
+        });
+
+        // Add to cart animation
+        document.querySelectorAll('.add-cart-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.textContent = '✓ 추가됨!';
+                btn.style.background = 'var(--sage-green)';
+                setTimeout(() => {
+                    btn.textContent = '🛒 장바구니 담기';
+                    btn.style.background = '';
+                }, 2000);
+            });
+        });
+
+        // Pagination
+        document.querySelectorAll('.page-btn:not(.arrow)').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Quick view
+        document.querySelectorAll('.quick-view').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('빠른 보기 기능은 준비 중입니다.');
+            });
+        });
+    </script>
+</body>
+</html>

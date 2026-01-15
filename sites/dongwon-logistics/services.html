@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="동원물류 서비스 - 해상운송, 항공운송, 육상운송, 창고관리 등 통합 물류 서비스를 제공합니다.">
+    <title>서비스 | 동원물류</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS Reset & Variables ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0052CC;
+            --primary-dark: #003D99;
+            --primary-light: #1a73e8;
+            --secondary-color: #FF6B35;
+            --secondary-dark: #E55A2B;
+            --secondary-light: #FF8C5A;
+            --accent-blue: #00A3FF;
+            --text-dark: #1a202c;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --bg-blue: #EBF5FF;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        /* ===== Page Header ===== */
+        .page-header {
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.95), rgba(0, 61, 153, 0.95)),
+                        url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80') center/cover no-repeat;
+            padding: 180px 0 100px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: var(--secondary-color);
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Section Styles ===== */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== Services Overview ===== */
+        .services-overview {
+            padding: 100px 0;
+        }
+
+        .services-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .services-intro p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+
+        /* ===== Main Services Section ===== */
+        .main-services {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .service-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .service-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-detail:nth-child(even) {
+            direction: rtl;
+        }
+
+        .service-detail:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-image {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 82, 204, 0.15);
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .service-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-info h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-info h3 .icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .service-info p {
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .service-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-blue);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+        }
+
+        .service-feature svg {
+            color: var(--secondary-color);
+        }
+
+        /* ===== Services Grid ===== */
+        .services-grid-section {
+            padding: 100px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 82, 204, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .service-card .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: #fff;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ===== Process Section ===== */
+        .process-section {
+            padding: 100px 0;
+            background: var(--bg-blue);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .process-step h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ===== Why Choose Us ===== */
+        .why-section {
+            padding: 100px 0;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .why-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .why-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 82, 204, 0.1);
+            border-left-color: var(--secondary-color);
+        }
+
+        .why-card .icon {
+            width: 70px;
+            height: 70px;
+            background: var(--bg-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+        }
+
+        .why-card h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .why-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ===== CTA Section ===== */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.95), rgba(0, 61, 153, 0.95)),
+                        url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&q=80') center/cover no-repeat fixed;
+            text-align: center;
+            color: #fff;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 82, 204, 0.4);
+        }
+
+        .btn-orange {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            color: #fff;
+        }
+
+        .btn-orange:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-lg {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: #0a1628;
+            padding: 60px 0 30px;
+            color: #a0aec0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .brand-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .footer-brand .brand-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .footer-section h4 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #a0aec0;
+            margin-bottom: 10px;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .footer-section p {
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== Scroll to Top ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* ===== Fade In Animations ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-step::after {
+                display: none;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .service-detail:nth-child(even) {
+                direction: ltr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: #fff;
+                flex-direction: column;
+                padding: 80px 30px 30px;
+                gap: 20px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar-nav.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .service-info h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <div class="brand-icon">DW</div>
+                <span>동원물류</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">홈</a></li>
+                <li><a href="about.html" class="nav-link">회사소개</a></li>
+                <li><a href="services.html" class="nav-link active">서비스</a></li>
+                <li><a href="network.html" class="nav-link">물류네트워크</a></li>
+                <li><a href="contact.html" class="nav-link">문의하기</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>물류 서비스</h1>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a>
+                <span>/</span>
+                <span>서비스</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services-overview">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Our Services</span>
+                <h2>통합 물류 솔루션</h2>
+                <p>고객의 비즈니스 성공을 위한 맞춤형 물류 서비스를 제공합니다</p>
+            </div>
+            <div class="services-intro fade-in">
+                <p>
+                    동원물류는 23년의 경험과 전문성을 바탕으로 해상, 항공, 육상 운송부터 창고관리,
+                    풀필먼트까지 원스톱 통합 물류 서비스를 제공합니다.
+                    최첨단 IT 시스템과 글로벌 네트워크를 통해 고객의 물류 비용을 절감하고
+                    효율성을 극대화합니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Services -->
+    <section class="main-services">
+        <div class="container">
+            <!-- 해상운송 -->
+            <div class="service-detail fade-in">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&q=80" alt="해상운송 서비스">
+                </div>
+                <div class="service-info">
+                    <h3>
+                        <span class="icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.65 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.15.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z"/></svg>
+                        </span>
+                        해상운송
+                    </h3>
+                    <p>
+                        전 세계 주요 항구를 연결하는 해상운송 서비스를 제공합니다.
+                        FCL(Full Container Load), LCL(Less than Container Load) 서비스를 통해
+                        화물 규모에 맞는 최적의 운송 솔루션을 제안해 드립니다.
+                        정기선, 부정기선 서비스로 다양한 고객 니즈에 대응합니다.
+                    </p>
+                    <div class="service-features">
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            FCL/LCL 서비스
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            정기선/부정기선
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            특수화물 운송
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            실시간 추적
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 항공운송 -->
+            <div class="service-detail fade-in">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80" alt="항공운송 서비스">
+                </div>
+                <div class="service-info">
+                    <h3>
+                        <span class="icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                        </span>
+                        항공운송
+                    </h3>
+                    <p>
+                        긴급 화물 및 고가 화물을 위한 빠르고 안전한 항공운송 서비스입니다.
+                        전 세계 주요 공항과의 네트워크를 통해 신속하고 정확한 배송을 보장합니다.
+                        온도 민감 화물, 위험물 등 특수 화물 운송도 전문적으로 처리합니다.
+                    </p>
+                    <div class="service-features">
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            긴급 화물
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            온도 관리
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            위험물 처리
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Door-to-Door
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 육상운송 -->
+            <div class="service-detail fade-in">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80" alt="육상운송 서비스">
+                </div>
+                <div class="service-info">
+                    <h3>
+                        <span class="icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        </span>
+                        육상운송
+                    </h3>
+                    <p>
+                        전국 어디든 신속하게 배송하는 체계적인 육상운송 네트워크를 운영합니다.
+                        정기 배송, 긴급 배송, 특수 화물 운송까지 다양한 서비스를 제공합니다.
+                        GPS 기반 실시간 추적 시스템으로 화물 위치를 언제든 확인할 수 있습니다.
+                    </p>
+                    <div class="service-features">
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            전국 배송망
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            정기/긴급 배송
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            GPS 추적
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            특수화물 운송
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 창고관리 -->
+            <div class="service-detail fade-in">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" alt="창고관리 서비스">
+                </div>
+                <div class="service-info">
+                    <h3>
+                        <span class="icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V5c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V5h16v2z"/></svg>
+                        </span>
+                        창고관리
+                    </h3>
+                    <p>
+                        최첨단 WMS(Warehouse Management System) 기반의 효율적인 창고 관리 서비스입니다.
+                        재고관리, 피킹, 패킹, 출고까지 원스톱으로 처리하며,
+                        실시간 재고 현황 확인 및 보고서 제공으로 투명한 관리가 가능합니다.
+                    </p>
+                    <div class="service-features">
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            WMS 시스템
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            실시간 재고관리
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            풀필먼트
+                        </span>
+                        <span class="service-feature">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            24시간 보안
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Services Grid -->
+    <section class="services-grid-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Additional Services</span>
+                <h2>부가 서비스</h2>
+                <p>고객 맞춤형 물류 부가 서비스를 제공합니다</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    </div>
+                    <h3>통관 서비스</h3>
+                    <p>전문 관세사와 함께하는 신속하고 정확한 수출입 통관 대행 서비스</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                    </div>
+                    <h3>프로젝트 화물</h3>
+                    <p>대형 플랜트, 기계류 등 특수 프로젝트 화물 운송 전문</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                    </div>
+                    <h3>보험 서비스</h3>
+                    <p>화물 운송 중 발생할 수 있는 위험에 대한 종합 보험 서비스</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    </div>
+                    <h3>글로벌 물류 컨설팅</h3>
+                    <p>최적의 물류 솔루션을 위한 전문 컨설팅 서비스</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">How We Work</span>
+                <h2>서비스 프로세스</h2>
+                <p>체계적인 프로세스로 최상의 물류 서비스를 제공합니다</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step fade-in">
+                    <div class="step-number">01</div>
+                    <h4>상담 및 견적</h4>
+                    <p>고객 요구사항 분석 및 맞춤형 물류 솔루션 제안</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="step-number">02</div>
+                    <h4>계약 및 준비</h4>
+                    <p>서비스 계약 체결 및 운송 준비</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="step-number">03</div>
+                    <h4>운송 및 관리</h4>
+                    <p>안전한 화물 운송 및 실시간 모니터링</p>
+                </div>
+                <div class="process-step fade-in">
+                    <div class="step-number">04</div>
+                    <h4>배송 완료</h4>
+                    <p>정확한 시간에 안전하게 목적지 배송</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Why Choose Us</span>
+                <h2>동원물류를 선택해야 하는 이유</h2>
+                <p>23년의 신뢰와 전문성으로 고객 만족을 실현합니다</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    </div>
+                    <h4>글로벌 네트워크</h4>
+                    <p>50개국 이상의 파트너사와 함께 전 세계 어디든 연결합니다</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    </div>
+                    <h4>신속 정확한 배송</h4>
+                    <p>체계적인 시스템으로 약속된 시간에 정확하게 배송합니다</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                    </div>
+                    <h4>안전한 운송</h4>
+                    <p>철저한 안전 관리 시스템으로 화물을 안전하게 보호합니다</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+                    </div>
+                    <h4>실시간 추적</h4>
+                    <p>최첨단 IT 시스템으로 화물 위치를 실시간으로 확인할 수 있습니다</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <h4>전문 인력</h4>
+                    <p>156명의 물류 전문가가 최상의 서비스를 제공합니다</p>
+                </div>
+                <div class="why-card fade-in">
+                    <div class="icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                    </div>
+                    <h4>경쟁력 있는 가격</h4>
+                    <p>최적화된 물류 솔루션으로 비용을 절감해 드립니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container fade-in">
+            <h2>맞춤형 물류 서비스가 필요하신가요?</h2>
+            <p>동원물류의 전문가가 최적의 물류 솔루션을 제안해 드립니다.</p>
+            <a href="contact.html" class="btn btn-orange btn-lg">무료 견적 받기</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <div class="brand-icon">DW</div>
+                        <span class="brand-text">동원물류</span>
+                    </div>
+                    <p>세계를 연결하는 글로벌 물류 파트너.<br>신뢰와 혁신으로 물류의 새로운 기준을 만듭니다.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>바로가기</h4>
+                    <a href="about.html">회사소개</a>
+                    <a href="services.html">서비스</a>
+                    <a href="network.html">물류네트워크</a>
+                    <a href="contact.html">문의하기</a>
+                </div>
+                <div class="footer-section">
+                    <h4>업무시간</h4>
+                    <p>평일: 09:00 - 18:00</p>
+                    <p>토요일: 09:00 - 13:00</p>
+                    <p>일요일/공휴일: 휴무</p>
+                </div>
+                <div class="footer-section">
+                    <h4>연락처</h4>
+                    <p>인천광역시 중구 공항로 295</p>
+                    <p>Tel: 032-890-1234</p>
+                    <p>Email: info@dongwon-logistics.co.kr</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 동원물류. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" aria-label="맨 위로">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navbarNav = document.querySelector('.navbar-nav');
+        menuToggle.addEventListener('click', function() {
+            navbarNav.classList.toggle('active');
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Fade-in on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

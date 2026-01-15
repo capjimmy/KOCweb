@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="성우건설 시공실적 - 30년간 500건 이상의 성공적인 건설 프로젝트를 완수했습니다.">
+    <meta name="keywords" content="성우건설, 시공실적, 프로젝트, 건축, 토목, 리모델링">
+    <title>시공실적 | 성우건설</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a1628;
+            --primary-blue: #1a3a5c;
+            --secondary-blue: #2d5a87;
+            --accent-orange: #e67e22;
+            --accent-orange-light: #f39c12;
+            --accent-orange-dark: #d35400;
+            --text-light: #ffffff;
+            --text-gray: #b0bec5;
+            --text-dark: #2c3e50;
+            --bg-light: #f8f9fa;
+            --bg-gray: #ecf0f1;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.25);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 22, 40, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 15px;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-phone {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .nav-phone span {
+            color: var(--accent-orange);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--text-light);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 50%, var(--secondary-blue) 100%);
+            padding: 180px 40px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .page-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .page-hero h1 span {
+            color: var(--accent-orange);
+        }
+
+        .page-hero p {
+            font-size: 18px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-orange);
+        }
+
+        .breadcrumb span {
+            color: var(--accent-orange);
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 120px 40px;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.1), rgba(230, 126, 34, 0.05));
+            color: var(--accent-orange);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(230, 126, 34, 0.2);
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--accent-orange);
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Project Stats */
+        .project-stats {
+            background: var(--bg-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.3);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-number span {
+            font-size: 24px;
+            color: var(--accent-orange);
+        }
+
+        .stat-label {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Project Filter */
+        .project-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #eee;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-color: var(--accent-orange);
+            color: white;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(10, 22, 40, 0.9) 0%, transparent 60%);
+        }
+
+        .project-placeholder {
+            font-size: 80px;
+            opacity: 0.3;
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            color: white;
+        }
+
+        .project-category {
+            display: inline-block;
+            background: var(--accent-orange);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .project-overlay h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .project-overlay p {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        .project-year {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Featured Project */
+        .featured-project {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid2)"/></svg>');
+        }
+
+        .featured-project .section-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-project .section-tag {
+            background: rgba(230, 126, 34, 0.2);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .featured-project .section-title {
+            color: white;
+        }
+
+        .featured-project .section-subtitle {
+            color: var(--text-gray);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-image {
+            position: relative;
+        }
+
+        .featured-img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .featured-icon {
+            font-size: 120px;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 20px 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(230, 126, 34, 0.4);
+        }
+
+        .featured-badge .year {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .featured-badge .award {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .featured-content h3 {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .featured-content h3 span {
+            color: var(--accent-orange);
+        }
+
+        .featured-content > p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            line-height: 1.9;
+        }
+
+        .featured-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .featured-detail {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .featured-detail h4 {
+            font-size: 14px;
+            color: var(--accent-orange);
+            margin-bottom: 5px;
+        }
+
+        .featured-detail p {
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: 0 8px 30px rgba(230, 126, 34, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(230, 126, 34, 0.5);
+        }
+
+        /* Project Categories */
+        .project-categories {
+            background: var(--bg-light);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .category-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid #eee;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: rgba(230, 126, 34, 0.3);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.15), rgba(230, 126, 34, 0.05));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+
+        .category-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .category-card .count {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--accent-orange);
+        }
+
+        .category-card .count span {
+            font-size: 16px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: white;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+            border-radius: 30px;
+            padding: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(230, 126, 34, 0.2) 0%, transparent 60%);
+        }
+
+        .cta-box h2 {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box h2 span {
+            color: var(--accent-orange);
+        }
+
+        .cta-box p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 80px 40px 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-certifications {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cert-badge {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-column ul a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-legal a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(230, 126, 34, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            text-decoration: none;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.98);
+            z-index: 999;
+            padding: 100px 40px 40px;
+            transform: translateX(100%);
+            transition: var(--transition);
+        }
+
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav-links a {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .stats-grid,
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 15px 25px;
+            }
+
+            .nav-links,
+            .nav-contact {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .page-hero {
+                padding: 150px 25px 80px;
+            }
+
+            .page-hero h1 {
+                font-size: 36px;
+            }
+
+            section {
+                padding: 80px 25px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .featured-content h3 {
+                font-size: 28px;
+            }
+
+            .cta-box {
+                padding: 50px 30px;
+            }
+
+            .cta-box h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-details {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-certifications {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">SW</div>
+                <div class="logo-text">성우<span>건설</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="about.html">회사소개</a></li>
+                <li><a href="services.html">사업분야</a></li>
+                <li><a href="projects.html" class="active">시공실적</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+            <div class="nav-contact">
+                <div class="nav-phone"><span>TEL</span> 02-1111-2222</div>
+                <a href="contact.html" class="nav-cta">견적문의</a>
+            </div>
+            <div class="mobile-menu-btn" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" onclick="toggleMobileNav()">홈</a></li>
+            <li><a href="about.html" onclick="toggleMobileNav()">회사소개</a></li>
+            <li><a href="services.html" onclick="toggleMobileNav()">사업분야</a></li>
+            <li><a href="projects.html" onclick="toggleMobileNav()">시공실적</a></li>
+            <li><a href="contact.html" onclick="toggleMobileNav()">문의하기</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>시공<span>실적</span></h1>
+            <p>30년간 500건 이상의 성공적인 프로젝트를 완수했습니다.<br>신뢰와 품질로 고객의 꿈을 현실로 만듭니다.</p>
+            <div class="breadcrumb">
+                <a href="index.html">홈</a>
+                <span>/</span>
+                <span>시공실적</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Stats -->
+    <section class="project-stats">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Our Portfolio</span>
+                <h2 class="section-title">프로젝트 <span>실적</span></h2>
+                <p class="section-subtitle">
+                    성우건설이 완성한 다양한 프로젝트를 소개합니다
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">&#127970;</div>
+                    <div class="stat-number">280<span>+</span></div>
+                    <div class="stat-label">주거시설 프로젝트</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#127962;</div>
+                    <div class="stat-number">120<span>+</span></div>
+                    <div class="stat-label">상업시설 프로젝트</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#127963;</div>
+                    <div class="stat-number">60<span>+</span></div>
+                    <div class="stat-label">공공시설 프로젝트</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128739;</div>
+                    <div class="stat-number">40<span>+</span></div>
+                    <div class="stat-label">토목 프로젝트</div>
+                </div>
+            </div>
+
+            <div class="project-filter">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="residential">주거시설</button>
+                <button class="filter-btn" data-filter="commercial">상업시설</button>
+                <button class="filter-btn" data-filter="public">공공시설</button>
+                <button class="filter-btn" data-filter="civil">토목공사</button>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card" data-category="residential">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#127970;</div>
+                    </div>
+                    <div class="project-year">2024</div>
+                    <div class="project-overlay">
+                        <span class="project-category">주거시설</span>
+                        <h3>강남 힐스테이트 아파트</h3>
+                        <p>지하 3층 / 지상 35층, 420세대</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="commercial">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#127962;</div>
+                    </div>
+                    <div class="project-year">2024</div>
+                    <div class="project-overlay">
+                        <span class="project-category">상업시설</span>
+                        <h3>역삼 프라임타워</h3>
+                        <p>연면적 45,000㎡, 지상 28층</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="public">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#127963;</div>
+                    </div>
+                    <div class="project-year">2023</div>
+                    <div class="project-overlay">
+                        <span class="project-category">공공시설</span>
+                        <h3>서초구 복합문화센터</h3>
+                        <p>문화시설 및 도서관, 체육시설</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="residential">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#127970;</div>
+                    </div>
+                    <div class="project-year">2023</div>
+                    <div class="project-overlay">
+                        <span class="project-category">주거시설</span>
+                        <h3>분당 센트럴파크 아파트</h3>
+                        <p>지하 2층 / 지상 25층, 350세대</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="civil">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#128739;</div>
+                    </div>
+                    <div class="project-year">2023</div>
+                    <div class="project-overlay">
+                        <span class="project-category">토목공사</span>
+                        <h3>경기 순환도로 확장</h3>
+                        <p>도로 연장 12km, 4차선 확장</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="commercial">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#127962;</div>
+                    </div>
+                    <div class="project-year">2022</div>
+                    <div class="project-overlay">
+                        <span class="project-category">상업시설</span>
+                        <h3>판교 테크노밸리 오피스</h3>
+                        <p>연면적 35,000㎡, 지상 20층</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="public">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#127963;</div>
+                    </div>
+                    <div class="project-year">2022</div>
+                    <div class="project-overlay">
+                        <span class="project-category">공공시설</span>
+                        <h3>성남시 종합체육관</h3>
+                        <p>실내체육관 및 수영장, 부대시설</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="residential">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#127970;</div>
+                    </div>
+                    <div class="project-year">2022</div>
+                    <div class="project-overlay">
+                        <span class="project-category">주거시설</span>
+                        <h3>용인 더샵 레이크시티</h3>
+                        <p>지하 2층 / 지상 30층, 580세대</p>
+                    </div>
+                </div>
+                <div class="project-card" data-category="civil">
+                    <div class="project-image">
+                        <div class="project-placeholder">&#128739;</div>
+                    </div>
+                    <div class="project-year">2021</div>
+                    <div class="project-overlay">
+                        <span class="project-category">토목공사</span>
+                        <h3>한강 보행교 신설</h3>
+                        <p>보행전용 교량, 연장 450m</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Project -->
+    <section class="featured-project">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Featured Project</span>
+                <h2 class="section-title">대표 <span>프로젝트</span></h2>
+                <p class="section-subtitle">
+                    성우건설의 기술력을 보여주는 대표 프로젝트입니다
+                </p>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-image">
+                    <div class="featured-img">
+                        <div class="featured-icon">&#127970;</div>
+                    </div>
+                    <div class="featured-badge">
+                        <div class="year">2024</div>
+                        <div class="award">대한건축대상</div>
+                    </div>
+                </div>
+                <div class="featured-content">
+                    <h3>강남 힐스테이트 <span>프리미엄</span></h3>
+                    <p>
+                        강남의 새로운 랜드마크로 자리 잡은 힐스테이트 프리미엄은
+                        최첨단 스마트홈 시스템과 친환경 설계를 적용한 프리미엄 주거단지입니다.
+                        BIM 설계와 모듈러 공법을 통해 완벽한 품질을 구현했습니다.
+                    </p>
+                    <div class="featured-details">
+                        <div class="featured-detail">
+                            <h4>프로젝트 규모</h4>
+                            <p>지하 3층 / 지상 35층</p>
+                        </div>
+                        <div class="featured-detail">
+                            <h4>총 세대수</h4>
+                            <p>420세대</p>
+                        </div>
+                        <div class="featured-detail">
+                            <h4>연면적</h4>
+                            <p>85,000㎡</p>
+                        </div>
+                        <div class="featured-detail">
+                            <h4>공사기간</h4>
+                            <p>2021.03 - 2024.02</p>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="btn-primary">
+                        프로젝트 문의
+                        <span>&#8594;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Categories -->
+    <section class="project-categories">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">By Category</span>
+                <h2 class="section-title">분야별 <span>실적</span></h2>
+                <p class="section-subtitle">
+                    다양한 분야에서 축적한 풍부한 시공 경험
+                </p>
+            </div>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">&#127970;</div>
+                    <h4>주거시설</h4>
+                    <div class="count">280<span>건</span></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#127962;</div>
+                    <h4>상업시설</h4>
+                    <div class="count">120<span>건</span></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#127963;</div>
+                    <h4>공공시설</h4>
+                    <div class="count">60<span>건</span></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">&#128739;</div>
+                    <h4>토목공사</h4>
+                    <div class="count">40<span>건</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <div class="cta-box">
+                <h2>새로운 <span>프로젝트</span>를 시작하세요</h2>
+                <p>30년 경험의 전문가가 귀하의 프로젝트를 성공으로 이끕니다</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn-primary">
+                        무료 견적 상담
+                        <span>&#8594;</span>
+                    </a>
+                    <a href="services.html" class="btn-secondary">
+                        사업분야 보기
+                        <span>&#9658;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon">SW</div>
+                        <div class="logo-text">성우<span>건설</span></div>
+                    </a>
+                    <p>
+                        30년 전통의 종합건설 전문기업 성우건설은<br>
+                        신뢰와 품질을 바탕으로 고객의 꿈을 현실로 만들어 드립니다.
+                    </p>
+                    <div class="footer-certifications">
+                        <div class="cert-badge">ISO<br>9001</div>
+                        <div class="cert-badge">ISO<br>14001</div>
+                        <div class="cert-badge">KOSHA<br>18001</div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>사업분야</h4>
+                    <ul>
+                        <li><a href="services.html">건축 시공</a></li>
+                        <li><a href="services.html">토목 공사</a></li>
+                        <li><a href="services.html">리모델링</a></li>
+                        <li><a href="services.html">플랜트 설비</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>회사정보</h4>
+                    <ul>
+                        <li><a href="about.html">회사소개</a></li>
+                        <li><a href="projects.html">시공실적</a></li>
+                        <li><a href="about.html#certifications">인증 및 특허</a></li>
+                        <li><a href="about.html#careers">채용정보</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>고객지원</h4>
+                    <ul>
+                        <li><a href="contact.html">견적문의</a></li>
+                        <li><a href="contact.html">하자보수 신청</a></li>
+                        <li><a href="contact.html#faq">FAQ</a></li>
+                        <li><a href="contact.html#location">오시는 길</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 성우건설. All Rights Reserved. | 대표: 박건설</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">이메일무단수집거부</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#" class="scroll-top" id="scrollTop" onclick="scrollToTop(event)">&#8593;</a>
+
+    <script>
+        // Scroll to top button visibility
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top function
+        function scrollToTop(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // Project filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 400);
+                    }
+                });
+            });
+        });
+
+        // Animate elements on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.stat-card, .project-card, .category-card');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        document.querySelectorAll('.stat-card, .project-card, .category-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Counter animation for stats
+        const animateCounter = (element, target, suffix = '') => {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.innerHTML = Math.floor(current) + '<span>' + suffix + '</span>';
+            }, 30);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = document.querySelectorAll('.stat-number');
+                    animateCounter(statNumbers[0], 280, '+');
+                    animateCounter(statNumbers[1], 120, '+');
+                    animateCounter(statNumbers[2], 60, '+');
+                    animateCounter(statNumbers[3], 40, '+');
+                    statsObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats-grid');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
