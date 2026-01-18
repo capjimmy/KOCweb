@@ -12,22 +12,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --accent: #22d3ee;
+            --accent-green: #10b981;
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --bg-card-hover: rgba(30, 30, 45, 0.9);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(99, 102, 241, 0.15);
+            --shadow-glow: 0 0 60px rgba(99, 102, 241, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --accent: #22d3ee;
-            --accent-green: #10b981;
-            --bg-dark: #0a0a0f;
-            --bg-card: rgba(20, 20, 30, 0.8);
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
         }
 
         html {
@@ -40,9 +45,10 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Animated Background */
+        /* Background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -50,7 +56,6 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            overflow: hidden;
             pointer-events: none;
         }
 
@@ -61,16 +66,10 @@
             top: -50%;
             left: -50%;
             background:
-                radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-                radial-gradient(ellipse at 80% 70%, rgba(34, 211, 238, 0.1) 0%, transparent 40%),
-                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
-            animation: bgFloat 30s ease-in-out infinite;
-        }
-
-        @keyframes bgFloat {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(3%, 3%) rotate(2deg); }
-            66% { transform: translate(-3%, 2%) rotate(-2deg); }
+                radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+            animation: bgFloat 40s ease-in-out infinite;
         }
 
         .grid-lines {
@@ -85,20 +84,34 @@
             background-size: 80px 80px;
         }
 
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(2%, 1%) rotate(1deg); }
+            50% { transform: translate(-1%, 2%) rotate(-0.5deg); }
+            75% { transform: translate(-2%, -1%) rotate(0.5deg); }
+        }
+
         /* Navigation */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 15px 40px;
+            padding: 0 60px;
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(10, 10, 15, 0.85);
+            background: rgba(10, 10, 15, 0.8);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            height: 70px;
+            background: rgba(10, 10, 15, 0.95);
         }
 
         .nav-logo {
@@ -108,65 +121,136 @@
             text-decoration: none;
         }
 
-        .logo-text {
-            font-size: 1.8rem;
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 900;
-            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.2;
         }
 
         .logo-sub {
             font-size: 0.65rem;
-            color: var(--accent);
-            letter-spacing: 3px;
-            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            font-weight: 500;
         }
 
         .nav-menu {
             display: flex;
-            gap: 35px;
+            gap: 40px;
             align-items: center;
         }
 
         .nav-link {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
+            position: relative;
+            padding: 8px 0;
             transition: color 0.3s ease;
         }
 
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
         .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
             color: var(--accent);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
         .nav-back {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 0.85rem;
-            padding: 8px 16px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .nav-back:hover {
-            background: rgba(99, 102, 241, 0.1);
-            border-color: var(--primary);
-            color: var(--primary-light);
+            color: var(--accent);
         }
 
         .nav-back svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             stroke: currentColor;
             stroke-width: 2;
             fill: none;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-secondary);
+            transition: all 0.3s ease;
         }
 
         /* Hero Section */
@@ -175,13 +259,14 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 120px 40px 80px;
+            padding: 120px 60px 80px;
             z-index: 1;
         }
 
         .hero-container {
             max-width: 1400px;
             margin: 0 auto;
+            width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
@@ -189,28 +274,27 @@
         }
 
         .hero-content {
-            max-width: 600px;
+            max-width: 650px;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 18px;
-            background: rgba(34, 211, 238, 0.1);
-            border: 1px solid rgba(34, 211, 238, 0.3);
+            gap: 10px;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(99, 102, 241, 0.1));
+            border: 1px solid rgba(34, 211, 238, 0.2);
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--accent);
             letter-spacing: 1px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        .hero-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
+        .hero-badge .pulse-dot {
+            width: 10px;
+            height: 10px;
             background: var(--accent);
             border-radius: 50%;
             animation: pulse 2s infinite;
@@ -218,15 +302,15 @@
 
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+            50% { opacity: 0.5; transform: scale(1.3); }
         }
 
         .hero-title {
-            font-size: 3.8rem;
+            font-size: 4rem;
             font-weight: 800;
-            line-height: 1.15;
+            line-height: 1.1;
             margin-bottom: 30px;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
         }
 
         .hero-title .line {
@@ -234,17 +318,34 @@
         }
 
         .hero-title .highlight {
-            background: linear-gradient(135deg, #6366f1, #22d3ee, #10b981);
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--accent-green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
+        .hero-title .underline-text {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title .underline-text::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.3), rgba(34, 211, 238, 0.3));
+            z-index: -1;
+            border-radius: 4px;
+        }
+
         .hero-desc {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: var(--text-secondary);
             line-height: 1.9;
-            margin-bottom: 45px;
+            margin-bottom: 50px;
         }
 
         .hero-desc strong {
@@ -256,42 +357,21 @@
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 60px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 16px 32px;
+            gap: 12px;
+            padding: 18px 36px;
             font-size: 1rem;
             font-weight: 600;
-            border-radius: 12px;
+            border-radius: 14px;
             text-decoration: none;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 35px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .btn svg {
@@ -300,93 +380,39 @@
             stroke: currentColor;
             stroke-width: 2;
             fill: none;
+            transition: transform 0.3s ease;
         }
 
-        /* Hero Visual */
-        .hero-visual {
-            position: relative;
+        .btn:hover svg {
+            transform: translateX(4px);
         }
 
-        .code-window {
-            background: rgba(15, 15, 25, 0.95);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 25px rgba(99, 102, 241, 0.3);
         }
 
-        .code-header {
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        /* Hero Stats */
+        .hero-stats {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 15px 20px;
-            background: rgba(30, 30, 45, 0.8);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
-        }
-
-        .code-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .code-dot.red { background: #ff5f56; }
-        .code-dot.yellow { background: #ffbd2e; }
-        .code-dot.green { background: #27ca40; }
-
-        .code-title {
-            margin-left: 15px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .code-body {
-            padding: 25px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            line-height: 1.8;
-        }
-
-        .code-line {
-            display: flex;
-            gap: 15px;
-        }
-
-        .line-number {
-            color: var(--text-muted);
-            user-select: none;
-            min-width: 25px;
-        }
-
-        .code-comment { color: #6a737d; }
-        .code-keyword { color: #f97583; }
-        .code-function { color: #b392f0; }
-        .code-string { color: #9ecbff; }
-        .code-variable { color: #79b8ff; }
-        .code-operator { color: #f97583; }
-
-        .typing-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 18px;
-            background: var(--accent);
-            animation: blink 1s infinite;
-            vertical-align: middle;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            display: flex;
-            gap: 40px;
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 50px;
         }
 
         .stat-item {
@@ -394,299 +420,156 @@
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1;
         }
 
         .stat-label {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
-        /* Section Common */
-        section {
+        /* Hero Visual */
+        .hero-visual {
             position: relative;
-            z-index: 1;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--primary-light);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-        }
-
-        .section-desc {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* About Section */
-        .about {
-            padding: 120px 0;
-            background: linear-gradient(180deg, transparent, rgba(20, 20, 35, 0.5), transparent);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .about-content h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            line-height: 1.3;
-        }
-
-        .about-content p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 2;
-            margin-bottom: 20px;
-        }
-
-        .about-content p strong {
-            color: var(--accent);
-        }
-
-        .about-quote {
-            margin-top: 40px;
-            padding: 30px;
-            background: rgba(99, 102, 241, 0.1);
-            border-left: 4px solid var(--primary);
-            border-radius: 0 12px 12px 0;
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--text-primary);
-        }
-
-        .about-visual {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .about-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(99, 102, 241, 0.3);
-        }
-
-        .about-card:nth-child(2) { margin-top: 40px; }
-        .about-card:nth-child(3) { margin-top: -20px; }
-
-        .about-card-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(34, 211, 238, 0.2));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .about-card-icon svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--accent);
-            stroke-width: 1.5;
-            fill: none;
-        }
-
-        .about-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .about-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* Services Section */
-        .services {
-            padding: 120px 0;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(99, 102, 241, 0.12);
-            border-radius: 20px;
-            padding: 40px 35px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+        .visual-card {
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
             overflow: hidden;
+            box-shadow: var(--shadow-glow), 0 30px 80px rgba(0, 0, 0, 0.4);
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.15);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-icon {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(34, 211, 238, 0.1));
-            border-radius: 16px;
+        .terminal-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
+            gap: 10px;
+            padding: 18px 24px;
+            background: rgba(30, 30, 45, 0.8);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .service-card:hover .service-icon {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+        .terminal-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
         }
 
-        .service-icon svg {
-            width: 32px;
-            height: 32px;
-            stroke: var(--accent);
-            stroke-width: 1.5;
-            fill: none;
-            transition: stroke 0.3s ease;
-        }
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca40; }
 
-        .service-card:hover .service-icon svg {
-            stroke: white;
-        }
-
-        .service-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-
-        .service-desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .service-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .service-tag {
-            padding: 5px 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            font-size: 0.75rem;
+        .terminal-title {
+            margin-left: 15px;
+            font-size: 0.85rem;
             color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Results Section */
-        .results {
-            padding: 120px 0;
-            background: linear-gradient(180deg, rgba(20, 20, 35, 0.5), transparent);
+        .terminal-body {
+            padding: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 2;
         }
 
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-bottom: 80px;
+        .code-line {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            animation: fadeInLine 0.5s ease forwards;
         }
 
-        .result-card {
-            text-align: center;
-            padding: 40px 30px;
+        .code-line:nth-child(1) { animation-delay: 0.2s; }
+        .code-line:nth-child(2) { animation-delay: 0.4s; }
+        .code-line:nth-child(3) { animation-delay: 0.6s; }
+        .code-line:nth-child(4) { animation-delay: 0.8s; }
+        .code-line:nth-child(5) { animation-delay: 1s; }
+        .code-line:nth-child(6) { animation-delay: 1.2s; }
+
+        @keyframes fadeInLine {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .line-number {
+            color: var(--text-muted);
+            user-select: none;
+            min-width: 30px;
+        }
+
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #c586c0; }
+        .code-function { color: #dcdcaa; }
+        .code-string { color: #ce9178; }
+        .code-variable { color: #9cdcfe; }
+        .code-operator { color: #d4d4d4; }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--accent);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Floating Elements */
+        .floating-card {
+            position: absolute;
             background: var(--bg-card);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: float 4s ease-in-out infinite;
         }
 
-        .result-card:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            transform: translateY(-5px);
+        .floating-card.card-1 {
+            top: -30px;
+            right: -20px;
+            animation-delay: 0s;
         }
 
-        .result-icon {
+        .floating-card.card-2 {
+            bottom: 50px;
+            left: -40px;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .floating-icon {
             width: 50px;
             height: 50px;
-            margin: 0 auto 20px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .result-icon svg {
+        .floating-icon svg {
             width: 26px;
             height: 26px;
             stroke: white;
@@ -694,195 +577,161 @@
             fill: none;
         }
 
-        .result-title {
+        .floating-text h4 {
             font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .result-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .result-value span {
-            color: var(--accent);
-        }
-
-        /* Testimonials */
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .testimonial {
-            background: var(--bg-card);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
-        }
-
-        .testimonial::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 5rem;
-            font-family: Georgia, serif;
-            color: rgba(99, 102, 241, 0.15);
-            line-height: 1;
-        }
-
-        .testimonial-text {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .author-info h4 {
-            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 3px;
         }
 
-        .author-info p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+        .floating-text p {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            font-weight: 500;
         }
 
-        /* Downloads Section */
-        .downloads {
-            padding: 120px 0;
+        /* Features Section */
+        .features {
+            position: relative;
+            z-index: 1;
+            padding: 120px 60px;
+            background: linear-gradient(180deg, transparent, rgba(20, 20, 35, 0.4), transparent);
         }
 
-        .downloads-grid {
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .section-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .download-card {
+        .feature-card {
             background: var(--bg-card);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 20px;
-            padding: 35px;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 45px 35px;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .download-card::before {
-            content: 'FREE';
+        .feature-card::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: -30px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 5px 40px;
-            transform: rotate(45deg);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
 
-        .download-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.15);
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: var(--shadow-glow);
         }
 
-        .download-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(16, 185, 129, 0.15);
-            border-radius: 14px;
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover .feature-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .feature-card:hover .feature-icon svg {
+            stroke: white;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .feature-icon svg {
+            width: 35px;
+            height: 35px;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            fill: none;
+            transition: stroke 0.3s ease;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
             margin-bottom: 25px;
         }
 
-        .download-icon svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--accent-green);
-            stroke-width: 1.5;
-            fill: none;
-        }
-
-        .download-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .download-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .download-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .download-info {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .download-btn {
+        .feature-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 0.85rem;
+            color: var(--accent);
+            font-size: 0.95rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
+            transition: gap 0.3s ease;
         }
 
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        .feature-link:hover {
+            gap: 12px;
         }
 
-        .download-btn svg {
-            width: 16px;
-            height: 16px;
+        .feature-link svg {
+            width: 18px;
+            height: 18px;
             stroke: currentColor;
             stroke-width: 2;
             fill: none;
@@ -890,249 +739,270 @@
 
         /* Process Section */
         .process {
-            padding: 120px 0;
-            background: linear-gradient(180deg, transparent, rgba(20, 20, 35, 0.5), transparent);
+            position: relative;
+            z-index: 1;
+            padding: 120px 60px;
         }
 
         .process-timeline {
             display: flex;
             justify-content: space-between;
-            position: relative;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
+            position: relative;
         }
 
         .process-timeline::before {
             content: '';
             position: absolute;
-            top: 40px;
-            left: 80px;
-            right: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            top: 50px;
+            left: 100px;
+            right: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--accent-green));
+            border-radius: 2px;
         }
 
         .process-step {
             text-align: center;
-            position: relative;
             flex: 1;
+            position: relative;
         }
 
         .step-number {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 25px;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
             background: var(--bg-dark);
-            border: 3px solid var(--primary);
+            border: 4px solid var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 800;
             color: var(--primary-light);
             position: relative;
             z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: transparent;
+            color: white;
+            transform: scale(1.1);
         }
 
         .step-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .step-desc {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
-            max-width: 180px;
+            max-width: 200px;
             margin: 0 auto;
             line-height: 1.6;
         }
 
-        /* Contact Section */
-        .contact {
-            padding: 120px 0;
+        /* CTA Section */
+        .cta {
+            position: relative;
+            z-index: 1;
+            padding: 120px 60px;
         }
 
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
+        .cta-box {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 32px;
+            padding: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-info h2 {
-            font-size: 2.5rem;
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-title {
+            font-size: 2.8rem;
             font-weight: 800;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            position: relative;
         }
 
-        .contact-info p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
+        .cta-desc {
+            font-size: 1.2rem;
+            opacity: 0.9;
             margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
         }
 
-        .contact-methods {
+        .cta-buttons {
             display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
             gap: 20px;
-            padding: 25px;
-            background: var(--bg-card);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .contact-method:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            transform: translateX(10px);
-        }
-
-        .method-icon {
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            flex-wrap: wrap;
+            position: relative;
         }
 
-        .method-icon svg {
-            width: 26px;
-            height: 26px;
-            stroke: white;
-            stroke-width: 2;
-            fill: none;
+        .btn-white {
+            background: white;
+            color: var(--primary-dark);
         }
 
-        .method-content h4 {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .method-content p {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        /* Contact Form */
-        .contact-form-wrapper {
-            background: var(--bg-card);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 24px;
-            padding: 45px;
-        }
-
-        .contact-form-wrapper h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .form-input,
-        .form-textarea {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-family: inherit;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.05);
-        }
-
-        .form-input::placeholder,
-        .form-textarea::placeholder {
-            color: var(--text-muted);
-        }
-
-        .form-textarea {
-            min-height: 140px;
-            resize: vertical;
-        }
-
-        .form-submit {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .form-submit:hover {
+        .btn-white:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(99, 102, 241, 0.35);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
         }
 
         /* Footer */
         .footer {
-            padding: 50px 40px 30px;
-            border-top: 1px solid rgba(99, 102, 241, 0.1);
-            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 80px 60px 40px;
+            border-top: 1px solid var(--border-color);
         }
 
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
-        .footer-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.8;
+        .footer-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
         }
 
-        .footer-text a {
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-secondary);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .social-link:hover svg {
+            stroke: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
             color: var(--text-secondary);
             text-decoration: none;
         }
 
-        .footer-text a:hover {
+        .footer-bottom a:hover {
             color: var(--accent);
         }
 
@@ -1144,11 +1014,12 @@
             }
 
             .hero-content {
-                max-width: 700px;
+                max-width: 800px;
                 margin: 0 auto;
             }
 
-            .hero-buttons {
+            .hero-buttons,
+            .hero-stats {
                 justify-content: center;
             }
 
@@ -1156,96 +1027,96 @@
                 display: none;
             }
 
-            .stats-bar {
-                justify-content: center;
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 992px) {
-            .services-grid,
-            .downloads-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .results-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .about-grid,
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-
-            .about-visual {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-
-            .process-timeline {
-                flex-direction: column;
-                gap: 40px;
-            }
-
-            .process-timeline::before {
-                display: none;
+            .navbar {
+                padding: 0 30px;
             }
 
             .nav-menu {
                 display: none;
             }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-timeline {
+                flex-direction: column;
+                gap: 50px;
+            }
+
+            .process-timeline::before {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-
             .hero {
-                padding: 100px 20px 60px;
+                padding: 100px 30px 60px;
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
 
             .hero-desc {
                 font-size: 1.1rem;
             }
 
-            .section-title {
-                font-size: 2rem;
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
             }
 
-            .services-grid,
-            .downloads-grid,
-            .testimonials {
+            .features,
+            .process,
+            .cta {
+                padding: 80px 30px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .features-grid {
                 grid-template-columns: 1fr;
             }
 
-            .results-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
+            .cta-box {
+                padding: 50px 30px;
             }
 
-            .container {
-                padding: 0 20px;
+            .cta-title {
+                font-size: 2rem;
             }
 
-            .contact-form-wrapper {
-                padding: 30px 25px;
+            .footer {
+                padding: 60px 30px 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
         @media (max-width: 480px) {
             .hero-title {
-                font-size: 2rem;
-            }
-
-            .stats-bar {
-                flex-direction: column;
-                gap: 25px;
-                text-align: center;
+                font-size: 2.2rem;
             }
 
             .hero-buttons {
@@ -1255,6 +1126,10 @@
             .btn {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .stat-value {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -1267,30 +1142,40 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <a href="../index.html" class="nav-logo">
-            <span class="logo-text">KOC</span>
-            <span class="logo-sub">AUTOMATION</span>
+            <div class="logo-icon">K</div>
+            <div class="logo-text">
+                <span class="logo-main">KOC</span>
+                <span class="logo-sub">AUTOMATION</span>
+            </div>
         </a>
         <div class="nav-menu">
-            <a href="#about" class="nav-link">소개</a>
-            <a href="#services" class="nav-link">서비스</a>
-            <a href="#downloads" class="nav-link">무료 배포</a>
-            <a href="#contact" class="nav-link">문의</a>
+            <a href="index.html" class="nav-link active">홈</a>
+            <a href="services.html" class="nav-link">서비스</a>
+            <a href="downloads.html" class="nav-link">무료배포</a>
+            <a href="portfolio.html" class="nav-link">포트폴리오</a>
+            <a href="contact.html" class="nav-cta">문의하기</a>
         </div>
         <a href="../index.html" class="nav-back">
-            <svg viewBox="0 0 24 24">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             메인으로
         </a>
+        <div class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <span class="hero-badge">WORK SMARTER, NOT HARDER</span>
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    WORK SMARTER, NOT HARDER
+                </div>
                 <h1 class="hero-title">
                     <span class="line">귀찮은 업무는</span>
                     <span class="line"><span class="highlight">자동으로</span> 처리되게.</span>
@@ -1301,16 +1186,16 @@
                     <strong>하루 3시간 걸리던 일이 5분</strong>으로 줄어듭니다.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">
+                    <a href="contact.html" class="btn btn-primary">
                         무료 상담 받기
                         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="#downloads" class="btn btn-secondary">
+                    <a href="downloads.html" class="btn btn-outline">
                         무료 자료 받기
                         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                     </a>
                 </div>
-                <div class="stats-bar">
+                <div class="hero-stats">
                     <div class="stat-item">
                         <div class="stat-value">90%</div>
                         <div class="stat-label">업무 시간 절감</div>
@@ -1326,450 +1211,287 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="code-window">
-                    <div class="code-header">
-                        <span class="code-dot red"></span>
-                        <span class="code-dot yellow"></span>
-                        <span class="code-dot green"></span>
-                        <span class="code-title">automation.py</span>
+                <div class="visual-card">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">automation_system.py</span>
                     </div>
-                    <div class="code-body">
+                    <div class="terminal-body">
                         <div class="code-line">
                             <span class="line-number">1</span>
-                            <span class="code-comment"># 매일 3시간 걸리던 업무</span>
+                            <span class="code-comment"># 매일 3시간 걸리던 업무를 자동화</span>
                         </div>
                         <div class="code-line">
                             <span class="line-number">2</span>
-                            <span class="code-keyword">def</span> <span class="code-function">automate_work</span>():
+                            <span class="code-keyword">async def</span> <span class="code-function">automate_daily_work</span>():
                         </div>
                         <div class="code-line">
                             <span class="line-number">3</span>
-                            <span>    data <span class="code-operator">=</span> <span class="code-function">collect</span>(<span class="code-string">"매출데이터"</span>)</span>
+                            <span>    data = <span class="code-keyword">await</span> <span class="code-function">collect</span>(<span class="code-string">"매출_데이터"</span>)</span>
                         </div>
                         <div class="code-line">
                             <span class="line-number">4</span>
-                            <span>    report <span class="code-operator">=</span> <span class="code-function">create</span>(<span class="code-string">"보고서"</span>)</span>
+                            <span>    report = <span class="code-function">generate_report</span>(data)</span>
                         </div>
                         <div class="code-line">
                             <span class="line-number">5</span>
-                            <span>    <span class="code-keyword">return</span> <span class="code-string">"완료! (5분)"</span><span class="typing-cursor"></span></span>
+                            <span>    <span class="code-keyword">await</span> <span class="code-function">send_notification</span>(<span class="code-string">"완료!"</span>)</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">6</span>
+                            <span>    <span class="code-keyword">return</span> <span class="code-string">"5분 만에 완료"</span><span class="typing-cursor"></span></span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <h2>저는 이런 사람입니다</h2>
-                    <p>
-                        회사에서 매일 반복되는 일들 — 엑셀에 계속 입력하는 일, 매출 정리하는 일,
-                        자료 복사해서 붙여넣는 일, 매번 같은 보고서 만드는 일 —
-                        이런 작업들을 <strong>자동으로 처리되도록</strong> 만들어주는 일을 합니다.
-                    </p>
-                    <p>
-                        단순히 프로그램만 만드는 것이 아니라,<br>
-                        <strong>회사가 덜 힘들게 일하도록 구조 자체를 바꿔주는 것</strong>이 제 일입니다.
-                    </p>
-                    <div class="about-quote">
-                        "직원 한 명 더 뽑는 대신,<br>자동으로 일해주는 시스템을 만들어 드립니다."
+                <div class="floating-card card-1">
+                    <div class="floating-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <div class="floating-text">
+                        <h4>실시간 처리</h4>
+                        <p>자동 실행 중</p>
                     </div>
                 </div>
-                <div class="about-visual">
-                    <div class="about-card">
-                        <div class="about-card-icon">
-                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        </div>
-                        <h4>시간 절약</h4>
-                        <p>반복 업무 자동화</p>
-                    </div>
-                    <div class="about-card">
-                        <div class="about-card-icon">
-                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                        </div>
-                        <h4>비용 절감</h4>
-                        <p>인건비 대폭 감소</p>
-                    </div>
-                    <div class="about-card">
-                        <div class="about-card-icon">
-                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        </div>
-                        <h4>실수 제로</h4>
-                        <p>정확한 데이터 처리</p>
-                    </div>
-                    <div class="about-card">
-                        <div class="about-card-icon">
-                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        </div>
-                        <h4>24시간 가동</h4>
-                        <p>쉬지 않는 자동화</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Services</span>
-                <h2 class="section-title">이런 걸 만들어드립니다</h2>
-                <p class="section-desc">
-                    전문용어 없이, 결과로 보여드립니다.<br>
-                    버튼 몇 번으로 끝나는 세상을 만들어 드릴게요.
-                </p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                            <path d="M3 9h18"/>
-                            <path d="M9 21V9"/>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">엑셀 자동 정리</h3>
-                    <p class="service-desc">매일 손으로 하던 엑셀 입력, 정리, 계산을 버튼 한 번으로 자동 완료되게 만듭니다.</p>
-                    <div class="service-features">
-                        <span class="service-tag">데이터 입력</span>
-                        <span class="service-tag">자동 계산</span>
-                        <span class="service-tag">서식 정리</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                            <path d="M14 2v6h6"/>
-                            <path d="M16 13H8"/>
-                            <path d="M16 17H8"/>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">보고서 자동 생성</h3>
-                    <p class="service-desc">매번 같은 양식의 보고서? 데이터만 넣으면 알아서 예쁘게 보고서가 만들어집니다.</p>
-                    <div class="service-features">
-                        <span class="service-tag">일일 보고서</span>
-                        <span class="service-tag">매출 리포트</span>
-                        <span class="service-tag">현황표</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24">
-                            <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">데이터 자동 수집</h3>
-                    <p class="service-desc">여러 곳에 흩어진 데이터를 자동으로 모아서 한 곳에 정리해드립니다.</p>
-                    <div class="service-features">
-                        <span class="service-tag">웹 크롤링</span>
-                        <span class="service-tag">API 연동</span>
-                        <span class="service-tag">통합 관리</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">이메일/알림 자동화</h3>
-                    <p class="service-desc">정기 이메일, 알림톡, 문자 발송을 자동으로 처리합니다.</p>
-                    <div class="service-features">
-                        <span class="service-tag">정기 발송</span>
-                        <span class="service-tag">자동 응답</span>
-                        <span class="service-tag">알림 시스템</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                            <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">관리 시스템 구축</h3>
-                    <p class="service-desc">거래처, 고객, 매출을 한눈에 볼 수 있는 맞춤형 관리표를 만들어드립니다.</p>
-                    <div class="service-features">
-                        <span class="service-tag">고객 관리</span>
-                        <span class="service-tag">재고 관리</span>
-                        <span class="service-tag">매출 현황</span>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/>
-                        </svg>
-                    </div>
-                    <h3 class="service-title">맞춤 솔루션</h3>
-                    <p class="service-desc">"이거 자동화 되나요?" 물어보시면 됩니다. 대부분 가능합니다.</p>
-                    <div class="service-features">
-                        <span class="service-tag">업무 분석</span>
-                        <span class="service-tag">맞춤 개발</span>
-                        <span class="service-tag">유지보수</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Results Section -->
-    <section class="results" id="results">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Results</span>
-                <h2 class="section-title">실제로 이런 변화가 생깁니다</h2>
-                <p class="section-desc">
-                    고객분들이 자동화 시스템을 도입한 후 경험하신 변화입니다.
-                </p>
-            </div>
-            <div class="results-grid">
-                <div class="result-card">
-                    <div class="result-icon">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                    </div>
-                    <div class="result-title">업무 시간</div>
-                    <div class="result-value">3시간 → <span>5분</span></div>
-                </div>
-                <div class="result-card">
-                    <div class="result-icon">
+                <div class="floating-card card-2">
+                    <div class="floating-icon">
                         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                     </div>
-                    <div class="result-title">입력 실수</div>
-                    <div class="result-value">거의 <span>0건</span></div>
-                </div>
-                <div class="result-card">
-                    <div class="result-icon">
-                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                    </div>
-                    <div class="result-title">인력 절감</div>
-                    <div class="result-value"><span>1명</span> 몫</div>
-                </div>
-                <div class="result-card">
-                    <div class="result-icon">
-                        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    </div>
-                    <div class="result-title">전체 파악</div>
-                    <div class="result-value"><span>한눈에</span> OK</div>
-                </div>
-            </div>
-            <div class="testimonials">
-                <div class="testimonial">
-                    <p class="testimonial-text">
-                        "왜 이걸 지금까지 손으로 하고 있었는지 모르겠어요.
-                        매일 2시간씩 하던 엑셀 정리가 이제 클릭 한 번이면 끝나요."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">K</div>
-                        <div class="author-info">
-                            <h4>김 대표님</h4>
-                            <p>무역회사 대표</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <p class="testimonial-text">
-                        "직원 한 명 월급보다 훨씬 저렴한 비용으로
-                        직원 한 명이 하루 종일 할 일을 자동으로 처리하고 있어요."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">P</div>
-                        <div class="author-info">
-                            <h4>박 실장님</h4>
-                            <p>물류회사 관리팀</p>
-                        </div>
+                    <div class="floating-text">
+                        <h4>오류 0건</h4>
+                        <p>100% 정확도</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Downloads Section -->
-    <section class="downloads" id="downloads">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Free Downloads</span>
-                <h2 class="section-title">무료 배포 자료</h2>
-                <p class="section-desc">
-                    업무에 바로 활용할 수 있는 자료들을 무료로 배포합니다.<br>
-                    다운로드 받아 사용해보세요.
-                </p>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <span class="section-badge">Services</span>
+            <h2 class="section-title">이런 업무들을 자동화합니다</h2>
+            <p class="section-desc">
+                전문용어 없이, 결과로 보여드립니다.<br>
+                버튼 몇 번으로 끝나는 세상을 만들어 드릴게요.
+            </p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M3 9h18"/>
+                        <path d="M9 21V9"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">엑셀 자동 정리</h3>
+                <p class="feature-desc">매일 손으로 하던 엑셀 입력, 정리, 계산을 버튼 한 번으로 자동 완료되게 만듭니다.</p>
+                <a href="services.html" class="feature-link">
+                    자세히 보기
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
             </div>
-            <div class="downloads-grid">
-                <div class="download-card">
-                    <div class="download-icon">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                            <path d="M3 9h18"/>
-                            <path d="M9 21V9"/>
-                        </svg>
-                    </div>
-                    <h3 class="download-title">엑셀 자동화 템플릿</h3>
-                    <p class="download-desc">매출 관리, 재고 관리에 바로 쓸 수 있는 자동 계산 엑셀 템플릿입니다.</p>
-                    <div class="download-meta">
-                        <span class="download-info">Excel (.xlsx) · 2.3MB</span>
-                        <a href="#" class="download-btn">
-                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                            다운로드
-                        </a>
-                    </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                        <path d="M14 2v6h6"/>
+                        <path d="M16 13H8"/>
+                        <path d="M16 17H8"/>
+                    </svg>
                 </div>
-                <div class="download-card">
-                    <div class="download-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                            <path d="M14 2v6h6"/>
-                            <path d="M16 13H8"/>
-                            <path d="M16 17H8"/>
-                        </svg>
-                    </div>
-                    <h3 class="download-title">업무 체크리스트</h3>
-                    <p class="download-desc">일일/주간/월간 업무를 체계적으로 관리할 수 있는 체크리스트입니다.</p>
-                    <div class="download-meta">
-                        <span class="download-info">Excel (.xlsx) · 1.1MB</span>
-                        <a href="#" class="download-btn">
-                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                            다운로드
-                        </a>
-                    </div>
+                <h3 class="feature-title">보고서 자동 생성</h3>
+                <p class="feature-desc">매번 같은 양식의 보고서? 데이터만 넣으면 알아서 예쁘게 보고서가 만들어집니다.</p>
+                <a href="services.html" class="feature-link">
+                    자세히 보기
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                    </svg>
                 </div>
-                <div class="download-card">
-                    <div class="download-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
-                    </div>
-                    <h3 class="download-title">자동화 가이드북</h3>
-                    <p class="download-desc">어떤 업무를 자동화할 수 있는지, 어떻게 시작하는지 알려드리는 가이드입니다.</p>
-                    <div class="download-meta">
-                        <span class="download-info">PDF · 5.2MB</span>
-                        <a href="#" class="download-btn">
-                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                            다운로드
-                        </a>
-                    </div>
+                <h3 class="feature-title">데이터 자동 수집</h3>
+                <p class="feature-desc">여러 곳에 흩어진 데이터를 자동으로 모아서 한 곳에 정리해드립니다.</p>
+                <a href="services.html" class="feature-link">
+                    자세히 보기
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
                 </div>
+                <h3 class="feature-title">이메일/알림 자동화</h3>
+                <p class="feature-desc">정기 이메일, 알림톡, 문자 발송을 자동으로 처리합니다.</p>
+                <a href="services.html" class="feature-link">
+                    자세히 보기
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">관리 시스템 구축</h3>
+                <p class="feature-desc">거래처, 고객, 매출을 한눈에 볼 수 있는 맞춤형 관리표를 만들어드립니다.</p>
+                <a href="services.html" class="feature-link">
+                    자세히 보기
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">맞춤 솔루션</h3>
+                <p class="feature-desc">"이거 자동화 되나요?" 물어보시면 됩니다. 대부분 가능합니다.</p>
+                <a href="services.html" class="feature-link">
+                    자세히 보기
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Process Section -->
     <section class="process">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Process</span>
-                <h2 class="section-title">진행 과정</h2>
-                <p class="section-desc">
-                    복잡하지 않습니다. 편하게 말씀해주시면 됩니다.
-                </p>
+        <div class="section-header">
+            <span class="section-badge">Process</span>
+            <h2 class="section-title">진행 과정</h2>
+            <p class="section-desc">
+                복잡하지 않습니다. 편하게 말씀해주시면 됩니다.
+            </p>
+        </div>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4 class="step-title">상담 문의</h4>
+                <p class="step-desc">"이런 업무가 있는데 자동화 되나요?" 편하게 물어보세요.</p>
             </div>
-            <div class="process-timeline">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <h4 class="step-title">상담 문의</h4>
-                    <p class="step-desc">"이런 업무가 있는데 자동화 되나요?" 편하게 물어보세요.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h4 class="step-title">업무 분석</h4>
-                    <p class="step-desc">현재 어떻게 일하고 계신지 파악하고 자동화 방법을 찾습니다.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <h4 class="step-title">개발 및 적용</h4>
-                    <p class="step-desc">맞춤형 자동화 시스템을 만들고 적용합니다.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <h4 class="step-title">사후 관리</h4>
-                    <p class="step-desc">문제가 생기면 바로 해결해드립니다. 확실한 A/S.</p>
-                </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4 class="step-title">업무 분석</h4>
+                <p class="step-desc">현재 어떻게 일하고 계신지 파악하고 자동화 방법을 찾습니다.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4 class="step-title">개발 및 적용</h4>
+                <p class="step-desc">맞춤형 자동화 시스템을 만들고 적용합니다.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4 class="step-title">사후 관리</h4>
+                <p class="step-desc">문제가 생기면 바로 해결해드립니다. 확실한 A/S.</p>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <h2>자동화가 필요하신가요?</h2>
-                    <p>
-                        "이 업무도 자동화 되나요?"<br>
-                        편하게 물어보세요. 무료로 상담해 드립니다.<br>
-                        어떤 업무든 일단 말씀해주시면, 방법을 찾아드릴게요.
-                    </p>
-                    <div class="contact-methods">
-                        <a href="tel:010-5161-7663" class="contact-method">
-                            <div class="method-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-                                </svg>
-                            </div>
-                            <div class="method-content">
-                                <h4>전화 상담</h4>
-                                <p>010-5161-7663</p>
-                            </div>
-                        </a>
-                        <a href="mailto:officekoc9672@gmail.com" class="contact-method">
-                            <div class="method-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                    <polyline points="22,6 12,13 2,6"/>
-                                </svg>
-                            </div>
-                            <div class="method-content">
-                                <h4>이메일 문의</h4>
-                                <p>officekoc9672@gmail.com</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-form-wrapper">
-                    <h3>빠른 문의</h3>
-                    <form>
-                        <div class="form-group">
-                            <label class="form-label">이름 / 회사명</label>
-                            <input type="text" class="form-input" placeholder="예: 홍길동 / ABC회사">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">연락처</label>
-                            <input type="tel" class="form-input" placeholder="예: 010-1234-5678">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">자동화하고 싶은 업무</label>
-                            <textarea class="form-textarea" placeholder="예: 매일 엑셀에 매출 데이터를 입력하고 정리하는데 2시간이 걸려요..."></textarea>
-                        </div>
-                        <button type="submit" class="form-submit">무료 상담 신청하기</button>
-                    </form>
-                </div>
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-box">
+            <h2 class="cta-title">자동화가 필요하신가요?</h2>
+            <p class="cta-desc">
+                "이 업무도 자동화 되나요?" 편하게 물어보세요.<br>
+                무료로 상담해 드립니다.
+            </p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-white">
+                    무료 상담 받기
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="tel:010-5161-7663" class="btn btn-ghost">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                    010-5161-7663
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-logo">KOC</div>
-        <p class="footer-text">
-            &copy; 2024 케이오씨(KOC) | 사업자등록번호: 421-24-01482 | 대표: 박민경<br>
-            경기도 고양시 덕양구 꽃마을로 66, 11층 1107호<br><br>
-            <a href="../index.html">메인으로</a> · <a href="../website-hub.html">웹사이트 제작</a>
-        </p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon">K</div>
+                    <div class="logo-text">
+                        <span class="logo-main">KOC</span>
+                        <span class="logo-sub">AUTOMATION</span>
+                    </div>
+                </div>
+                <p>
+                    반복되는 귀찮은 업무를 자동화하여<br>
+                    시간과 비용을 절약하고 본업에 집중하세요.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="services.html">엑셀 자동화</a></li>
+                    <li><a href="services.html">보고서 생성</a></li>
+                    <li><a href="services.html">데이터 수집</a></li>
+                    <li><a href="services.html">맞춤 솔루션</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>자료</h4>
+                <ul>
+                    <li><a href="downloads.html">무료 템플릿</a></li>
+                    <li><a href="downloads.html">가이드북</a></li>
+                    <li><a href="portfolio.html">포트폴리오</a></li>
+                    <li><a href="portfolio.html">고객 후기</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>문의</h4>
+                <ul>
+                    <li><a href="tel:010-5161-7663">010-5161-7663</a></li>
+                    <li><a href="mailto:officekoc9672@gmail.com">이메일 문의</a></li>
+                    <li><a href="contact.html">상담 신청</a></li>
+                    <li><a href="../index.html">메인 사이트</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 케이오씨(KOC) | 사업자등록번호: 421-24-01482 | 대표: 박민경</p>
+            <p>경기도 고양시 덕양구 꽃마을로 66, 11층 1107호</p>
+        </div>
     </footer>
 
     <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1782,22 +1504,6 @@
                     });
                 }
             });
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
-            } else {
-                navbar.style.background = 'rgba(10, 10, 15, 0.85)';
-            }
-        });
-
-        // Form submission (placeholder)
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다!');
         });
     </script>
 </body>

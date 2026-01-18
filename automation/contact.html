@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KOC 업무 자동화 - 무료 상담 문의. 엑셀 자동화, 보고서 생성, 데이터 수집, 시스템 구축 등 모든 자동화 문의를 받습니다.">
+    <title>문의하기 | KOC 업무 자동화</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #22d3ee;
+            --accent-green: #10b981;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(34, 211, 238, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            animation: bgFloat 30s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(3%, 3%) rotate(2deg); }
+            66% { transform: translate(-3%, 2%) rotate(-2deg); }
+        }
+
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 160px 40px 80px;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, #6366f1, #22d3ee, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Section Common */
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Contact Main Section */
+        .contact-main {
+            padding: 40px 0 100px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Contact Info Side */
+        .contact-info-side {
+            position: sticky;
+            top: 120px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .info-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-card h3 svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(34, 211, 238, 0.15));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--accent);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .contact-detail h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .contact-detail p {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .contact-detail a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-detail a:hover {
+            color: var(--accent);
+        }
+
+        /* Business Hours */
+        .hours-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .hours-item .day {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .hours-item .time {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .hours-item.highlight {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .hours-item.highlight .time {
+            color: var(--accent-green);
+        }
+
+        .response-notice {
+            margin-top: 20px;
+            padding: 18px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .response-notice p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .response-notice strong {
+            color: var(--accent);
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 24px;
+            padding: 50px;
+        }
+
+        .contact-form-wrapper h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .contact-form-wrapper .form-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .form-label .required {
+            color: #f97583;
+            margin-left: 4px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 18px;
+            padding-right: 50px;
+        }
+
+        .form-select option {
+            background: #1a1a2e;
+            color: var(--text-primary);
+            padding: 10px;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-textarea {
+            min-height: 160px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(99, 102, 241, 0.35);
+        }
+
+        .form-submit svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .form-note {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 80px 0;
+        }
+
+        .map-wrapper {
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.9), rgba(30, 30, 50, 0.9));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .map-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .map-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .map-address {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .map-address h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .map-address p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0 100px;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .faq-question .q-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .faq-answer {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            padding-left: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 50px 40px 30px;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-text a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-info-side {
+                position: relative;
+                top: 0;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-desc {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .contact-form-wrapper {
+                padding: 30px 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .info-card {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .hours-item {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="grid-lines"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">
+            <span class="logo-text">KOC</span>
+            <span class="logo-sub">AUTOMATION</span>
+        </a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">홈</a>
+            <a href="index.html#services" class="nav-link">서비스</a>
+            <a href="index.html#downloads" class="nav-link">무료배포</a>
+            <a href="#" class="nav-link">포트폴리오</a>
+            <a href="contact.html" class="nav-link active">문의</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-badge">CONTACT US</span>
+        <h1 class="hero-title"><span class="highlight">무료 상담</span> 문의</h1>
+        <p class="hero-desc">
+            자동화가 필요하신가요? 어떤 업무든 편하게 말씀해주세요.<br>
+            전문가가 무료로 상담해드리고, 최적의 솔루션을 제안해드립니다.
+        </p>
+    </section>
+
+    <!-- Contact Main Section -->
+    <section class="contact-main">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Info Side -->
+                <div class="contact-info-side">
+                    <!-- Direct Contact -->
+                    <div class="info-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                            직접 연락하기
+                        </h3>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                            </div>
+                            <div class="contact-detail">
+                                <h4>전화번호</h4>
+                                <p><a href="tel:010-5161-7663">010-5161-7663</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div class="contact-detail">
+                                <h4>이메일</h4>
+                                <p><a href="mailto:officekoc9672@gmail.com">officekoc9672@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div class="contact-detail">
+                                <h4>주소</h4>
+                                <p>경기도 고양시 덕양구<br>꽃마을로 66, 11층 1107호</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Hours -->
+                    <div class="info-card">
+                        <h3>
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            운영 시간 / 응답 안내
+                        </h3>
+                        <div class="hours-list">
+                            <div class="hours-item">
+                                <span class="day">평일 (월-금)</span>
+                                <span class="time">09:00 - 18:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="day">토요일</span>
+                                <span class="time">10:00 - 15:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="day">일요일/공휴일</span>
+                                <span class="time">휴무</span>
+                            </div>
+                            <div class="hours-item highlight">
+                                <span class="day">이메일 응답</span>
+                                <span class="time">24시간 내 회신</span>
+                            </div>
+                        </div>
+                        <div class="response-notice">
+                            <p>
+                                <strong>빠른 상담이 필요하시면 전화 주세요!</strong><br>
+                                영업시간 외 문의는 다음 영업일에 순차적으로 답변드립니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <h3>상담 문의 양식</h3>
+                    <p class="form-subtitle">아래 양식을 작성해주시면 빠르게 연락드리겠습니다.</p>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">이름 / 회사명<span class="required">*</span></label>
+                                <input type="text" class="form-input" name="name" placeholder="예: 홍길동 / ABC회사" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">연락처<span class="required">*</span></label>
+                                <input type="tel" class="form-input" name="phone" placeholder="예: 010-1234-5678" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">이메일</label>
+                                <input type="email" class="form-input" name="email" placeholder="예: example@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">문의 유형<span class="required">*</span></label>
+                                <select class="form-select" name="inquiry_type" required>
+                                    <option value="">문의 유형을 선택해주세요</option>
+                                    <option value="excel">엑셀자동화</option>
+                                    <option value="report">보고서생성</option>
+                                    <option value="data">데이터수집</option>
+                                    <option value="system">시스템구축</option>
+                                    <option value="other">기타</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">자동화하고 싶은 업무<span class="required">*</span></label>
+                            <textarea class="form-textarea" name="description" placeholder="예: 매일 엑셀에 매출 데이터를 입력하고 정리하는데 2시간이 걸려요. 여러 파일에서 데이터를 모아서 하나의 보고서로 만들어야 하는데 자동화할 수 있을까요?" required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            무료 상담 신청하기
+                            <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                        </button>
+                        <p class="form-note">* 표시된 항목은 필수 입력 사항입니다. 보내주신 정보는 상담 목적으로만 사용됩니다.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-wrapper">
+                <div class="map-placeholder">
+                    <div class="map-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div class="map-address">
+                        <h4>케이오씨(KOC) 오피스</h4>
+                        <p>경기도 고양시 덕양구 꽃마을로 66, 11층 1107호</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">FAQ</span>
+                <h2 class="section-title">자주 묻는 질문</h2>
+                <p class="section-desc">문의 전 자주 묻는 질문을 확인해보세요.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4 class="faq-question">
+                        <span class="q-mark">Q</span>
+                        상담 비용이 있나요?
+                    </h4>
+                    <p class="faq-answer">
+                        아니요, 초기 상담은 <strong>완전 무료</strong>입니다. 현재 업무 상황을 파악하고 자동화 가능 여부와 예상 비용을 안내해드립니다. 부담 없이 문의해주세요.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">
+                        <span class="q-mark">Q</span>
+                        어떤 업무를 자동화할 수 있나요?
+                    </h4>
+                    <p class="faq-answer">
+                        반복적인 엑셀 작업, 데이터 입력/정리, 보고서 생성, 이메일 발송, 웹 데이터 수집 등 대부분의 <strong>반복 업무는 자동화</strong>가 가능합니다. 일단 물어보세요!
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">
+                        <span class="q-mark">Q</span>
+                        개발 기간은 얼마나 걸리나요?
+                    </h4>
+                    <p class="faq-answer">
+                        간단한 엑셀 자동화는 <strong>1-3일</strong>, 복잡한 시스템은 <strong>1-2주</strong> 정도 소요됩니다. 업무 복잡도에 따라 달라지며, 상담 시 정확한 일정을 안내해드립니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">
+                        <span class="q-mark">Q</span>
+                        사후 관리(A/S)는 어떻게 되나요?
+                    </h4>
+                    <p class="faq-answer">
+                        납품 후 <strong>1개월간 무료 수정</strong>을 지원하며, 이후에도 합리적인 비용으로 유지보수 서비스를 제공합니다. 문제 발생 시 빠르게 대응해드립니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">
+                        <span class="q-mark">Q</span>
+                        비용은 어떻게 책정되나요?
+                    </h4>
+                    <p class="faq-answer">
+                        업무의 복잡도와 개발 시간에 따라 책정됩니다. 상담 후 <strong>정확한 견적서</strong>를 무료로 제공해드리니, 부담 없이 문의해주세요.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">
+                        <span class="q-mark">Q</span>
+                        원격으로도 작업이 가능한가요?
+                    </h4>
+                    <p class="faq-answer">
+                        네, <strong>전국 어디서든</strong> 원격으로 상담 및 개발이 가능합니다. 화상회의, 전화, 이메일 등으로 소통하며 진행합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">KOC</div>
+        <p class="footer-text">
+            &copy; 2024 케이오씨(KOC) | 사업자등록번호: 421-24-01482 | 대표: 박민경<br>
+            경기도 고양시 덕양구 꽃마을로 66, 11층 1107호<br><br>
+            <a href="index.html">홈으로</a> &middot; <a href="index.html#services">서비스</a> &middot; <a href="index.html#downloads">무료배포</a>
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 15, 0.85)';
+            }
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Show success message
+            alert('문의가 접수되었습니다!\n\n빠른 시일 내에 연락드리겠습니다.\n감사합니다.');
+
+            // Reset form
+            e.target.reset();
+        });
+
+        // Phone number formatting
+        document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '');
+            if (value.length > 3 && value.length <= 7) {
+                value = value.slice(0, 3) + '-' + value.slice(3);
+            } else if (value.length > 7) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KOC 업무 자동화 서비스 - 엑셀 자동화, 보고서 생성, 데이터 수집, 이메일 알림, 관리 시스템, 맞춤 솔루션">
+    <title>KOC | 서비스 안내 - 이런 업무들을 자동화합니다</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #22d3ee;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-pink: #ec4899;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(34, 211, 238, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            animation: bgFloat 30s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(3%, 3%) rotate(2deg); }
+            66% { transform: translate(-3%, 2%) rotate(-2deg); }
+        }
+
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px;
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 40px 80px;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, #6366f1, #22d3ee, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Section Common */
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 24px;
+            padding: 45px 35px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card.excel { --card-color: #10b981; }
+        .service-card.report { --card-color: #6366f1; }
+        .service-card.data { --card-color: #22d3ee; }
+        .service-card.email { --card-color: #f59e0b; }
+        .service-card.system { --card-color: #ec4899; }
+        .service-card.custom { --card-color: #8b5cf6; }
+
+        .service-icon {
+            width: 75px;
+            height: 75px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(34, 211, 238, 0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            background: linear-gradient(135deg, var(--card-color), var(--accent));
+            transform: scale(1.05);
+        }
+
+        .service-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            fill: none;
+            transition: stroke 0.3s ease;
+        }
+
+        .service-card:hover .service-icon svg {
+            stroke: white;
+        }
+
+        .service-label {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .service-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .service-title-en {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .service-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .service-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .service-feature svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--accent-green);
+            stroke-width: 2;
+            fill: none;
+            flex-shrink: 0;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-tag {
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: linear-gradient(180deg, rgba(20, 20, 35, 0.5), transparent);
+        }
+
+        .pricing-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .pricing-info h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .pricing-info p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .pricing-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 25px;
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+            margin-top: 30px;
+        }
+
+        .pricing-note svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--primary-light);
+            stroke-width: 2;
+            fill: none;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pricing-note p {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .pricing-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateX(10px);
+        }
+
+        .pricing-card-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .pricing-card-price {
+            text-align: right;
+        }
+
+        .pricing-card-price .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .pricing-card-price .note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(34, 211, 238, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 30px;
+            padding: 80px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            animation: ctaPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 36px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .cta-contact {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .cta-contact-item:hover {
+            color: var(--accent);
+        }
+
+        .cta-contact-item svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .cta-contact-item span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 40px 30px;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-brand .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-links-group h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .footer-links-group ul {
+            list-style: none;
+        }
+
+        .footer-links-group li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links-group a {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links-group a:hover {
+            color: var(--accent);
+        }
+
+        .footer-contact h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-contact-item svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--accent);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .footer-contact-item a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .footer-bottom-links a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+
+            .footer-contact {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .cta-box {
+                padding: 50px 30px;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-contact {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="grid-lines"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">
+            <span class="logo-text">KOC</span>
+            <span class="logo-sub">AUTOMATION</span>
+        </a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">홈</a>
+            <a href="services.html" class="nav-link active">서비스</a>
+            <a href="index.html#downloads" class="nav-link">무료배포</a>
+            <a href="index.html#results" class="nav-link">포트폴리오</a>
+            <a href="index.html#contact" class="nav-link">문의</a>
+        </div>
+        <a href="index.html#contact" class="nav-cta">상담 신청</a>
+        <button class="mobile-menu-btn" aria-label="메뉴 열기">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">SERVICES</span>
+            <h1 class="hero-title">
+                이런 업무들을<br><span class="highlight">자동화합니다</span>
+            </h1>
+            <p class="hero-desc">
+                매일 반복되는 업무, 시간만 잡아먹는 단순 작업들.<br>
+                KOC가 자동으로 처리되게 만들어 드립니다.
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">6+</div>
+                    <div class="hero-stat-label">서비스 영역</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">90%</div>
+                    <div class="hero-stat-label">업무 시간 절감</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">100%</div>
+                    <div class="hero-stat-label">맞춤형 개발</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Services</span>
+                <h2 class="section-title">제공하는 서비스</h2>
+                <p class="section-desc">
+                    귀찮은 반복 업무부터 복잡한 시스템까지,<br>
+                    업무 효율을 극대화하는 자동화 솔루션을 제공합니다.
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Excel Automation -->
+                <div class="service-card excel">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18"/>
+                            <path d="M9 21V9"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">01</span>
+                    <h3 class="service-title">엑셀 자동화</h3>
+                    <p class="service-title-en">Excel Automation</p>
+                    <p class="service-desc">
+                        매일 손으로 하던 엑셀 입력, 정리, 계산을 버튼 한 번으로 자동 완료되게 만듭니다. 복잡한 수식도 자동으로 처리됩니다.
+                    </p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>대량 데이터 자동 입력 및 정리</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>복잡한 계산 및 수식 자동화</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>서식 및 포맷 일괄 적용</span>
+                        </div>
+                    </div>
+                    <div class="service-tags">
+                        <span class="service-tag">VBA 매크로</span>
+                        <span class="service-tag">Python</span>
+                        <span class="service-tag">데이터 정리</span>
+                    </div>
+                </div>
+
+                <!-- Report Generation -->
+                <div class="service-card report">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                            <path d="M16 13H8"/>
+                            <path d="M16 17H8"/>
+                            <path d="M10 9H8"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">02</span>
+                    <h3 class="service-title">보고서 자동 생성</h3>
+                    <p class="service-title-en">Report Generation</p>
+                    <p class="service-desc">
+                        매번 같은 양식의 보고서를 만드시나요? 데이터만 넣으면 알아서 예쁘게 보고서가 만들어지도록 자동화합니다.
+                    </p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>일일/주간/월간 보고서 자동 생성</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>매출/현황 리포트 자동화</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>차트 및 그래프 자동 생성</span>
+                        </div>
+                    </div>
+                    <div class="service-tags">
+                        <span class="service-tag">PDF 생성</span>
+                        <span class="service-tag">Word</span>
+                        <span class="service-tag">PowerPoint</span>
+                    </div>
+                </div>
+
+                <!-- Data Collection -->
+                <div class="service-card data">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">03</span>
+                    <h3 class="service-title">데이터 자동 수집</h3>
+                    <p class="service-title-en">Data Collection</p>
+                    <p class="service-desc">
+                        여러 곳에 흩어진 데이터를 자동으로 모아서 한 곳에 정리해드립니다. 웹사이트, API, 다양한 소스에서 데이터를 수집합니다.
+                    </p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>웹 크롤링 및 스크래핑</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>API 연동 및 데이터 통합</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>실시간 데이터 모니터링</span>
+                        </div>
+                    </div>
+                    <div class="service-tags">
+                        <span class="service-tag">웹 크롤링</span>
+                        <span class="service-tag">API</span>
+                        <span class="service-tag">데이터베이스</span>
+                    </div>
+                </div>
+
+                <!-- Email/Notification -->
+                <div class="service-card email">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">04</span>
+                    <h3 class="service-title">이메일/알림 자동화</h3>
+                    <p class="service-title-en">Email & Notification</p>
+                    <p class="service-desc">
+                        정기 이메일, 알림톡, 문자 발송을 자동으로 처리합니다. 중요한 알림을 놓치지 않도록 자동 알림 시스템을 구축합니다.
+                    </p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>정기 이메일 자동 발송</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>카카오 알림톡/문자 발송</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>조건부 자동 알림 시스템</span>
+                        </div>
+                    </div>
+                    <div class="service-tags">
+                        <span class="service-tag">이메일</span>
+                        <span class="service-tag">알림톡</span>
+                        <span class="service-tag">SMS</span>
+                    </div>
+                </div>
+
+                <!-- Management Systems -->
+                <div class="service-card system">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">05</span>
+                    <h3 class="service-title">관리 시스템 구축</h3>
+                    <p class="service-title-en">Management Systems</p>
+                    <p class="service-desc">
+                        거래처, 고객, 매출을 한눈에 볼 수 있는 맞춤형 관리 시스템을 만들어드립니다. 복잡한 데이터도 쉽게 관리하세요.
+                    </p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>고객/거래처 관리 시스템</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>재고/주문 관리 시스템</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>매출/실적 대시보드</span>
+                        </div>
+                    </div>
+                    <div class="service-tags">
+                        <span class="service-tag">CRM</span>
+                        <span class="service-tag">ERP</span>
+                        <span class="service-tag">대시보드</span>
+                    </div>
+                </div>
+
+                <!-- Custom Solutions -->
+                <div class="service-card custom">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                        </svg>
+                    </div>
+                    <span class="service-label">06</span>
+                    <h3 class="service-title">맞춤 솔루션</h3>
+                    <p class="service-title-en">Custom Solutions</p>
+                    <p class="service-desc">
+                        "이거 자동화 되나요?" 물어보시면 됩니다. 대부분 가능합니다. 어떤 업무든 분석 후 최적의 자동화 방법을 찾아드립니다.
+                    </p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>업무 프로세스 분석</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>맞춤형 솔루션 개발</span>
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>지속적인 유지보수</span>
+                        </div>
+                    </div>
+                    <div class="service-tags">
+                        <span class="service-tag">맞춤 개발</span>
+                        <span class="service-tag">컨설팅</span>
+                        <span class="service-tag">유지보수</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="pricing-content">
+                <div class="pricing-info">
+                    <h2>비용은 어떻게 되나요?</h2>
+                    <p>
+                        모든 프로젝트는 업무의 복잡도와 범위에 따라 비용이 달라집니다.
+                        무료 상담을 통해 정확한 견적을 안내해 드립니다.
+                    </p>
+                    <p>
+                        직원 한 명 월급보다 훨씬 저렴한 비용으로,<br>
+                        직원 한 명이 하루 종일 할 일을 자동으로 처리할 수 있습니다.
+                    </p>
+                    <div class="pricing-note">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        <p>
+                            <strong>무료 상담</strong>을 통해 업무를 분석하고,<br>
+                            자동화 가능 여부와 예상 비용을 안내해 드립니다.<br>
+                            부담 없이 문의해 주세요.
+                        </p>
+                    </div>
+                </div>
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <div class="pricing-card-info">
+                            <h4>간단한 엑셀 자동화</h4>
+                            <p>매크로, 자동 계산, 서식 정리 등</p>
+                        </div>
+                        <div class="pricing-card-price">
+                            <div class="price">문의 필요</div>
+                            <div class="note">업무 복잡도에 따라</div>
+                        </div>
+                    </div>
+                    <div class="pricing-card">
+                        <div class="pricing-card-info">
+                            <h4>보고서/데이터 자동화</h4>
+                            <p>보고서 자동 생성, 데이터 수집 등</p>
+                        </div>
+                        <div class="pricing-card-price">
+                            <div class="price">문의 필요</div>
+                            <div class="note">업무 범위에 따라</div>
+                        </div>
+                    </div>
+                    <div class="pricing-card">
+                        <div class="pricing-card-info">
+                            <h4>관리 시스템 구축</h4>
+                            <p>맞춤형 관리 시스템, 대시보드 등</p>
+                        </div>
+                        <div class="pricing-card-price">
+                            <div class="price">문의 필요</div>
+                            <div class="note">시스템 규모에 따라</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-content">
+                    <h2 class="cta-title">자동화가 필요하신가요?</h2>
+                    <p class="cta-desc">
+                        "이 업무도 자동화 되나요?" 편하게 물어보세요.<br>
+                        무료로 상담해 드리고, 최적의 방법을 찾아드립니다.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="index.html#contact" class="btn btn-primary">
+                            무료 상담 신청하기
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="index.html#downloads" class="btn btn-secondary">
+                            무료 자료 받기
+                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                        </a>
+                    </div>
+                    <div class="cta-contact">
+                        <a href="tel:010-5161-7663" class="cta-contact-item">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                            </svg>
+                            <span>010-5161-7663</span>
+                        </a>
+                        <a href="mailto:officekoc9672@gmail.com" class="cta-contact-item">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <span>officekoc9672@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">KOC</div>
+                <p>
+                    귀찮은 업무는 자동으로.<br>
+                    업무 자동화 전문 서비스
+                </p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-links-group">
+                    <h4>서비스</h4>
+                    <ul>
+                        <li><a href="#services">엑셀 자동화</a></li>
+                        <li><a href="#services">보고서 자동 생성</a></li>
+                        <li><a href="#services">데이터 자동 수집</a></li>
+                        <li><a href="#services">이메일/알림 자동화</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h4>바로가기</h4>
+                    <ul>
+                        <li><a href="index.html">홈</a></li>
+                        <li><a href="services.html">서비스</a></li>
+                        <li><a href="index.html#downloads">무료배포</a></li>
+                        <li><a href="index.html#results">포트폴리오</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h4>회사</h4>
+                    <ul>
+                        <li><a href="index.html#about">소개</a></li>
+                        <li><a href="index.html#contact">문의하기</a></li>
+                        <li><a href="../index.html">메인 홈페이지</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <h4>연락처</h4>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                    </svg>
+                    <a href="tel:010-5161-7663">010-5161-7663</a>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <a href="mailto:officekoc9672@gmail.com">officekoc9672@gmail.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 케이오씨(KOC) | 사업자등록번호: 421-24-01482 | 대표: 박민경</p>
+            <div class="footer-bottom-links">
+                <a href="../index.html">메인으로</a>
+                <a href="index.html#contact">문의하기</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 15, 0.85)';
+            }
+        });
+
+        // Mobile menu toggle (placeholder)
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                // Toggle mobile menu logic here
+                alert('메뉴 기능은 추후 구현 예정입니다.');
+            });
+        }
+    </script>
+</body>
+</html>

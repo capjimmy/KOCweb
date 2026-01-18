@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="KOC 업무 자동화 성공 사례 - 실제 고객사의 자동화 도입 후기와 성과를 확인하세요.">
+    <title>KOC | 자동화 성공 사례 - 포트폴리오</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #22d3ee;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-pink: #ec4899;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(34, 211, 238, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            animation: bgFloat 30s ease-in-out infinite;
+        }
+
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(3%, 3%) rotate(2deg); }
+            66% { transform: translate(-3%, 2%) rotate(-2deg); }
+        }
+
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-back:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        .nav-back svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 160px 40px 100px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, #6366f1, #22d3ee, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            line-height: 1.8;
+        }
+
+        /* Overall Stats */
+        .overall-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .overall-stat {
+            text-align: center;
+        }
+
+        .overall-stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .overall-stat-label {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* Section Common */
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Case Studies Section */
+        .case-studies {
+            padding: 100px 0;
+        }
+
+        .case-study-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 50px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .case-study-card:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--accent-green), var(--accent));
+        }
+
+        .case-study-card:nth-child(3)::before {
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink));
+        }
+
+        .case-study-card:nth-child(4)::before {
+            background: linear-gradient(90deg, var(--accent-pink), var(--primary));
+        }
+
+        .case-study-card:nth-child(5)::before {
+            background: linear-gradient(90deg, var(--accent), var(--accent-green));
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .case-info {
+            flex: 1;
+        }
+
+        .case-industry {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 15px;
+        }
+
+        .case-industry svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .case-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .case-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .case-metrics {
+            display: flex;
+            gap: 30px;
+        }
+
+        .metric-box {
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-green);
+        }
+
+        .case-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 35px;
+        }
+
+        .case-section {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+        }
+
+        .case-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .case-section-title svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--accent);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .case-section p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .case-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .case-section ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .case-section ul li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Before/After Comparison */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .comparison-box {
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .comparison-box.before {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .comparison-box.after {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .comparison-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .comparison-box.before .comparison-label {
+            color: #ef4444;
+        }
+
+        .comparison-box.after .comparison-label {
+            color: var(--accent-green);
+        }
+
+        .comparison-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .comparison-box.before .comparison-value {
+            color: #f87171;
+        }
+
+        .comparison-box.after .comparison-value {
+            color: var(--accent-green);
+        }
+
+        .comparison-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .comparison-arrow {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .comparison-arrow svg {
+            width: 28px;
+            height: 28px;
+            stroke: white;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        /* Testimonial Quote */
+        .case-testimonial {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(34, 211, 238, 0.05));
+            border-left: 4px solid var(--primary);
+            border-radius: 0 16px 16px 0;
+            position: relative;
+        }
+
+        .case-testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            font-family: Georgia, serif;
+            color: rgba(99, 102, 241, 0.2);
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-left: 30px;
+        }
+
+        .author-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .author-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Results Bar Chart */
+        .results-visualization {
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            margin-bottom: 35px;
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        .chart-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chart-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chart-bar-label {
+            width: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .chart-bar-container {
+            flex: 1;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chart-bar-fill {
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            transition: width 1s ease;
+        }
+
+        .chart-bar-fill.primary {
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+
+        .chart-bar-fill.green {
+            background: linear-gradient(90deg, #059669, var(--accent-green));
+        }
+
+        .chart-bar-fill.accent {
+            background: linear-gradient(90deg, #0891b2, var(--accent));
+        }
+
+        /* Statistics Section */
+        .statistics {
+            padding: 100px 0;
+            background: linear-gradient(180deg, rgba(20, 20, 35, 0.5), transparent);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--bg-card);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 0 0 3px 3px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(34, 211, 238, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--accent);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(34, 211, 238, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 32px;
+            padding: 80px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+            animation: ctaFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes ctaFloat {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(5%, 5%); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 50px 40px 30px;
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-text a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .case-content {
+                grid-template-columns: 1fr;
+            }
+
+            .before-after {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .comparison-arrow {
+                transform: rotate(90deg);
+                margin: 0 auto;
+            }
+
+            .case-metrics {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .overall-stats {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .case-study-card {
+                padding: 30px 25px;
+            }
+
+            .case-title {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .cta-card {
+                padding: 50px 30px;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
+
+            .overall-stats {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .overall-stat-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .case-header {
+                flex-direction: column;
+            }
+
+            .case-metrics {
+                width: 100%;
+            }
+
+            .metric-box {
+                flex: 1;
+                padding: 15px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="grid-lines"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">
+            <span class="logo-text">KOC</span>
+            <span class="logo-sub">PORTFOLIO</span>
+        </a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">자동화 서비스</a>
+            <a href="#case-studies" class="nav-link">성공 사례</a>
+            <a href="#statistics" class="nav-link">성과 통계</a>
+            <a href="#contact" class="nav-link">문의하기</a>
+        </div>
+        <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            서비스 페이지
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="hero-badge">SUCCESS STORIES</span>
+        <h1 class="hero-title">
+            <span class="highlight">자동화 성공 사례</span>
+        </h1>
+        <p class="hero-desc">
+            실제 고객분들의 업무 자동화 도입 사례입니다.<br>
+            어떤 문제를 어떻게 해결했고, 어떤 결과가 나왔는지 확인해보세요.
+        </p>
+        <div class="overall-stats">
+            <div class="overall-stat">
+                <div class="overall-stat-value">50+</div>
+                <div class="overall-stat-label">자동화 프로젝트 완료</div>
+            </div>
+            <div class="overall-stat">
+                <div class="overall-stat-value">97%</div>
+                <div class="overall-stat-label">고객 만족도</div>
+            </div>
+            <div class="overall-stat">
+                <div class="overall-stat-value">10,000+</div>
+                <div class="overall-stat-label">절감된 업무 시간(h)</div>
+            </div>
+            <div class="overall-stat">
+                <div class="overall-stat-value">100%</div>
+                <div class="overall-stat-label">재계약율</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="case-studies" id="case-studies">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Case Studies</span>
+                <h2 class="section-title">상세 성공 사례</h2>
+                <p class="section-desc">
+                    각 사례별 문제점, 해결 방법, 그리고 실제 성과를 확인하세요.
+                </p>
+            </div>
+
+            <!-- Case Study 1: 무역회사 -->
+            <div class="case-study-card">
+                <div class="case-header">
+                    <div class="case-info">
+                        <span class="case-industry">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            무역회사
+                        </span>
+                        <h3 class="case-title">엑셀 자동화로 3시간 업무를 5분으로</h3>
+                        <p class="case-subtitle">수출입 데이터 정리 및 보고서 자동 생성 시스템</p>
+                    </div>
+                    <div class="case-metrics">
+                        <div class="metric-box">
+                            <div class="metric-label">시간 절감</div>
+                            <div class="metric-value">97%</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">월 절감 시간</div>
+                            <div class="metric-value">60시간</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="comparison-box before">
+                        <div class="comparison-label">Before</div>
+                        <div class="comparison-value">3시간</div>
+                        <div class="comparison-desc">매일 수작업으로 데이터 정리</div>
+                    </div>
+                    <div class="comparison-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                    <div class="comparison-box after">
+                        <div class="comparison-label">After</div>
+                        <div class="comparison-value">5분</div>
+                        <div class="comparison-desc">버튼 클릭으로 자동 완료</div>
+                    </div>
+                </div>
+
+                <div class="case-content">
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                            문제점 / 도전 과제
+                        </h4>
+                        <ul>
+                            <li>매일 여러 거래처에서 오는 수출입 데이터를 엑셀에 수작업으로 입력</li>
+                            <li>데이터 형식이 거래처마다 달라 정리하는 데 시간 소요</li>
+                            <li>수작업 입력으로 인한 잦은 실수와 오류</li>
+                            <li>월말 보고서 작성에 추가로 반나절 이상 소요</li>
+                        </ul>
+                    </div>
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            제공한 솔루션
+                        </h4>
+                        <ul>
+                            <li>거래처별 데이터 형식을 자동 인식하는 통합 시스템 구축</li>
+                            <li>엑셀 매크로 + Python 연동으로 자동 데이터 정리</li>
+                            <li>원클릭 보고서 자동 생성 기능 개발</li>
+                            <li>데이터 검증 로직으로 입력 오류 자동 감지</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="results-visualization">
+                    <div class="chart-title">성과 지표</div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">업무 시간</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill green" style="width: 97%;">97% 절감</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">입력 정확도</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill primary" style="width: 100%;">100%</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">업무 만족도</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill accent" style="width: 95%;">95%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-testimonial">
+                    <p class="testimonial-text">
+                        "왜 이걸 지금까지 손으로 하고 있었는지 모르겠어요. 매일 3시간씩 하던 엑셀 정리가 이제 클릭 한 번이면 끝나요.
+                        덕분에 실수도 없어지고, 거래처 관리에 더 집중할 수 있게 됐습니다."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">K</div>
+                        <div class="author-info">
+                            <h4>김 대표님</h4>
+                            <p>무역회사 대표</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 2: 물류회사 -->
+            <div class="case-study-card">
+                <div class="case-header">
+                    <div class="case-info">
+                        <span class="case-industry">
+                            <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                            물류회사
+                        </span>
+                        <h3 class="case-title">재고관리 시스템 완전 자동화</h3>
+                        <p class="case-subtitle">실시간 재고 추적 및 자동 발주 시스템</p>
+                    </div>
+                    <div class="case-metrics">
+                        <div class="metric-box">
+                            <div class="metric-label">재고 정확도</div>
+                            <div class="metric-value">99.8%</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">인력 절감</div>
+                            <div class="metric-value">1명분</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="comparison-box before">
+                        <div class="comparison-label">Before</div>
+                        <div class="comparison-value">수동 관리</div>
+                        <div class="comparison-desc">엑셀로 재고 수기 입력</div>
+                    </div>
+                    <div class="comparison-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                    <div class="comparison-box after">
+                        <div class="comparison-label">After</div>
+                        <div class="comparison-value">실시간 자동</div>
+                        <div class="comparison-desc">바코드 스캔만으로 자동 반영</div>
+                    </div>
+                </div>
+
+                <div class="case-content">
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                            문제점 / 도전 과제
+                        </h4>
+                        <ul>
+                            <li>수기로 관리하는 재고 현황의 잦은 불일치</li>
+                            <li>재고 부족 파악이 늦어 납기 지연 발생</li>
+                            <li>직원 1명이 종일 재고 관리 업무에 투입</li>
+                            <li>월말 재고 실사에 이틀 이상 소요</li>
+                        </ul>
+                    </div>
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            제공한 솔루션
+                        </h4>
+                        <ul>
+                            <li>바코드 스캔 기반 실시간 재고 관리 시스템</li>
+                            <li>안전 재고 기준 자동 발주 알림 시스템</li>
+                            <li>창고별, 품목별 재고 현황 대시보드</li>
+                            <li>입출고 이력 자동 기록 및 보고서 생성</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="results-visualization">
+                    <div class="chart-title">성과 지표</div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">재고 정확도</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill primary" style="width: 99.8%;">99.8%</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">관리 시간</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill green" style="width: 85%;">85% 절감</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">납기 준수율</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill accent" style="width: 98%;">98%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-testimonial">
+                    <p class="testimonial-text">
+                        "직원 한 명 월급보다 훨씬 저렴한 비용으로 직원 한 명이 하루 종일 할 일을 자동으로 처리하고 있어요.
+                        재고 불일치 문제가 사라지니까 거래처 클레임도 확 줄었습니다."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div class="author-info">
+                            <h4>박 실장님</h4>
+                            <p>물류회사 관리팀</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 3: 제조업체 -->
+            <div class="case-study-card">
+                <div class="case-header">
+                    <div class="case-info">
+                        <span class="case-industry">
+                            <svg viewBox="0 0 24 24"><path d="M2 20h20"/><path d="M5 20V10l7-7 7 7v10"/><path d="M9 20v-6h6v6"/></svg>
+                            제조업체
+                        </span>
+                        <h3 class="case-title">일일 보고서 자동 생성 시스템</h3>
+                        <p class="case-subtitle">생산량, 불량률, 가동률 보고서 자동화</p>
+                    </div>
+                    <div class="case-metrics">
+                        <div class="metric-box">
+                            <div class="metric-label">보고서 작성</div>
+                            <div class="metric-value">자동화</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">일일 절감</div>
+                            <div class="metric-value">2시간</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="comparison-box before">
+                        <div class="comparison-label">Before</div>
+                        <div class="comparison-value">2시간</div>
+                        <div class="comparison-desc">매일 수작업 보고서 작성</div>
+                    </div>
+                    <div class="comparison-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                    <div class="comparison-box after">
+                        <div class="comparison-label">After</div>
+                        <div class="comparison-value">자동</div>
+                        <div class="comparison-desc">매일 오전 9시 자동 발송</div>
+                    </div>
+                </div>
+
+                <div class="case-content">
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                            문제점 / 도전 과제
+                        </h4>
+                        <ul>
+                            <li>매일 아침 생산 데이터를 수집해 보고서 작성에 2시간 소요</li>
+                            <li>여러 라인의 데이터를 수동으로 취합하며 오류 발생</li>
+                            <li>급한 의사결정에 필요한 데이터 확인이 늦어짐</li>
+                            <li>담당자 부재 시 보고서 작성이 불가능</li>
+                        </ul>
+                    </div>
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            제공한 솔루션
+                        </h4>
+                        <ul>
+                            <li>생산 설비 데이터 자동 수집 시스템 연동</li>
+                            <li>생산량, 불량률, 가동률 자동 계산 및 분석</li>
+                            <li>매일 정해진 시간에 보고서 자동 생성 및 이메일 발송</li>
+                            <li>실시간 생산 현황 대시보드 제공</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="results-visualization">
+                    <div class="chart-title">성과 지표</div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">보고서 시간</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill green" style="width: 100%;">100% 자동화</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">데이터 정확도</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill primary" style="width: 100%;">100%</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">의사결정 속도</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill accent" style="width: 80%;">80% 향상</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-testimonial">
+                    <p class="testimonial-text">
+                        "출근하면 이미 보고서가 메일함에 와 있어요. 예전에는 오전 내내 보고서 만들느라 정작 중요한 일을 못했는데,
+                        이제는 바로 현황 파악하고 의사결정할 수 있어서 업무 효율이 확 올랐습니다."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">L</div>
+                        <div class="author-info">
+                            <h4>이 공장장님</h4>
+                            <p>제조업체 생산관리</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 4: 소매업 -->
+            <div class="case-study-card">
+                <div class="case-header">
+                    <div class="case-info">
+                        <span class="case-industry">
+                            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+                            소매업
+                        </span>
+                        <h3 class="case-title">매출 데이터 자동 수집/분석 시스템</h3>
+                        <p class="case-subtitle">다채널 매출 통합 관리 및 분석 대시보드</p>
+                    </div>
+                    <div class="case-metrics">
+                        <div class="metric-box">
+                            <div class="metric-label">데이터 수집</div>
+                            <div class="metric-value">자동화</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">분석 시간</div>
+                            <div class="metric-value">90% 단축</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="comparison-box before">
+                        <div class="comparison-label">Before</div>
+                        <div class="comparison-value">4시간+</div>
+                        <div class="comparison-desc">각 채널별 수동 데이터 취합</div>
+                    </div>
+                    <div class="comparison-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                    <div class="comparison-box after">
+                        <div class="comparison-label">After</div>
+                        <div class="comparison-value">실시간</div>
+                        <div class="comparison-desc">통합 대시보드에서 한눈에</div>
+                    </div>
+                </div>
+
+                <div class="case-content">
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                            문제점 / 도전 과제
+                        </h4>
+                        <ul>
+                            <li>온라인몰, 오프라인 매장, 마켓플레이스 등 채널별 매출 데이터 분산</li>
+                            <li>각 채널에서 매일 데이터를 다운받아 수동으로 합치는 작업</li>
+                            <li>채널별 수수료 계산이 복잡해 실제 이익 파악 어려움</li>
+                            <li>베스트셀러 분석이나 재고 연동이 제때 안 됨</li>
+                        </ul>
+                    </div>
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            제공한 솔루션
+                        </h4>
+                        <ul>
+                            <li>각 판매 채널 API 연동으로 매출 데이터 자동 수집</li>
+                            <li>채널별 수수료 자동 계산 및 순이익 분석</li>
+                            <li>상품별, 기간별, 채널별 매출 분석 대시보드</li>
+                            <li>재고-판매 연동으로 품절 예방 알림</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="results-visualization">
+                    <div class="chart-title">성과 지표</div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">데이터 수집</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill green" style="width: 90%;">90% 시간 절감</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">분석 정확도</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill primary" style="width: 100%;">100%</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">재고 회전율</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill accent" style="width: 35%;">35% 향상</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-testimonial">
+                    <p class="testimonial-text">
+                        "스마트스토어, 쿠팡, 오프라인 매장 매출을 한 화면에서 보니까 세상이 달라졌어요.
+                        어떤 채널이 진짜 돈이 되는지, 어떤 상품이 잘 팔리는지 바로 알 수 있으니 사입 결정도 빨라졌습니다."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">C</div>
+                        <div class="author-info">
+                            <h4>최 사장님</h4>
+                            <p>소매업 대표</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 5: 서비스업 -->
+            <div class="case-study-card">
+                <div class="case-header">
+                    <div class="case-info">
+                        <span class="case-industry">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                            서비스업
+                        </span>
+                        <h3 class="case-title">고객 관리 시스템(CRM) 구축</h3>
+                        <p class="case-subtitle">고객 데이터 통합 관리 및 자동 팔로업 시스템</p>
+                    </div>
+                    <div class="case-metrics">
+                        <div class="metric-box">
+                            <div class="metric-label">고객 관리</div>
+                            <div class="metric-value">체계화</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-label">재방문율</div>
+                            <div class="metric-value">40% 증가</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="before-after">
+                    <div class="comparison-box before">
+                        <div class="comparison-label">Before</div>
+                        <div class="comparison-value">엑셀 분산</div>
+                        <div class="comparison-desc">고객 정보가 여기저기 흩어져</div>
+                    </div>
+                    <div class="comparison-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                    <div class="comparison-box after">
+                        <div class="comparison-label">After</div>
+                        <div class="comparison-value">통합 관리</div>
+                        <div class="comparison-desc">한 곳에서 모든 고객 이력 관리</div>
+                    </div>
+                </div>
+
+                <div class="case-content">
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                            문제점 / 도전 과제
+                        </h4>
+                        <ul>
+                            <li>고객 정보가 엑셀, 메모, 카톡 등에 분산되어 관리 어려움</li>
+                            <li>단골 고객에 대한 체계적인 팔로업 부재</li>
+                            <li>고객 히스토리 파악이 안 되어 맞춤 서비스 제공 어려움</li>
+                            <li>생일, 기념일 등 마케팅 타이밍을 놓침</li>
+                        </ul>
+                    </div>
+                    <div class="case-section">
+                        <h4 class="case-section-title">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            제공한 솔루션
+                        </h4>
+                        <ul>
+                            <li>고객 정보 통합 데이터베이스 구축</li>
+                            <li>방문 이력, 구매 내역, 선호도 자동 기록</li>
+                            <li>생일/기념일 자동 알림 및 메시지 발송 시스템</li>
+                            <li>VIP 고객 자동 분류 및 특별 관리 기능</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="results-visualization">
+                    <div class="chart-title">성과 지표</div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">고객 재방문</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill green" style="width: 40%;">40% 증가</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">고객 만족도</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill primary" style="width: 92%;">92%</div>
+                            </div>
+                        </div>
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-label">업셀링 성공</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar-fill accent" style="width: 55%;">55% 향상</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-testimonial">
+                    <p class="testimonial-text">
+                        "고객이 오면 바로 이전 방문 내역이 뜨니까 '지난번에 A 제품 좋아하셨죠?' 이런 식으로 응대할 수 있어요.
+                        고객분들이 기억해줘서 감동이라고 하시는데, 사실 다 시스템 덕분이죠. 재방문율이 확실히 올랐습니다."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div class="author-info">
+                            <h4>정 원장님</h4>
+                            <p>서비스업 원장</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="statistics" id="statistics">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Statistics</span>
+                <h2 class="section-title">자동화 도입 성과 통계</h2>
+                <p class="section-desc">
+                    KOC 자동화 시스템을 도입한 고객분들의 평균 성과입니다.
+                </p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <div class="stat-number">85%</div>
+                    <div class="stat-title">평균 시간 절감</div>
+                    <div class="stat-desc">반복 업무 처리 시간 대폭 감소</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div class="stat-number">99%</div>
+                    <div class="stat-title">데이터 정확도</div>
+                    <div class="stat-desc">수작업 대비 오류율 대폭 감소</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    </div>
+                    <div class="stat-number">3배</div>
+                    <div class="stat-title">투자 대비 효과</div>
+                    <div class="stat-desc">평균 3개월 내 투자비용 회수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
+                    </div>
+                    <div class="stat-number">97%</div>
+                    <div class="stat-title">고객 만족도</div>
+                    <div class="stat-desc">도입 후 만족도 조사 결과</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2 class="cta-title">다음 성공 사례의 주인공이 되세요</h2>
+                    <p class="cta-desc">
+                        귀사의 반복 업무도 자동화할 수 있습니다.<br>
+                        어떤 업무가 있는지 편하게 말씀해주세요. 무료로 상담해 드립니다.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="index.html#contact" class="btn btn-primary">
+                            무료 상담 받기
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="tel:010-5161-7663" class="btn btn-secondary">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                            010-5161-7663
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">KOC</div>
+        <p class="footer-text">
+            &copy; 2024 케이오씨(KOC) | 사업자등록번호: 421-24-01482 | 대표: 박민경<br>
+            경기도 고양시 덕양구 꽃마을로 66, 11층 1107호<br><br>
+            <a href="../index.html">메인으로</a> · <a href="index.html">자동화 서비스</a> · <a href="../website-hub.html">웹사이트 제작</a>
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 15, 0.85)';
+            }
+        });
+
+        // Animate chart bars on scroll
+        const observerOptions = {
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bars = entry.target.querySelectorAll('.chart-bar-fill');
+                    bars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.results-visualization').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Animate stats on scroll
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            statObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
