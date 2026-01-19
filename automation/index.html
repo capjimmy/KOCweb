@@ -1032,12 +1032,229 @@
             }
         }
 
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-panel {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--bg-dark);
+            z-index: 1002;
+            padding: 100px 30px 40px;
+            transition: right 0.3s ease;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .mobile-menu-panel.active {
+            right: 0;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-nav-cta {
+            display: block;
+            margin-top: 30px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .mobile-close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-close-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-secondary);
+            stroke-width: 2;
+        }
+
+        /* Reviews Slider Section */
+        .reviews-section {
+            padding: 60px 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.03), transparent);
+            position: relative;
+            z-index: 1;
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 30px;
+        }
+
+        .reviews-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .reviews-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .reviews-track-wrapper {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .reviews-track {
+            display: flex;
+            gap: 20px;
+            animation: scrollReviews 60s linear infinite;
+            width: max-content;
+        }
+
+        .reviews-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollReviews {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .review-card {
+            flex-shrink: 0;
+            width: 320px;
+            padding: 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .review-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .review-info {
+            flex: 1;
+        }
+
+        .review-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .review-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .review-stars svg {
+            width: 14px;
+            height: 14px;
+            fill: #fbbf24;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .review-service {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 10px;
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--primary-light);
+        }
+
         @media (max-width: 992px) {
             .navbar {
                 padding: 0 30px;
             }
 
             .nav-menu {
+                display: none;
+            }
+
+            .nav-back {
                 display: none;
             }
 
@@ -1139,6 +1356,21 @@
     <div class="bg-animation">
         <div class="bg-gradient"></div>
         <div class="grid-lines"></div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenu">
+        <button class="mobile-close-btn" id="mobileCloseBtn">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <a href="index.html" class="mobile-nav-link">홈</a>
+        <a href="services.html" class="mobile-nav-link">서비스</a>
+        <a href="downloads.html" class="mobile-nav-link">무료배포</a>
+        <a href="portfolio.html" class="mobile-nav-link">포트폴리오</a>
+        <a href="contact.html" class="mobile-nav-cta">문의하기</a>
     </div>
 
     <!-- Navigation -->
@@ -1402,6 +1634,19 @@
         </div>
     </section>
 
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="reviews-header">
+            <h3>고객 후기</h3>
+            <p>실제 자동화를 경험하신 고객님들의 솔직한 후기입니다</p>
+        </div>
+        <div class="reviews-track-wrapper">
+            <div class="reviews-track" id="reviewsTrack">
+                <!-- Reviews will be duplicated for infinite scroll -->
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta">
         <div class="cta-box">
@@ -1505,6 +1750,131 @@
                 }
             });
         });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            mobileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileCloseBtn.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        // Reviews Data (50 reviews)
+        const reviews = [
+            { name: "김*호", company: "무역회사 대표", text: "매일 3시간 걸리던 엑셀 정리가 5분으로 줄었어요. 진짜 신세계입니다.", service: "엑셀 자동화", stars: 5 },
+            { name: "이*영", company: "쇼핑몰 운영", text: "주문서 정리 때문에 야근했는데 이제 칼퇴합니다. 강추!", service: "데이터 정리", stars: 5 },
+            { name: "박*수", company: "물류회사", text: "재고 관리 자동화하고 나서 실수가 0건이에요. 믿을 수가 없네요.", service: "재고 관리", stars: 5 },
+            { name: "최*진", company: "제조업체", text: "일일 보고서 자동으로 만들어져서 아침에 출근하면 메일함에 와있어요.", service: "보고서 생성", stars: 5 },
+            { name: "정*미", company: "회계사무소", text: "세금계산서 정리 업무가 완전 자동화됐어요. 시간 절약이 엄청납니다.", service: "문서 자동화", stars: 5 },
+            { name: "강*훈", company: "온라인 쇼핑몰", text: "여러 플랫폼 매출을 한 번에 볼 수 있어서 관리가 정말 편해졌어요.", service: "매출 통합", stars: 5 },
+            { name: "윤*서", company: "스타트업", text: "작은 회사라 사람 뽑기 어려웠는데, 자동화로 해결했습니다.", service: "업무 자동화", stars: 5 },
+            { name: "조*현", company: "병원", text: "환자 예약 관리가 자동으로 되니까 접수 업무가 훨씬 수월해요.", service: "예약 시스템", stars: 5 },
+            { name: "한*우", company: "건설회사", text: "현장 일보 작성 시간이 확 줄었어요. 현장에 더 집중할 수 있게 됐습니다.", service: "보고서 자동화", stars: 5 },
+            { name: "서*아", company: "마케팅 에이전시", text: "리포트 만드는 시간이 반 이상 줄었어요. 고객 대응에 더 집중해요.", service: "리포트 생성", stars: 5 },
+            { name: "임*준", company: "무역회사", text: "수입 서류 정리하느라 죽는 줄 알았는데 이제 편해요.", service: "문서 정리", stars: 5 },
+            { name: "오*희", company: "프랜차이즈 본사", text: "가맹점별 매출 집계가 자동이라 시간 엄청 아낍니다.", service: "매출 분석", stars: 5 },
+            { name: "신*철", company: "제조업체", text: "생산 현황 실시간으로 볼 수 있어서 의사결정이 빨라졌어요.", service: "대시보드", stars: 5 },
+            { name: "장*은", company: "부동산", text: "계약서 관리, 고객 연락 다 자동화해서 너무 편해요.", service: "CRM 구축", stars: 5 },
+            { name: "권*민", company: "물류회사", text: "배송 추적 데이터 자동 수집되니까 고객 문의 대응이 빨라졌어요.", service: "데이터 수집", stars: 5 },
+            { name: "황*빈", company: "온라인 판매", text: "쿠팡, 스마트스토어 매출 자동으로 합쳐져서 좋아요.", service: "채널 통합", stars: 5 },
+            { name: "안*하", company: "학원", text: "학생 관리, 결제 확인 자동화하니 행정 업무가 반으로 줄었어요.", service: "학원 관리", stars: 5 },
+            { name: "송*원", company: "식품회사", text: "유통기한 관리 자동 알림 덕분에 폐기 손실이 줄었습니다.", service: "재고 알림", stars: 5 },
+            { name: "류*기", company: "무역회사", text: "환율 자동 반영되는 견적서 시스템 만들어주셔서 업무 효율 올랐어요.", service: "견적 시스템", stars: 5 },
+            { name: "문*정", company: "인테리어", text: "현장 사진 정리, 보고서 작성이 자동화되어 시간 많이 절약됩니다.", service: "사진 관리", stars: 5 },
+            { name: "배*성", company: "IT 회사", text: "서버 모니터링 알림 자동화로 장애 대응이 빨라졌어요.", service: "모니터링", stars: 5 },
+            { name: "백*리", company: "쇼핑몰", text: "재고 부족하면 자동으로 알려줘서 품절 사고가 없어요.", service: "재고 알림", stars: 5 },
+            { name: "노*진", company: "부동산", text: "매물 정보 자동 수집해서 시간 많이 아끼고 있어요.", service: "데이터 크롤링", stars: 5 },
+            { name: "하*수", company: "광고대행사", text: "광고 성과 리포트가 자동으로 만들어져서 클라이언트 보고가 편해요.", service: "리포트 자동화", stars: 5 },
+            { name: "전*혁", company: "유통업체", text: "거래처별 단가 관리가 자동화되어 실수가 없어졌어요.", service: "단가 관리", stars: 5 },
+            { name: "홍*라", company: "카페 운영", text: "매일 마감 정산이 자동이라 퇴근 시간이 빨라졌어요.", service: "POS 연동", stars: 5 },
+            { name: "유*태", company: "건설회사", text: "노무비 계산 자동화로 급여일 전에 야근 안 해도 돼요.", service: "급여 계산", stars: 5 },
+            { name: "남*희", company: "의류 쇼핑몰", text: "사이즈별 재고 현황이 실시간으로 보여서 관리가 쉬워요.", service: "재고 관리", stars: 5 },
+            { name: "심*우", company: "화장품 회사", text: "성분표 자동 생성되니까 신제품 출시가 빨라졌어요.", service: "문서 생성", stars: 5 },
+            { name: "민*경", company: "여행사", text: "고객 문의 자동 분류되고 답변 템플릿까지 추천해줘요.", service: "CS 자동화", stars: 5 },
+            { name: "진*호", company: "렌탈업체", text: "렌탈 만기 알림 자동 발송으로 재계약률이 올랐어요.", service: "알림 자동화", stars: 5 },
+            { name: "천*아", company: "펫샵", text: "접종 일정 자동 알림 보내니까 고객분들이 좋아해요.", service: "예약 알림", stars: 5 },
+            { name: "방*석", company: "주차장 운영", text: "정기권 만료 안내가 자동으로 나가니 갱신율이 높아졌어요.", service: "만료 알림", stars: 5 },
+            { name: "탁*영", company: "세탁소", text: "고객별 세탁물 이력 관리가 자동이라 서비스가 좋아졌대요.", service: "고객 관리", stars: 5 },
+            { name: "공*민", company: "꽃집", text: "기념일 알림 자동 발송으로 단골 고객이 많이 늘었어요.", service: "마케팅 자동화", stars: 5 },
+            { name: "도*현", company: "헬스장", text: "회원 만료 3일 전에 자동으로 연락가서 재등록률이 올랐어요.", service: "회원 관리", stars: 5 },
+            { name: "마*솔", company: "네일샵", text: "예약 확인 문자가 자동으로 나가니까 노쇼가 확 줄었어요.", service: "예약 알림", stars: 5 },
+            { name: "차*윤", company: "스터디카페", text: "좌석 현황 자동 업데이트되니까 관리가 편해요.", service: "실시간 현황", stars: 5 },
+            { name: "표*연", company: "렌터카", text: "차량 반납일 알림 자동 발송으로 연체가 줄었어요.", service: "반납 알림", stars: 5 },
+            { name: "피*준", company: "중고차 딜러", text: "시세 자동 조회 시스템 덕분에 견적 내는 시간이 반으로.", service: "시세 조회", stars: 5 },
+            { name: "위*담", company: "이사업체", text: "견적 문의 자동 응답으로 상담 연결률이 올랐어요.", service: "자동 응답", stars: 5 },
+            { name: "성*율", company: "청소업체", text: "정기 청소 일정 자동 알림으로 스케줄 관리가 완벽해요.", service: "일정 관리", stars: 5 },
+            { name: "감*인", company: "인쇄소", text: "납품 일정 자동 관리로 배송 실수가 없어졌어요.", service: "납품 관리", stars: 5 },
+            { name: "길*나", company: "제과점", text: "원재료 재고 부족하면 자동 발주되니까 편해요.", service: "자동 발주", stars: 5 },
+            { name: "선*후", company: "가구점", text: "AS 접수부터 처리까지 자동 관리되니 누락이 없어요.", service: "AS 관리", stars: 5 },
+            { name: "기*별", company: "보험대리점", text: "갱신일 자동 알림으로 고객 관리가 훨씬 체계적이에요.", service: "갱신 알림", stars: 5 },
+            { name: "예*슬", company: "미용실", text: "고객 시술 이력 자동 기록되니 맞춤 상담이 가능해요.", service: "시술 이력", stars: 5 },
+            { name: "설*우", company: "안경점", text: "렌즈 교체 주기 알림으로 재구매율이 높아졌어요.", service: "교체 알림", stars: 5 },
+            { name: "소*찬", company: "당구장", text: "정기권 고객 관리가 자동이라 운영이 편해요.", service: "정기권 관리", stars: 5 },
+            { name: "양*용", company: "세차장", text: "예약 자동 관리로 대기 시간이 줄어서 고객 만족도 올랐어요.", service: "예약 관리", stars: 5 }
+        ];
+
+        // Generate star SVG
+        function generateStars(count) {
+            let stars = '';
+            for (let i = 0; i < count; i++) {
+                stars += '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+            }
+            return stars;
+        }
+
+        // Create review card HTML
+        function createReviewCard(review) {
+            const initial = review.name.charAt(0);
+            return `
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">${initial}</div>
+                        <div class="review-info">
+                            <div class="review-name">${review.name}</div>
+                            <div class="review-meta">${review.company}</div>
+                        </div>
+                        <div class="review-stars">${generateStars(review.stars)}</div>
+                    </div>
+                    <p class="review-text">"${review.text}"</p>
+                    <span class="review-service">${review.service}</span>
+                </div>
+            `;
+        }
+
+        // Initialize reviews slider
+        function initReviewsSlider() {
+            const track = document.getElementById('reviewsTrack');
+            if (!track) return;
+
+            // Create cards for all reviews (duplicate for infinite scroll)
+            let html = '';
+            reviews.forEach(review => {
+                html += createReviewCard(review);
+            });
+            // Duplicate for seamless loop
+            reviews.forEach(review => {
+                html += createReviewCard(review);
+            });
+
+            track.innerHTML = html;
+        }
+
+        // Initialize on DOM load
+        initReviewsSlider();
     </script>
 </body>
 </html>
