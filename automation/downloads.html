@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>무료 자료 다운로드 | 업무 자동화 허브</title>
+    <title>무료 자료 다운로드 | KOC 업무 자동화</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,11 +12,53 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #8b5cf6;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #0a0a0f;
-            color: #e5e5e5;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
             line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 2%) rotate(1deg); }
+            66% { transform: translate(-2%, 1%) rotate(-1deg); }
         }
 
         /* Navigation */
@@ -25,928 +67,384 @@
             top: 0;
             left: 0;
             right: 0;
+            height: 70px;
             background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            padding: 0 5%;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            height: 70px;
+            padding: 0 50px;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #10b981;
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-decoration: none;
         }
 
-        .logo span {
-            color: #fff;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #a1a1aa;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #10b981;
-        }
-
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #10b981;
-            border-radius: 2px;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 140px 5% 80px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: #10b981;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-badge svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .hero h1 span {
-            color: #10b981;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #a1a1aa;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2.5rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #10b981;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #71717a;
-        }
-
-        /* Downloads Section */
-        .downloads-section {
-            padding: 60px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            font-size: 1.75rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            color: #71717a;
-        }
-
-        .downloads-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .download-card {
-            background: linear-gradient(145deg, #12121a 0%, #0f0f15 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 1.75rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #10b981, #059669);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .download-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(16, 185, 129, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(16, 185, 129, 0.1);
-        }
-
-        .download-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .icon-excel {
-            background: rgba(34, 197, 94, 0.15);
-            color: #22c55e;
-        }
-
-        .icon-pdf {
-            background: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-        }
-
-        .icon-doc {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
-        }
-
-        .icon-sheet {
-            background: rgba(168, 85, 247, 0.15);
-            color: #a855f7;
-        }
-
-        .free-badge {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: #fff;
-            padding: 0.35rem 0.85rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-description {
-            color: #a1a1aa;
-            font-size: 0.9rem;
-            margin-bottom: 1.25rem;
-            line-height: 1.6;
-        }
-
-        .card-meta {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.25rem;
-            flex-wrap: wrap;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.8rem;
-            color: #71717a;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.4rem 0.75rem;
-            border-radius: 6px;
-        }
-
-        .meta-item svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .download-btn {
-            width: 100%;
-            padding: 0.9rem;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .download-btn:hover {
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            transform: scale(1.02);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-        }
-
-        .download-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Newsletter Section */
-        .newsletter-section {
-            padding: 80px 5%;
-            margin: 60px 5%;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-            background: linear-gradient(145deg, #12121a 0%, #0f0f15 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .newsletter-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
-            animation: pulse 10s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        .newsletter-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .newsletter-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(16, 185, 129, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-        }
-
-        .newsletter-section h2 {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 0.75rem;
-        }
-
-        .newsletter-section p {
-            color: #a1a1aa;
-            max-width: 500px;
-            margin: 0 auto 2rem;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 500px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            min-width: 250px;
-            padding: 1rem 1.25rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .newsletter-form input::placeholder {
-            color: #71717a;
-        }
-
-        .newsletter-form input:focus {
-            outline: none;
-            border-color: #10b981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .newsletter-form button {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .newsletter-form button:hover {
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-        }
-
-        .newsletter-note {
-            font-size: 0.8rem;
-            color: #52525b;
-            margin-top: 1rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: #08080c;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 60px 5% 30px;
-        }
-
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-top {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand h3 {
-            font-size: 1.5rem;
-            color: #10b981;
-            margin-bottom: 1rem;
-        }
-
-        .footer-brand h3 span {
-            color: #fff;
-        }
-
-        .footer-brand p {
-            color: #71717a;
-            font-size: 0.9rem;
-            line-height: 1.7;
-            max-width: 300px;
-        }
-
-        .footer-column h4 {
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1.25rem;
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-column a {
-            color: #71717a;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-column a:hover {
-            color: #10b981;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-bottom p {
-            color: #52525b;
-            font-size: 0.85rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
+        .logo-icon {
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #71717a;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
-        .social-links a:hover {
-            background: #10b981;
-            color: #fff;
-            transform: translateY(-3px);
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
-        .social-links svg {
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-secondary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+            text-align: center;
+        }
+
+        .coming-soon-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.1));
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .coming-soon-icon svg {
+            width: 60px;
+            height: 60px;
+            stroke: var(--primary);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .coming-soon-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .coming-soon-title span {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .coming-soon-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .coming-soon-features {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .feature-item svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--primary);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .feature-item span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--bg-card);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .back-btn svg {
             width: 18px;
             height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .footer-top {
-                grid-template-columns: 1fr 1fr;
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 0 30px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .coming-soon-title {
+                font-size: 2.2rem;
             }
 
-            .hero h1 {
-                font-size: 2.25rem;
+            .coming-soon-desc {
+                font-size: 1rem;
             }
 
-            .hero-stats {
-                gap: 1.5rem;
+            .coming-soon-icon {
+                width: 100px;
+                height: 100px;
             }
 
-            .downloads-grid {
-                grid-template-columns: 1fr;
+            .coming-soon-icon svg {
+                width: 50px;
+                height: 50px;
             }
 
-            .footer-top {
-                grid-template-columns: 1fr;
-                text-align: center;
+            .coming-soon-features {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 20px;
             }
 
-            .footer-brand p {
-                max-width: 100%;
+            .coming-soon-title {
+                font-size: 1.8rem;
             }
 
-            .footer-bottom {
-                justify-content: center;
-                text-align: center;
+            .feature-item {
+                padding: 12px 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Background -->
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">Auto<span>Hub</span></a>
-            <ul class="nav-links">
-                <li><a href="#">홈</a></li>
-                <li><a href="#">서비스</a></li>
-                <li><a href="#" class="active">무료배포</a></li>
-                <li><a href="#">포트폴리오</a></li>
-                <li><a href="#">문의</a></li>
-            </ul>
-        </div>
+        <a href="index.html" class="nav-logo">
+            <div class="logo-icon">K</div>
+            <div class="logo-text">
+                <span class="logo-main">KOC</span>
+                <span class="logo-sub">AUTOMATION</span>
+            </div>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="index.html">홈</a></li>
+            <li><a href="services.html">서비스</a></li>
+            <li><a href="downloads.html" class="active">무료배포</a></li>
+            <li><a href="portfolio.html">포트폴리오</a></li>
+        </ul>
+        <a href="contact.html" class="nav-cta">문의하기</a>
+        <button class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-badge">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="coming-soon-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
-            100% 무료 다운로드
         </div>
-        <h1>무료 자료 <span>다운로드</span></h1>
-        <p>업무 효율을 높여줄 엄선된 템플릿과 가이드를 무료로 제공합니다. 지금 바로 다운로드하여 업무에 활용하세요.</p>
-        <div class="hero-stats">
-            <div class="stat-item">
-                <div class="stat-number">15+</div>
-                <div class="stat-label">무료 템플릿</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">5,000+</div>
-                <div class="stat-label">다운로드</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">4.9</div>
-                <div class="stat-label">평균 평점</div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Downloads Section -->
-    <section class="downloads-section">
-        <div class="section-header">
-            <h2>엑셀 자동화 템플릿</h2>
-            <p>업무에 바로 적용할 수 있는 실용적인 엑셀 템플릿</p>
-        </div>
-        <div class="downloads-grid">
-            <!-- Card 1: 매출관리 템플릿 -->
-            <div class="download-card">
-                <div class="card-header">
-                    <div class="card-icon icon-excel">
-                        <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8.5 13H10v4.5H8.5v-2L7 17H6l-1.5-1.5v2H3V13h1.5v2l1.5-1.5 1.5 1.5v-2zm6 0H16v4.5h-1.5v-2L13 17h-1l-1.5-1.5v2H9V13h1.5v2l1.5-1.5 1.5 1.5v-2z"/>
-                        </svg>
-                    </div>
-                    <span class="free-badge">FREE</span>
-                </div>
-                <h3 class="card-title">매출관리 템플릿</h3>
-                <p class="card-description">일별/월별 매출 현황 자동 집계, 그래프 시각화, 목표 대비 달성률 자동 계산 기능 포함</p>
-                <div class="card-meta">
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        XLSX
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V9c0-2-1-3-3-3H7c-2 0-3 1-3 3z"/>
-                        </svg>
-                        2.4 MB
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        1,247회
-                    </span>
-                </div>
-                <a href="#" class="download-btn">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    무료 다운로드
-                </a>
-            </div>
+        <span class="coming-soon-badge">Coming Soon</span>
 
-            <!-- Card 2: 재고관리 템플릿 -->
-            <div class="download-card">
-                <div class="card-header">
-                    <div class="card-icon icon-excel">
-                        <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8.5 13H10v4.5H8.5v-2L7 17H6l-1.5-1.5v2H3V13h1.5v2l1.5-1.5 1.5 1.5v-2zm6 0H16v4.5h-1.5v-2L13 17h-1l-1.5-1.5v2H9V13h1.5v2l1.5-1.5 1.5 1.5v-2z"/>
-                        </svg>
-                    </div>
-                    <span class="free-badge">FREE</span>
-                </div>
-                <h3 class="card-title">재고관리 템플릿</h3>
-                <p class="card-description">입출고 자동 기록, 재고 현황 실시간 업데이트, 부족 재고 알림 기능 포함</p>
-                <div class="card-meta">
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        XLSX
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V9c0-2-1-3-3-3H7c-2 0-3 1-3 3z"/>
-                        </svg>
-                        1.8 MB
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        892회
-                    </span>
-                </div>
-                <a href="#" class="download-btn">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    무료 다운로드
-                </a>
-            </div>
+        <h1 class="coming-soon-title">
+            무료 자료 <span>준비중</span>입니다
+        </h1>
 
-            <!-- Card 3: 업무 체크리스트 -->
-            <div class="download-card">
-                <div class="card-header">
-                    <div class="card-icon icon-doc">
-                        <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-                        </svg>
-                    </div>
-                    <span class="free-badge">FREE</span>
-                </div>
-                <h3 class="card-title">업무 체크리스트</h3>
-                <p class="card-description">일일/주간/월간 업무 관리, 우선순위 설정, 진행률 자동 계산 및 시각화 기능</p>
-                <div class="card-meta">
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        XLSX
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V9c0-2-1-3-3-3H7c-2 0-3 1-3 3z"/>
-                        </svg>
-                        856 KB
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        1,583회
-                    </span>
-                </div>
-                <a href="#" class="download-btn">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    무료 다운로드
-                </a>
-            </div>
+        <p class="coming-soon-desc">
+            업무 자동화에 도움이 되는 다양한 템플릿과 자료를<br>
+            무료로 제공할 예정입니다. 조금만 기다려주세요!
+        </p>
 
-            <!-- Card 4: 자동화 가이드북 -->
-            <div class="download-card">
-                <div class="card-header">
-                    <div class="card-icon icon-pdf">
-                        <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM9.5 16.5v-2H11v2h-1.5zm0-3v-1a1 1 0 0 1 1-1h.5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2v-1h2a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5H11v1H9.5z"/>
-                        </svg>
-                    </div>
-                    <span class="free-badge">FREE</span>
-                </div>
-                <h3 class="card-title">자동화 가이드북</h3>
-                <p class="card-description">엑셀 VBA 기초부터 실무 활용까지, 단계별 자동화 구축 가이드 50페이지</p>
-                <div class="card-meta">
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        PDF
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V9c0-2-1-3-3-3H7c-2 0-3 1-3 3z"/>
-                        </svg>
-                        8.2 MB
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        2,156회
-                    </span>
-                </div>
-                <a href="#" class="download-btn">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    무료 다운로드
-                </a>
-            </div>
-
-            <!-- Card 5: 보고서 양식 -->
-            <div class="download-card">
-                <div class="card-header">
-                    <div class="card-icon icon-doc">
-                        <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 13h8v1H8v-1zm0 3h8v1H8v-1zm0-6h3v1H8v-1z"/>
-                        </svg>
-                    </div>
-                    <span class="free-badge">FREE</span>
-                </div>
-                <h3 class="card-title">보고서 양식 템플릿</h3>
-                <p class="card-description">일일/주간/월간 업무 보고서, 회의록, 프로젝트 현황 보고서 양식 모음</p>
-                <div class="card-meta">
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        DOCX / XLSX
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V9c0-2-1-3-3-3H7c-2 0-3 1-3 3z"/>
-                        </svg>
-                        3.1 MB
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        967회
-                    </span>
-                </div>
-                <a href="#" class="download-btn">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    무료 다운로드
-                </a>
-            </div>
-
-            <!-- Card 6: 데이터 관리 시트 -->
-            <div class="download-card">
-                <div class="card-header">
-                    <div class="card-icon icon-sheet">
-                        <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M3 3h18v18H3V3zm16 16V5H5v14h14zM7 7h4v4H7V7zm0 6h4v4H7v-4zm6-6h4v4h-4V7zm0 6h4v4h-4v-4z"/>
-                        </svg>
-                    </div>
-                    <span class="free-badge">FREE</span>
-                </div>
-                <h3 class="card-title">데이터 관리 시트</h3>
-                <p class="card-description">고객 정보, 거래처 관리, 프로젝트 일정 등 다목적 데이터베이스 템플릿</p>
-                <div class="card-meta">
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        XLSX
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V9c0-2-1-3-3-3H7c-2 0-3 1-3 3z"/>
-                        </svg>
-                        1.5 MB
-                    </span>
-                    <span class="meta-item">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        734회
-                    </span>
-                </div>
-                <a href="#" class="download-btn">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    무료 다운로드
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
-        <div class="newsletter-content">
-            <div class="newsletter-icon">
-                <svg fill="none" stroke="#10b981" viewBox="0 0 24 24" width="32" height="32">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        <div class="coming-soon-features">
+            <div class="feature-item">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
                 </svg>
+                <span>엑셀 템플릿</span>
             </div>
-            <h2>더 많은 무료 자료 받기</h2>
-            <p>이메일을 등록하시면 새로운 무료 템플릿과 자동화 팁을 가장 먼저 받아보실 수 있습니다.</p>
-            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('등록해 주셔서 감사합니다!');">
-                <input type="email" placeholder="이메일 주소를 입력하세요" required>
-                <button type="submit">무료 구독</button>
-            </form>
-            <p class="newsletter-note">스팸 메일은 보내지 않습니다. 언제든지 구독 취소 가능합니다.</p>
+            <div class="feature-item">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="3" y1="9" x2="21" y2="9"/>
+                    <line x1="9" y1="21" x2="9" y2="9"/>
+                </svg>
+                <span>업무 양식</span>
+            </div>
+            <div class="feature-item">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                <span>가이드 문서</span>
+            </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <h3>Auto<span>Hub</span></h3>
-                    <p>업무 자동화 전문 서비스. 반복 업무를 줄이고 핵심 업무에 집중할 수 있도록 도와드립니다.</p>
-                </div>
-                <div class="footer-column">
-                    <h4>서비스</h4>
-                    <ul>
-                        <li><a href="#">엑셀 자동화</a></li>
-                        <li><a href="#">업무 프로세스 개선</a></li>
-                        <li><a href="#">맞춤 템플릿 제작</a></li>
-                        <li><a href="#">컨설팅</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>리소스</h4>
-                    <ul>
-                        <li><a href="#">무료 템플릿</a></li>
-                        <li><a href="#">가이드북</a></li>
-                        <li><a href="#">블로그</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>문의</h4>
-                    <ul>
-                        <li><a href="#">contact@autohub.kr</a></li>
-                        <li><a href="#">02-1234-5678</a></li>
-                        <li><a href="#">문의하기</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 AutoHub. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="#" aria-label="카카오톡">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 3c5.8 0 10.5 3.66 10.5 8.17 0 4.51-4.7 8.17-10.5 8.17-.88 0-1.73-.08-2.54-.23l-4.14 2.77c-.21.14-.5-.05-.44-.3l.87-3.54C3.6 16.39 1.5 14 1.5 11.17 1.5 6.66 6.2 3 12 3z"/>
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="블로그">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="유튜브">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
+        <a href="index.html" class="back-btn">
+            <svg viewBox="0 0 24 24">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+            </svg>
+            홈으로 돌아가기
+        </a>
+    </main>
 </body>
 </html>
