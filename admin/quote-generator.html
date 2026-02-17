@@ -729,16 +729,15 @@
         }
 
         .seal-placeholder {
-            width: 70px;
-            height: 70px;
-            border: 2px dashed #ccc;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 80px;
+            height: 80px;
             margin: 0 auto;
-            font-size: 10px;
-            color: #aaa;
+        }
+
+        .seal-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* ====== BOTTOM ACTIONS ====== */
@@ -1257,7 +1256,11 @@
 
         const subtotal = servicePrice + addonsTotal;
 
-        // Discount
+        // VAT 먼저 계산
+        const vat = Math.round(subtotal * 0.1);
+        const totalBeforeDiscount = subtotal + vat;
+
+        // Discount (총금액 VAT 포함에서 할인)
         const discountType = document.querySelector('input[name="discountType"]:checked').value;
         const discountInput = parseFloat(document.getElementById('discountAmount').value) || 0;
         let discountAmount = 0;
@@ -1265,12 +1268,11 @@
         if (discountType === 'fixed') {
             discountAmount = discountInput;
         } else if (discountType === 'percent') {
-            discountAmount = Math.round(subtotal * (discountInput / 100));
+            discountAmount = Math.round(totalBeforeDiscount * (discountInput / 100));
         }
 
-        const supplyAmount = subtotal - discountAmount;
-        const vat = Math.round(supplyAmount * 0.1);
-        const totalAmount = supplyAmount + vat;
+        const supplyAmount = subtotal;
+        const totalAmount = totalBeforeDiscount - discountAmount;
 
         return {
             serviceItem,
@@ -1425,7 +1427,7 @@
                     <div class="info-row"><span class="info-label">상호</span><span class="info-value">케이오씨 KOC</span></div>
                     <div class="info-row"><span class="info-label">대표</span><span class="info-value">박민경</span></div>
                     <div class="info-row"><span class="info-label">사업자번호</span><span class="info-value">421-24-01482</span></div>
-                    <div class="info-row"><span class="info-label">이메일</span><span class="info-value">koc.webstudio@gmail.com</span></div>
+                    <div class="info-row"><span class="info-label">이메일</span><span class="info-value">ming9847@naver.com</span></div>
                 </div>
             </div>
 
@@ -1499,17 +1501,13 @@
             <div class="payment-terms">
                 <div class="section-title">결제 조건</div>
                 <div class="payment-bar">
-                    <div class="payment-step step1">
+                    <div class="payment-step step1" style="flex:1">
                         <strong>50%</strong>
                         계약금 (선금)
                     </div>
-                    <div class="payment-step step2">
-                        <strong>30%</strong>
-                        중간검수
-                    </div>
-                    <div class="payment-step step3">
-                        <strong>20%</strong>
-                        최종납품
+                    <div class="payment-step step2" style="flex:1">
+                        <strong>50%</strong>
+                        잔금 (납품 완료 시)
                     </div>
                 </div>
             </div>
@@ -1539,7 +1537,7 @@
                     <div class="signature-box">
                         <div class="signature-company">케이오씨 KOC</div>
                         <div class="signature-name">대표 박민경</div>
-                        <div class="seal-placeholder">(인)</div>
+                        <div class="seal-placeholder"><img src="../박민경도장.png" alt="대표 직인"></div>
                     </div>
                 </div>
             </div>
