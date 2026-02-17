@@ -54,6 +54,7 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
@@ -380,6 +381,287 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <style>
+        .pricing {
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(217, 70, 239, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .pricing .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .pricing .section-desc {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .pricing-card {
+            background: #1e293b;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .pricing-card.popular {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 50%, rgba(217, 70, 239, 0.15) 100%);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: scale(1.03);
+        }
+        .pricing-card.popular:hover {
+            transform: scale(1.03) translateY(-8px);
+        }
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            color: #fff;
+            padding: 6px 24px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .pricing-plan {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .pricing-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #94a3b8;
+        }
+        .pricing-from {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 28px;
+        }
+        .pricing-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(99, 102, 241, 0.15);
+            margin-bottom: 28px;
+        }
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 32px 0;
+            flex: 1;
+        }
+        .pricing-features li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 14px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #6366f1;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .pricing-card.popular .pricing-features li::before {
+            color: #a78bfa;
+        }
+        .pricing-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .pricing-btn-outline {
+            background: transparent;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #6366f1;
+        }
+        .pricing-btn-outline:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: #6366f1;
+            color: #818cf8;
+        }
+        .pricing-btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            color: #fff;
+            border: none;
+        }
+        .pricing-btn-primary:hover {
+            opacity: 0.9;
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+        }
+        .pricing-note {
+            text-align: center;
+            margin-top: 48px;
+            color: #64748b;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        .pricing-note span {
+            color: #94a3b8;
+        }
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            .pricing-card.popular:hover {
+                transform: translateY(-8px);
+            }
+            .pricing-price {
+                font-size: 1.6rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .pricing-card {
+                padding: 36px 24px;
+            }
+        }
+    </style>
+    <section class="pricing section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Pricing</span>
+                <h2 class="section-title">합리적인 가격, 확실한 퀄리티</h2>
+                <p class="section-desc">
+                    비즈니스 규모와 목적에 맞는 최적의 플랜을 선택하세요.<br>
+                    모든 플랜에 반응형 디자인과 기본 SEO가 포함됩니다.
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- 원페이지 / 랜딩 -->
+                <div class="pricing-card">
+                    <div class="pricing-plan">원페이지 / 랜딩</div>
+                    <div class="pricing-price">₩890,000<span>~</span></div>
+                    <div class="pricing-from">부가세 별도</div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>1페이지 (섹션 5개 이내)</li>
+                        <li>반응형 디자인</li>
+                        <li>기본 SEO</li>
+                        <li>문의 폼</li>
+                        <li>모바일 최적화</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn pricing-btn-outline">문의하기</a>
+                </div>
+
+                <!-- 기본형 -->
+                <div class="pricing-card">
+                    <div class="pricing-plan">기본형</div>
+                    <div class="pricing-price">₩1,490,000<span>~</span></div>
+                    <div class="pricing-from">부가세 별도</div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>5~7페이지</li>
+                        <li>반응형 맞춤 디자인</li>
+                        <li>SEO 최적화</li>
+                        <li>문의 폼 + 게시판</li>
+                        <li>1개월 무상 하자보수</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn pricing-btn-outline">문의하기</a>
+                </div>
+
+                <!-- 표준형 (인기) -->
+                <div class="pricing-card popular">
+                    <div class="pricing-badge">MOST POPULAR</div>
+                    <div class="pricing-plan">표준형</div>
+                    <div class="pricing-price">₩2,490,000<span>~</span></div>
+                    <div class="pricing-from">부가세 별도</div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>10~15페이지</li>
+                        <li>브랜드 맞춤 디자인</li>
+                        <li>SEO + 네이버 등록</li>
+                        <li>관리자 페이지</li>
+                        <li>2개월 무상 하자보수</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn pricing-btn-primary">문의하기</a>
+                </div>
+
+                <!-- 프리미엄 -->
+                <div class="pricing-card">
+                    <div class="pricing-plan">프리미엄</div>
+                    <div class="pricing-price">₩4,490,000<span>~</span></div>
+                    <div class="pricing-from">부가세 별도</div>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>20페이지 이상</li>
+                        <li>풀 커스텀 UI/UX</li>
+                        <li>고급 SEO + 분석 도구</li>
+                        <li>회원/예약 시스템</li>
+                        <li>3개월 무상 하자보수</li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn pricing-btn-outline">문의하기</a>
+                </div>
+            </div>
+
+            <p class="pricing-note">
+                <span>VAT 별도</span> &nbsp;|&nbsp; 쇼핑몰·복잡한 기능은 별도 견적
+            </p>
         </div>
     </section>
 

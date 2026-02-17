@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>견적서 자동 생성 | KOC Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ====== RESET & BASE ====== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 14px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ====== HEADER ====== */
+        .admin-header {
+            background: linear-gradient(135deg, #12121a 0%, #1a1a2e 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-header h1 .badge {
+            font-size: 0.65rem;
+            background: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* ====== MAIN LAYOUT ====== */
+        .main-container {
+            display: flex;
+            gap: 0;
+            min-height: calc(100vh - 57px);
+        }
+
+        /* ====== LEFT PANEL - FORM ====== */
+        .form-panel {
+            width: 40%;
+            min-width: 400px;
+            background: #0e0e16;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            overflow-y: auto;
+            height: calc(100vh - 57px);
+            position: sticky;
+            top: 57px;
+        }
+
+        .form-inner {
+            padding: 28px 24px 100px;
+        }
+
+        .form-section {
+            margin-bottom: 28px;
+        }
+
+        .form-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #818cf8;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(129, 140, 248, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #a0a0b0;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: #16161f;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.85rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23818cf8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Radio buttons */
+        .radio-group {
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .radio-group label {
+            flex: 1;
+            padding: 10px 16px;
+            text-align: center;
+            cursor: pointer;
+            background: #16161f;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #888;
+            transition: all 0.2s;
+            margin-bottom: 0 !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .radio-group label:last-child {
+            border-right: none;
+        }
+
+        .radio-group input[type="radio"] {
+            display: none;
+        }
+
+        .radio-group input[type="radio"]:checked + label,
+        .radio-group label.active {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+        }
+
+        /* Discount radio */
+        .discount-radio-group {
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 10px;
+        }
+
+        .discount-radio-group label {
+            flex: 1;
+            padding: 8px 12px;
+            text-align: center;
+            cursor: pointer;
+            background: #16161f;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: #888;
+            transition: all 0.2s;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .discount-radio-group label:last-child {
+            border-right: none;
+        }
+
+        .discount-radio-group input[type="radio"] {
+            display: none;
+        }
+
+        .discount-radio-group input[type="radio"]:checked + label {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+        }
+
+        /* Checkboxes */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: #16161f;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            border-color: rgba(129, 140, 248, 0.3);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-item .check-mark {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked ~ .check-mark {
+            background: #818cf8;
+            border-color: #818cf8;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked ~ .check-mark::after {
+            content: '';
+            width: 5px;
+            height: 9px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-top: -2px;
+        }
+
+        .checkbox-item .option-label {
+            flex: 1;
+            font-size: 0.82rem;
+            color: #c0c0d0;
+        }
+
+        .checkbox-item .option-price {
+            font-size: 0.78rem;
+            color: #818cf8;
+            font-weight: 500;
+        }
+
+        .checkbox-item.checked {
+            border-color: rgba(129, 140, 248, 0.4);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* ====== RIGHT PANEL - PREVIEW ====== */
+        .preview-panel {
+            flex: 1;
+            overflow-y: auto;
+            height: calc(100vh - 57px);
+            position: sticky;
+            top: 57px;
+            background: #131318;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .preview-wrapper {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* ====== QUOTE DOCUMENT ====== */
+        .quote-document {
+            background: #ffffff;
+            color: #1a1a1a;
+            padding: 50px 45px;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        .quote-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .quote-title {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 16px;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .quote-number {
+            font-size: 12px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .quote-header::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #2d2d6b;
+            margin: 16px auto 0;
+        }
+
+        /* Company & Recipient Info */
+        .quote-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .quote-info-box {
+            padding: 16px 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .quote-info-box h3 {
+            font-size: 11px;
+            font-weight: 700;
+            color: #2d2d6b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row {
+            display: flex;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        .info-label {
+            width: 90px;
+            color: #888;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Summary bar */
+        .quote-summary-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: #2d2d6b;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+
+        .summary-item {
+            background: #f0f0f8;
+            padding: 12px 14px;
+            text-align: center;
+        }
+
+        .summary-item .s-label {
+            font-size: 10px;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .summary-item .s-value {
+            font-size: 12px;
+            color: #2d2d6b;
+            font-weight: 700;
+        }
+
+        /* Total highlight */
+        .total-highlight {
+            background: linear-gradient(135deg, #2d2d6b 0%, #3d3d8b 100%);
+            color: #fff;
+            padding: 18px 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        .total-highlight .total-label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .total-highlight .total-label small {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        .total-highlight .total-amount {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .total-highlight .total-amount span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Detail table */
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+
+        .detail-table thead th {
+            background: #2d2d6b;
+            color: #fff;
+            padding: 10px 12px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .detail-table thead th:first-child {
+            border-radius: 4px 0 0 0;
+        }
+
+        .detail-table thead th:last-child {
+            border-radius: 0 4px 0 0;
+        }
+
+        .detail-table tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .detail-table tbody td:nth-child(2) {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .detail-table tbody td:nth-child(3) {
+            text-align: left;
+            color: #666;
+            font-size: 11px;
+        }
+
+        .detail-table tbody td:last-child,
+        .detail-table tbody td:nth-child(5) {
+            text-align: right;
+        }
+
+        .detail-table tbody tr:last-child td {
+            border-bottom: 2px solid #2d2d6b;
+        }
+
+        /* Amount summary */
+        .amount-summary {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 28px;
+        }
+
+        .amount-summary table {
+            border-collapse: collapse;
+            font-size: 12.5px;
+            min-width: 280px;
+        }
+
+        .amount-summary td {
+            padding: 7px 14px;
+        }
+
+        .amount-summary .amt-label {
+            color: #666;
+            text-align: left;
+        }
+
+        .amount-summary .amt-value {
+            text-align: right;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .amount-summary .discount-row .amt-label,
+        .amount-summary .discount-row .amt-value {
+            color: #e53e3e;
+        }
+
+        .amount-summary .total-row {
+            border-top: 2px solid #2d2d6b;
+        }
+
+        .amount-summary .total-row td {
+            padding-top: 10px;
+            font-weight: 800;
+            font-size: 14px;
+            color: #2d2d6b;
+        }
+
+        /* Payment Terms */
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2d2d6b;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #2d2d6b;
+        }
+
+        .payment-terms {
+            margin-bottom: 24px;
+        }
+
+        .payment-bar {
+            display: flex;
+            gap: 2px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .payment-step {
+            padding: 10px 14px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .payment-step.step1 {
+            flex: 5;
+            background: #2d2d6b;
+            color: #fff;
+        }
+
+        .payment-step.step2 {
+            flex: 3;
+            background: #5555a0;
+            color: #fff;
+        }
+
+        .payment-step.step3 {
+            flex: 2;
+            background: #8888c0;
+            color: #fff;
+        }
+
+        .payment-step strong {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        /* Maintenance info */
+        .maintenance-info {
+            background: #f8f8fc;
+            border: 1px solid #e0e0eb;
+            border-radius: 6px;
+            padding: 16px 18px;
+            margin-bottom: 24px;
+        }
+
+        .maintenance-info h4 {
+            font-size: 12px;
+            font-weight: 700;
+            color: #2d2d6b;
+            margin-bottom: 6px;
+        }
+
+        .maintenance-info p {
+            font-size: 11.5px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Notes */
+        .quote-notes {
+            margin-bottom: 28px;
+        }
+
+        .quote-notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quote-notes ul li {
+            font-size: 11.5px;
+            color: #666;
+            padding: 3px 0;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .quote-notes ul li::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: #2d2d6b;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 10px;
+        }
+
+        /* Memo area */
+        .memo-area {
+            background: #fffdf5;
+            border: 1px solid #f0e8d0;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-bottom: 28px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .memo-area .memo-title {
+            font-weight: 700;
+            color: #b8860b;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        /* Signature area */
+        .quote-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .quote-date-line {
+            text-align: center;
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .signature-area {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .signature-box {
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .signature-company {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .signature-name {
+            font-size: 13px;
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .seal-placeholder {
+            width: 70px;
+            height: 70px;
+            border: 2px dashed #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 10px;
+            color: #aaa;
+        }
+
+        /* ====== BOTTOM ACTIONS ====== */
+        .bottom-actions {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 40%;
+            min-width: 400px;
+            background: linear-gradient(to top, #0e0e16 60%, transparent);
+            padding: 20px 24px 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 50;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #818cf8;
+            color: #fff;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #6366f1;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #a0a0b0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        /* ====== PRINT STYLES ====== */
+        @media print {
+            body {
+                background: #fff !important;
+            }
+
+            .admin-header,
+            .form-panel,
+            .bottom-actions {
+                display: none !important;
+            }
+
+            .main-container {
+                display: block !important;
+            }
+
+            .preview-panel {
+                width: 100% !important;
+                height: auto !important;
+                position: static !important;
+                overflow: visible !important;
+                background: #fff !important;
+                padding: 0 !important;
+            }
+
+            .preview-wrapper {
+                max-width: 100% !important;
+            }
+
+            .quote-document {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 20px 30px !important;
+                font-size: 12px !important;
+            }
+
+            .total-highlight {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .detail-table thead th {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .payment-step {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .quote-info-box,
+            .summary-item,
+            .maintenance-info,
+            .memo-area {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .form-panel {
+                width: 100%;
+                min-width: unset;
+                height: auto;
+                position: static;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .form-inner {
+                padding-bottom: 30px;
+            }
+
+            .preview-panel {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 20px 16px;
+            }
+
+            .bottom-actions {
+                width: 100%;
+                min-width: unset;
+                position: static;
+                background: #0e0e16;
+                padding: 16px 24px 24px;
+            }
+        }
+
+        /* ====== SCROLLBAR ====== */
+        .form-panel::-webkit-scrollbar,
+        .preview-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .form-panel::-webkit-scrollbar-track,
+        .preview-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .form-panel::-webkit-scrollbar-thumb,
+        .preview-panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .form-panel::-webkit-scrollbar-thumb:hover,
+        .preview-panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hidden elements */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="admin-header">
+    <h1>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        견적서 자동 생성
+        <span class="badge">ADMIN</span>
+    </h1>
+</header>
+
+<!-- ====== MAIN ====== -->
+<div class="main-container">
+
+    <!-- LEFT: FORM PANEL -->
+    <div class="form-panel">
+        <div class="form-inner">
+
+            <!-- 견적서 번호 -->
+            <div class="form-section">
+                <div class="form-section-title">견적서 번호</div>
+                <div class="form-group">
+                    <input type="text" id="quoteNumber" value="" placeholder="KOC-2026-001">
+                </div>
+            </div>
+
+            <!-- 수신처 정보 -->
+            <div class="form-section">
+                <div class="form-section-title">수신처 정보</div>
+                <div class="form-group">
+                    <label>회사명</label>
+                    <input type="text" id="clientCompany" placeholder="주식회사 OO컴퍼니">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>담당자명</label>
+                        <input type="text" id="clientName" placeholder="홍길동">
+                    </div>
+                    <div class="form-group">
+                        <label>연락처</label>
+                        <input type="tel" id="clientPhone" placeholder="010-0000-0000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" id="clientEmail" placeholder="example@company.com">
+                </div>
+            </div>
+
+            <!-- 서비스 유형 -->
+            <div class="form-section">
+                <div class="form-section-title">서비스 유형</div>
+                <div class="form-group">
+                    <div class="radio-group" id="serviceTypeGroup">
+                        <input type="radio" name="serviceType" id="typeWeb" value="web" checked>
+                        <label for="typeWeb" class="active">웹사이트 제작</label>
+                        <input type="radio" name="serviceType" id="typeAuto" value="auto">
+                        <label for="typeAuto">업무 자동화</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 서비스 항목 -->
+            <div class="form-section">
+                <div class="form-section-title">서비스 항목</div>
+                <div class="form-group">
+                    <label>서비스 선택</label>
+                    <select id="serviceItem">
+                        <!-- dynamically populated -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- 추가 옵션 -->
+            <div class="form-section">
+                <div class="form-section-title">추가 옵션</div>
+                <div class="checkbox-group" id="addonsContainer">
+                    <!-- dynamically populated -->
+                </div>
+            </div>
+
+            <!-- 유지보수 플랜 -->
+            <div class="form-section">
+                <div class="form-section-title">유지보수 플랜</div>
+                <div class="form-group">
+                    <select id="maintenancePlan">
+                        <option value="0" data-label="없음">없음</option>
+                        <option value="55000" data-label="기본형 55,000원/월">기본형 55,000원/월</option>
+                        <option value="110000" data-label="표준형 110,000원/월">표준형 110,000원/월</option>
+                        <option value="220000" data-label="프리미엄 220,000원/월">프리미엄 220,000원/월</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 할인 -->
+            <div class="form-section">
+                <div class="form-section-title">할인</div>
+                <div class="form-group">
+                    <div class="discount-radio-group" id="discountTypeGroup">
+                        <input type="radio" name="discountType" id="discNone" value="none" checked>
+                        <label for="discNone">없음</label>
+                        <input type="radio" name="discountType" id="discFixed" value="fixed">
+                        <label for="discFixed">정액 할인</label>
+                        <input type="radio" name="discountType" id="discPercent" value="percent">
+                        <label for="discPercent">퍼센트 할인</label>
+                    </div>
+                </div>
+                <div class="form-group hidden" id="discountAmountGroup">
+                    <label id="discountAmountLabel">할인 금액 (원)</label>
+                    <input type="number" id="discountAmount" placeholder="0" min="0">
+                </div>
+            </div>
+
+            <!-- 예상 작업기간 -->
+            <div class="form-section">
+                <div class="form-section-title">예상 작업기간</div>
+                <div class="form-group">
+                    <input type="text" id="workPeriod" placeholder="약 4~6주">
+                </div>
+            </div>
+
+            <!-- 특이사항/메모 -->
+            <div class="form-section">
+                <div class="form-section-title">특이사항 / 메모</div>
+                <div class="form-group">
+                    <textarea id="memo" placeholder="특이사항이나 메모를 입력하세요..."></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+            <button class="btn btn-primary" onclick="printQuote()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                인쇄 / PDF 저장
+            </button>
+            <button class="btn btn-secondary" onclick="resetForm()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                초기화
+            </button>
+        </div>
+    </div>
+
+    <!-- RIGHT: PREVIEW PANEL -->
+    <div class="preview-panel">
+        <div class="preview-wrapper">
+            <div class="quote-document" id="quoteDocument">
+                <!-- Dynamically rendered -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ====== DATA ======
+    const serviceData = {
+        web: {
+            items: [
+                { label: '원페이지/랜딩', price: 890000, desc: '원페이지 또는 랜딩페이지 제작', period: '약 2~3주' },
+                { label: '기본형 (5~7p)', price: 1490000, desc: '5~7페이지 기본 웹사이트 제작', period: '약 3~4주' },
+                { label: '표준형 (10~15p)', price: 2490000, desc: '10~15페이지 표준 웹사이트 제작', period: '약 4~6주' },
+                { label: '프리미엄 (20p+)', price: 4490000, desc: '20페이지 이상 프리미엄 웹사이트 제작', period: '약 6~10주' }
+            ],
+            addons: [
+                { label: '쇼핑몰 기능', price: 2000000 },
+                { label: '회원가입/로그인', price: 300000 },
+                { label: '예약 시스템', price: 500000 },
+                { label: '블로그 기능', price: 200000 },
+                { label: '다국어 지원', price: 500000 },
+                { label: '게시판 추가', price: 90000 }
+            ]
+        },
+        auto: {
+            items: [
+                { label: '엑셀 자동화(기본)', price: 300000, desc: '기본 엑셀 매크로/자동화 구축', period: '약 1~2주' },
+                { label: '엑셀 자동화(고급)', price: 500000, desc: '고급 엑셀 자동화 시스템 구축', period: '약 2~3주' },
+                { label: '보고서 자동 생성', price: 700000, desc: '자동 보고서 생성 시스템 구축', period: '약 2~4주' },
+                { label: '데이터 수집/관리', price: 1000000, desc: '데이터 수집 및 관리 시스템 구축', period: '약 3~5주' },
+                { label: '맞춤형 관리 시스템', price: 2000000, desc: '맞춤형 업무 관리 시스템 개발', period: '약 5~8주' }
+            ],
+            addons: [
+                { label: '이메일 자동 발송', price: 200000 },
+                { label: '대시보드 구축', price: 500000 },
+                { label: '외부 API 연동', price: 300000 },
+                { label: '사용 매뉴얼 제공', price: 100000 }
+            ]
+        }
+    };
+
+    // ====== STATE ======
+    let currentType = 'web';
+    let selectedAddons = [];
+
+    // ====== INITIALIZATION ======
+    function init() {
+        generateQuoteNumber();
+        populateServiceItems();
+        populateAddons();
+        bindEvents();
+        updatePreview();
+    }
+
+    function generateQuoteNumber() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const seq = String(Math.floor(Math.random() * 999) + 1).padStart(3, '0');
+        document.getElementById('quoteNumber').value = `KOC-${year}-${seq}`;
+    }
+
+    // ====== POPULATE DYNAMIC ELEMENTS ======
+    function populateServiceItems() {
+        const select = document.getElementById('serviceItem');
+        const items = serviceData[currentType].items;
+        select.innerHTML = '';
+        items.forEach((item, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.textContent = `${item.label} - ${formatNumber(item.price)}원`;
+            select.appendChild(opt);
+        });
+        // Set default work period
+        updateWorkPeriod();
+    }
+
+    function populateAddons() {
+        const container = document.getElementById('addonsContainer');
+        const addons = serviceData[currentType].addons;
+        selectedAddons = [];
+        container.innerHTML = '';
+        addons.forEach((addon, idx) => {
+            const div = document.createElement('div');
+            div.className = 'checkbox-item';
+            div.innerHTML = `
+                <input type="checkbox" id="addon_${idx}" data-index="${idx}">
+                <span class="check-mark"></span>
+                <span class="option-label">${addon.label}</span>
+                <span class="option-price">+${formatNumber(addon.price)}원</span>
+            `;
+            div.addEventListener('click', function(e) {
+                if (e.target.tagName === 'INPUT') return;
+                const cb = this.querySelector('input[type="checkbox"]');
+                cb.checked = !cb.checked;
+                toggleAddon(idx, cb.checked, this);
+            });
+            const cb = div.querySelector('input[type="checkbox"]');
+            cb.addEventListener('change', function() {
+                toggleAddon(idx, this.checked, div);
+            });
+            container.appendChild(div);
+        });
+    }
+
+    function toggleAddon(idx, checked, element) {
+        if (checked) {
+            if (!selectedAddons.includes(idx)) selectedAddons.push(idx);
+            element.classList.add('checked');
+        } else {
+            selectedAddons = selectedAddons.filter(i => i !== idx);
+            element.classList.remove('checked');
+        }
+        updatePreview();
+    }
+
+    function updateWorkPeriod() {
+        const select = document.getElementById('serviceItem');
+        const item = serviceData[currentType].items[select.value];
+        if (item) {
+            document.getElementById('workPeriod').value = item.period;
+        }
+    }
+
+    // ====== EVENT BINDINGS ======
+    function bindEvents() {
+        // Service type radio
+        document.querySelectorAll('input[name="serviceType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                currentType = this.value;
+                // Update radio label styles
+                document.querySelectorAll('#serviceTypeGroup label').forEach(l => l.classList.remove('active'));
+                this.nextElementSibling.classList.add('active');
+                populateServiceItems();
+                populateAddons();
+                updatePreview();
+            });
+        });
+
+        // Service item change
+        document.getElementById('serviceItem').addEventListener('change', function() {
+            updateWorkPeriod();
+            updatePreview();
+        });
+
+        // Discount type radio
+        document.querySelectorAll('input[name="discountType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const group = document.getElementById('discountAmountGroup');
+                const label = document.getElementById('discountAmountLabel');
+                if (this.value === 'none') {
+                    group.classList.add('hidden');
+                    document.getElementById('discountAmount').value = '';
+                } else {
+                    group.classList.remove('hidden');
+                    label.textContent = this.value === 'fixed' ? '할인 금액 (원)' : '할인율 (%)';
+                    document.getElementById('discountAmount').placeholder = this.value === 'fixed' ? '100000' : '10';
+                }
+                updatePreview();
+            });
+        });
+
+        // Maintenance plan
+        document.getElementById('maintenancePlan').addEventListener('change', updatePreview);
+
+        // Discount amount
+        document.getElementById('discountAmount').addEventListener('input', updatePreview);
+
+        // All text inputs
+        const textInputs = ['quoteNumber', 'clientCompany', 'clientName', 'clientPhone', 'clientEmail', 'workPeriod', 'memo'];
+        textInputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updatePreview);
+        });
+    }
+
+    // ====== CALCULATIONS ======
+    function calculateAmounts() {
+        const serviceIdx = document.getElementById('serviceItem').value;
+        const serviceItem = serviceData[currentType].items[serviceIdx];
+        const servicePrice = serviceItem ? serviceItem.price : 0;
+
+        let addonsTotal = 0;
+        const addonDetails = [];
+        selectedAddons.forEach(idx => {
+            const addon = serviceData[currentType].addons[idx];
+            if (addon) {
+                addonsTotal += addon.price;
+                addonDetails.push(addon);
+            }
+        });
+
+        const subtotal = servicePrice + addonsTotal;
+
+        // Discount
+        const discountType = document.querySelector('input[name="discountType"]:checked').value;
+        const discountInput = parseFloat(document.getElementById('discountAmount').value) || 0;
+        let discountAmount = 0;
+
+        if (discountType === 'fixed') {
+            discountAmount = discountInput;
+        } else if (discountType === 'percent') {
+            discountAmount = Math.round(subtotal * (discountInput / 100));
+        }
+
+        const supplyAmount = subtotal - discountAmount;
+        const vat = Math.round(supplyAmount * 0.1);
+        const totalAmount = supplyAmount + vat;
+
+        return {
+            serviceItem,
+            servicePrice,
+            addonDetails,
+            addonsTotal,
+            subtotal,
+            discountType,
+            discountInput,
+            discountAmount,
+            supplyAmount,
+            vat,
+            totalAmount
+        };
+    }
+
+    // ====== FORMAT HELPERS ======
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function getTodayStr() {
+        const now = new Date();
+        return `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, '0')}월 ${String(now.getDate()).padStart(2, '0')}일`;
+    }
+
+    function getValidityDate() {
+        const now = new Date();
+        now.setDate(now.getDate() + 30);
+        return `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, '0')}월 ${String(now.getDate()).padStart(2, '0')}일`;
+    }
+
+    function getServiceTypeName() {
+        return currentType === 'web' ? '웹사이트 제작' : '업무 자동화';
+    }
+
+    // ====== RENDER PREVIEW ======
+    function updatePreview() {
+        const calc = calculateAmounts();
+
+        const quoteNumber = document.getElementById('quoteNumber').value || 'KOC-2026-001';
+        const clientCompany = document.getElementById('clientCompany').value || '-';
+        const clientName = document.getElementById('clientName').value || '-';
+        const clientPhone = document.getElementById('clientPhone').value || '-';
+        const clientEmail = document.getElementById('clientEmail').value || '-';
+        const workPeriod = document.getElementById('workPeriod').value || '-';
+        const memo = document.getElementById('memo').value;
+        const maintenancePlan = document.getElementById('maintenancePlan');
+        const maintenanceLabel = maintenancePlan.options[maintenancePlan.selectedIndex].getAttribute('data-label');
+        const maintenanceValue = parseInt(maintenancePlan.value);
+
+        // Build table rows
+        let tableRows = '';
+        let rowNum = 1;
+
+        // Service item
+        if (calc.serviceItem) {
+            tableRows += `
+                <tr>
+                    <td>${rowNum}</td>
+                    <td>${calc.serviceItem.label}</td>
+                    <td>${calc.serviceItem.desc}</td>
+                    <td>1</td>
+                    <td>${formatNumber(calc.servicePrice)}원</td>
+                    <td>${formatNumber(calc.servicePrice)}원</td>
+                </tr>
+            `;
+            rowNum++;
+        }
+
+        // Addon items
+        calc.addonDetails.forEach(addon => {
+            tableRows += `
+                <tr>
+                    <td>${rowNum}</td>
+                    <td>${addon.label}</td>
+                    <td>추가 옵션</td>
+                    <td>1</td>
+                    <td>${formatNumber(addon.price)}원</td>
+                    <td>${formatNumber(addon.price)}원</td>
+                </tr>
+            `;
+            rowNum++;
+        });
+
+        if (tableRows === '') {
+            tableRows = `
+                <tr>
+                    <td colspan="6" style="padding: 20px; color: #999;">서비스 항목을 선택하세요</td>
+                </tr>
+            `;
+        }
+
+        // Discount row in summary
+        let discountRow = '';
+        if (calc.discountAmount > 0) {
+            const discountLabel = calc.discountType === 'percent'
+                ? `할인 (${calc.discountInput}%)`
+                : '할인';
+            discountRow = `
+                <tr class="discount-row">
+                    <td class="amt-label">${discountLabel}</td>
+                    <td class="amt-value">-${formatNumber(calc.discountAmount)}원</td>
+                </tr>
+            `;
+        }
+
+        // Maintenance section
+        let maintenanceSection = '';
+        if (maintenanceValue > 0) {
+            maintenanceSection = `
+                <div class="maintenance-info">
+                    <h4>유지보수 안내</h4>
+                    <p>
+                        선택하신 유지보수 플랜: <strong>${maintenanceLabel}</strong><br>
+                        유지보수 비용은 프로젝트 납품 완료 후 익월부터 매월 청구됩니다.<br>
+                        유지보수 범위: 콘텐츠 수정, 버그 수정, 보안 업데이트, 백업 관리 등
+                    </p>
+                </div>
+            `;
+        }
+
+        // Memo section
+        let memoSection = '';
+        if (memo.trim()) {
+            memoSection = `
+                <div class="memo-area">
+                    <div class="memo-title">특이사항 / 메모</div>
+                    ${memo.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                </div>
+            `;
+        }
+
+        const html = `
+            <!-- Header -->
+            <div class="quote-header">
+                <div class="quote-title">견 적 서</div>
+                <div class="quote-number">No. ${quoteNumber}</div>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="quote-info-grid">
+                <div class="quote-info-box">
+                    <h3>수신처</h3>
+                    <div class="info-row"><span class="info-label">회사명</span><span class="info-value">${clientCompany}</span></div>
+                    <div class="info-row"><span class="info-label">담당자</span><span class="info-value">${clientName}</span></div>
+                    <div class="info-row"><span class="info-label">연락처</span><span class="info-value">${clientPhone}</span></div>
+                    <div class="info-row"><span class="info-label">이메일</span><span class="info-value">${clientEmail}</span></div>
+                </div>
+                <div class="quote-info-box">
+                    <h3>공급자</h3>
+                    <div class="info-row"><span class="info-label">상호</span><span class="info-value">케이오씨 KOC</span></div>
+                    <div class="info-row"><span class="info-label">대표</span><span class="info-value">박민경</span></div>
+                    <div class="info-row"><span class="info-label">사업자번호</span><span class="info-value">421-24-01482</span></div>
+                    <div class="info-row"><span class="info-label">이메일</span><span class="info-value">koc.webstudio@gmail.com</span></div>
+                </div>
+            </div>
+
+            <!-- Summary Bar -->
+            <div class="quote-summary-bar">
+                <div class="summary-item">
+                    <div class="s-label">견적일</div>
+                    <div class="s-value">${getTodayStr()}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="s-label">유효기간</div>
+                    <div class="s-value">${getValidityDate()}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="s-label">작업기간</div>
+                    <div class="s-value">${workPeriod}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="s-label">프로젝트 유형</div>
+                    <div class="s-value">${getServiceTypeName()}</div>
+                </div>
+            </div>
+
+            <!-- Total Highlight -->
+            <div class="total-highlight">
+                <div class="total-label">
+                    총 견적금액
+                    <small>VAT 포함</small>
+                </div>
+                <div class="total-amount">${formatNumber(calc.totalAmount)}<span>원</span></div>
+            </div>
+
+            <!-- Detail Table -->
+            <div class="section-title">견적 상세 내역</div>
+            <table class="detail-table">
+                <thead>
+                    <tr>
+                        <th style="width:40px;">번호</th>
+                        <th style="width:140px;">항목</th>
+                        <th>상세내용</th>
+                        <th style="width:50px;">수량</th>
+                        <th style="width:110px;">단가</th>
+                        <th style="width:110px;">금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+
+            <!-- Amount Summary -->
+            <div class="amount-summary">
+                <table>
+                    <tr>
+                        <td class="amt-label">공급가액</td>
+                        <td class="amt-value">${formatNumber(calc.supplyAmount)}원</td>
+                    </tr>
+                    <tr>
+                        <td class="amt-label">부가세 (10%)</td>
+                        <td class="amt-value">${formatNumber(calc.vat)}원</td>
+                    </tr>
+                    ${discountRow}
+                    <tr class="total-row">
+                        <td class="amt-label">합계</td>
+                        <td class="amt-value">${formatNumber(calc.totalAmount)}원</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Payment Terms -->
+            <div class="payment-terms">
+                <div class="section-title">결제 조건</div>
+                <div class="payment-bar">
+                    <div class="payment-step step1">
+                        <strong>50%</strong>
+                        계약금 (선금)
+                    </div>
+                    <div class="payment-step step2">
+                        <strong>30%</strong>
+                        중간검수
+                    </div>
+                    <div class="payment-step step3">
+                        <strong>20%</strong>
+                        최종납품
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance -->
+            ${maintenanceSection}
+
+            <!-- Notes -->
+            <div class="quote-notes">
+                <div class="section-title">참고사항</div>
+                <ul>
+                    <li>본 견적서는 발행일로부터 30일간 유효합니다.</li>
+                    <li>프로젝트 범위 변경 시 금액 및 일정이 조정될 수 있습니다.</li>
+                    <li>콘텐츠(텍스트, 이미지 등)는 의뢰인이 제공하는 것을 원칙으로 합니다.</li>
+                    <li>최종 산출물의 저작권은 잔금 납부 완료 후 의뢰인에게 이전됩니다.</li>
+                    <li>호스팅 및 도메인 비용은 별도입니다.</li>
+                </ul>
+            </div>
+
+            <!-- Memo -->
+            ${memoSection}
+
+            <!-- Footer / Signature -->
+            <div class="quote-footer">
+                <div class="quote-date-line">${getTodayStr()}</div>
+                <div class="signature-area">
+                    <div class="signature-box">
+                        <div class="signature-company">케이오씨 KOC</div>
+                        <div class="signature-name">대표 박민경</div>
+                        <div class="seal-placeholder">(인)</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('quoteDocument').innerHTML = html;
+    }
+
+    // ====== ACTIONS ======
+    function printQuote() {
+        window.print();
+    }
+
+    function resetForm() {
+        if (!confirm('모든 입력 내용을 초기화하시겠습니까?')) return;
+
+        // Reset text inputs
+        document.getElementById('clientCompany').value = '';
+        document.getElementById('clientName').value = '';
+        document.getElementById('clientPhone').value = '';
+        document.getElementById('clientEmail').value = '';
+        document.getElementById('memo').value = '';
+
+        // Reset service type to web
+        document.getElementById('typeWeb').checked = true;
+        currentType = 'web';
+        document.querySelectorAll('#serviceTypeGroup label').forEach(l => l.classList.remove('active'));
+        document.getElementById('typeWeb').nextElementSibling.classList.add('active');
+
+        // Reset discount
+        document.getElementById('discNone').checked = true;
+        document.getElementById('discountAmountGroup').classList.add('hidden');
+        document.getElementById('discountAmount').value = '';
+
+        // Reset maintenance
+        document.getElementById('maintenancePlan').value = '0';
+
+        // Regenerate quote number
+        generateQuoteNumber();
+
+        // Repopulate
+        populateServiceItems();
+        populateAddons();
+        updatePreview();
+    }
+
+    // ====== START ======
+    document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

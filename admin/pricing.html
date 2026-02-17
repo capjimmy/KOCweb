@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>KOC 내부 가격표 | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e8;
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #12121a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a3a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a3a5a;
+        }
+
+        /* ===== Layout ===== */
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 40px 60px;
+        }
+
+        /* ===== Top Bar ===== */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .top-bar .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 60, 60, 0.12);
+            border: 1px solid rgba(255, 60, 60, 0.3);
+            color: #ff6b6b;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .top-bar .badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .public-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .public-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #8a8aff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(138, 138, 255, 0.06);
+            border: 1px solid rgba(138, 138, 255, 0.15);
+            transition: all 0.25s ease;
+        }
+
+        .public-links a:hover {
+            background: rgba(138, 138, 255, 0.12);
+            border-color: rgba(138, 138, 255, 0.35);
+            color: #aaaaff;
+        }
+
+        .public-links a svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            margin-bottom: 36px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .header .date {
+            font-size: 14px;
+            color: #6a6a80;
+            font-weight: 400;
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 32px;
+            background: #12121a;
+            padding: 4px;
+            border-radius: 12px;
+            width: fit-content;
+        }
+
+        .tab-btn {
+            padding: 10px 28px;
+            background: transparent;
+            border: none;
+            color: #6a6a80;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .tab-btn:hover {
+            color: #a0a0b8;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6c5ce7, #5a4bd1);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        /* ===== Tab Content ===== */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Section Title ===== */
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #c0c0d0;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 3px;
+            height: 18px;
+            background: linear-gradient(180deg, #6c5ce7, #a29bfe);
+            border-radius: 2px;
+        }
+
+        /* ===== Table Container ===== */
+        .table-container {
+            background: #12121a;
+            border-radius: 16px;
+            border: 1px solid #1e1e2e;
+            overflow: hidden;
+            margin-bottom: 36px;
+            overflow-x: auto;
+        }
+
+        /* ===== Table ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        thead {
+            background: #16162a;
+        }
+
+        thead th {
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #7a7a96;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1px solid #1e1e2e;
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 14px 18px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(30, 30, 46, 0.6);
+            white-space: nowrap;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(108, 92, 231, 0.04);
+        }
+
+        /* ===== Cell Styles ===== */
+        .cell-service {
+            font-weight: 600;
+            color: #e8e8f0;
+        }
+
+        .cell-price {
+            color: #a29bfe;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cell-cost {
+            color: #ff9f43;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cell-margin {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cell-margin .amount {
+            color: #2ecc71;
+        }
+
+        .cell-margin .percent {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .percent-high {
+            background: rgba(46, 204, 113, 0.12);
+            color: #2ecc71;
+        }
+
+        .percent-mid {
+            background: rgba(162, 155, 254, 0.12);
+            color: #a29bfe;
+        }
+
+        .cell-days {
+            color: #74b9ff;
+            font-weight: 500;
+        }
+
+        .cell-note {
+            color: #6a6a80;
+            font-size: 13px;
+        }
+
+        .cell-hourly {
+            color: #ffeaa7;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== Summary Cards ===== */
+        .summary-section {
+            margin-top: 48px;
+        }
+
+        .summary-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #c0c0d0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-title::before {
+            content: '';
+            width: 3px;
+            height: 18px;
+            background: linear-gradient(180deg, #2ecc71, #27ae60);
+            border-radius: 2px;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .summary-card {
+            background: #12121a;
+            border: 1px solid #1e1e2e;
+            border-radius: 16px;
+            padding: 28px 24px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .summary-card:hover {
+            border-color: #2a2a4a;
+            transform: translateY(-2px);
+        }
+
+        .summary-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+        }
+
+        .summary-card:nth-child(1)::after {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+        }
+        .summary-card:nth-child(2)::after {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+        }
+        .summary-card:nth-child(3)::after {
+            background: linear-gradient(90deg, #74b9ff, #0984e3);
+        }
+
+        .summary-card .label {
+            font-size: 13px;
+            color: #6a6a80;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .summary-card:nth-child(1) .value { color: #a29bfe; }
+        .summary-card:nth-child(2) .value { color: #2ecc71; }
+        .summary-card:nth-child(3) .value { color: #74b9ff; }
+
+        .summary-card .desc {
+            font-size: 13px;
+            color: #5a5a70;
+            font-weight: 400;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #1a1a2a;
+            text-align: center;
+            color: #3a3a50;
+            font-size: 12px;
+        }
+
+        /* ===== Responsive: 992px ===== */
+        @media (max-width: 992px) {
+            .dashboard {
+                padding: 24px 20px 48px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tabs {
+                width: 100%;
+            }
+
+            .tab-btn {
+                flex: 1;
+                text-align: center;
+                padding: 10px 16px;
+            }
+        }
+
+        /* ===== Responsive: 768px ===== */
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 16px 14px 40px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .header .date {
+                font-size: 13px;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card .value {
+                font-size: 26px;
+            }
+
+            thead th {
+                padding: 10px 12px;
+                font-size: 11px;
+            }
+
+            tbody td {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .tab-btn {
+                font-size: 13px;
+                padding: 9px 12px;
+            }
+
+            .section-title {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="badge">Internal Only</div>
+            <div class="public-links">
+                <a href="../website-hub.html" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    공개 가격표 보기 (웹사이트)
+                </a>
+                <a href="../automation/services.html" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    공개 가격표 보기 (자동화)
+                </a>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>KOC 내부 가격표</h1>
+            <div class="date" id="current-date"></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="website" onclick="switchTab('website')">웹사이트 제작</button>
+            <button class="tab-btn" data-tab="automation" onclick="switchTab('automation')">업무 자동화</button>
+        </div>
+
+        <!-- ==================== 웹사이트 제작 탭 ==================== -->
+        <div class="tab-content active" id="tab-website">
+            <h3 class="section-title">웹사이트 제작 단가표</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>서비스명</th>
+                            <th>공개가격</th>
+                            <th>예상 원가</th>
+                            <th>예상 마진</th>
+                            <th>예상 작업일</th>
+                            <th>비고</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="cell-service">원페이지/랜딩</td>
+                            <td class="cell-price">890,000</td>
+                            <td class="cell-cost">200,000</td>
+                            <td class="cell-margin"><span class="amount">690,000</span><span class="percent percent-high">78%</span></td>
+                            <td class="cell-days">3~5일</td>
+                            <td class="cell-note">템플릿 커스텀</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">기본형 (5~7p)</td>
+                            <td class="cell-price">1,490,000</td>
+                            <td class="cell-cost">400,000</td>
+                            <td class="cell-margin"><span class="amount">1,090,000</span><span class="percent percent-mid">73%</span></td>
+                            <td class="cell-days">7~10일</td>
+                            <td class="cell-note">세미 커스텀</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">표준형 (10~15p)</td>
+                            <td class="cell-price">2,490,000</td>
+                            <td class="cell-cost">700,000</td>
+                            <td class="cell-margin"><span class="amount">1,790,000</span><span class="percent percent-mid">72%</span></td>
+                            <td class="cell-days">14~21일</td>
+                            <td class="cell-note">맞춤 디자인</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">프리미엄 (20p+)</td>
+                            <td class="cell-price">4,490,000</td>
+                            <td class="cell-cost">1,500,000</td>
+                            <td class="cell-margin"><span class="amount">2,990,000</span><span class="percent percent-mid">67%</span></td>
+                            <td class="cell-days">21~30일</td>
+                            <td class="cell-note">풀 커스텀</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="section-title">추가 옵션</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>옵션</th>
+                            <th>공개가격</th>
+                            <th>원가</th>
+                            <th>마진</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="cell-service">쇼핑몰 기능</td>
+                            <td class="cell-price">2,000,000~</td>
+                            <td class="cell-cost">600,000</td>
+                            <td class="cell-margin"><span class="amount">1,400,000</span></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">회원가입/로그인</td>
+                            <td class="cell-price">300,000</td>
+                            <td class="cell-cost">50,000</td>
+                            <td class="cell-margin"><span class="amount">250,000</span></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">예약 시스템</td>
+                            <td class="cell-price">500,000</td>
+                            <td class="cell-cost">100,000</td>
+                            <td class="cell-margin"><span class="amount">400,000</span></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">블로그 기능</td>
+                            <td class="cell-price">200,000</td>
+                            <td class="cell-cost">30,000</td>
+                            <td class="cell-margin"><span class="amount">170,000</span></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">다국어 지원</td>
+                            <td class="cell-price">500,000</td>
+                            <td class="cell-cost">150,000</td>
+                            <td class="cell-margin"><span class="amount">350,000</span></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">게시판 추가(개당)</td>
+                            <td class="cell-price">90,000</td>
+                            <td class="cell-cost">10,000</td>
+                            <td class="cell-margin"><span class="amount">80,000</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== 업무 자동화 탭 ==================== -->
+        <div class="tab-content" id="tab-automation">
+            <h3 class="section-title">업무 자동화 단가표</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>서비스명</th>
+                            <th>공개가격</th>
+                            <th>예상 원가</th>
+                            <th>예상 마진</th>
+                            <th>예상 작업일</th>
+                            <th>비고</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="cell-service">엑셀 자동화(기본)</td>
+                            <td class="cell-price">300,000~</td>
+                            <td class="cell-cost">50,000</td>
+                            <td class="cell-margin"><span class="amount">250,000</span><span class="percent percent-high">83%</span></td>
+                            <td class="cell-days">2~3일</td>
+                            <td class="cell-note">매크로/수식</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">엑셀 자동화(고급)</td>
+                            <td class="cell-price">500,000~</td>
+                            <td class="cell-cost">100,000</td>
+                            <td class="cell-margin"><span class="amount">400,000</span><span class="percent percent-high">80%</span></td>
+                            <td class="cell-days">3~5일</td>
+                            <td class="cell-note">다중시트 연동</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">보고서 자동 생성</td>
+                            <td class="cell-price">700,000~</td>
+                            <td class="cell-cost">150,000</td>
+                            <td class="cell-margin"><span class="amount">550,000</span><span class="percent percent-high">79%</span></td>
+                            <td class="cell-days">5~7일</td>
+                            <td class="cell-note">자동 메일 발송 포함</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">데이터 수집/관리</td>
+                            <td class="cell-price">1,000,000~</td>
+                            <td class="cell-cost">250,000</td>
+                            <td class="cell-margin"><span class="amount">750,000</span><span class="percent percent-mid">75%</span></td>
+                            <td class="cell-days">7~14일</td>
+                            <td class="cell-note">웹크롤링/DB</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">맞춤형 관리 시스템</td>
+                            <td class="cell-price">2,000,000~</td>
+                            <td class="cell-cost">500,000</td>
+                            <td class="cell-margin"><span class="amount">1,500,000</span><span class="percent percent-mid">75%</span></td>
+                            <td class="cell-days">14~30일</td>
+                            <td class="cell-note">ERP연동 가능</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="section-title">유지보수 플랜</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>플랜</th>
+                            <th>월 요금</th>
+                            <th>예상 투입시간</th>
+                            <th>시간당 수익</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="cell-service">기본형</td>
+                            <td class="cell-price">55,000/월</td>
+                            <td class="cell-days">1~2시간</td>
+                            <td class="cell-hourly">27,500~55,000</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">표준형</td>
+                            <td class="cell-price">110,000/월</td>
+                            <td class="cell-days">3~4시간</td>
+                            <td class="cell-hourly">27,500~36,667</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-service">프리미엄</td>
+                            <td class="cell-price">220,000/월</td>
+                            <td class="cell-days">5~8시간</td>
+                            <td class="cell-hourly">27,500~44,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== Summary Cards ==================== -->
+        <div class="summary-section">
+            <h3 class="summary-title">요약 통계</h3>
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="label">평균 마진율</div>
+                    <div class="value">~75%</div>
+                    <div class="desc">전체 서비스 평균 기준</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">가장 수익성 높은 서비스</div>
+                    <div class="value">83%</div>
+                    <div class="desc">엑셀 자동화(기본)</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">월 유지보수 고객 목표</div>
+                    <div class="value">10건+</div>
+                    <div class="desc">안정적 월 수익 기반 확보</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            본 자료는 KOC 내부 전용입니다. 외부 공유를 금합니다.
+        </div>
+    </div>
+
+    <script>
+        // Current date display
+        (function() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+            const weekday = weekdays[now.getDay()];
+            document.getElementById('current-date').textContent =
+                year + '.' + month + '.' + day + ' (' + weekday + ') 기준';
+        })();
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Deactivate all tabs
+            document.querySelectorAll('.tab-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(function(content) {
+                content.classList.remove('active');
+            });
+
+            // Activate selected tab
+            document.querySelector('[data-tab="' + tabName + '"]').classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+    </script>
+</body>
+</html>
