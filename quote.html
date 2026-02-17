@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>견적서 | KOC - 케이오씨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f5f5f5;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        @media print {
+            body { background: #fff; }
+            .no-print { display: none !important; }
+            .quote-page { box-shadow: none; margin: 0; padding: 40px; }
+        }
+
+        /* Control Bar */
+        .control-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .control-bar h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .control-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-print {
+            padding: 8px 24px;
+            background: #6366f1;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.3s;
+        }
+
+        .btn-print:hover {
+            background: #4f46e5;
+        }
+
+        /* Quote Page */
+        .quote-page {
+            max-width: 800px;
+            margin: 80px auto 40px;
+            background: #fff;
+            padding: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .quote-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #1a1a2e;
+        }
+
+        .quote-title-area h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            letter-spacing: 8px;
+        }
+
+        .quote-title-area .quote-number {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .company-info {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .company-info .company-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .info-box {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .info-box h3 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #6366f1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.9rem;
+        }
+
+        .info-row .label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .info-row .value {
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+
+        .info-row .value.editable {
+            color: #6366f1;
+            border-bottom: 1px dashed #6366f1;
+            cursor: text;
+        }
+
+        /* Total Summary */
+        .total-summary {
+            background: #f8f9ff;
+            border: 2px solid #6366f1;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #6366f1;
+        }
+
+        .total-amount .won {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Items Table */
+        .items-section {
+            margin-bottom: 40px;
+        }
+
+        .items-section h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a1a2e;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .items-table thead th {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 12px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .items-table thead th:first-child {
+            border-radius: 8px 0 0 0;
+            text-align: left;
+        }
+
+        .items-table thead th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .items-table tbody td {
+            padding: 14px 15px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .items-table tbody td:first-child {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .items-table tbody td.desc {
+            text-align: left;
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .items-table tbody tr:hover {
+            background: #f8f9ff;
+        }
+
+        .items-table .subtotal-row td {
+            background: #f5f5f5;
+            font-weight: 700;
+            border-top: 2px solid #ddd;
+        }
+
+        .items-table .total-row td {
+            background: #1a1a2e;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .items-table .total-row td:last-child {
+            color: #a5b4fc;
+            font-size: 1.1rem;
+        }
+
+        .amount {
+            text-align: right !important;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Sections */
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a1a2e;
+        }
+
+        /* Payment Terms */
+        .payment-section {
+            margin-bottom: 40px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .payment-item {
+            background: #f8f9ff;
+            border: 1px solid #e8e8ff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .payment-item .step {
+            font-size: 0.75rem;
+            color: #6366f1;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .payment-item .percentage {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .payment-item .timing {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Notes */
+        .notes-section {
+            margin-bottom: 40px;
+        }
+
+        .notes-list {
+            list-style: none;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .notes-list li {
+            padding: 6px 0;
+            font-size: 0.85rem;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .notes-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        /* Maintenance */
+        .maintenance-section {
+            margin-bottom: 40px;
+        }
+
+        .maintenance-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .maintenance-table th {
+            background: #f0f0ff;
+            padding: 10px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .maintenance-table td {
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .maintenance-table td:first-child {
+            font-weight: 600;
+            text-align: left;
+        }
+
+        /* Signature */
+        .signature-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 60px;
+            padding-top: 30px;
+        }
+
+        .signature-box {
+            width: 300px;
+            text-align: center;
+        }
+
+        .signature-box .company-stamp {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .signature-box .stamp-area {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #ccc;
+            border-radius: 50%;
+            margin: 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 0.8rem;
+        }
+
+        .signature-box .rep-name {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        /* Footer */
+        .quote-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .quote-page { padding: 30px 20px; margin: 70px 10px 20px; }
+            .quote-header { flex-direction: column; gap: 20px; }
+            .company-info { text-align: left; }
+            .quote-title-area h1 { font-size: 2rem; letter-spacing: 4px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .payment-grid { grid-template-columns: 1fr; }
+            .total-summary { flex-direction: column; gap: 10px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Control Bar (인쇄 시 숨김) -->
+    <div class="control-bar no-print">
+        <h3>KOC 견적서</h3>
+        <div class="control-btns">
+            <button class="btn-print" onclick="window.print()">인쇄 / PDF 저장</button>
+        </div>
+    </div>
+
+    <!-- 견적서 본문 -->
+    <div class="quote-page">
+
+        <!-- 헤더 -->
+        <div class="quote-header">
+            <div class="quote-title-area">
+                <h1>견 적 서</h1>
+                <div class="quote-number">No. KOC-2026-001</div>
+            </div>
+            <div class="company-info">
+                <div class="company-name">케이오씨 (KOC)</div>
+                사업자등록번호: 421-24-01482<br>
+                대표: 박민경<br>
+                이메일: koc.webstudio@gmail.com<br>
+                전화: 010-XXXX-XXXX
+            </div>
+        </div>
+
+        <!-- 정보 그리드 -->
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>수신처 정보</h3>
+                <div class="info-row">
+                    <span class="label">회사명</span>
+                    <span class="value editable" contenteditable="true">OOO 회사</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">담당자</span>
+                    <span class="value editable" contenteditable="true">홍길동</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">연락처</span>
+                    <span class="value editable" contenteditable="true">010-0000-0000</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">이메일</span>
+                    <span class="value editable" contenteditable="true">example@email.com</span>
+                </div>
+            </div>
+            <div class="info-box">
+                <h3>견적 정보</h3>
+                <div class="info-row">
+                    <span class="label">견적일</span>
+                    <span class="value">2026년 02월 17일</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">유효기간</span>
+                    <span class="value">견적일로부터 30일</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">예상 작업기간</span>
+                    <span class="value editable" contenteditable="true">2~3주</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">프로젝트 유형</span>
+                    <span class="value editable" contenteditable="true">업무 자동화</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 총 견적금액 -->
+        <div class="total-summary">
+            <div class="total-label">총 견적금액 (VAT 포함)</div>
+            <div class="total-amount" contenteditable="true">1,100,000 <span class="won">원</span></div>
+        </div>
+
+        <!-- 견적 항목 -->
+        <div class="items-section">
+            <h2>견적 상세 내역</h2>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th style="width:5%">No</th>
+                        <th style="width:25%">항목</th>
+                        <th style="width:35%">상세 내용</th>
+                        <th style="width:10%">수량</th>
+                        <th style="width:12%">단가</th>
+                        <th style="width:13%">금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>엑셀 자동화 개발</td>
+                        <td class="desc">데이터 자동 정리, 보고서 양식 자동 생성</td>
+                        <td>1</td>
+                        <td class="amount">500,000</td>
+                        <td class="amount">500,000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>이메일 자동 발송</td>
+                        <td class="desc">보고서 완성 후 지정 메일로 자동 전송</td>
+                        <td>1</td>
+                        <td class="amount">200,000</td>
+                        <td class="amount">200,000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>테스트 및 수정</td>
+                        <td class="desc">실제 데이터 기반 테스트, 피드백 반영</td>
+                        <td>1</td>
+                        <td class="amount">100,000</td>
+                        <td class="amount">100,000</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>사용 매뉴얼 제공</td>
+                        <td class="desc">사용법 안내 문서 및 교육 1회</td>
+                        <td>1</td>
+                        <td class="amount">100,000</td>
+                        <td class="amount">100,000</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>무상 하자보수 (1개월)</td>
+                        <td class="desc">납품 후 1개월간 오류 수정 무상 지원</td>
+                        <td>1</td>
+                        <td class="amount">0</td>
+                        <td class="amount">0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td colspan="5" style="text-align:right">공급가액</td>
+                        <td class="amount">900,000</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td colspan="5" style="text-align:right">부가세 (10%)</td>
+                        <td class="amount">90,000</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td colspan="5" style="text-align:right">할인</td>
+                        <td class="amount">0</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="5" style="text-align:right">합 계</td>
+                        <td class="amount">990,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 결제 조건 -->
+        <div class="payment-section">
+            <h2 class="section-title">결제 조건</h2>
+            <div class="payment-grid">
+                <div class="payment-item">
+                    <div class="step">1단계</div>
+                    <div class="percentage">50%</div>
+                    <div class="timing">계약 시 선금</div>
+                </div>
+                <div class="payment-item">
+                    <div class="step">2단계</div>
+                    <div class="percentage">30%</div>
+                    <div class="timing">중간 검수 완료 시</div>
+                </div>
+                <div class="payment-item">
+                    <div class="step">3단계</div>
+                    <div class="percentage">20%</div>
+                    <div class="timing">최종 납품 완료 시</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 유지보수 안내 -->
+        <div class="maintenance-section">
+            <h2 class="section-title">유지보수 안내 (선택사항)</h2>
+            <table class="maintenance-table">
+                <thead>
+                    <tr>
+                        <th>플랜</th>
+                        <th>월 비용</th>
+                        <th>포함 내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>기본형</td>
+                        <td>55,000원/월</td>
+                        <td>월 2회 수정, 오류 대응</td>
+                    </tr>
+                    <tr>
+                        <td>표준형</td>
+                        <td>110,000원/월</td>
+                        <td>월 5회 수정, 기능 보완, 우선 대응</td>
+                    </tr>
+                    <tr>
+                        <td>프리미엄</td>
+                        <td>220,000원/월</td>
+                        <td>무제한 수정, 기능 추가, 전담 관리</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 참고사항 -->
+        <div class="notes-section">
+            <h2 class="section-title">참고사항</h2>
+            <ul class="notes-list">
+                <li>본 견적서는 발행일로부터 30일간 유효합니다.</li>
+                <li>견적 금액은 부가세(VAT 10%)가 포함된 금액입니다.</li>
+                <li>작업 범위 변경 시 추가 비용이 발생할 수 있습니다.</li>
+                <li>납품 후 1개월간 무상 하자보수를 제공합니다.</li>
+                <li>결제 방법: 계좌이체 (세금계산서 발행 가능)</li>
+                <li>계약 후 중도 취소 시 진행률에 따른 정산이 이루어집니다.</li>
+            </ul>
+        </div>
+
+        <!-- 서명 -->
+        <div class="signature-section">
+            <div class="signature-box">
+                <div class="company-stamp">케이오씨 (KOC)</div>
+                <div class="stamp-area">인</div>
+                <div class="rep-name">대표 박민경</div>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="quote-footer">
+            케이오씨(KOC) | 사업자등록번호: 421-24-01482 | 대표: 박민경<br>
+            이메일: koc.webstudio@gmail.com | 웹사이트: korea-officeautomation.com
+        </div>
+
+    </div>
+
+</body>
+</html>
